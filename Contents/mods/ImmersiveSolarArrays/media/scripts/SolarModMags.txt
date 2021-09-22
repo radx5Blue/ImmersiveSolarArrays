@@ -1,0 +1,15 @@
+    module SolarMod
+{
+	
+	item SolarModMag1
+    {
+        Weight	=	0.1,
+        Type	=	Literature,
+        DisplayName	=	New Advancements Energy From The Sun,
+        Icon	=	SolarModMag1,
+        TeachedRecipes  =   Connect Solar Array; Disconnect Solar Array; Solar Panels; Create Battery Bank; Metal Frame; Create Solar Array,
+        ReplaceOnUse    =   SolarModMag1,
+        StaticModel = Magazine,
+    }
+	
+}

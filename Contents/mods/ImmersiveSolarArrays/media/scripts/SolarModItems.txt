@@ -1,0 +1,77 @@
+module SolarMod
+{
+    imports
+    {
+        Base
+
+    }
+	
+	item SolarModSinglePanel
+    {
+    Weight    		    = 2,
+    Type    		    = Normal,
+	DisplayName			= Solar Panel,
+	Icon				= kattisolarSingle,
+	
+    }
+	
+	item SolarModSinglePanels
+    {
+    Weight    		    = 8,
+    Type    		    = Normal,
+	DisplayName			= Solar Panels,
+	Icon				= kattiPanels,
+	
+    }
+	
+	
+	
+	item SolarModSolarPanels
+    {
+    Weight    		    = 5,
+    Type    		    = Normal,
+	DisplayName			= Solar Array,
+	Icon				= kattisolarOff,
+	
+    }
+	
+	
+	item SolarModSolarPanels2
+    {
+    Weight    		        = 1000,
+     Type    		        = Normal,
+	DisplayName			= Solar Array (Plugged In),
+	Icon				= kattisolar,
+	
+    }
+	
+	item SolarModBatteryBank
+    {
+    Weight    		        = 10,
+     Type    		        = Normal,
+	DisplayName			= Battery Bank,
+	Icon				= BatteryBank,
+	
+    }
+	
+	item SolarModInverter
+    {
+    Weight    		        = 1,
+     Type    		        = Normal,
+	DisplayName			= Inverter,
+	Icon				= kattiInverter,
+	
+    }
+	
+	item SolarModMetalFrame
+    {
+    Weight    		        = 7,
+     Type    		        = Normal,
+	DisplayName			= Metal Frame,
+	Icon				= kattiFrame,
+	
+    }
+	
+	
+	
+}

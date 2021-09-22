@@ -1,0 +1,88 @@
+module SolarMod
+{
+    imports
+    {
+        Base
+
+    }
+
+recipe Connect Solar Array
+    {
+		Base.Screwdriver,
+		SolarModSolarPanels,
+		Result: Base.Screwdriver,
+		CanBeDoneFromFloor:true,
+        Time:100,
+        Category:Electrical,
+		NeedToBeLearn:true,
+        OnCreate:SolarModPlaceSolar,
+    }
+	
+	
+	recipe Disconnect Solar Array
+    {
+        keep Base.Screwdriver,
+		SolarModSolarPanels2,
+		Result:	SolarModSolarPanels,
+		CanBeDoneFromFloor:true,
+        Time:100,
+        Category:Electrical,
+		NeedToBeLearn:true,
+        OnCreate:SolarModRemoveSolar,
+    }
+	
+	recipe Solar Panels
+    {
+		keep Base.Screwdriver,
+		Radio.ElectricWire = 4,
+		Base.ElectronicsScrap = 4,
+		SolarMod.SolarModSinglePanel = 4,
+		CanBeDoneFromFloor:true,
+        Time:150,
+		Result: SolarModSinglePanels,
+		NeedToBeLearn:true,
+        Category:Electrical,
+    }
+	
+		recipe Create Battery Bank
+    {
+		keep Base.Screwdriver,
+		Radio.ElectricWire = 3,
+		Base.ElectronicsScrap = 6,
+		destroy Base.CarBattery2 = 6,
+		CanBeDoneFromFloor:true,
+        Time:250,
+		Result: SolarModBatteryBank,
+		NeedToBeLearn:true,
+        Category:Electrical,
+    }
+	
+	recipe Metal Frame
+    {
+		keep Base.BlowTorch = 1,
+		keep Base.WeldingMask,
+		Base.WeldingRods = 2,
+		Base.SheetMetal = 4,
+		Base.SmallSheetMetal = 6,
+		CanBeDoneFromFloor:true,
+        Time:300,
+		Result: SolarModMetalFrame,
+		NeedToBeLearn:true,
+        Category:Metalwork,
+    }
+	
+	recipe Create Solar Array
+    {
+		keep Base.Screwdriver,
+		SolarModMetalFrame,
+		SolarModBatteryBank,
+		SolarModSinglePanels,
+		SolarModInverter,
+		CanBeDoneFromFloor:true,
+        Time:300,
+		Result: SolarModSolarPanels,
+		NeedToBeLearn:true,
+        Category:Electrical,
+    }
+
+}
