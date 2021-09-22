@@ -3,3 +3,5 @@ poster=poster.png
 id=ISA
 description=Immersive Solar Arrays
 url=
+pack=solarmod_tileset_01
+tiledef=solarmodtiledefs 575

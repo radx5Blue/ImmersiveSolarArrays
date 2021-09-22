@@ -5,6 +5,49 @@ module SolarMod
         Base
 
     }
+
+	    item DeepCycleBattery
+    {
+        Weight	=	5,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	Deep-Cycle Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        VehicleType =   1,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = TRUE,
+        WorldStaticModel = CarBattery,
+    }
+
+	item PowerBank
+	{
+	Type = Moveable,
+	WorldObjectSprite = solarmod_tileset_01_0,
+	DisplayName		= Moveable,
+	}
+
+	item SolarPanelFlat
+	{
+	Type = Moveable,
+	WorldObjectSprite = solarmod_tileset_01_8,
+	DisplayName		= Moveable,
+	}
+	item SolarPanelWall
+	{
+	Type = Moveable,
+	WorldObjectSprite = solarmod_tileset_01_6,
+	DisplayName		= Moveable,
+	}
+	item SolarPanelMounted
+	{
+	Type = Moveable,
+	WorldObjectSprite = solarmod_tileset_01_9,
+	DisplayName		= Moveable,
+	}
 	
 	item SolarModSinglePanel
     {
