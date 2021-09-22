@@ -1,4 +1,4 @@
-module SolarMod
+module ISA
 {
     imports
     {
@@ -9,7 +9,7 @@ module SolarMod
 recipe Connect Solar Array
     {
 		Base.Screwdriver,
-		SolarModSolarPanels,
+		ISASolarPanels,
 		Result: Base.Screwdriver,
 		CanBeDoneFromFloor:true,
         Time:100,
@@ -22,8 +22,8 @@ recipe Connect Solar Array
 	recipe Disconnect Solar Array
     {
         keep Base.Screwdriver,
-		SolarModSolarPanels2,
-		Result:	SolarModSolarPanels,
+		ISASolarPanels2,
+		Result:	ISASolarPanels,
 		CanBeDoneFromFloor:true,
         Time:100,
         Category:Electrical,
@@ -36,7 +36,7 @@ recipe Connect Solar Array
 		keep Base.Screwdriver,
 		Radio.ElectricWire = 4,
 		Base.ElectronicsScrap = 4,
-		SolarMod.SolarModSinglePanel = 4,
+		ISASinglePanel = 4,
 		CanBeDoneFromFloor:true,
         Time:150,
 		Result: SolarModSinglePanels,
@@ -52,7 +52,7 @@ recipe Connect Solar Array
 		destroy Base.CarBattery2 = 6,
 		CanBeDoneFromFloor:true,
         Time:250,
-		Result: SolarModBatteryBank,
+		Result: ISABatteryBank,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
@@ -66,7 +66,7 @@ recipe Connect Solar Array
 		Base.SmallSheetMetal = 6,
 		CanBeDoneFromFloor:true,
         Time:300,
-		Result: SolarModMetalFrame,
+		Result: ISAMetalFrame,
 		NeedToBeLearn:true,
         Category:Metalwork,
     }
@@ -74,13 +74,13 @@ recipe Connect Solar Array
 	recipe Create Solar Array
     {
 		keep Base.Screwdriver,
-		SolarModMetalFrame,
-		SolarModBatteryBank,
-		SolarModSinglePanels,
-		SolarModInverter,
+		ISAMetalFrame,
+		ISABatteryBank,
+		ISASinglePanels,
+		ISAInverter,
 		CanBeDoneFromFloor:true,
         Time:300,
-		Result: SolarModSolarPanels,
+		Result: ISASolarPanels,
 		NeedToBeLearn:true,
         Category:Electrical,
     }

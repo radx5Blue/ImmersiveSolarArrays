@@ -1,4 +1,4 @@
-module SolarMod
+module ISA
 {
     imports
     {
@@ -49,7 +49,7 @@ module SolarMod
 	DisplayName		= Moveable,
 	}
 	
-	item SolarModSinglePanel
+	item ISASinglePanel
     {
     Weight    		    = 2,
     Type    		    = Normal,
@@ -58,7 +58,7 @@ module SolarMod
 	
     }
 	
-	item SolarModSinglePanels
+	item ISASinglePanels
     {
     Weight    		    = 8,
     Type    		    = Normal,
@@ -69,7 +69,7 @@ module SolarMod
 	
 	
 	
-	item SolarModSolarPanels
+	item ISASolarPanels
     {
     Weight    		    = 5,
     Type    		    = Normal,
@@ -79,7 +79,7 @@ module SolarMod
     }
 	
 	
-	item SolarModSolarPanels2
+	item ISASolarPanels2
     {
     Weight    		        = 1000,
      Type    		        = Normal,
@@ -88,7 +88,7 @@ module SolarMod
 	
     }
 	
-	item SolarModBatteryBank
+	item ISABatteryBank
     {
     Weight    		        = 10,
      Type    		        = Normal,
@@ -97,7 +97,7 @@ module SolarMod
 	
     }
 	
-	item SolarModInverter
+	item ISAInverter
     {
     Weight    		        = 1,
      Type    		        = Normal,
@@ -106,7 +106,7 @@ module SolarMod
 	
     }
 	
-	item SolarModMetalFrame
+	item ISAMetalFrame
     {
     Weight    		        = 7,
      Type    		        = Normal,

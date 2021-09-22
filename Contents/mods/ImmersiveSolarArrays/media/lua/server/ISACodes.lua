@@ -36,7 +36,7 @@ function SolarModPlaceSolar(items, result, player)
                 NewGenerator:setActivated(true)
                 NewGenerator:setSurroundingElectricity()
                 NewGenerator:remove()
-                player:getCurrentSquare():AddWorldInventoryItem("SolarMod.SolarModSolarPanels2", 0.5, 0.5, 0)
+                player:getCurrentSquare():AddWorldInventoryItem("ISA.SolarModSolarPanels2", 0.5, 0.5, 0)
 
                 t.main = {}
                 t.main.S = "SolarGen"
@@ -56,7 +56,7 @@ function SolarModPlaceSolar(items, result, player)
         end
     else
         player:Say("Need to place outside")
-        player:getInventory():AddItem("SolarMod.SolarModSolarPanels")
+        player:getInventory():AddItem("ISA.SolarModSolarPanels")
     end
 end
 
