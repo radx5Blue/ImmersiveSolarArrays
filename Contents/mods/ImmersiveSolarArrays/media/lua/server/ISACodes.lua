@@ -17,7 +17,7 @@ function clearFile()
                     t
                 )
 				
-				print("Solar Deleted")
+				--print("Solar Deleted")
 	
 	
 	
@@ -85,7 +85,7 @@ function SolarModRemoveSolar(items, result, player)
             NewGenerator:remove()
 			
 			
-			print("Before Clear")
+			--print("Before Clear")
 			clearFile();
 			globalTest = false
 
