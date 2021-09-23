@@ -92,19 +92,18 @@ function SPowerBankGlobalObject:changeSprite() -- changing sprite based on amoun
 	local isoObject = self:getIsoObject()
 	if not isoObject then return end
 	local spriteName = nil
-	if self.waterMax == RainCollectorBarrel.smallWaterMax then
-		if self.waterAmount >= self.waterMax * 0.75 then
-			spriteName = "carpentry_02_55"
-		else
-			spriteName = "carpentry_02_54"
+		if self.powerAmount >= self.powerMax * 1 then
+			spriteName = "power bank 100 sprite" -- need real name here
+		elseif self.powerAmount >= self.powerMax * 0.75 then
+			spriteName = "power bank 75 sprite" -- need real name here
+		elseif self.powerAmount >= self.powerMax * 0.50 then
+			spriteName = "power bank 50 sprite" -- need real name here
+		elseif self.powerAmount >= self.powerMax * 0.25 then
+			spriteName = "power bank 25 sprite" -- need real name here
+		elseif self.powerAmount == self.powerMax * 0 then
+			spriteName = "power bank 0 sprite" -- need real name here
 		end
-	elseif self.waterMax == RainCollectorBarrel.largeWaterMax then
-		if self.waterAmount >= self.waterMax * 0.75 then
-			spriteName = "carpentry_02_53"
-		else
-			spriteName = "carpentry_02_52"
-		end
-	end
+
 	if spriteName and (not isoObject:getSprite() or spriteName ~= isoObject:getSprite():getName()) then
 		self:noise('sprite changed to '..spriteName..' at '..self.x..','..self.y..','..self.z)
 		isoObject:setSprite(spriteName)

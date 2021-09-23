@@ -18,7 +18,7 @@ end
 CGlobalObjectSystem.RegisterSystemClass(CRainBarrelSystem)
 
 
--- local function DoSpecialTooltip(tooltipUI, square) -- creates tooltip for amount of water in barrel
+-- local function DoSpecialTooltip(tooltipUI, square) -- creates tooltip for amount of water in barrel we could do the same for power
 	-- local playerObj = getSpecificPlayer(0)
 	-- if not playerObj or playerObj:getZ() ~= square:getZ() or
 			-- playerObj:DistToSquared(square:getX() + 0.5, square:getY() + 0.5) > 2 * 2 then
