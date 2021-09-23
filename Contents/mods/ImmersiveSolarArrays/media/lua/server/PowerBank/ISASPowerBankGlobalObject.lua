@@ -50,7 +50,7 @@ function SPowerBankGlobalObject:stateFromIsoObject(isoObject) -- getting info fr
 	--if self.waterMax == 100 then self.waterMax = RainCollectorBarrel.largeWaterMax end
 
 	isoObject:getModData().powerMax = self.powerMax -- probably need others here like powerAmount
-	--self:changeSprite() --this changes sprite based on water level, maybe we can make a little power indicator on the object sprite when it is 25,50,75,100 full
+	self:changeSprite() -- maybe we can make a little power indicator on the object sprite when it is 25,50,75,100 full
 	isoObject:transmitModData()
 end
 
