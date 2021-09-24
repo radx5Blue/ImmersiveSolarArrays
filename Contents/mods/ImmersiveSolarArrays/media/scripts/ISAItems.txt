@@ -6,13 +6,75 @@ module ISA
 
     }
 
+	    item SolarPanel
+    {
+        Weight	=	5,
+        Type	=	Normal,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	= Solar Panel,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        WorldStaticModel = CarBattery,
+    }
+
 	    item DeepCycleBattery
     {
         Weight	=	5,
         Type	=	Drainable,
         UseDelta	=	0.00001,
         UseWhileEquipped	=	FALSE,
-        DisplayName	=	Deep-Cycle Battery,
+        DisplayName	=	200Ah Deep-Cycle Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        VehicleType =   1,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = FALSE,
+        WorldStaticModel = CarBattery,
+    }
+
+	    item 50AhBattery
+    {
+        Weight	=	5,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	50Ah Car Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        VehicleType =   1,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = FALSE,
+        WorldStaticModel = CarBattery,
+    }
+
+	    item 75AhBattery
+    {
+        Weight	=	5,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	75Ah Car Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        VehicleType =   1,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = FALSE,
+        WorldStaticModel = CarBattery,
+    }
+
+	    item 100AhBattery
+    {
+        Weight	=	5,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	100Ah Car Battery,
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,

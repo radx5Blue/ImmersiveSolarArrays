@@ -3,7 +3,78 @@ module ISA
     imports
     {
         Base
+	Radio
+    }
 
+recipe Wire 50Ah Battery
+{
+keep Base.Screwdriver,
+Radio.ElectricWire,
+Base.CarBattery1,
+Result: 50AhBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+OnCreate:SolarModConvertBattery,
+}
+
+recipe Wire 75Ah Battery
+{
+keep Base.Screwdriver,
+Radio.ElectricWire,
+Base.CarBattery1,
+Result: 75AhBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+OnCreate:SolarModConvertBattery,
+}
+
+recipe Wire 100Ah Battery
+{
+keep Base.Screwdriver,
+Radio.ElectricWire,
+Base.CarBattery1,
+Result: 100AhBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+OnCreate:SolarModConvertBattery,
+}
+
+		recipe Make Solar Roof Tile
+    {
+		keep Base.Screwdriver,
+		SolarPanel,
+		Radio.ElectricWire = 3,,		
+		CanBeDoneFromFloor:false,
+      		Time:120,
+		Result: SolarPanelFlat,
+		NeedToBeLearn:true,
+       		Category:Electrical,
+    }
+
+		recipe Make Wall-Mounted Solar Panel
+    {
+		keep Base.Screwdriver,
+		SolarPanel,
+		Radio.ElectricWire = 3,,		
+		CanBeDoneFromFloor:false,
+      		Time:120,
+		Result: SolarPanelWall,
+		NeedToBeLearn:true,
+       		Category:Electrical,
+    }
+		recipe Make Floor-Mounted Solar Panel
+    {
+		keep Base.Screwdriver,
+		SolarPanel,
+		Radio.ElectricWire = 3,,		
+		CanBeDoneFromFloor:false,
+      		Time:120,
+		Result: SolarPanelMounted,
+		NeedToBeLearn:true,
+       		Category:Electrical,
     }
 
 recipe Connect Solar Array
@@ -12,10 +83,10 @@ recipe Connect Solar Array
 		ISASolarPanels,
 		Result: Base.Screwdriver,
 		CanBeDoneFromFloor:true,
-        Time:100,
-        Category:Electrical,
+        	Time:100,
+      		Category:Electrical,
 		NeedToBeLearn:true,
-        OnCreate:SolarModPlaceSolar,
+        	OnCreate:SolarModPlaceSolar,
     }
 	
 	
@@ -38,23 +109,25 @@ recipe Connect Solar Array
 		Base.ElectronicsScrap = 4,
 		ISASinglePanel = 4,
 		CanBeDoneFromFloor:true,
-        Time:150,
+       		Time:150,
 		Result: SolarModSinglePanels,
 		NeedToBeLearn:true,
-        Category:Electrical,
+       		Category:Electrical,
     }
 	
 		recipe Create Battery Bank
     {
 		keep Base.Screwdriver,
 		Radio.ElectricWire = 3,
+		Base.SmallSheetMetal = 5
 		Base.ElectronicsScrap = 6,
-		destroy Base.CarBattery2 = 6,
-		CanBeDoneFromFloor:true,
-        Time:250,
-		Result: ISABatteryBank,
+		Base.MetalBar = 4,
+		Base.CarBatteryCharger,
+		CanBeDoneFromFloor:false,
+      		Time:250,
+		Result: PowerBank,
 		NeedToBeLearn:true,
-        Category:Electrical,
+       		Category:Electrical,
     }
 	
 	recipe Metal Frame
