@@ -19,6 +19,18 @@ Category:Electrical,
 OnCreate:SolarModConvertBattery,
 }
 
+recipe Unwire 50Ah Battery
+{
+keep Base.Screwdriver,
+destroy 50AhBattery,
+Result: Base.CarBattery1,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+OnCreate:SolarModConvertBatteryReverse,
+}
+
 recipe Wire 75Ah Battery
 {
 keep Base.Screwdriver,
@@ -32,6 +44,18 @@ Category:Electrical,
 OnCreate:SolarModConvertBattery,
 }
 
+recipe Unwire 75Ah Battery
+{
+keep Base.Screwdriver,
+destroy 75AhBattery,
+Result: Base.CarBattery3,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+OnCreate:SolarModConvertBatteryReverse,
+}
+
 recipe Wire 100Ah Battery
 {
 keep Base.Screwdriver,
@@ -43,6 +67,18 @@ CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
 Category:Electrical,
 OnCreate:SolarModConvertBattery,
+}
+
+recipe Unwire 100Ah Battery
+{
+keep Base.Screwdriver,
+destroy 100AhBattery,
+Result: Base.CarBattery2,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+OnCreate:SolarModConvertBatteryReverse,
 }
 
 		recipe Make Solar Roof Tile
@@ -129,7 +165,7 @@ recipe Connect Solar Array
 		Base.SmallSheetMetal = 5,
 		Base.ElectronicsScrap = 6,
 		Base.MetalBar = 4,
-		Base.CarBatteryCharger,
+		ISAInverter = 1,
 		CanBeDoneFromFloor:false,
       		Time:250,
 		Result: PowerBank,

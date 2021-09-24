@@ -17,6 +17,17 @@ module ISA
         WorldStaticModel = MetalSheetSmall,
     }
 
+	    item ISAInverter
+    {
+        Weight	=	5,
+        Type	=	Normal,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	= Inverter,
+        Icon	=	CarBatteryCharger,
+        MetalValue = 1,
+        WorldStaticModel = CarBatteryCharger,
+    }
+
 	    item DeepCycleBattery
     {
         Weight	=	5,

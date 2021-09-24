@@ -38,3 +38,14 @@ registerAsLoot(iReg, 0.05, "ArmyStorageElectronics");
 registerAsLoot(iReg, 0.05, "ElectronicStoreMisc");
 registerAsLoot(iReg, 0.001, "CrateRandomJunk");
 registerAsLoot(iReg, 0.001, "CrateTools");
+
+-- Inverter
+
+iReg = "ISA.ISAInverter";
+registerAsLoot(iReg, 0.05, "StoreShelfMechanics");
+registerAsLoot(iReg, 0.05, "CrateElectronics");
+registerAsLoot(iReg, 0.05, "CrateMechanics");
+registerAsLoot(iReg, 0.01, "ArmyStorageElectronics");
+registerAsLoot(iReg, 0.02, "ElectronicStoreMisc");
+registerAsLoot(iReg, 0.001, "CrateRandomJunk");
+registerAsLoot(iReg, 0.01, "CrateTools");
