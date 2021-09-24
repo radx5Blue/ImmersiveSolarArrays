@@ -38,7 +38,6 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-        VehicleType =   1,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
