@@ -6,8 +6,13 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
     -- Your stuff here example below
     if _origSpriteName == "solarmod_tileset_01_0" then
       _character:Say("Cool, a battery bank! Is it shiny?")
-	  --ISAPowerBank:new(getPlayer(), "solarmod_tileset_01_0", 0, 0, 0, 100, false)
 	  solarscan(_square, true, true, true, 0)
+	  
+	  
+	  SPowerBankGlobalObject:initNew()
+	  
+	  
+	  
     end
 	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("AAAAAA! Shiny solar panels")
