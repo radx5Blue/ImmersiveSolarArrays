@@ -9,7 +9,6 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 	  solarscan(_square, true, true, true, 0)
 	  
 	  
-	  SPowerBankGlobalObject:initNew()
 	  
 	  
 	  
