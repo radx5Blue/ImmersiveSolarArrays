@@ -6,7 +6,10 @@ require "ISBaseObject"
 
 ISBuildMenu = ISBaseObject:derive("ISBuildMenu");
 
-	local powerBankOption = subMenu:addOption(getText("ContextMenu_Rain_Collector_Barrel"), worldobjects, ISABuildMenu.onCreatePowerBank, player, "solarmod_tileset_01_0", 100);
+
+
+ISBuildMenu.buildFurnitureMenu = function(subMenu, context, option, player)
+	local powerBankOption = subMenu:addOption(getText("ContextMenu_Rain_Collector_Barrel"), worldobjects, ISBuildMenu.onCreatePowerBank, player, "solarmod_tileset_01_0", 100);
 	local tooltip = ISBuildMenu.canBuild(4,4,0,0,0,4,powerBankOption, player);
     -- we add that we need 4 garbage bag too
 	local garbagebag = ISBuildMenu.countMaterial(player, "Base.Garbagebag");
@@ -24,10 +27,12 @@ ISBuildMenu = ISBaseObject:derive("ISBuildMenu");
 	tooltip:setTexture("solarmod_tileset_01_0");
 	ISBuildMenu.requireHammer(powerBankOption)
 	
+end
 	
 	
-	ISABuildMenu.onCreatePowerBank = function(worldobjects, player, sprite, powerMax)
-	local powerBank = ISAPowerBank:new(player, sprite, powerMax);
+	
+ISBuildMenu.onCreatePowerBank = function(worldobjects, player, sprite, powerGenerated, powerConsumption, powerAmount, powerMax, hasBackup)
+	local powerBank = ISAPowerBank:new(player, sprite, powerGenerated, powerConsumption, powerAmount, powerMax, hasBackup );
 	-- we now set his the mod data the needed material
 	-- by doing this, all will be automatically consummed, drop on the ground if destoryed etc.
 	powerBank.modData["need:Base.Plank"] = "4";
