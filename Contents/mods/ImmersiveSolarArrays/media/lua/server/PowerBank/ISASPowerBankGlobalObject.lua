@@ -56,34 +56,37 @@ end
 
 function SPowerBankGlobalObject:stateToIsoObject(isoObject) -- sending info to client
 	-- Sanity check
-	if not self.waterAmount then
-		self.waterAmount = 0
+	if not self.powerAmount then
+		self.powerAmount = 0
 	end
-	if not self.waterMax then
-		local spriteName = isoObject:getSprite() and isoObject:getSprite():getName()
-		if spriteName == "carpentry_02_54" or spriteName == "carpentry_02_55" then
-			self.waterMax = RainCollectorBarrel.smallWaterMax
-		elseif spriteName == "carpentry_02_52" or spriteName == "carpentry_02_53" then
-			self.waterMax = RainCollectorBarrel.largeWaterMax
-		else
-			self.waterMax = RainCollectorBarrel.smallWaterMax
-		end
-	end
+	
+	spriteName = "solarmod_tileset_01_0"
+	
+	--if not self.waterMax then
+	--	local spriteName = isoObject:getSprite() and isoObject:getSprite():getName()
+		--if spriteName == "carpentry_02_54" or spriteName == "carpentry_02_55" then
+		--	self.waterMax = RainCollectorBarrel.smallWaterMax
+		--elseif spriteName == "carpentry_02_52" or spriteName == "carpentry_02_53" then
+		--	self.waterMax = RainCollectorBarrel.largeWaterMax
+		--else
+		--	self.waterMax = RainCollectorBarrel.smallWaterMax
+		--end
+	--end
 
 	-- ISTakeWaterAction was fixed to consider storage capacity of water containers.
 	-- Update old rainbarrels with 40/100 capacity to 160/400 capacity.
-	if self.waterMax == 40 then self.waterMax = RainCollectorBarrel.smallWaterMax end
-	if self.waterMax == 100 then self.waterMax = RainCollectorBarrel.largeWaterMax end
+	--if self.waterMax == 40 then self.waterMax = RainCollectorBarrel.smallWaterMax end
+	--if self.waterMax == 100 then self.waterMax = RainCollectorBarrel.largeWaterMax end
 
 	self.exterior = isoObject:getSquare():isOutside()
 
-	if not self.taintedWater then
-		self.taintedWater = self.waterAmount > 0 and self.exterior
-	end
-	isoObject:setTaintedWater(self.taintedWater)
+	--if not self.taintedWater then
+	--	self.taintedWater = self.waterAmount > 0 and self.exterior
+	--end
+	--isoObject:setTaintedWater(self.taintedWater)
 
-	isoObject:setWaterAmount(self.waterAmount) -- FIXME? OnWaterAmountChanged happens here
-	isoObject:getModData().waterMax = self.waterMax
+	--isoObject:setWaterAmount(self.waterAmount) -- FIXME? OnWaterAmountChanged happens here
+	--isoObject:getModData().waterMax = self.waterMax
 	self:changeSprite()
 	isoObject:transmitModData()
 end
@@ -91,18 +94,21 @@ end
 function SPowerBankGlobalObject:changeSprite() -- changing sprite based on amount, this could work with power too I suppose, like it not enough battery power, the power turns off
 	local isoObject = self:getIsoObject()
 	if not isoObject then return end
-	local spriteName = nil
-		if self.powerAmount >= self.powerMax * 1 then
-			spriteName = "power bank 100 sprite" -- need real name here
-		elseif self.powerAmount >= self.powerMax * 0.75 then
-			spriteName = "power bank 75 sprite" -- need real name here
-		elseif self.powerAmount >= self.powerMax * 0.50 then
-			spriteName = "power bank 50 sprite" -- need real name here
-		elseif self.powerAmount >= self.powerMax * 0.25 then
-			spriteName = "power bank 25 sprite" -- need real name here
-		elseif self.powerAmount == self.powerMax * 0 then
-			spriteName = "power bank 0 sprite" -- need real name here
-		end
+	
+	spriteName = "solarmod_tileset_01_0"
+	
+	-- local spriteName = nil
+		-- if self.powerAmount >= self.powerMax * 1 then
+			-- spriteName = "solarmod_tileset_01_14" -- need real name here
+		-- elseif self.powerAmount >= self.powerMax * 0.75 then
+			-- spriteName = "solarmod_tileset_01_13" -- need real name here
+		-- elseif self.powerAmount >= self.powerMax * 0.50 then
+			-- spriteName = "solarmod_tileset_01_12" -- need real name here
+		-- elseif self.powerAmount >= self.powerMax * 0.25 then
+			-- spriteName = "solarmod_tileset_01_11" -- need real name here
+		-- elseif self.powerAmount == self.powerMax * 0 then
+			-- spriteName = "solarmod_tileset_01_10" -- need real name here
+		-- end
 
 	if spriteName and (not isoObject:getSprite() or spriteName ~= isoObject:getSprite():getName()) then
 		self:noise('sprite changed to '..spriteName..' at '..self.x..','..self.y..','..self.z)

@@ -8,7 +8,7 @@ end
 local iReg = "";
 
 
--- Yeast Mag
+-- Solar Mag
 iReg = "ISA.ISAMag1";
 registerAsLoot(iReg, 0.8, "BookstoreBooks");
 registerAsLoot(iReg, 0.2, "PostOfficeBooks");
