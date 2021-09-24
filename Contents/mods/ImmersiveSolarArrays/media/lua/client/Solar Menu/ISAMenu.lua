@@ -117,6 +117,18 @@ player = getPlayer()
 
 player:Say("Solar")
 
+--getPlayer():getInventory():AddItem("ISA.PowerBank")
+
+x = player:getX()
+y = player:getY()
+z = player:getZ()
+
+ISAPowerBank:create(x, y, z, 1, "solarmod_tileset_01_0")
+
+--ISMoveableSpriteProps:placeMoveable( player, player:getCurrentSquare(), "solarmod_tileset_01_0" )
+
+
+
 end
 
 

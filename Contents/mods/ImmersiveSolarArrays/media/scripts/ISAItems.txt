@@ -19,7 +19,7 @@ module ISA
         VehicleType =   1,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
-        MechanicsItem = TRUE,
+        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
 
@@ -49,71 +49,6 @@ module ISA
 	DisplayName		= Moveable,
 	}
 	
-	item ISASinglePanel
-    {
-    Weight    		    = 2,
-    Type    		    = Normal,
-	DisplayName			= Solar Panel,
-	Icon				= kattisolarSingle,
-	
-    }
-	
-	item ISASinglePanels
-    {
-    Weight    		    = 8,
-    Type    		    = Normal,
-	DisplayName			= Solar Panels,
-	Icon				= kattiPanels,
-	
-    }
-	
-	
-	
-	item ISASolarPanels
-    {
-    Weight    		    = 5,
-    Type    		    = Normal,
-	DisplayName			= Solar Array,
-	Icon				= kattisolarOff,
-	
-    }
-	
-	
-	item ISASolarPanels2
-    {
-    Weight    		        = 1000,
-     Type    		        = Normal,
-	DisplayName			= Solar Array (Plugged In),
-	Icon				= kattisolar,
-	
-    }
-	
-	item ISABatteryBank
-    {
-    Weight    		        = 10,
-     Type    		        = Normal,
-	DisplayName			= Battery Bank,
-	Icon				= BatteryBank,
-	
-    }
-	
-	item ISAInverter
-    {
-    Weight    		        = 1,
-     Type    		        = Normal,
-	DisplayName			= Inverter,
-	Icon				= kattiInverter,
-	
-    }
-	
-	item ISAMetalFrame
-    {
-    Weight    		        = 7,
-     Type    		        = Normal,
-	DisplayName			= Metal Frame,
-	Icon				= kattiFrame,
-	
-    }
 	
 	
 	
