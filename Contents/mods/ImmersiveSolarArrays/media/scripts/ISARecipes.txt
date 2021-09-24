@@ -10,11 +10,12 @@ recipe Wire 50Ah Battery
 {
 keep Base.Screwdriver,
 Radio.ElectricWire,
-Base.CarBattery1,
+destroy Base.CarBattery1,
 Result: 50AhBattery,
 Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
+Category:Electrical,
 OnCreate:SolarModConvertBattery,
 }
 
@@ -22,11 +23,12 @@ recipe Wire 75Ah Battery
 {
 keep Base.Screwdriver,
 Radio.ElectricWire,
-Base.CarBattery1,
+destroy Base.CarBattery3,
 Result: 75AhBattery,
 Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
+Category:Electrical,
 OnCreate:SolarModConvertBattery,
 }
 
@@ -34,11 +36,12 @@ recipe Wire 100Ah Battery
 {
 keep Base.Screwdriver,
 Radio.ElectricWire,
-Base.CarBattery1,
+destroy Base.CarBattery2,
 Result: 100AhBattery,
 Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
+Category:Electrical,
 OnCreate:SolarModConvertBattery,
 }
 
@@ -123,7 +126,7 @@ recipe Connect Solar Array
     {
 		keep Base.Screwdriver,
 		Radio.ElectricWire = 3,
-		Base.SmallSheetMetal = 5
+		Base.SmallSheetMetal = 5,
 		Base.ElectronicsScrap = 6,
 		Base.MetalBar = 4,
 		Base.CarBatteryCharger,

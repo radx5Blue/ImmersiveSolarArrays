@@ -12,8 +12,8 @@ end
 
 
 
-result:setUsedDelta(charge);
-result:setCondition(condition);
+result:get(0):setUsedDelta(charge);
+result:get(0):setCondition(condition);
 
 --unsure whether to use get() here, will have to test.
 end
