@@ -12,9 +12,9 @@ module ISA
         Type	=	Normal,
         UseWhileEquipped	=	FALSE,
         DisplayName	= Solar Panel,
-        Icon	=	CarBattery,
+        Icon	=	SolarPanel,
         MetalValue = 1,
-        WorldStaticModel = CarBattery,
+        WorldStaticModel = MetalSheetSmall,
     }
 
 	    item DeepCycleBattery
