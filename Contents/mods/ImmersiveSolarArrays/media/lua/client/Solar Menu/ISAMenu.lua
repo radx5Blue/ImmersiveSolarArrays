@@ -8,11 +8,11 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	
 	
 	local ISAOption = context:addOption("Solar", worldobjects);
-	--local subMenu = ISContextMenu:getNew(context);
-	--context:addSubMenu(CheatOption, subMenu);
+	local subMenu = ISContextMenu:getNew(context);
+	context:addSubMenu(ISAOption, subMenu);
 	
 	ISAOption.context = context
-	--ISUICheatMenu.subMenu = subMenu
+	ISAOption.subMenu = subMenu
 	--[[ depreciated
 	local godFuncCall = "getPlayer():setGodMod(CheatCoreCM.IsGod)"
 	if versionNumber <= 39 then	-- the new cheat uses the game's built-in isGodMod() function that was added in build 40. The legacy function is used for builds 39 and under.
@@ -21,7 +21,7 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	--]]
 		
 		
-	-- subMenu:addOption("God", worldobjects, function() CheatCoreCM.HandleToggle("God Mode", "CheatCoreCM.IsGod", CheatCoreCM.dragDownDisable) end);
+	 subMenu:addOption("Place Battery Bank", worldobjects, function() SaySolar() end);
 	-- subMenu:addOption("Creative", worldobjects, function() CheatCoreCM.HandleToggle("Creative Mode", "CheatCoreCM.buildCheat") end);
 	-- subMenu:addOption("Ghost Mode", worldobjects, function() CheatCoreCM.HandleToggle("Ghost Mode", "CheatCoreCM.IsGhost") end);
 	-- subMenu:addOption("Heal Yourself", worldobjects, CheatCoreCM.DoHeal);
@@ -107,6 +107,15 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	subMenuStats:addOption("Never tired", worldobjects, function() CheatCoreCM.HandleToggle("Never Tired", "CheatCoreCM.IsSleep") end);
 	--]]
 	
+
+end
+
+
+SaySolar = function()
+
+player = getPlayer()
+
+player:Say("Solar")
 
 end
 
