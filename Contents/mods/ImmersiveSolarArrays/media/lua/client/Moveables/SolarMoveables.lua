@@ -165,22 +165,32 @@ function ConsumptionScan(square)
 			local myObject = square:getObjects():get(objs-1);
 				if (myObject ~= nil) then
 					if instanceof(myObject, "IsoWorldInventoryObject") == false then
-						if instanceof(myObject, "IsoTelevision") and myObject:getDevicedata():getIsTurnedOn() then
-						powerconsumption = powerconsumption + 0.03
+						--[[
+						if instanceof(myObject, "IsoTelevision") then
+							if instanceof(myObject, "IsoTelevision"):getDevicedata() then
+								if instanceof(myObject, "IsoTelevision"):getDevicedata():getIsTurnedOn() then
+								powerconsumption = powerconsumption + 0.01
+								end
+							end
 						end
-					--[[	if instanceof(myObject, "IsoRadio") and myObject:getDevicedata():getIsTurnedOn() then
-						powerconsumption = powerconsumption + 0.01
+						if instanceof(myObject, "IsoRadio") then
+							if instanceof(myObject, "IsoRadio"):getDevicedata() then
+								if instanceof(myObject, "IsoRadio"):getDevicedata():getIsTurnedOn() then
+								powerconsumption = powerconsumption + 0.01
+								end
+							end
 						end
 						]]-- need to fix
 						if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
 						powerconsumption = powerconsumption + 0.09
 						end
-					--[[	if (myObject:getContainer():GetType() == "fridge" and myObject:getContainer():GetType() == "frezer") then
+						--[[
+						if (myObject:getContainer() and myObject:getContainer():getType() == "fridge" and myObject:getContainer():getType() == "freezer") then
 						powerconsumption = powerconsumption + 0.13
-						elseif (myObject:getContainer():GetType() == "fridge" or myObject:getContainer():GetType() == "frezer") then
+						elseif (myObject:getContainer() and myObject:getContainer():getType() == "fridge" or myObject:getContainer():getType() == "freezer") then
 						powerconsumption = powerconsumption + 0.08
 						end
-						]]-- need to fix
+						]]--
 						if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
 						powerconsumption = powerconsumption + 0.002
 						end
