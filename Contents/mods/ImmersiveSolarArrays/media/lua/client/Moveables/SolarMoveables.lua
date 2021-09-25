@@ -90,8 +90,9 @@ for x = bottom, top do
 				if IsBank == true then
 				--scan coming from power bank
 					if InitialScan == true then
+					print("this is an initial scan")
 					--power bank has just been added, do what is necessary
-					powerconsumption = powerconsumption + ConsumptionScan(square)
+					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
@@ -109,8 +110,12 @@ for x = bottom, top do
 					end
 					
 					else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
+					    print("this is not an initial scan")
 						if LimitedScan == false then
-						powerconsumption = powerconsumption + ConsumptionScan(square)
+						 print("this is a full periodic scan")
+						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+						else
+						print("limited scan triggered periodically, should not happen")
 						end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
 				     --this is a flat solar panel, add to count
@@ -163,10 +168,11 @@ function ConsumptionScan(square)
 						if instanceof(myObject, "IsoTelevision") and myObject:getDevicedata():getIsTurnedOn() then
 						powerconsumption = powerconsumption + 0.03
 						end
-						if instanceof(myObject, "IsoRadio") and myObject:getDevicedata():getIsTurnedOn() then
+					--[[	if instanceof(myObject, "IsoRadio") and myObject:getDevicedata():getIsTurnedOn() then
 						powerconsumption = powerconsumption + 0.01
 						end
-						if instanceof(myObject, "IsoStove") and myObject.oven:Activated() then
+						]]-- need to fix
+						if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
 						powerconsumption = powerconsumption + 0.09
 						end
 					--[[	if (myObject:getContainer():GetType() == "fridge" and myObject:getContainer():GetType() == "frezer") then
