@@ -67,8 +67,8 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
   end
 end
 
-function solarscan(square, AddBool, IsBank, InitialScan, backupgenerator)
---square is the square of the solar panel, increment, AddBool is whether we should add (true) or remove a solar panel, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
+function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
+--square is the square of the solar panel, increment, limitedscan is if we should only scan for panels not do anything else, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
 --backupgenerator is normally 0, 1 wehn turning on a generator and 2 when turning off one
 local n = square:getX() - 20;
 local n2 = square:getX() + 20;
@@ -106,8 +106,9 @@ for x = bottom, top do
 					end
 					
 					else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
-					
-					powerconsumption = powerconsumption + ConsumptionScan(square)
+						if LimitedScan == false then
+						powerconsumption = powerconsumption + ConsumptionScan(square)
+						end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
@@ -128,19 +129,10 @@ for x = bottom, top do
 				end
 				if IsBank == false then
 				--scan coming from solar panel
-					if AddBool == true then
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
 						--power bank detected, make it re-scan here
 						end
-					--solar panel should be added to power bank stats here,
-					--actually just make the bank re-scan
-					else
-					--solar panel should be removed from solar panel stats here
-					--actually just make the bank re-scan
-						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-						--power bank detected, make it re-scan here
-						end
-					end
+				end
 				end
 
 				-- test function mysquare:AddWorldInventoryItem("Base.Money" ,0.5,0.5,0);
