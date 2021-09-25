@@ -9,6 +9,17 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 	  solarscan(_square, true, true, true, 0)
 	  
 	  
+	  powerBankTest = {}
+	  
+	  powerBankTest.main = {}
+	  
+	  powerBankTest.main.test = {}
+	  
+	  powerBankTest.main.test = "hello"
+	  
+	  ModData.create("t")
+	  
+	  ModData.add("t", powerBankTest)
 	  
 	  
 	  
@@ -35,6 +46,15 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	local _spriteName = self.spriteName
     if _spriteName == "solarmod_tileset_01_0" then
       _character:Say("oo, heavy")
+	  
+	  newTest = {}
+	  
+	  newTest = ModData.get("t")
+	  
+	  
+	   print(newTest.main.test)
+	  
+	  
 	  solarscan(_square, false, true, true, 0)
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
@@ -96,6 +116,8 @@ for x = bottom, top do
 end
 
 end
+
+
 
 --unimplemented untested below, add this to the scan.
 
