@@ -22,3 +22,11 @@ for i=0, items:size()-1 do
 			end
 end
 end
+
+function OnCanPerform.ISAElectricalIntermediate(recipe, playerObj)
+return player:getPerkLevel(Perks.Electricity) >= 3
+end
+
+function OnCanPerform.ISAElectricalAdvanced(recipe, playerObj)
+return player:getPerkLevel(Perks.Electricity) >= 5
+end
