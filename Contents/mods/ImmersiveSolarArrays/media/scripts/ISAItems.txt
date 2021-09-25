@@ -120,6 +120,12 @@ module ISA
 	WorldObjectSprite = solarmod_tileset_01_9,
 	DisplayName		= Moveable,
 	}
+	item SolarFailsafe
+	{
+	Type = Moveable,
+	WorldObjectSprite = solarmod_tileset_01_15,
+	DisplayName		= Moveable,
+	}
 	
 	
 	
