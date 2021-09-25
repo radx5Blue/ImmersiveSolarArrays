@@ -180,6 +180,20 @@ recipe Connect Solar Array
 		NeedToBeLearn:true,
        		Category:Electrical,
     }
+
+		recipe Create Solar Failsafe
+    {
+		keep Base.Screwdriver,
+		Radio.ElectricWire = 2,
+		Base.RemoteCraftedV3 = 1,
+		ISA.50AhBattery = 1,
+		CanBeDoneFromFloor:false,
+      		Time:250,
+		SkillRequired:Electricity=5,
+		Result: SolarFailsafe,
+		NeedToBeLearn:true,
+       		Category:Electrical,
+    }
 	
 	recipe Metal Frame
     {
