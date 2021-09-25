@@ -1,0 +1,12 @@
+module ISA
+{
+
+	model SolarPanelModel
+	{
+		mesh = WorldItems/SolarPanelModel,
+		texture = WorldItems/SolarPanelModel,
+		scale = 0.007,
+	}
+
+
+}

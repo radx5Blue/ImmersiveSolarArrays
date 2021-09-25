@@ -14,7 +14,7 @@ module ISA
         DisplayName	= Solar Panel,
         Icon	=	SolarPanel,
         MetalValue = 1,
-        WorldStaticModel = MetalSheetSmall,
+        WorldStaticModel = ISA.SolarPanelModel,
     }
 
 	    item ISAInverter
