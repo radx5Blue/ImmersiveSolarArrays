@@ -46,7 +46,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	local _spriteName = self.spriteName
     if _spriteName == "solarmod_tileset_01_0" then
       _character:Say("oo, heavy")
-	  
+--[[	  
 	  newTest = {}
 	  
 	  newTest = ModData.get("t")
@@ -54,8 +54,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	  
 	   print(newTest.main.test)
 	  
-	  
-	  solarscan(_square, false, true, true, 0)
+	  ]]--
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("must not trip over, must not trip over")
@@ -68,6 +67,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 end
 
 function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
+print("running solar scan")
 --square is the square of the solar panel, increment, limitedscan is if we should only scan for panels not do anything else, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
 --backupgenerator is normally 0, 1 wehn turning on a generator and 2 when turning off one
 local n = square:getX() - 20;
@@ -95,14 +95,17 @@ for x = bottom, top do
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
+						print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_8") then
 				     --this is a mounted panel, add to count
 						numberofpanels = numberofpanels + 1
+						print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_10") then
 				     --this is a mounted panel, add to count
 						numberofpanels = numberofpanels + 1
+						print("panel found")
 					end
 					
 					else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
@@ -141,40 +144,44 @@ for x = bottom, top do
 			end
 		end
 	end
-
+print("numofpanels")
+print(numberofpanels)
+print("consumption")
+print(powerconsumption)
 end
 
-end
+
 
 function ConsumptionScan(square)
 --calculates the power consumption of appliances within a square
 	local powerconsumption = 0;
-		for ( objs = 0, square:getObjects():size()) do
-			local isoObject = (IsoObject)square:getObjects():get(objs);
-				if (isoObject ~= nil) then
-					if instanceof(isoObject, "IsoWorldInventoryObject") == false then
-						if instanceof(isoObject, "IsoTelevision") and isoObject:getDevicedata():getIsTurnedOn() then
+		if square:getObjects():size() ~= nil then
+		for objs = 1, square:getObjects():size() do
+			local myObject = square:getObjects():get(objs-1);
+				if (myObject ~= nil) then
+					if instanceof(myObject, "IsoWorldInventoryObject") == false then
+						if instanceof(myObject, "IsoTelevision") and myObject:getDevicedata():getIsTurnedOn() then
 						powerconsumption = powerconsumption + 0.03
 						end
-						if instanceof(isoObject, "IsoRadio") and isoObject:getDevicedata():getIsTurnedOn() then
+						if instanceof(myObject, "IsoRadio") and myObject:getDevicedata():getIsTurnedOn() then
 						powerconsumption = powerconsumption + 0.01
 						end
-						if instanceof(isoObject, "IsoStove") and isoObject.oven:Activated() then
+						if instanceof(myObject, "IsoStove") and myObject.oven:Activated() then
 						powerconsumption = powerconsumption + 0.09
 						end
-						local b = isoObject:getContainerByType("fridge") ~= nil;
-						local b2 = = isoObject:getContainerByType("freezer") ~= nil;
-						if b and b2 then
+					--[[	if (myObject:getContainer():GetType() == "fridge" and myObject:getContainer():GetType() == "frezer") then
 						powerconsumption = powerconsumption + 0.13
-						elseif b or b2 then
+						elseif (myObject:getContainer():GetType() == "fridge" or myObject:getContainer():GetType() == "frezer") then
 						powerconsumption = powerconsumption + 0.08
 						end
-						if instanceof(isoObject, "IsoLightSwitch") and isoObject:isActivated() then
+						]]-- need to fix
+						if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
 						powerconsumption = powerconsumption + 0.002
 						end
 					end
 				end
 			end
+	end
 	return powerconsumption					
 end
 
