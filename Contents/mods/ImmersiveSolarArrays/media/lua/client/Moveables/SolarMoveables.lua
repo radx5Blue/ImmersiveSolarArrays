@@ -148,11 +148,11 @@ end
 
 function ConsumptionScan(square)
 --calculates the power consumption of appliances within a square
-					    local powerconsumption = 0;
-						for ( objs = 0, square:getObjects():size()) do
-						local isoObject = (IsoObject)square:getObjects():get(objs);
-						if (isoObject ~= nil) then
-						if instanceof(isoObject, "IsoWorldInventoryObject") == false then
+	local powerconsumption = 0;
+		for ( objs = 0, square:getObjects():size()) do
+			local isoObject = (IsoObject)square:getObjects():get(objs);
+				if (isoObject ~= nil) then
+					if instanceof(isoObject, "IsoWorldInventoryObject") == false then
 						if instanceof(isoObject, "IsoTelevision") and isoObject:getDevicedata():getIsTurnedOn() then
 						powerconsumption = powerconsumption + 0.03
 						end
@@ -172,9 +172,9 @@ function ConsumptionScan(square)
 						if instanceof(isoObject, "IsoLightSwitch") and isoObject:isActivated() then
 						powerconsumption = powerconsumption + 0.002
 						end
-						end
-						end
-						end
+					end
+				end
+			end
 	return powerconsumption					
 end
 
