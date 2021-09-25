@@ -21,7 +21,8 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	--]]
 		
 		
-	 subMenu:addOption("Place Battery Bank", worldobjects, function() SaySolar() end);
+	 subMenu:addOption("Battery Bank", worldobjects, function() SaySolar() end);
+	 subMenu:addOption("Mount Solar Panel", worldobjects, function() SaySolar2() end);
 	-- subMenu:addOption("Creative", worldobjects, function() CheatCoreCM.HandleToggle("Creative Mode", "CheatCoreCM.buildCheat") end);
 	-- subMenu:addOption("Ghost Mode", worldobjects, function() CheatCoreCM.HandleToggle("Ghost Mode", "CheatCoreCM.IsGhost") end);
 	-- subMenu:addOption("Heal Yourself", worldobjects, CheatCoreCM.DoHeal);
@@ -115,7 +116,7 @@ SaySolar = function()
 
 player = getPlayer()
 
-player:Say("Solar")
+player:Say("Solar Bank")
 
 getPlayer():getInventory():AddItem("ISA.PowerBank")
 
@@ -128,5 +129,21 @@ getPlayer():getInventory():AddItem("ISA.PowerBank")
 
 end
 
+SaySolar2 = function()
+
+player = getPlayer()
+
+player:Say("Solar Panel")
+
+getPlayer():getInventory():AddItem("ISA.SolarPanelMounted")
+
+
+--ISAPowerBank:create(x, y, z, 1, "solarmod_tileset_01_0")
+
+--ISMoveableSpriteProps:placeMoveable( player, player:getCurrentSquare(), "solarmod_tileset_01_0" )
+
+
+
+end
 
 Events.OnFillWorldObjectContextMenu.Add(ISAMenu.createMenuEntries);
