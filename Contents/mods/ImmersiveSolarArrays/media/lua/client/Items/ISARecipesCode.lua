@@ -24,9 +24,9 @@ end
 end
 
 function OnCanPerform.ISAElectricalIntermediate(recipe, playerObj)
-return player:getPerkLevel(Perks.Electricity) >= 3
+return playerObj:getPerkLevel(Perks.Electricity) >= 3
 end
 
 function OnCanPerform.ISAElectricalAdvanced(recipe, playerObj)
-return player:getPerkLevel(Perks.Electricity) >= 5
+return playerObj:getPerkLevel(Perks.Electricity) >= 5
 end
