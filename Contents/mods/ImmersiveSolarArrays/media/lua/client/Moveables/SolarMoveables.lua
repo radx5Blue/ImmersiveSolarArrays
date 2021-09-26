@@ -115,61 +115,31 @@ for x = bottom, top do
 		for k = n3, n4 do
 			if IsoUtils.DistanceToSquared(j + 0.5, k + 0.5, square:getX() + 0.5, square:getY() + 0.5) <= 400.0 then
 			local mysquare = square:getCell():getGridSquare(j, k, x);
-				if mysquare ~= nil then
+				if mysquare ~= nil then			
+
 				if IsBank == true then
-				--scan coming from power bank
+					--scan coming from power bank
 					if InitialScan == true then
-					print("this is an initial scan")
+					--print("this is an initial scan")
 					--power bank has just been added, do what is necessary
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
-				     --this is a flat solar panel, add to count
-						numberofpanels = numberofpanels + 1
-						print("panel found")
+					numberofpanels = numberofpanels + PanelScan(mysquare)
 					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_8") then
-				     --this is a mounted panel, add to count
-						numberofpanels = numberofpanels + 1
-						print("panel found")
+					if InitialScan == false then
+					--TODO:this scan should be triggered periodically by everytenminutes
+					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+					--no need to scan for panels here, trigger that elsewhere
 					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_10") then
-				     --this is a mounted panel, add to count
-						numberofpanels = numberofpanels + 1
-						print("panel found")
-					end
-					
-					-- else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
-					    -- print("this is not an initial scan")
-						-- if LimitedScan == false then
-						 -- print("this is a full periodic scan")
-						-- powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-						-- else
-						-- print("limited scan triggered periodically, should not happen")
-						-- end
-					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
-				     -- --this is a flat solar panel, add to count
-						-- numberofpanels = numberofpanels + 1
-					-- end
-					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_8") then
-				     -- --this is a mounted panel, add to count
-						-- numberofpanels = numberofpanels + 1
-					-- end
-					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_10") then
-				     -- --this is a mounted panel, add to count
-						-- numberofpanels = numberofpanels + 1
-					-- end
-									
-					-- --periodic scan goes here. Recalculate solar panel, battery capacity and power usage stats,  note that there can be several panels in one square
-					-- -- use 	ISMoveableSpriteProps:getSpecificMoveableObjectFromSquare( _square, _objectType )
-					 end
-				
 				end
+				
 				if IsBank == false then
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-						--power bank detected, make it re-scan here
+						--power bank detected, make it re-scan its panels here
 						end
 				end
+					---break here
+				
 				end
 
 				-- test function mysquare:AddWorldInventoryItem("Base.Money" ,0.5,0.5,0);
@@ -178,13 +148,33 @@ for x = bottom, top do
 			end
 		end
 	end
+	
+--add more conditionals here for final actions, isbank etc.	
 print("numofpanels")
 print(numberofpanels)
 print("consumption")
 print(powerconsumption)
 end
 
-
+function PanelScan(mysquare)
+local numberofpanels = 0
+					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
+				     --this is a flat solar panel, add to count
+						numberofpanels = numberofpanels + 1
+						print("panel found")
+					end
+					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
+				     --this is a flat solar panel, add to count
+						numberofpanels = numberofpanels + 1
+						print("panel found")
+					end
+					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
+				     --this is a flat solar panel, add to count
+						numberofpanels = numberofpanels + 1
+						print("panel found")
+					end
+return numberofpanels
+end
 
 function ConsumptionScan(square)
 --calculates the power consumption of appliances within a square
