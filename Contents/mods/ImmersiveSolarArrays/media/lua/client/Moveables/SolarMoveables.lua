@@ -6,54 +6,54 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
     -- Your stuff here example below
     if _origSpriteName == "solarmod_tileset_01_0" then
       _character:Say("Cool, a battery bank! Is it shiny?")
-	  --solarscan(_square, true, true, true, 0)
+	  solarscan(_square, true, true, true, 0)
 	  
 	  
 	  -- create a loop and check here to go through each battery bank and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
 	  
 	  powerBankLocations = {}
 	  
-	  powerBankLocations.main = {}
+	  -- powerBankLocations.main = {}
 	  
-	  powerBankLocations.main.x = {}
+	  -- powerBankLocations.main.x = {}
 	  
-	   powerBankLocations.main.y = {}
+	   -- powerBankLocations.main.y = {}
 	  
-	  powerBankLocations.main.x = _square:getX()
+	  -- powerBankLocations.main.x = _square:getX()
 	  
-	  powerBankLocations.main.y = _square:getY()
+	  -- powerBankLocations.main.y = _square:getY()
 	  
-	  ModData.create("PB")
+	  -- ModData.create("PB")
 	  
-	  ModData.add("PB", powerBankLocations)
+	  -- ModData.add("PB", powerBankLocations)
 	  
-	  Radx5BatteryScan(_square)
+	  -- Radx5BatteryScan(_square)
 	  
 	  
 	  
     end
 	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("AAAAAA! Shiny solar panels")
-	   --solarscan(_square, true, false, true, 0)
+	   solarscan(_square, true, false, true, 0)
 	   
 	     -- create a loop and check here to go through each solar panel and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
 	   
-	  solarPanelLocations = {}
+	  -- solarPanelLocations = {}
 	  
-	  solarPanelLocations.main = {}
+	  -- solarPanelLocations.main = {}
 	  
-	  solarPanelLocations.main.x = {}
-	  solarPanelLocations.main.y = {}
+	  -- solarPanelLocations.main.x = {}
+	  -- solarPanelLocations.main.y = {}
 	  
-	solarPanelLocations.main.x = _square:getX()
+	-- solarPanelLocations.main.x = _square:getX()
 	  
-	  solarPanelLocations.main.y = _square:getY()
+	  -- solarPanelLocations.main.y = _square:getY()
 	  
-	  ModData.create("SP")
+	  -- ModData.create("SP")
 	  
-	  ModData.add("SP", solarPanelLocations)
+	  -- ModData.add("SP", solarPanelLocations)
 	  
-	  Radx5SolarScan(_square)
+	  -- Radx5SolarScan(_square)
 	   
 	   
 	end
@@ -138,30 +138,30 @@ for x = bottom, top do
 						print("panel found")
 					end
 					
-					else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
-					    print("this is not an initial scan")
-						if LimitedScan == false then
-						 print("this is a full periodic scan")
-						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-						else
-						print("limited scan triggered periodically, should not happen")
-						end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
-				     --this is a flat solar panel, add to count
-						numberofpanels = numberofpanels + 1
-					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_8") then
-				     --this is a mounted panel, add to count
-						numberofpanels = numberofpanels + 1
-					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_10") then
-				     --this is a mounted panel, add to count
-						numberofpanels = numberofpanels + 1
-					end
+					-- else   --======NOT AN INITIAL SCAN, DO PERIODIC STUFF HERE============
+					    -- print("this is not an initial scan")
+						-- if LimitedScan == false then
+						 -- print("this is a full periodic scan")
+						-- powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+						-- else
+						-- print("limited scan triggered periodically, should not happen")
+						-- end
+					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") then
+				     -- --this is a flat solar panel, add to count
+						-- numberofpanels = numberofpanels + 1
+					-- end
+					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_8") then
+				     -- --this is a mounted panel, add to count
+						-- numberofpanels = numberofpanels + 1
+					-- end
+					-- if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_10") then
+				     -- --this is a mounted panel, add to count
+						-- numberofpanels = numberofpanels + 1
+					-- end
 									
-					--periodic scan goes here. Recalculate solar panel, battery capacity and power usage stats,  note that there can be several panels in one square
-					-- use 	ISMoveableSpriteProps:getSpecificMoveableObjectFromSquare( _square, _objectType )
-					end
+					-- --periodic scan goes here. Recalculate solar panel, battery capacity and power usage stats,  note that there can be several panels in one square
+					-- -- use 	ISMoveableSpriteProps:getSpecificMoveableObjectFromSquare( _square, _objectType )
+					 end
 				
 				end
 				if IsBank == false then
