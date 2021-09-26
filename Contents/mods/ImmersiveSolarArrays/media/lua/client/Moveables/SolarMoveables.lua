@@ -203,23 +203,23 @@ function ConsumptionScan(square)
 					if instanceof(myObject, "IsoWorldInventoryObject") == false then
 						--print("is this running1")
 						
-						--[[
-						if instanceof(myObject, "IsoTelevision") and myObject ~= nil then
-							if myObject:getDevicedata() then
-								if myObject:getDevicedata():getIsTurnedOn() then
-								powerconsumption = powerconsumption + 0.01
+						if instanceof(myObject, "IsoTelevision") then
+							if myObject:getDeviceData() ~= nil then
+								if myObject:getDeviceData():getIsTurnedOn() then
+									powerconsumption = powerconsumption + 0.01
+									--print("found tv")
 								end
-							end
-						end
-						--print("is this running2")
-						if instanceof(myObject, "IsoRadio") and myObject ~= nil then
-
-								if myObject.deviceData:getIsTurnedOn() then
-								powerconsumption = powerconsumption + 0.01
+							end					
+						end 
+						if instanceof(myObject, "IsoRadio") then
+							if myObject:getDeviceData() ~= nil then
+								if myObject:getDeviceData():getIsTurnedOn() then
+									powerconsumption = powerconsumption + 0.01
+									--print("found radio")
 								end
+							end					
+						end 
 						
-						end  
-						]]--
 						--print("is this running3")
 						if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
 						powerconsumption = powerconsumption + 0.09
