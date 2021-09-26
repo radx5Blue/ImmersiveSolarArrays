@@ -6,27 +6,56 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
     -- Your stuff here example below
     if _origSpriteName == "solarmod_tileset_01_0" then
       _character:Say("Cool, a battery bank! Is it shiny?")
-	  solarscan(_square, true, true, true, 0)
+	  --solarscan(_square, true, true, true, 0)
 	  
 	  
-	  powerBankTest = {}
+	  -- create a loop and check here to go through each battery bank and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
 	  
-	  powerBankTest.main = {}
+	  powerBankLocations = {}
 	  
-	  powerBankTest.main.test = {}
+	  powerBankLocations.main = {}
 	  
-	  powerBankTest.main.test = "hello"
+	  powerBankLocations.main.x = {}
 	  
-	  ModData.create("t")
+	   powerBankLocations.main.y = {}
 	  
-	  ModData.add("t", powerBankTest)
+	  powerBankLocations.main.x = _square:getX()
+	  
+	  powerBankLocations.main.y = _square:getY()
+	  
+	  ModData.create("PB")
+	  
+	  ModData.add("PB", powerBankLocations)
+	  
+	  Radx5BatteryScan(_square)
 	  
 	  
 	  
     end
 	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("AAAAAA! Shiny solar panels")
-	   solarscan(_square, true, false, true, 0)
+	   --solarscan(_square, true, false, true, 0)
+	   
+	     -- create a loop and check here to go through each solar panel and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
+	   
+	  solarPanelLocations = {}
+	  
+	  solarPanelLocations.main = {}
+	  
+	  solarPanelLocations.main.x = {}
+	  solarPanelLocations.main.y = {}
+	  
+	solarPanelLocations.main.x = _square:getX()
+	  
+	  solarPanelLocations.main.y = _square:getY()
+	  
+	  ModData.create("SP")
+	  
+	  ModData.add("SP", solarPanelLocations)
+	  
+	  Radx5SolarScan(_square)
+	   
+	   
 	end
 	
   else
@@ -201,6 +230,49 @@ function ConsumptionScan(square)
 	return powerconsumption					
 end
 
+
+function Radx5BatteryScan(square)
+	
+	--loop through solar panel locations and check if each is less then 400 away - todo create loops
+	
+	solarPanelLocations = {}
+	  
+	solarPanelLocations = ModData.get("SP")
+	   
+	print(solarPanelLocations.main.x)
+	print(solarPanelLocations.main.y)
+	
+	
+	if bcUtils.realDist(square:getX(), square:getY(), solarPanelLocations.main.x(), solarPanelLocations.main.y) <= 400 then
+		print("Panel Connected")
+	end
+	
+	
+	
+end
+
+function Radx5SolarScan(square)
+	
+	--loop through battery location and check if each is less then 400 away - todo create loops
+	
+		powerBankLocations = {}
+	  
+		powerBankLocations = ModData.get("PB")
+		
+		
+		print(powerBankLocations.main.x)
+		print(powerBankLocations.main.y)
+		
+			if bcUtils.realDist(square:getX(), square:getY(), powerBankLocations.main.x, powerBankLocations.main.y) <= 400 then
+		print("Panel Connected")
+	end
+	  
+	 
+	
+	
+	
+	
+end
 
 
 
