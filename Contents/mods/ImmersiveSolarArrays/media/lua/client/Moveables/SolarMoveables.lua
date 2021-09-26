@@ -81,7 +81,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	  newTest = ModData.get("t")
 	  
 	  
-	   print(newTest.main.test)
+	   --print(newTest.main.test)
 	  
 	  ]]--
     end
@@ -96,7 +96,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 end
 
 function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
-print("running solar scan")
+----print("running solar scan")
 --square is the square of the solar panel, increment, limitedscan is if we should only scan for panels not do anything else, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
 --backupgenerator is normally 0, 1 wehn turning on a generator and 2 when turning off one
 local n = square:getX() - 20;
@@ -105,9 +105,6 @@ local n3 = square:getY() - 20;
 local n4 = square:getY() + 20;
 local bottom = math.max(0, square:getZ() - 3);
 local top = math.min(8, square:getZ() + 3);
-print("minmax")
-print(bottom)
-print(top)
 local powerconsumption = 0;
 local numberofpanels = 0;
 for x = bottom, top do
@@ -120,9 +117,11 @@ for x = bottom, top do
 				if IsBank == true then
 					--scan coming from power bank
 					if InitialScan == true then
-					--print("this is an initial scan")
+					----print("this is an initial scan")
 					--power bank has just been added, do what is necessary
+					--print("init consumption scan")
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+					--print("init panel scan")
 					numberofpanels = numberofpanels + PanelScan(mysquare)
 					end
 					if InitialScan == false then
@@ -138,22 +137,37 @@ for x = bottom, top do
 						--power bank detected, make it re-scan its panels here
 						end
 				end
-					---break here
 				
 				end
 
-				-- test function mysquare:AddWorldInventoryItem("Base.Money" ,0.5,0.5,0);
-				-- print(mysquare)
+
 				end
 			end
 		end
 	end
+
 	
---add more conditionals here for final actions, isbank etc.	
-print("numofpanels")
-print(numberofpanels)
-print("consumption")
-print(powerconsumption)
+--everything is scanned final actions go below
+if IsBank then
+	if LimitedScan == false then
+		if InitialScan == true then
+		--grab the battery bank in square and set variables from initial scan
+		end
+		if InitialScan == false then
+		--grab the battery bank in square and set variables from periodic scan
+		end
+	end
+	if LimitedScan == true then
+		--update amount of solar panels and nothing else
+	end
+	
+
+
+end
+--print("numofpanels")
+--print(numberofpanels)
+--print("consumption")
+--print(powerconsumption)
 end
 
 function PanelScan(mysquare)
@@ -161,57 +175,73 @@ local numberofpanels = 0
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 return numberofpanels
 end
 
 function ConsumptionScan(square)
+--print("running consumption scan")
 --calculates the power consumption of appliances within a square
 	local powerconsumption = 0;
 		if square:getObjects():size() ~= nil then
+		--print("square has objects")
 		for objs = 1, square:getObjects():size() do
 			local myObject = square:getObjects():get(objs-1);
 				if (myObject ~= nil) then
+					--print("object not nil")
 					if instanceof(myObject, "IsoWorldInventoryObject") == false then
+						--print("is this running1")
+						
 						--[[
-						if instanceof(myObject, "IsoTelevision") then
-							if instanceof(myObject, "IsoTelevision"):getDevicedata() then
-								if instanceof(myObject, "IsoTelevision"):getDevicedata():getIsTurnedOn() then
+						if instanceof(myObject, "IsoTelevision") and myObject ~= nil then
+							if myObject:getDevicedata() then
+								if myObject:getDevicedata():getIsTurnedOn() then
 								powerconsumption = powerconsumption + 0.01
 								end
 							end
 						end
-						if instanceof(myObject, "IsoRadio") then
-							if instanceof(myObject, "IsoRadio"):getDevicedata() then
-								if instanceof(myObject, "IsoRadio"):getDevicedata():getIsTurnedOn() then
+						--print("is this running2")
+						if instanceof(myObject, "IsoRadio") and myObject ~= nil then
+
+								if myObject.deviceData:getIsTurnedOn() then
 								powerconsumption = powerconsumption + 0.01
 								end
-							end
-						end
-						]]-- need to fix
+						
+						end  
+						]]--
+						--print("is this running3")
 						if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
 						powerconsumption = powerconsumption + 0.09
 						end
-						--[[
-						if (myObject:getContainer() and myObject:getContainer():getType() == "fridge" and myObject:getContainer():getType() == "freezer") then
-						powerconsumption = powerconsumption + 0.13
-						elseif (myObject:getContainer() and myObject:getContainer():getType() == "fridge" or myObject:getContainer():getType() == "freezer") then
-						powerconsumption = powerconsumption + 0.08
-						end
-						]]--
+						--print("is this running4")
+						for containerIndex = 1,myObject:getContainerCount() do
+							--print("scanning containers")
+							local container = myObject:getContainerByIndex(containerIndex-1)
+								if container:getType() == "fridge" then
+								powerconsumption = powerconsumption + 0.05
+								--print("found fridge")
+								end
+								if container:getType() == "freezer" then
+								powerconsumption = powerconsumption + 0.08
+								--print("found freezer")
+								end
+								
+						end		
+						--print("is this running5")
 						if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
 						powerconsumption = powerconsumption + 0.002
+						--print("found light")
 						end
 					end
 				end
@@ -229,12 +259,12 @@ function Radx5BatteryScan(square)
 	  
 	solarPanelLocations = ModData.get("SP")
 	   
-	print(solarPanelLocations.main.x)
-	print(solarPanelLocations.main.y)
+	--print(solarPanelLocations.main.x)
+	--print(solarPanelLocations.main.y)
 	
 	
 	if bcUtils.realDist(square:getX(), square:getY(), solarPanelLocations.main.x(), solarPanelLocations.main.y) <= 400 then
-		print("Panel Connected")
+		--print("Panel Connected")
 	end
 	
 	
@@ -250,11 +280,11 @@ function Radx5SolarScan(square)
 		powerBankLocations = ModData.get("PB")
 		
 		
-		print(powerBankLocations.main.x)
-		print(powerBankLocations.main.y)
+		--print(powerBankLocations.main.x)
+		--print(powerBankLocations.main.y)
 		
 			if bcUtils.realDist(square:getX(), square:getY(), powerBankLocations.main.x, powerBankLocations.main.y) <= 400 then
-		print("Panel Connected")
+		--print("Panel Connected")
 	end
 	  
 	 
