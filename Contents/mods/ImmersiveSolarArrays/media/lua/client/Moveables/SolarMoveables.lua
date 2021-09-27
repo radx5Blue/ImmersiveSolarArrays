@@ -39,7 +39,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	local _spriteName = self.spriteName
     if _spriteName == "solarmod_tileset_01_0" then
       _character:Say("oo, heavy")
-
+		--TODO: battery bank data for the removed bank should be deleted here
 
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
