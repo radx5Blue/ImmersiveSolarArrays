@@ -6,7 +6,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
     -- Your stuff here example below
     if _origSpriteName == "solarmod_tileset_01_0" then
       _character:Say("Cool, a battery bank! Is it shiny?")
-	  solarscan(_square, true, true, true, 0)
+	  solarscan(_square, false, true, true, 0)
 	  
 	  
 	
