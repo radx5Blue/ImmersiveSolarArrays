@@ -1,35 +1,86 @@
-function TurnOnPower()
-	
-	local powerCreated = 0
-	local powerConsumed = 0
+function TurnOnPower(powerConsumption, numberOfPanels, key)
 	
 	testK = ModData.get("PBK")
 	testX = ModData.get("PBX")
-	--testY = ModData.get("PBY")
+	testY = ModData.get("PBY")
+	testZ = ModData.get("PBZ")
 	
-	print("ModData Key: ", testK[1])
-	print("ModData X: ",testX[1])
-	--print("ModData Y: ",testY[1])
+	print("ModData Key: ", testK[key])
+	print("ModData X: ",testX[key])
+	print("ModData Y: ",testY[key])
+	print("ModData Z: ",testZ[key])
+	
+	noKey = tonumber(testK[key])
+	noX = tonumber(testX[key])
+	noY = tonumber(testY[key])
+	noZ = tonumber(testZ[key])
 	
 	
-	powerCreated = PanelScan(testX[1])
+	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+	
+	if numberOfPanels > powerConsumption then
+		
+		local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        NewGenerator:setConnected(true)
+        NewGenerator:setFuel(100)
+        NewGenerator:setCondition(100)
+        NewGenerator:setActivated(true)
+        NewGenerator:setSurroundingElectricity()
+		NewGenerator:remove()
+	end
+	
+end
+
+
+
+function PowerCheck()
 	
 	
-	print("Power Created: ",powerCreated)
+	testK = ModData.get("PBK")
+	testX = ModData.get("PBX")
+	testY = ModData.get("PBY")
+	testZ = ModData.get("PBZ")
 	
-	if powerCreated > 0 then
-		print("power on")
+	local pbkLen = #testK
+	
+	for key = 1, #testK do
+		
+	print("ModData Key: ", testK[key])
+	print("ModData X: ",testX[key])
+	print("ModData Y: ",testY[key])
+	print("ModData Z: ",testZ[key])
+	
+	noKey = tonumber(testK[key])
+	noX = tonumber(testX[key])
+	noY = tonumber(testY[key])
+	noZ = tonumber(testZ[key])
+	
+	
+	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+	
+	solarscan(square, false, true, true, 0)
 		
 	end
 	
+	getPlayer():Say("DONE!!")
+	
+
 	
 	
 	
 	
+	-- local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 	
-	
-	
-	
+	-- if numberOfPanels > powerConsumption then
+		
+		-- local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        -- NewGenerator:setConnected(true)
+        -- NewGenerator:setFuel(100)
+        -- NewGenerator:setCondition(100)
+        -- NewGenerator:setActivated(true)
+        -- NewGenerator:setSurroundingElectricity()
+		-- NewGenerator:remove()
+	-- end
 	
 end
 
@@ -38,11 +89,13 @@ function SetUpGlobalData()
 	local powerBankKey = {}
 	local powerBankX = {}
 	local powerBankY = {}
+	local powerBankZ = {}
 	
 	
 	ModData.add("PBK", powerBankKey)
 	ModData.add("PBX", powerBankX)
-	--ModData.add("PBY", powerBankY)
+	ModData.add("PBY", powerBankY)
+	ModData.add("PBZ", powerBankZ)
  
  
 
@@ -51,6 +104,4 @@ end
 
 
 Events.OnNewGame.Add(SetUpGlobalData)
---Events.OnTick.Add(TurnOnPower)
-
-
+Events.EveryTenMinutes.Add(PowerCheck)

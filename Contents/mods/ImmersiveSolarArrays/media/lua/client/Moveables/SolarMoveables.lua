@@ -80,6 +80,7 @@ for x = bottom, top do
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					--print("init panel scan")
 					numberofpanels = numberofpanels + PanelScan(mysquare)
+					print("NOP1: ", numberofpanels)
 					end
 					if InitialScan == false then
 					--TODO:this scan should be triggered periodically by everytenminutes
@@ -111,34 +112,40 @@ if IsBank then
 		
 			local pbKey = ModData.get("PBK")
 			local pbX = ModData.get("PBX")
-			-- local pbY = ModData.get("PBY")
+			local pbY = ModData.get("PBY")
+			local pbZ = ModData.get("PBZ")
 	  
 			local pbkLen = #pbKey
-			local pbxLen = #pbX
-			-- local pbyLen = #pbY
+			local newpbKLen = pbkLen + 1
 	  
-			table.insert (pbKey, pbkLen + 1, pbkLen + 1) 
-			table.insert (pbX, pbkLen + 1, square) 
-			-- table.insert (pbY, pbkLen + 1, _square:getY()) 
+			table.insert (pbKey, newpbKLen, newpbKLen) 
+			table.insert (pbX, newpbKLen, square:getX()) 
+			table.insert (pbY, newpbKLen, square:getY()) 
+			table.insert (pbZ, newpbKLen, square:getZ()) 
 	  
 	  
 			ModData.add("PBK", pbKey)
 			ModData.add("PBX", pbX)
-			-- ModData.add("PBY", pbY)
+			ModData.add("PBY", pbY)
+			ModData.add("PBZ", pbZ)
 	
-			print("Local Key: ", pbKey[1])
-			print("Local X: ",pbX[1])
-			-- print("Local Y: ",pbY[1])
+			print("Local Key: ", pbKey[newpbKLen])
+			print("Local X: ",pbX[newpbKLen])
+			print("Local Y: ",pbY[newpbKLen])
+			print("Local Z: ",pbZ[newpbKLen])
 	
 			testK = ModData.get("PBK")
 			testX = ModData.get("PBX")
-			-- testY = ModData.get("PBY")
+			testY = ModData.get("PBY")
+			testZ = ModData.get("PBZ")
 	
-			print("ModData Key: ", testK[1])
-			print("ModData X: ",testX[1])
-			-- print("ModData Y: ",testY[1])
+			print("ModData Key: ", testK[newpbKLen])
+			print("ModData X: ",testX[newpbKLen])
+			print("ModData Y: ",testY[newpbKLen])
+			print("ModData Y: ",testZ[newpbKLen])
+			
 	
-			TurnOnPower()
+			TurnOnPower(powerconsumption, numberofpanels, newpbKLen)
 		end
 		if InitialScan == false then
 		--grab the battery bank in square and set variables from periodic scan
@@ -162,17 +169,17 @@ local numberofpanels = 0
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						--print("panel found")
+						print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						--print("panel found")
+						print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						--print("panel found")
+						print("panel found")
 					end
 return numberofpanels
 end
