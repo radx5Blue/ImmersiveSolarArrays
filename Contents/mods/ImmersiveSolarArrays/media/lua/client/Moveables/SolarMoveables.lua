@@ -8,6 +8,40 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
       _character:Say("Cool, a battery bank! Is it shiny?")
 	  solarscan(_square, true, true, true, 0)
 	  
+	  local pbKey = ModData.get("PBK")
+	  local pbX = ModData.get("PBX")
+	  -- local pbY = ModData.get("PBY")
+	  
+	  local pbkLen = #pbKey
+	  local pbxLen = #pbX
+	  -- local pbyLen = #pbY
+	  
+	  table.insert (pbKey, pbkLen + 1, pbkLen + 1) 
+	  table.insert (pbX, pbkLen + 1, _square) 
+	  -- table.insert (pbY, pbkLen + 1, _square:getY()) 
+	  
+	  
+	ModData.add("PBK", pbKey)
+	ModData.add("PBX", pbX)
+	-- ModData.add("PBY", pbY)
+	
+	print("Local Key: ", pbKey[1])
+	print("Local X: ",pbX[1])
+	-- print("Local Y: ",pbY[1])
+	
+	testK = ModData.get("PBK")
+	testX = ModData.get("PBX")
+	-- testY = ModData.get("PBY")
+	
+	print("ModData Key: ", testK[1])
+	print("ModData X: ",testX[1])
+	-- print("ModData Y: ",testY[1])
+	
+	
+	TurnOnPower()
+	
+	
+	  
 
 	  
 	  
@@ -16,7 +50,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 	   _character:Say("AAAAAA! Shiny solar panels")
 	   solarscan(_square, true, false, true, 0)
 	   
-
+		TurnOnPower()
 	   
 	end
 	

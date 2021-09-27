@@ -118,6 +118,8 @@ player = getPlayer()
 
 player:Say("Solar Bank")
 
+getPlayer():getInventory():AddItem("Base.Screwdriver")
+
 getPlayer():getInventory():AddItem("ISA.PowerBank")
 
 
