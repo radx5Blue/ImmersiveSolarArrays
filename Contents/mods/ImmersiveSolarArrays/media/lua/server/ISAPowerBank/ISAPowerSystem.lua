@@ -67,7 +67,7 @@ function PowerCheck()
 	
 	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 	
-	--solarscan(square, false, true, true, 0)
+	--solarscan(square, false, true, true, 0) -- need different scan
 		
 	end
 	
@@ -113,4 +113,4 @@ end
 
 
 Events.OnNewGame.Add(SetUpGlobalData)
---Events.EveryTenMinutes.Add(PowerCheck)
+Events.EveryTenMinutes.Add(PowerCheck)
