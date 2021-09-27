@@ -131,7 +131,17 @@ for x = bottom, top do
 							solarscan(mysquare, true, true, false, 0)
 						end
 				end
+				if backupgenerator ~= 0 then
+					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_15") then
+						if backupgenerator == 1 then
+						--TODO:turn on generator in this square
+						end
+						if backupgenerator == 2 then
+						--TODO:turn off generator in this square
+						end
+					end
 				
+				end
 			end
 
 
