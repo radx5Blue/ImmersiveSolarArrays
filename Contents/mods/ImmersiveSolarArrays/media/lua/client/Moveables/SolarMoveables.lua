@@ -92,7 +92,8 @@ for x = bottom, top do
 				if IsBank == false then
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-						--power bank detected, make it re-scan its panels here
+							--power bank detected, make it re-scan its panels here
+							solarscan(mysquare, true, true, false, 0)
 						end
 				end
 				
