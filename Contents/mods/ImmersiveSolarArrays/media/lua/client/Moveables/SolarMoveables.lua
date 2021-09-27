@@ -8,27 +8,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
       _character:Say("Cool, a battery bank! Is it shiny?")
 	  solarscan(_square, true, true, true, 0)
 	  
-	  
-	  -- create a loop and check here to go through each battery bank and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
-	  
-	  powerBankLocations = {}
-	  
-	  -- powerBankLocations.main = {}
-	  
-	  -- powerBankLocations.main.x = {}
-	  
-	   -- powerBankLocations.main.y = {}
-	  
-	  -- powerBankLocations.main.x = _square:getX()
-	  
-	  -- powerBankLocations.main.y = _square:getY()
-	  
-	  -- ModData.create("PB")
-	  
-	  -- ModData.add("PB", powerBankLocations)
-	  
-	  -- Radx5BatteryScan(_square)
-	  
+
 	  
 	  
     end
@@ -36,25 +16,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 	   _character:Say("AAAAAA! Shiny solar panels")
 	   solarscan(_square, true, false, true, 0)
 	   
-	     -- create a loop and check here to go through each solar panel and add to the end of the list and the check to see if the table exists - using BC uilities - todo create loops
-	   
-	  -- solarPanelLocations = {}
-	  
-	  -- solarPanelLocations.main = {}
-	  
-	  -- solarPanelLocations.main.x = {}
-	  -- solarPanelLocations.main.y = {}
-	  
-	-- solarPanelLocations.main.x = _square:getX()
-	  
-	  -- solarPanelLocations.main.y = _square:getY()
-	  
-	  -- ModData.create("SP")
-	  
-	  -- ModData.add("SP", solarPanelLocations)
-	  
-	  -- Radx5SolarScan(_square)
-	   
+
 	   
 	end
 	
@@ -75,15 +37,8 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	local _spriteName = self.spriteName
     if _spriteName == "solarmod_tileset_01_0" then
       _character:Say("oo, heavy")
---[[	  
-	  newTest = {}
-	  
-	  newTest = ModData.get("t")
-	  
-	  
-	   --print(newTest.main.test)
-	  
-	  ]]--
+
+
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("must not trip over, must not trip over")
@@ -248,50 +203,6 @@ function ConsumptionScan(square)
 			end
 	end
 	return powerconsumption					
-end
-
-
-function Radx5BatteryScan(square)
-	
-	--loop through solar panel locations and check if each is less then 400 away - todo create loops
-	
-	solarPanelLocations = {}
-	  
-	solarPanelLocations = ModData.get("SP")
-	   
-	--print(solarPanelLocations.main.x)
-	--print(solarPanelLocations.main.y)
-	
-	
-	if bcUtils.realDist(square:getX(), square:getY(), solarPanelLocations.main.x(), solarPanelLocations.main.y) <= 400 then
-		--print("Panel Connected")
-	end
-	
-	
-	
-end
-
-function Radx5SolarScan(square)
-	
-	--loop through battery location and check if each is less then 400 away - todo create loops
-	
-		powerBankLocations = {}
-	  
-		powerBankLocations = ModData.get("PB")
-		
-		
-		--print(powerBankLocations.main.x)
-		--print(powerBankLocations.main.y)
-		
-			if bcUtils.realDist(square:getX(), square:getY(), powerBankLocations.main.x, powerBankLocations.main.y) <= 400 then
-		--print("Panel Connected")
-	end
-	  
-	 
-	
-	
-	
-	
 end
 
 
