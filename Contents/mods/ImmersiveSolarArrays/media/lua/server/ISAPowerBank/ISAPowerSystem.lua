@@ -20,6 +20,15 @@ function TurnOnPower(powerConsumption, numberOfPanels, key)
 	
 	if numberOfPanels > powerConsumption then
 		
+		-- might need to 'remove' a generator first if one is here so it doesn't create a new one on top of one that exists
+		
+		local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        NewGenerator:setConnected(false)
+        NewGenerator:setFuel(0)
+        NewGenerator:setCondition(0)
+        NewGenerator:setActivated(false)
+        NewGenerator:remove()
+		
 		local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
