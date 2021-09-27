@@ -80,7 +80,7 @@ for x = bottom, top do
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					--print("init panel scan")
 					numberofpanels = numberofpanels + PanelScan(mysquare)
-					print("NOP1: ", numberofpanels)
+					--print("NOP1: ", numberofpanels)
 					end
 					if InitialScan == false then
 					--TODO:this scan should be triggered periodically by everytenminutes
