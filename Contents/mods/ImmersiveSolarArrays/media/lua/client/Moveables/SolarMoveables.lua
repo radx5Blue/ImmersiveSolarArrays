@@ -70,22 +70,57 @@ for x = bottom, top do
 			if IsoUtils.DistanceToSquared(j + 0.5, k + 0.5, square:getX() + 0.5, square:getY() + 0.5) <= 400.0 then
 			local mysquare = square:getCell():getGridSquare(j, k, x);
 				if mysquare ~= nil then			
-
 				if IsBank == true then
 					--scan coming from power bank
 					if InitialScan == true then
-					----print("this is an initial scan")
-					--power bank has just been added, do what is necessary
-					--print("init consumption scan")
-					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-					--print("init panel scan")
-					numberofpanels = numberofpanels + PanelScan(mysquare)
-					--print("NOP1: ", numberofpanels)
+						--power bank has just been added, do what is necessary
+						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+						numberofpanels = numberofpanels + PanelScan(mysquare)
+						------
+						local pbKey = ModData.get("PBK")
+						local pbX = ModData.get("PBX")
+						local pbY = ModData.get("PBY")
+						local pbZ = ModData.get("PBZ")
+	  
+						local pbkLen = #pbKey
+						local newpbKLen = pbkLen + 1
+	  
+						table.insert (pbKey, newpbKLen, newpbKLen) 
+						table.insert (pbX, newpbKLen, square:getX()) 
+						table.insert (pbY, newpbKLen, square:getY()) 
+						table.insert (pbZ, newpbKLen, square:getZ()) 
+	  
+	  
+						ModData.add("PBK", pbKey)
+						ModData.add("PBX", pbX)
+						ModData.add("PBY", pbY)
+						ModData.add("PBZ", pbZ)
+	
+						print("Local Key: ", pbKey[newpbKLen])
+						print("Local X: ",pbX[newpbKLen])
+						print("Local Y: ",pbY[newpbKLen])
+						print("Local Z: ",pbZ[newpbKLen])
+	
+						testK = ModData.get("PBK")
+						testX = ModData.get("PBX")
+						testY = ModData.get("PBY")
+						testZ = ModData.get("PBZ")
+	
+						print("ModData Key: ", testK[newpbKLen])
+						print("ModData X: ",testX[newpbKLen])
+						print("ModData Y: ",testY[newpbKLen])
+						print("ModData Y: ",testZ[newpbKLen])
+			
+						TurnOnPower(powerconsumption, numberofpanels, newpbKLen)
+						--print("NOP1: ", numberofpanels)				
 					end
 					if InitialScan == false then
 					--TODO:this scan should be triggered periodically by everytenminutes
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-					--no need to scan for panels here, trigger that elsewhere
+
+					end
+					if LimitedScan == true then
+					--TODO:update amount of solar panels and nothing else
 					end
 				end
 				
@@ -97,67 +132,12 @@ for x = bottom, top do
 						end
 				end
 				
-				end
+			end
 
 
-				end
 			end
 		end
 	end
-
-	
---everything is scanned final actions go below
-if IsBank then
-	if LimitedScan == false then
-		if InitialScan == true then
-		
-			local pbKey = ModData.get("PBK")
-			local pbX = ModData.get("PBX")
-			local pbY = ModData.get("PBY")
-			local pbZ = ModData.get("PBZ")
-	  
-			local pbkLen = #pbKey
-			local newpbKLen = pbkLen + 1
-	  
-			table.insert (pbKey, newpbKLen, newpbKLen) 
-			table.insert (pbX, newpbKLen, square:getX()) 
-			table.insert (pbY, newpbKLen, square:getY()) 
-			table.insert (pbZ, newpbKLen, square:getZ()) 
-	  
-	  
-			ModData.add("PBK", pbKey)
-			ModData.add("PBX", pbX)
-			ModData.add("PBY", pbY)
-			ModData.add("PBZ", pbZ)
-	
-			print("Local Key: ", pbKey[newpbKLen])
-			print("Local X: ",pbX[newpbKLen])
-			print("Local Y: ",pbY[newpbKLen])
-			print("Local Z: ",pbZ[newpbKLen])
-	
-			testK = ModData.get("PBK")
-			testX = ModData.get("PBX")
-			testY = ModData.get("PBY")
-			testZ = ModData.get("PBZ")
-	
-			print("ModData Key: ", testK[newpbKLen])
-			print("ModData X: ",testX[newpbKLen])
-			print("ModData Y: ",testY[newpbKLen])
-			print("ModData Y: ",testZ[newpbKLen])
-			
-	
-			TurnOnPower(powerconsumption, numberofpanels, newpbKLen)
-		end
-		if InitialScan == false then
-		--grab the battery bank in square and set variables from periodic scan
-		end
-	end
-	if LimitedScan == true then
-		--update amount of solar panels and nothing else
-	end
-	
-
-
 end
 --print("numofpanels")
 --print(numberofpanels)
@@ -216,31 +196,31 @@ function ConsumptionScan(square)
 						end 
 						
 						--print("is this running3")
-						if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
+					if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
 						powerconsumption = powerconsumption + 0.09
-						end
+					end
 						--print("is this running4")
 						for containerIndex = 1,myObject:getContainerCount() do
 							--print("scanning containers")
 							local container = myObject:getContainerByIndex(containerIndex-1)
-								if container:getType() == "fridge" then
+							if container:getType() == "fridge" then
 								powerconsumption = powerconsumption + 0.05
 								--print("found fridge")
-								end
-								if container:getType() == "freezer" then
+							end
+							if container:getType() == "freezer" then
 								powerconsumption = powerconsumption + 0.08
 								--print("found freezer")
-								end
+							end
 								
 						end		
 						--print("is this running5")
 						if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
 						powerconsumption = powerconsumption + 0.002
 						--print("found light")
-						end
 					end
 				end
 			end
+		end
 	end
 	return powerconsumption					
 end
