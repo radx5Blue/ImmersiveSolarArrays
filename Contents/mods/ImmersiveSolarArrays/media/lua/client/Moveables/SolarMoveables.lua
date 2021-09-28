@@ -77,6 +77,7 @@ for x = bottom, top do
 						--power bank has just been added, do what is necessary
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 						numberofpanels = numberofpanels + PanelScan(mysquare)
+						TurnOnPower(powerconsumption, numberofpanels, square, true)
 					end
 					if InitialScan == false then
 					--TODO:this scan should be triggered periodically by everytenminutes
@@ -118,12 +119,6 @@ end
 --print(numberofpanels)
 --print("consumption")
 --print(powerconsumption)
-
-	if InitialScan == true then
-	TurnOnPower(powerconsumption, numberofpanels, square, true)
-	end
-
-
 end
 
 function PanelScan(mysquare)
