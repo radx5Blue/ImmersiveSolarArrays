@@ -234,6 +234,21 @@ function CheckGlobalData()
 		
 end
 
+function getModifiedSolarOutput(SolarInput)
+	local myWeather = getClimateManager()
+	local cloudiness = 1 - (myWeather:getCloudiness() * 0.25)
+	local fogginess = 1 - (myWeather:getFogStrength() * 0.25)
+	local currentHour = getGameTime():getHour()
+	local output = SolarInput * 83
+	output = output * cloudiness
+	output = output * fogginess
+		if currentHour < myWeather:getDawn() or currentHour > myWeather:getDusk() then
+			--it's night, no power
+			output = 0
+		end
+return output
+end
+
 --Events.OnNewGame.Add(SetUpGlobalData)
 Events.EveryTenMinutes.Add(PowerCheck)
 Events.OnGameStart.Add(CheckGlobalData)
