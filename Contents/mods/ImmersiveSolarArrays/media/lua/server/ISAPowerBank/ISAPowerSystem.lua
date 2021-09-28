@@ -44,9 +44,8 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 
         -- might need to 'remove' a generator first if one is here so it doesn't create a new one on top of one that exists
 		
-		player = getPlayer()
 
-        local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
         NewGenerator:setFuel(0)
         NewGenerator:setCondition(0)
@@ -54,7 +53,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
 
-        local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
         NewGenerator:setCondition(100)
@@ -90,9 +89,8 @@ function PowerCheck()
 
 		if square ~= nil then
 			
-		player = getPlayer()
 
-        local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
         NewGenerator:setFuel(0)
         NewGenerator:setCondition(0)
@@ -100,7 +98,7 @@ function PowerCheck()
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
 
-        local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
         NewGenerator:setCondition(100)
@@ -167,9 +165,8 @@ function DisconnectPower(square)
         if (sqX == noX and sqY == noY and sqZ == noZ) then
             squareTest = getWorld():getCell():getGridSquare(sqX, sqY, sqZ)
 
-            player = getPlayer()
 
-            local NewGenerator = IsoGenerator.new(nil, player:getCell(), squareTest)
+            local NewGenerator = IsoGenerator.new(nil, square:getCell(), squareTest)
             NewGenerator:setFuel(0)
             NewGenerator:setCondition(0)
             NewGenerator:setSurroundingElectricity()
