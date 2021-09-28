@@ -95,10 +95,33 @@ for x = bottom, top do
 				if backupgenerator ~= 0 then
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_15") then
 						if backupgenerator == 1 then
-						--TODO:turn on generator in this square
+						--turn on generator in this square
+							if mysquare:getObjects():size() ~= nil then
+								for objs = 1, mysquare:getObjects():size() do
+								local myObject = mysquare:getObjects():get(objs-1);
+									if (myObject ~= nil) then
+										if instanceof(myObject, "IsoGenerator") then
+											myObject:setActivated(true)  
+											powerconsumption = 0
+										end 
+									end
+								end
+							end
+						--
 						end
 						if backupgenerator == 2 then
-						--TODO:turn off generator in this square
+						--turn off generator in this square
+							if mysquare:getObjects():size() ~= nil then
+								for objs = 1, mysquare:getObjects():size() do
+								local myObject = mysquare:getObjects():get(objs-1);
+									if (myObject ~= nil) then
+										if instanceof(myObject, "IsoGenerator") then
+											myObject:setActivated(false)           
+										end 
+									end
+								end
+							end
+						--
 						end
 					end
 				
