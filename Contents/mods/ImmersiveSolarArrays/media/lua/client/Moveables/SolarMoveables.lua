@@ -40,6 +40,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
     if _spriteName == "solarmod_tileset_01_0" then
       _character:Say("oo, heavy")
 		--TODO: battery bank data for the removed bank should be deleted here
+		DisconnectPower(_square)
 
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
@@ -76,47 +77,11 @@ for x = bottom, top do
 						--power bank has just been added, do what is necessary
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 						numberofpanels = numberofpanels + PanelScan(mysquare)
-						------
-						local pbKey = ModData.get("PBK")
-						local pbX = ModData.get("PBX")
-						local pbY = ModData.get("PBY")
-						local pbZ = ModData.get("PBZ")
-	  
-						local pbkLen = #pbKey
-						local newpbKLen = pbkLen + 1
-	  
-						table.insert (pbKey, newpbKLen, newpbKLen) 
-						table.insert (pbX, newpbKLen, square:getX()) 
-						table.insert (pbY, newpbKLen, square:getY()) 
-						table.insert (pbZ, newpbKLen, square:getZ()) 
-	  
-	  
-						ModData.add("PBK", pbKey)
-						ModData.add("PBX", pbX)
-						ModData.add("PBY", pbY)
-						ModData.add("PBZ", pbZ)
-	
-						print("Local Key: ", pbKey[newpbKLen])
-						print("Local X: ",pbX[newpbKLen])
-						print("Local Y: ",pbY[newpbKLen])
-						print("Local Z: ",pbZ[newpbKLen])
-	
-						testK = ModData.get("PBK")
-						testX = ModData.get("PBX")
-						testY = ModData.get("PBY")
-						testZ = ModData.get("PBZ")
-	
-						print("ModData Key: ", testK[newpbKLen])
-						print("ModData X: ",testX[newpbKLen])
-						print("ModData Y: ",testY[newpbKLen])
-						print("ModData Y: ",testZ[newpbKLen])
-			
-						TurnOnPower(powerconsumption, numberofpanels, newpbKLen)
-						--print("NOP1: ", numberofpanels)				
 					end
 					if InitialScan == false then
 					--TODO:this scan should be triggered periodically by everytenminutes
 					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
+					
 
 					end
 					if LimitedScan == true then
@@ -147,12 +112,18 @@ for x = bottom, top do
 
 			end
 		end
-	end
+	end	
 end
 --print("numofpanels")
 --print(numberofpanels)
 --print("consumption")
 --print(powerconsumption)
+
+	if InitialScan == true then
+	TurnOnPower(powerconsumption, numberofpanels, square, true)
+	end
+
+
 end
 
 function PanelScan(mysquare)
@@ -160,17 +131,17 @@ local numberofpanels = 0
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
-						print("panel found")
+						--print("panel found")
 					end
 return numberofpanels
 end
