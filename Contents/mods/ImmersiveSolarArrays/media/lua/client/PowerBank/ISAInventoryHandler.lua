@@ -29,19 +29,19 @@ for i=1,container:getItems():size() do
 local item = container:getItems():get(i-1)
 local type = item:getType()
 			if type == "50AhBattery" then
-			item:setCondition(item:getCondition() - ZombRand(9)+1)
+			item:setCondition(item:getCondition() - ZombRand(1, 10))
 			--breaks in 20 days
 			end
 			if type == "75AhBattery" then
-			item:setCondition(item:getCondition() - ZombRand(8)+1)
+			item:setCondition(item:getCondition() - ZombRand(1, 8))
 			--breaks in 25 days
 			end
 			if type == "100AhBattery" then
-			item:setCondition(item:getCondition() - ZombRand(6)+1)
+			item:setCondition(item:getCondition() - ZombRand(2, 6))
 			--breaks in 33 days 
 			end
 			if type == "DeepCycleBattery" then
-			item:setCondition(item:getCondition() - (ZombRand(59)+1) / 1000 )
+			item:setCondition(item:getCondition() - ZombRand(1, 60) / 1000 )
 			--breaks in 9+ years
 			end
 end
