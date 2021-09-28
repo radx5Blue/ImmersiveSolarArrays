@@ -85,12 +85,11 @@ for x = bottom, top do
 				if IsBank == false then
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-							--power bank detected, make it re-scan its panels here
 							solarscan(mysquare, true, true, false, 0)
 						end
 				end
 				if LimitedScan == true then
-					--TODO:update amount of solar panels and nothing else
+						numberofpanels = numberofpanels + PanelScan(mysquare)
 					
 				end
 				if backupgenerator ~= 0 then
@@ -121,6 +120,10 @@ end
 					--TODO:period everytenminutes stuff
 
 					end
+				end
+				if LimitedScan == true then
+					--TODO: transmit number of panels to powerbank data
+					
 				end
 end
 
