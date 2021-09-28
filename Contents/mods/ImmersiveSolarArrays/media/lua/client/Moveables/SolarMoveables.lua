@@ -74,19 +74,11 @@ for x = bottom, top do
 				if IsBank == true then
 					--scan coming from power bank
 					if InitialScan == true then
-						--power bank has just been added, do what is necessary
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 						numberofpanels = numberofpanels + PanelScan(mysquare)
-						TurnOnPower(powerconsumption, numberofpanels, square, true)
 					end
 					if InitialScan == false then
-					--TODO:this scan should be triggered periodically by everytenminutes
-					powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-					
-
-					end
-					if LimitedScan == true then
-					--TODO:update amount of solar panels and nothing else
+						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					end
 				end
 				
@@ -96,6 +88,10 @@ for x = bottom, top do
 							--power bank detected, make it re-scan its panels here
 							solarscan(mysquare, true, true, false, 0)
 						end
+				end
+				if LimitedScan == true then
+					--TODO:update amount of solar panels and nothing else
+					
 				end
 				if backupgenerator ~= 0 then
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_15") then
@@ -115,10 +111,17 @@ for x = bottom, top do
 		end
 	end	
 end
---print("numofpanels")
---print(numberofpanels)
---print("consumption")
---print(powerconsumption)
+--------ALL power bank ACTION GO BELOW
+				if IsBank == true then
+					--scan coming from power bank
+					if InitialScan == true then
+						TurnOnPower(powerconsumption, numberofpanels, square, true)
+					end
+					if InitialScan == false then
+					--TODO:period everytenminutes stuff
+
+					end
+				end
 end
 
 function PanelScan(mysquare)
