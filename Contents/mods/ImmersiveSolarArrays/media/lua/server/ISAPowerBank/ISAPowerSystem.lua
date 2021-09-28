@@ -200,19 +200,40 @@ function DisconnectPower(square)
     -- end
 end
 
-function SetUpGlobalData()
+
+-- function SetUpGlobalData()
+    -- local powerBankKey = {}
+    -- local powerBankX = {}
+    -- local powerBankY = {}
+    -- local powerBankZ = {}
+	-- local NumberOfPanels = {}
+
+    -- ModData.add("PBK", powerBankKey)
+    -- ModData.add("PBX", powerBankX)
+    -- ModData.add("PBY", powerBankY)
+    -- ModData.add("PBZ", powerBankZ)
+	-- ModData.add("PBNP", NumberOfPanels)
+-- end
+
+function CheckGlobalData()
     local powerBankKey = {}
     local powerBankX = {}
     local powerBankY = {}
     local powerBankZ = {}
 	local NumberOfPanels = {}
-
-    ModData.add("PBK", powerBankKey)
-    ModData.add("PBX", powerBankX)
-    ModData.add("PBY", powerBankY)
-    ModData.add("PBZ", powerBankZ)
-	ModData.add("PBNP", NumberOfPanels)
+	
+	if ModData.exists("PBK") == false then
+		
+		ModData.add("PBK", powerBankKey)
+		ModData.add("PBX", powerBankX)
+		ModData.add("PBY", powerBankY)
+		ModData.add("PBZ", powerBankZ)
+		ModData.add("PBNP", NumberOfPanels)
+		
+	end
+		
 end
 
-Events.OnNewGame.Add(SetUpGlobalData)
+--Events.OnNewGame.Add(SetUpGlobalData)
 Events.EveryTenMinutes.Add(PowerCheck)
+Events.OnGameStart.Add(CheckGlobalData)
