@@ -192,6 +192,10 @@ local function ReloadPower()
     end
 end
 
+
+globalPCounter = 0
+loc = true
+
 function PowerCheck()
     local testK = ModData.get("PBK")
     local testX = ModData.get("PBX")
@@ -199,8 +203,14 @@ function PowerCheck()
     local testZ = ModData.get("PBZ")
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
+	
+	globalPCounter = globalPCounter + 1
+	
+	
+	print(globalPCounter)
 
     for key = 1, #testK do
+		
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
         noY = tonumber(testY[key])
@@ -210,7 +220,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil) then
+        if (square ~= nil and globalPCounter > 500 and loc == false ) then
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
@@ -225,9 +235,29 @@ function PowerCheck()
             NewGenerator:setCondition(100)
             NewGenerator:setActivated(true)
             NewGenerator:remove()
+			
+			globalPCounter = 0
+			
+			loc = true
+			
+			print("Created")
+			
+			
+			
         end
+		
+		if (globalPCounter > 400 and loc == true ) then
+		
+	
+			loc = false
+			globalPCounter = 0
+			print("Not Created")
+			
+		end
+		
+		
+	end
     end
-end
 
 --Events.OnNewGame.Add(SetUpGlobalData)
 --Events.EveryTenMinutes.Add(PowerCheck)
