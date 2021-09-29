@@ -281,6 +281,6 @@ end
 
 --Events.OnNewGame.Add(SetUpGlobalData)
 Events.EveryTenMinutes.Add(PowerCheck)
---Events.OnTick.Add(PowerCheck)
+Events.LoadGridsquare.Add(PowerCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
