@@ -344,10 +344,14 @@ end
 --Events.OnNewGame.Add(SetUpGlobalData)
 <<<<<<< HEAD
 Events.EveryTenMinutes.Add(PowerCheck)
+<<<<<<< HEAD
 Events.LoadGridsquare.Add(PowerCheck)
 =======
 --Events.EveryTenMinutes.Add(PowerCheck)
 Events.OnTick.Add(PowerCheck)
 >>>>>>> parent of 7403847 (Update ISAPowerSystem.lua)
+=======
+--Events.OnTick.Add(PowerCheck)
+>>>>>>> parent of 8d9d526 (Update ISAPowerSystem.lua)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
