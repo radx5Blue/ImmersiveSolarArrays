@@ -181,15 +181,6 @@ local function ReloadPower()
 			
 		local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
-		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-        NewGenerator:setConnected(false)
-        NewGenerator:setFuel(0)
-        NewGenerator:setCondition(0)
-        NewGenerator:setActivated(false)
-        NewGenerator:setSurroundingElectricity()
-        NewGenerator:remove()
-		
-		
         local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
@@ -197,7 +188,7 @@ local function ReloadPower()
         NewGenerator:setActivated(true)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
-		testL[key] = "0"
+		table.insert(testL, key, "0")
 		
         print("Solar Array Re-created")
 		--print("Solar Array Re-created and: ", testL[key])
@@ -213,6 +204,7 @@ local function ReloadPower()
 end
 
 function PowerCheck()
+<<<<<<< HEAD
     testK = ModData.get("PBK")
     testX = ModData.get("PBX")
     testY = ModData.get("PBY")
@@ -227,6 +219,24 @@ function PowerCheck()
         print("Check ModData Y: ", testY[key])
         print("Check ModData Z: ", testZ[key])
 
+=======
+	
+    local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+	local testNP = ModData.get("PBNP")
+	local testL = ModData.get("PBLD")
+	
+    local pbkLen = #testK
+	
+	local player = getPlayer()
+
+    for key = 1, #testK do
+
+		--local testL = ModData.get("PBLD")
+		
+>>>>>>> parent of 7403847 (Update ISAPowerSystem.lua)
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
         noY = tonumber(testY[key])
@@ -235,6 +245,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
+<<<<<<< HEAD
 		if square ~= nil then
 			
 
@@ -257,6 +268,52 @@ function PowerCheck()
 			
 			
 		end
+=======
+		if (testL[key] == "1") then
+
+		--print("Sqaure: ", square)
+
+        -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        -- NewGenerator:setConnected(false)
+        -- NewGenerator:setFuel(0)
+        -- NewGenerator:setCondition(0)
+        -- NewGenerator:setActivated(false)
+        -- NewGenerator:setSurroundingElectricity()
+        -- NewGenerator:remove()
+
+		
+		--local pbLD = ModData.get("PBLD")
+		--table.insert(pbLD, key, "0")
+		--local pbLD = ModData.get("PBLD")
+		--print("Insert Key: ", pbLD[key])
+
+		
+		-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        -- NewGenerator:setConnected(true)
+        -- NewGenerator:setFuel(100)
+        -- NewGenerator:setCondition(100)
+        -- NewGenerator:setActivated(true)
+        -- NewGenerator:setSurroundingElectricity()
+		-- NewGenerator:remove()
+        ReloadPower()
+		table.insert(testL, key, "0")
+        --print("Solar Array Re-created")
+			
+			
+		end
+		
+		--local pbLD = ModData.get("PBLD")
+		if square == nil then
+			--print("Sqaure: ", square)
+			--local pbLD = ModData.get("PBLD")
+			table.insert(testL, key, "1")
+			--testL[key] = "0"
+	
+		end
+	
+		
+    end
+>>>>>>> parent of 7403847 (Update ISAPowerSystem.lua)
 	
 		
     end
@@ -267,6 +324,7 @@ function PowerCheck()
 
     -- -- if numberOfPanels > powerConsumption then
 
+<<<<<<< HEAD
     -- -- local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
     -- -- NewGenerator:setConnected(true)
     -- -- NewGenerator:setFuel(100)
@@ -275,12 +333,21 @@ function PowerCheck()
     -- -- NewGenerator:setSurroundingElectricity()
     -- -- NewGenerator:remove()
     -- -- end
+=======
+
+
+>>>>>>> parent of 7403847 (Update ISAPowerSystem.lua)
 end
 
 
 
 --Events.OnNewGame.Add(SetUpGlobalData)
+<<<<<<< HEAD
 Events.EveryTenMinutes.Add(PowerCheck)
 Events.LoadGridsquare.Add(PowerCheck)
+=======
+--Events.EveryTenMinutes.Add(PowerCheck)
+Events.OnTick.Add(PowerCheck)
+>>>>>>> parent of 7403847 (Update ISAPowerSystem.lua)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
