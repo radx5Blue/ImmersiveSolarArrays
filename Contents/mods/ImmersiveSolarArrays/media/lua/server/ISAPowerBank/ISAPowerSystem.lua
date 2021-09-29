@@ -188,11 +188,10 @@ local function ReloadPower()
         NewGenerator:setActivated(true)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
-		testL[key] = "0"
-		--table.insert(testL, key, "true")
+		table.insert(testL, key, "0")
 		
         print("Solar Array Re-created")
-		print("Solar Array Re-created and: ", testL[key])
+		--print("Solar Array Re-created and: ", testL[key])
 		
 			
 		end
@@ -212,18 +211,14 @@ function PowerCheck()
     local testZ = ModData.get("PBZ")
 	local testNP = ModData.get("PBNP")
 	local testL = ModData.get("PBLD")
-
+	
     local pbkLen = #testK
 	
 	local player = getPlayer()
 
     for key = 1, #testK do
-       -- print("Check ModData Key: ", testK[key])
-       -- print("Check ModData X: ", testX[key])
-       -- print("Check ModData Y: ", testY[key])
-       -- print("Check ModData Z: ", testZ[key])
 
-		local testL = ModData.get("PBLD")
+		--local testL = ModData.get("PBLD")
 		
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -233,53 +228,56 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
+		if (testL[key] == "1") then
 
-		print("TestL Key: ", testL[key])
+		--print("Sqaure: ", square)
 
-		if (square ~= nil and getWorld():getCell() == player:getCell() and testL[key] == "1") then
-
-		print("Sqaure: ", square)
-
-        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-        NewGenerator:setConnected(false)
-        NewGenerator:setFuel(0)
-        NewGenerator:setCondition(0)
-        NewGenerator:setActivated(false)
-        NewGenerator:setSurroundingElectricity()
-        NewGenerator:remove()
-
-        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-        NewGenerator:setConnected(true)
-        NewGenerator:setFuel(100)
-        NewGenerator:setCondition(100)
-        NewGenerator:setActivated(true)
-        NewGenerator:setSurroundingElectricity()
-        NewGenerator:remove()
-		
-		local pbLD = ModData.get("PBLD")
-		table.insert(pbLD, key, "0")
-		local pbLD = ModData.get("PBLD")
-		print("Insert Key: ", pbLD[key])
+        -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        -- NewGenerator:setConnected(false)
+        -- NewGenerator:setFuel(0)
+        -- NewGenerator:setCondition(0)
+        -- NewGenerator:setActivated(false)
+        -- NewGenerator:setSurroundingElectricity()
+        -- NewGenerator:remove()
 
 		
-        print("Solar Array Re-created")
+		--local pbLD = ModData.get("PBLD")
+		--table.insert(pbLD, key, "0")
+		--local pbLD = ModData.get("PBLD")
+		--print("Insert Key: ", pbLD[key])
+
+		
+		-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        -- NewGenerator:setConnected(true)
+        -- NewGenerator:setFuel(100)
+        -- NewGenerator:setCondition(100)
+        -- NewGenerator:setActivated(true)
+        -- NewGenerator:setSurroundingElectricity()
+		-- NewGenerator:remove()
+        ReloadPower()
+		table.insert(testL, key, "0")
+        --print("Solar Array Re-created")
 			
 			
 		end
 		
-		local pbLD = ModData.get("PBLD")
+		--local pbLD = ModData.get("PBLD")
 		if square == nil then
-			print("Sqaure: ", square)
-			local pbLD = ModData.get("PBLD")
-			table.insert(pbLD, key, "1")
-			
+			--print("Sqaure: ", square)
+			--local pbLD = ModData.get("PBLD")
+			table.insert(testL, key, "1")
+			--testL[key] = "0"
 	
 		end
 	
 		
     end
+	
+
+
 
 end
+
 
 
 --Events.OnNewGame.Add(SetUpGlobalData)
