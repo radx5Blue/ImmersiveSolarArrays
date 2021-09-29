@@ -213,61 +213,68 @@ local function ReloadPower()
 end
 
 function PowerCheck()
-	
-    local testK = ModData.get("PBK")
-    local testX = ModData.get("PBX")
-    local testY = ModData.get("PBY")
-    local testZ = ModData.get("PBZ")
-	local testNP = ModData.get("PBNP")
-	local testL = ModData.get("PBLD")
-	
-	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-	
-	for key = 1, #testK do
-		
-		
-		--local player = getPlayer()
-		
-		if (testL[key] == "1" and square ~= nil) then
-			testL[key] = "0"
-			print("Test KEY in IF: ", testL[key])
+    testK = ModData.get("PBK")
+    testX = ModData.get("PBX")
+    testY = ModData.get("PBY")
+    testZ = ModData.get("PBZ")
+	testNP = ModData.get("PBNP")
+
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+        print("Check ModData Key: ", testK[key])
+        print("Check ModData X: ", testX[key])
+        print("Check ModData Y: ", testY[key])
+        print("Check ModData Z: ", testZ[key])
+
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+		noPZ = tonumber(testNP[key])
+
+        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
+		if square ~= nil then
 			
-			
-		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
         NewGenerator:setFuel(0)
         NewGenerator:setCondition(0)
         NewGenerator:setActivated(false)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
-		
-		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
         NewGenerator:setCondition(100)
-       NewGenerator:setActivated(true)
-       NewGenerator:setSurroundingElectricity()
-		print("gen b4 remove: ", NewGenerator)
-		NewGenerator:remove()
-	   --ReloadPower()
-		print("gen after remove: ", NewGenerator)
-		testL[key] = "0"
-		
+        NewGenerator:setActivated(true)
+        NewGenerator:setSurroundingElectricity()
+        NewGenerator:remove()
+        print("Solar Array Re-created")
 			
-		elseif (testL[key] == "0" and square == nil) then
-			testL[key] = "1"
-			local pbl = ModData.get("PBLD")
-			print("Test KEY in ELSE: ", pbl[key])
 			
 		end
-		
-		
-		
-		
-			
-	end
 	
+		
+    end
 
+    -- --getPlayer():Say("DONE!!")
+
+    -- -- local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
+    -- -- if numberOfPanels > powerConsumption then
+
+    -- -- local NewGenerator = IsoGenerator.new(nil, player:getCell(), square)
+    -- -- NewGenerator:setConnected(true)
+    -- -- NewGenerator:setFuel(100)
+    -- -- NewGenerator:setCondition(100)
+    -- -- NewGenerator:setActivated(true)
+    -- -- NewGenerator:setSurroundingElectricity()
+    -- -- NewGenerator:remove()
+    -- -- end
 end
 
 
