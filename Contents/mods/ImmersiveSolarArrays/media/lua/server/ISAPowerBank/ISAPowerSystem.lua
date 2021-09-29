@@ -221,12 +221,21 @@ function PowerCheck()
 	local testNP = ModData.get("PBNP")
 	local testL = ModData.get("PBLD")
 	
-	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+	
 	
 	for key = 1, #testK do
 		
+			 noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+		noPZ = tonumber(testNP[key])
+		noLD = tonumber(testL[key])
+		
 		
 		--local player = getPlayer()
+		
+			local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
 		if (testL[key] == "1" and square ~= nil) then
 			testL[key] = "0"
