@@ -234,9 +234,11 @@ function PowerCheck()
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
 
-			print("TestL Key: ", testL[key])
+		print("TestL Key: ", testL[key])
 
 		if (square ~= nil and getWorld():getCell() == player:getCell() and testL[key] == "1") then
+
+		print("Sqaure: ", square)
 
         local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
@@ -267,6 +269,7 @@ function PowerCheck()
 		
 		local pbLD = ModData.get("PBLD")
 		if square == nil then
+			print("Sqaure: ", square)
 			local pbLD = ModData.get("PBLD")
 			table.insert(pbLD, key, "1")
 			
