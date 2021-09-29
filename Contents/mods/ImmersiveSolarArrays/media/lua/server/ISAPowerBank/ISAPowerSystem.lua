@@ -181,6 +181,15 @@ local function ReloadPower()
 			
 		local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
+		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        NewGenerator:setConnected(false)
+        NewGenerator:setFuel(0)
+        NewGenerator:setCondition(0)
+        NewGenerator:setActivated(false)
+        NewGenerator:setSurroundingElectricity()
+        NewGenerator:remove()
+		
+		
         local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(true)
         NewGenerator:setFuel(100)
@@ -188,7 +197,7 @@ local function ReloadPower()
         NewGenerator:setActivated(true)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
-		table.insert(testL, key, "0")
+		testL[key] = "0"
 		
         print("Solar Array Re-created")
 		--print("Solar Array Re-created and: ", testL[key])
@@ -212,76 +221,59 @@ function PowerCheck()
 	local testNP = ModData.get("PBNP")
 	local testL = ModData.get("PBLD")
 	
-    local pbkLen = #testK
+	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 	
-	local player = getPlayer()
-
-    for key = 1, #testK do
-
-		--local testL = ModData.get("PBLD")
+	for key = 1, #testK do
 		
-        noKey = tonumber(testK[key])
-        noX = tonumber(testX[key])
-        noY = tonumber(testY[key])
-        noZ = tonumber(testZ[key])
-		noPZ = tonumber(testNP[key])
-
-        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-
-		if (testL[key] == "1") then
-
-		--print("Sqaure: ", square)
-
-        -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-        -- NewGenerator:setConnected(false)
-        -- NewGenerator:setFuel(0)
-        -- NewGenerator:setCondition(0)
-        -- NewGenerator:setActivated(false)
-        -- NewGenerator:setSurroundingElectricity()
-        -- NewGenerator:remove()
-
 		
-		--local pbLD = ModData.get("PBLD")
-		--table.insert(pbLD, key, "0")
-		--local pbLD = ModData.get("PBLD")
-		--print("Insert Key: ", pbLD[key])
-
+		--local player = getPlayer()
 		
-		-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-        -- NewGenerator:setConnected(true)
-        -- NewGenerator:setFuel(100)
-        -- NewGenerator:setCondition(100)
-        -- NewGenerator:setActivated(true)
-        -- NewGenerator:setSurroundingElectricity()
-		-- NewGenerator:remove()
-        ReloadPower()
-		table.insert(testL, key, "0")
-        --print("Solar Array Re-created")
+		if (testL[key] == "1" and square ~= nil) then
+			testL[key] = "0"
+			print("Test KEY in IF: ", testL[key])
 			
+			
+		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        NewGenerator:setConnected(false)
+        NewGenerator:setFuel(0)
+        NewGenerator:setCondition(0)
+        NewGenerator:setActivated(false)
+        NewGenerator:setSurroundingElectricity()
+        NewGenerator:remove()
+		
+		local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        NewGenerator:setConnected(true)
+        NewGenerator:setFuel(100)
+        NewGenerator:setCondition(100)
+       NewGenerator:setActivated(true)
+       NewGenerator:setSurroundingElectricity()
+		print("gen b4 remove: ", NewGenerator)
+		NewGenerator:remove()
+	   --ReloadPower()
+		print("gen after remove: ", NewGenerator)
+		testL[key] = "0"
+		
+			
+		elseif (testL[key] == "0" and square == nil) then
+			testL[key] = "1"
+			local pbl = ModData.get("PBLD")
+			print("Test KEY in ELSE: ", pbl[key])
 			
 		end
 		
-		--local pbLD = ModData.get("PBLD")
-		if square == nil then
-			--print("Sqaure: ", square)
-			--local pbLD = ModData.get("PBLD")
-			table.insert(testL, key, "1")
-			--testL[key] = "0"
-	
-		end
-	
 		
-    end
+		
+		
+			
+	end
 	
-
-
 
 end
 
 
 
 --Events.OnNewGame.Add(SetUpGlobalData)
---Events.EveryTenMinutes.Add(PowerCheck)
-Events.OnTick.Add(PowerCheck)
+Events.EveryTenMinutes.Add(PowerCheck)
+--Events.OnTick.Add(PowerCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
