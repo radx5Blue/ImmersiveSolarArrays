@@ -273,8 +273,35 @@ function PowerCheck()
 	
 function chargeLogic()
 	
-	
-	
+	local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+	local testC = ModData.get("PBCH")
+
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+        print("Check ModData Key: ", testK[key])
+        print("Check ModData X: ", testX[key])
+        print("Check ModData Y: ", testY[key])
+        print("Check ModData Z: ", testZ[key])
+        print("Check ModData NP: ", testNP[key])
+        print("Check ModData LOADED: ", testL[key])
+		print("Check ModData Charge: ", testC[key])
+
+		noCH = tonumber(testC[key])
+		
+		-- updatedCH = function?? then pass it to table insert VV *****************
+		
+		
+		--table.insert(testC, key, updatedCH)    UNCOMMENT when ready
+		
+
+        end
+    end
 	
 	
 	
