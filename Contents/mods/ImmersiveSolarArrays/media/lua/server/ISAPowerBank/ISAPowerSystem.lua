@@ -24,6 +24,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
             local pbZ = ModData.get("PBZ")
             local pbNP = ModData.get("PBNP")
             local pbLD = ModData.get("PBLD")
+			local pbCH = ModData.get("PBCH")
 
             local pbkLen = #pbKey
             local newpbKLen = pbkLen + 1
@@ -34,6 +35,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
             table.insert(pbZ, newpbKLen, square:getZ())
             table.insert(pbNP, newpbKLen, numberOfPanels)
             table.insert(pbLD, newpbKLen, "1")
+			table.insert(pbCH, newpbKLen, "1") -- get charge here!! *******************************************************************************************
 
             sqX = square:getX()
             sqY = square:getY()
@@ -74,6 +76,7 @@ function DisconnectPower(square)
     testZ = ModData.get("PBZ")
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
+	testC = ModData.get("PBCH")
 
     local pbkLen = #testK
 
@@ -104,6 +107,7 @@ function DisconnectPower(square)
             table.remove(testZ, key, sqZ)
             table.remove(testNP, key, testNP)
             table.remove(testL, key, testL)
+			table.remove(testC, key, testC)
         end
     end
 end
@@ -115,6 +119,7 @@ function CheckGlobalData()
     local powerBankZ = {}
     local NumberOfPanels = {}
     local PowerBankLoaded = {}
+	local PowerBankCharge = {}
 
     if ModData.exists("PBK") == false then
         ModData.add("PBK", powerBankKey)
@@ -123,6 +128,7 @@ function CheckGlobalData()
         ModData.add("PBZ", powerBankZ)
         ModData.add("PBNP", NumberOfPanels)
         ModData.add("PBLD", PowerBankLoaded)
+		ModData.add("PBCH", PowerBankCharge)
     end
 end
 
@@ -148,6 +154,7 @@ local function ReloadPower()
     local testZ = ModData.get("PBZ")
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
+	local testC = ModData.get("PBCH")
 
     local pbkLen = #testK
 
@@ -158,6 +165,7 @@ local function ReloadPower()
         print("Check ModData Z: ", testZ[key])
         print("Check ModData NP: ", testNP[key])
         print("Check ModData LOADED: ", testL[key])
+		print("Check ModData Charge: ", testC[key])
 
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -165,6 +173,7 @@ local function ReloadPower()
         noZ = tonumber(testZ[key])
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
+		noCH = tonumber(testC[key])
 
         if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
@@ -203,6 +212,7 @@ function PowerCheck()
     local testZ = ModData.get("PBZ")
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
+	local testC = ModData.get("PBCH")
 	
 	globalPCounter = globalPCounter + 1
 	
@@ -217,6 +227,7 @@ function PowerCheck()
         noZ = tonumber(testZ[key])
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
+		noCH = tonumber(testC[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
@@ -258,10 +269,18 @@ function PowerCheck()
 		
 	end
     end
+	
+	
+function chargeLogic()
+	
+	
+	
+	
+	
+	
+end
 
---Events.OnNewGame.Add(SetUpGlobalData)
---Events.EveryTenMinutes.Add(PowerCheck)
---Events.OnPostMapLoad.Add(PowerCheck)
+Events.EveryTenMinutes.Add(chargeLogic)
 Events.OnTick.Add(PowerCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
