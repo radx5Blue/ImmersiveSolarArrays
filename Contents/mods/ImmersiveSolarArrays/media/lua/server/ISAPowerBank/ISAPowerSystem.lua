@@ -294,7 +294,9 @@ function chargeLogic()
 
 		noCH = tonumber(testC[key])
 		
-		-- updatedCH = function?? then pass it to table insert VV *****************
+		local updatedCH = 0 
+		
+		-- updatedCH = function?? return then pass it to table insert VV *****************
 		
 		
 		--table.insert(testC, key, updatedCH)    UNCOMMENT when ready
