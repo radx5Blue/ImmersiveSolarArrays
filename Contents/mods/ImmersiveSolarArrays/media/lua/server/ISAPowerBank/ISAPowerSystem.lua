@@ -291,10 +291,27 @@ function chargeLogic()
 
         if (square ~= nil) then
             local updatedCH = 0
+			local inventory = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0"):getContainer()
+			local capacity = HandleBatteries(inventory, noCH)
+			local drain = solarscan(square, false, true, false, 0)
+			local input = getModifiedSolarOutput(noPZ)
+			local actualCharge = capacity * noCH
+			local difference = input - drain
 
-        -- updatedCH = function?? return then pass it to table insert VV *****************
+			
 
-        --table.insert(testC, key, updatedCH)    UNCOMMENT when ready
+			updatedCH = (actualCharge + difference / 6) / capacity -- uh, divide by 6 I guess because we're doing this every 10 mins and not hourly
+
+			
+			--shutdown logic goes below
+			if actualCharge <= 0 and difference < 0 then
+			--no power, shut it down!
+			--TODO: we need a moddata variable for if the battery bank has been shut down.
+			end
+			
+        
+
+        table.insert(testC, key, updatedCH)  
         end
     end
 end

@@ -140,7 +140,8 @@ end
 						TurnOnPower(powerconsumption, numberofpanels, square, true)
 					end
 					if InitialScan == false then
-					--TODO:period everytenminutes stuff
+			
+					return powerconsumption
 
 					end
 				end
@@ -227,7 +228,7 @@ function ConsumptionScan(square)
 			end
 		end
 	end
-	return powerconsumption					
+	return powerconsumption	* 1000				
 end
 
 
