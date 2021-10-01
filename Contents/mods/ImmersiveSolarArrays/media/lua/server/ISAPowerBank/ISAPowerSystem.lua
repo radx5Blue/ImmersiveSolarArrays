@@ -291,8 +291,19 @@ function chargeLogic()
         print("Check ModData NP: ", testNP[key])
         print("Check ModData LOADED: ", testL[key])
 		print("Check ModData Charge: ", testC[key])
-
+		
+		noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
 		noCH = tonumber(testC[key])
+
+        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
+		if (square ~= nil) then
+		
 		
 		local updatedCH = 0 
 		
@@ -301,7 +312,7 @@ function chargeLogic()
 		
 		--table.insert(testC, key, updatedCH)    UNCOMMENT when ready
 		
-
+end
         end
     end
 	
