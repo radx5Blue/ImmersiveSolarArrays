@@ -301,7 +301,14 @@ function chargeLogic()
 			
 
 			updatedCH = (actualCharge + difference / 6) / capacity -- uh, divide by 6 I guess because we're doing this every 10 mins and not hourly
-
+			
+			--make sure charge is within bounds
+			if updatedCH > 1 then
+			 updatedCH = 1
+			end
+			if updatedCH < 0 then
+			 updatedCH = 0
+			end
 			
 			--shutdown logic goes below
 			if actualCharge <= 0 and difference < 0 then
