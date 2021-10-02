@@ -180,8 +180,9 @@ local function ReloadPower()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
+		 noPB = tonumber(testB[key])
 
-        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
+        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
