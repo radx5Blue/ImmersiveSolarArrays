@@ -25,6 +25,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
             local pbNP = ModData.get("PBNP")
             local pbLD = ModData.get("PBLD")
             local pbCH = ModData.get("PBCH")
+			local pbBO = ModData.get("PBBO")
 
             local pbkLen = #pbKey
             local newpbKLen = pbkLen + 1
@@ -36,6 +37,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
             table.insert(pbNP, newpbKLen, numberOfPanels)
             table.insert(pbLD, newpbKLen, "1")
             table.insert(pbCH, newpbKLen, "1") -- get charge here!! *******************************************************************************************
+			table.insert(pbBO, newpbKLen, "1") 
 
             sqX = square:getX()
             sqY = square:getY()
@@ -77,7 +79,7 @@ function DisconnectPower(square)
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
-
+	 testB = ModData.get("PBBO")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -108,6 +110,7 @@ function DisconnectPower(square)
             table.remove(testNP, key, testNP)
             table.remove(testL, key, testL)
             table.remove(testC, key, testC)
+			table.remove(testB, key, testB)
         end
     end
 end
@@ -120,6 +123,7 @@ function CheckGlobalData()
     local NumberOfPanels = {}
     local PowerBankLoaded = {}
     local PowerBankCharge = {}
+	local PowerBankOn = {}
 
     if ModData.exists("PBK") == false then
         ModData.add("PBK", powerBankKey)
@@ -129,6 +133,7 @@ function CheckGlobalData()
         ModData.add("PBNP", NumberOfPanels)
         ModData.add("PBLD", PowerBankLoaded)
         ModData.add("PBCH", PowerBankCharge)
+		ModData.add("PBBO", PowerBankCharge)
     end
 end
 
@@ -155,6 +160,7 @@ local function ReloadPower()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
+	local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
 
@@ -212,6 +218,7 @@ function PowerCheck()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
+	local testB = ModData.get("PBBO")
 
     globalPCounter = globalPCounter + 1
 
@@ -225,10 +232,11 @@ function PowerCheck()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
+		noPB = tonumber(testB[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 500 and loc == false) then
+        if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1 ) then
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
@@ -267,6 +275,7 @@ function chargeLogic()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
+	local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
 
@@ -278,6 +287,7 @@ function chargeLogic()
         print("Check ModData NP: ", testNP[key])
         print("Check ModData LOADED: ", testL[key])
         print("Check ModData Charge: ", testC[key])
+		print("Check ModData On: ", testB[key])
 
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -314,6 +324,7 @@ function chargeLogic()
 			if actualCharge <= 0 and difference < 0 then
 			--no power, shut it down!
 			--TODO: we need a moddata variable for if the battery bank has been shut down.
+			testB[key] = 0
 			end
 			
         
