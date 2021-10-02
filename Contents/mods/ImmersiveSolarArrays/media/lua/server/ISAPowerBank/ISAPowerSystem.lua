@@ -324,10 +324,19 @@ function chargeLogic()
 			if actualCharge <= 0 and difference < 0 then
 			--no power, shut it down!
 			--TODO: we need a moddata variable for if the battery bank has been shut down.
+			--DisconnectPower(square)
+			
+			local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(false)
+            NewGenerator:setFuel(0)
+            NewGenerator:setCondition(0)
+            NewGenerator:setActivated(false)
+            NewGenerator:setSurroundingElectricity()
+            NewGenerator:remove()
+			
 			testB[key] = 0
 			end
 			
-        
 
         table.insert(testC, key, updatedCH)  
         end
