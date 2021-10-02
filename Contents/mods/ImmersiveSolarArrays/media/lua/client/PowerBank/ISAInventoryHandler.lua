@@ -1,4 +1,4 @@
-function HandleBatteries(container, powerpercentage)
+function HandleBatteries(container, powerpercentage, getnumber)
 --percentage from 0 to 1 to set battery charge
 local capacity = 0
 for i=1,container:getItems():size() do 
@@ -21,7 +21,11 @@ local type = item:getType()
 			item:setUsedDelta(powerpercentage)
 			end
 end
+if getnumber == false then
 return capacity
+else
+return container:getItems():size()
+end
 end
 
 function DegradeBatteries(container)

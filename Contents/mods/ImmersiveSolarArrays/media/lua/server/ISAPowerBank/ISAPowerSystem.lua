@@ -296,13 +296,15 @@ function chargeLogic()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
+		noOff = tonumber(testB[key]) 
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
         if (square ~= nil) then
             local updatedCH = 0
 			local inventory = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0"):getContainer()
-			local capacity = HandleBatteries(inventory, noCH)
+			local capacity = HandleBatteries(inventory, noCH, false)
+			local batterynumber = HandleBatteries(inventory, noCH, true)
 			local drain = solarscan(square, false, true, false, 0)
 			local input = getModifiedSolarOutput(noPZ)
 			local actualCharge = capacity * noCH
@@ -321,11 +323,33 @@ function chargeLogic()
 			end
 			
 			--shutdown logic goes below
-			if actualCharge <= 0 and difference < 0 then
-			--no power, shut it down!
-			--TODO: we need a moddata variable for if the battery bank has been shut down.
-			testB[key] = 0
+			if actualCharge <= 0 and difference < 0 and noOff ~= 0 then
+				noOff = 0
+				table.insert(testB, key, noOff)  
+				------------------------------turn off
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(false)
+				NewGenerator:setFuel(0)
+				NewGenerator:setCondition(0)
+				NewGenerator:setActivated(false)
+				NewGenerator:setSurroundingElectricity()
+				NewGenerator:remove()
 			end
+			if actualCharge <= 0 and difference > 0 and noOff == 0 then
+				noOff = 1
+				table.insert(testB, key, noOff)  
+				-------------------------------turn on
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(true)
+				NewGenerator:setFuel(100)
+				NewGenerator:setCondition(100)
+				NewGenerator:setActivated(true)
+				NewGenerator:setSurroundingElectricity()
+				NewGenerator:remove()
+
+			end
+			
+			--TODO: sprite handling
 			
         
 
