@@ -152,7 +152,7 @@ function getModifiedSolarOutput(SolarInput)
   local output = SolarInput * 83
    -- output = output * cloudiness
    -- output = output * fogginess
-   if ( currentHour < 7.0 ) or ( currentHour > 18.0) then
+   if ( currentHour < 7.0 ) or ( currentHour > 17.0) then
        -- it's night, no power
         output = 0
    end
