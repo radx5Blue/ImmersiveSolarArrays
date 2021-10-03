@@ -480,6 +480,39 @@ function chargeLogic()
     end
 end
 
+
+function batteryDegrade()
+    local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+	local testB = ModData.get("PBBO")
+
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+
+        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
+        if (square ~= nil) then
+			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
+			local inventory = batterybank:getContainer()
+			
+			if inventory ~= nil then
+				DegradeBatteries(inventory)
+			end
+		end
+	end
+end
+
+Events.EveryDays.Add(batteryDegrade)
 Events.EveryTenMinutes.Add(chargeLogic)
 Events.OnTick.Add(PowerCheck)
 Events.OnGameStart.Add(CheckGlobalData)
