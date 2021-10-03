@@ -312,7 +312,8 @@ function chargeLogic()
 
         if (square ~= nil) then
             local updatedCH = 0
-			local inventory = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0"):getContainer()
+			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
+			local inventory = batterybank:getContainer()
 			local capacity = HandleBatteries(inventory, noCH, false)
 			local batterynumber = HandleBatteries(inventory, noCH, true)
 			local drain = solarscan(square, false, true, false, 0)
@@ -359,92 +360,118 @@ function chargeLogic()
 
 			end
 			
-			--[[--TODO: sprite handling
-			--remove all sprites first so we can add fresh ones
-			local removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_1")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_2")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_3")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_4")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_5")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-				
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_11")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-				
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_12")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_13")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-				
-			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_14")
-				if removeobj ~= nil then
-					removeobj:removeFromWorld()
-					removeobj:removeFromSquare()
-				end
-
-			--add charge indicator
+		--new sprite handler:
+			
 			if updatedCH < 0.25 then
-			--show 0 charge, so do nothing
+			--show 0 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_1")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_2")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_3")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_4")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_5")
+				end
+			--batterybank:setOverlaySprite(nil)
 			elseif updatedCH >= 0.25 and updatedCH < 0.50 then
 			--show 25 charge
-			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_11" )
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_16")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_20")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_24")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_28")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_32")
+				
+				end
+			--
 			elseif updatedCH >= 0.50 and updatedCH < 0.75 then
 			-- show 50 charge
-			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_12" )
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_17")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_21")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_25")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_29")
+				
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_33")
+				
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_12")
 			elseif updatedCH >= 0.75 and updatedCH < 0.95 then
 			-- show 75 charge
-			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_13" )
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_18")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_22")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_26")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_30")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_34")
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_13")
 			elseif updatedCH >= 0.95 then
 			--show 100 charge
-			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_15" )
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_19")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_23")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_27")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_31")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_35")
+				
+				end
+
 			end
-			
-		--add battery sprites
-		
-			if batterynumber > 0 and batterynumber < 5 then
-			--show bottom shelf
-			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_1" )
-			elseif batterynumber >= 5 and batterynumber < 9 then
-			--show two shelves
-			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_2" )
-			elseif batterynumber >= 9 and batterynumber < 13 then
-			--show three shelves
-			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_3" )
-			elseif batterynumber >= 13 and batterynumber < 17 then
-			--show four shelves
-			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_4" )
-			elseif batterynumber >= 17 then
-			--show five shelves
-			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_5" )
-		end --]]--
 			
        
 
