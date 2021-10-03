@@ -20,7 +20,6 @@ print("numberOfPanels: ", numberOfPanels * 83)
 print("powerConsumption: ", powerConsumption)
 
     if (numberOfPanels * 83) > powerConsumption then
-        if createKey == true then
             local pbKey = ModData.get("PBK")
             local pbX = ModData.get("PBX")
             local pbY = ModData.get("PBY")
@@ -49,7 +48,6 @@ print("powerConsumption: ", powerConsumption)
             print("Created Passed X: ", sqX)
             print("Created Passed Y: ", sqY)
             print("Created Passed Z: ", sqZ)
-        end
 
         local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
@@ -141,18 +139,23 @@ function CheckGlobalData()
 end
 
 function getModifiedSolarOutput(SolarInput)
-  --local myWeather = getClimateManager()
-    --local cloudiness = 1 - (myWeather:getCloudiness() * 0.25) 
+  local myWeather = getClimateManager()
+  local currentHour = getGameTime():getHour()
+  
+  print("My weather: ", myWeather)
+  print("My time: ", currentHour)
+    --local cloudiness = myWeather:getCloudiness()
+	--print("My weather cloudiness: ", cloudiness)
 	--getCloudiness():getTotalMean();
-    --local fogginess = 1 - (myWeather:getFogStrength() * 0.25)
+   -- local fogginess = 1 - (myWeather:getFogStrength() * 0.25)
    -- local currentHour = getGameTime():getHour()
   local output = SolarInput * 83
    -- output = output * cloudiness
    -- output = output * fogginess
-   -- if currentHour < myWeather:getDawn() or currentHour > myWeather:getDusk() then
-        --it's night, no power
-        --output = 0
-   -- end
+   if ( currentHour < 7.0 ) or ( currentHour > 18.0) then
+       -- it's night, no power
+        output = 0
+   end
     return output
 end
 
@@ -184,8 +187,9 @@ local function ReloadPower()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
+		noPB = tonumber(testB[key])
 
-        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
+        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1 ) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
@@ -240,7 +244,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 500 and loc == false ) then
+        if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1 ) then
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
