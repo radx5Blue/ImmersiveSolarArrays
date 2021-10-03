@@ -142,7 +142,8 @@ end
 
 function getModifiedSolarOutput(SolarInput)
   --local myWeather = getClimateManager()
-    --local cloudiness = 1 - (myWeather:getCloudiness() * 0.25)
+    --local cloudiness = 1 - (myWeather:getCloudiness() * 0.25) 
+	--getCloudiness():getTotalMean();
     --local fogginess = 1 - (myWeather:getFogStrength() * 0.25)
    -- local currentHour = getGameTime():getHour()
   local output = SolarInput * 83
