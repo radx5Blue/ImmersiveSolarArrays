@@ -357,9 +357,94 @@ function chargeLogic()
 
 			end
 			
-			--TODO: sprite handling
+			--[[TODO: sprite handling
+			--remove all sprites first so we can add fresh ones
+			local removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_1")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_2")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_3")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_4")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_5")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+				
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_11")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+				
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_12")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_13")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+				
+			removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_14")
+				if removeobj ~= nil then
+					removeobj:removeFromWorld()
+					removeobj:removeFromSquare()
+				end
+
+			--add charge indicator
+			if updatedCH < 0.25 then
+			--show 0 charge, so do nothing
+			elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+			--show 25 charge
+			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_11" )
+			elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+			-- show 50 charge
+			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_12" )
+			elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+			-- show 75 charge
+			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_13" )
+			elseif updatedCH >= 0.95 then
+			--show 100 charge
+			local spriteobjC = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_15" )
+			end
 			
-        
+		--add battery sprites
+		
+			if batterynumber > 0 and batterynumber < 5 then
+			--show bottom shelf
+			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_1" )
+			elseif batterynumber >= 5 and batterynumber < 9 then
+			--show two shelves
+			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_2" )
+			elseif batterynumber >= 9 and batterynumber < 13 then
+			--show three shelves
+			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_3" )
+			elseif batterynumber >= 13 and batterynumber < 17 then
+			--show four shelves
+			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_4" )
+			elseif batterynumber >= 17 then
+			--show five shelves
+			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_5" )
+			end
+			]]--
+       
 
         table.insert(testC, key, updatedCH)  
         end
