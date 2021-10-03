@@ -191,7 +191,7 @@ local function ReloadPower()
         noCH = tonumber(testC[key])
 		noPB = tonumber(testB[key])
 
-        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
+        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
@@ -359,7 +359,7 @@ function chargeLogic()
 
 			end
 			
-			--[[TODO: sprite handling
+			--[[--TODO: sprite handling
 			--remove all sprites first so we can add fresh ones
 			local removeobj = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_1")
 				if removeobj ~= nil then
@@ -444,8 +444,8 @@ function chargeLogic()
 			elseif batterynumber >= 17 then
 			--show five shelves
 			local spriteobjB = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_5" )
-			end
-			]]--
+		end --]]--
+			
        
 
         table.insert(testC, key, updatedCH)  
