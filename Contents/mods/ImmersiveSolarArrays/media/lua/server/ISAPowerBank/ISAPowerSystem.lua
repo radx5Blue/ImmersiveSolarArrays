@@ -20,6 +20,7 @@ print("numberOfPanels: ", numberOfPanels * 83)
 print("powerConsumption: ", powerConsumption)
 
     if (numberOfPanels * 83) > powerConsumption then
+		 if createKey == true then
             local pbKey = ModData.get("PBK")
             local pbX = ModData.get("PBX")
             local pbY = ModData.get("PBY")
@@ -66,6 +67,7 @@ print("powerConsumption: ", powerConsumption)
         NewGenerator:remove()
         print("Solar Array Created")
     end
+end
 end
 
 function DisconnectPower(square)
@@ -189,7 +191,7 @@ local function ReloadPower()
         noCH = tonumber(testC[key])
 		noPB = tonumber(testB[key])
 
-        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1 ) then
+        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
