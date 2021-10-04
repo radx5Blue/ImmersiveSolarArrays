@@ -71,6 +71,49 @@ print("powerConsumption: ", powerConsumption)
 end
 end
 
+
+function addPanelData(square, noOfPanels)
+	
+	sqX = square:getX()
+    sqY = square:getY()
+    sqZ = square:getZ()
+
+    testK = ModData.get("PBK")
+    testX = ModData.get("PBX")
+    testY = ModData.get("PBY")
+    testZ = ModData.get("PBZ")
+    testNP = ModData.get("PBNP")
+    testL = ModData.get("PBLD")
+    testC = ModData.get("PBCH")
+	testB = ModData.get("PBBO")
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+
+        if (sqX == noX and sqY == noY and sqZ == noZ) then
+            squareTest = getWorld():getCell():getGridSquare(sqX, sqY, sqZ)
+
+            table.insert(testNP, key, noOfPanels)
+        end
+    end
+	
+	
+	
+	
+	
+end
+
+
+function removePanelData(square)
+	
+	
+	
+end
+
 function DisconnectPower(square)
     sqX = square:getX()
     sqY = square:getY()
