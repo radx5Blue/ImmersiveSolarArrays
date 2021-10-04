@@ -148,17 +148,13 @@ function getModifiedSolarOutput(SolarInput)
   print("My weather: ", myWeather)
   print("My time: ", currentHour)
     local cloudiness = 1 - (getClimateManager():getCloudIntensity() * 0.25)
-	--print("My weather cloudiness: ", cloudiness)
-	--getCloudiness():getTotalMean();
+	local light = getClimateManager():getDayLightStrength()
 	local fogginess = 1 - (getClimateManager():getFogIntensity() * 0.25)
-   -- local currentHour = getGameTime():getHour()
-  local output = SolarInput * 83
+  
+	local output = SolarInput * 100 --boosted this to get reasonable number with light intensity
 	output = output * cloudiness
 	output = output * fogginess
-   if ( currentHour < 7.0 ) or ( currentHour > 17.0) then
-       -- it's night, no power
-        output = 0
-   end
+	output = output * light
     return output
 end
 
