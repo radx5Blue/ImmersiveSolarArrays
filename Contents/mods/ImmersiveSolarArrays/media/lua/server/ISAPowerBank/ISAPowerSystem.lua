@@ -147,13 +147,12 @@ function getModifiedSolarOutput(SolarInput)
   
   print("My weather: ", myWeather)
   print("My time: ", currentHour)
-    local cloudiness = 1 - (getClimateManager():getCloudIntensity() * 0.25)
+    local cloudiness = getClimateManager():getCloudIntensity()
 	local light = getClimateManager():getDayLightStrength()
-	local fogginess = 1 - (getClimateManager():getFogIntensity() * 0.25)
-  
+	local fogginess = getClimateManager():getFogIntensity()
+	local CloudinessFogginessMean = 1 - (((cloudiness + fogginess)/2)*0.25) --make it so that clouds and fog can only reduce output by 25%
 	local output = SolarInput * 100 --boosted this to get reasonable number with light intensity
-	output = output * cloudiness
-	output = output * fogginess
+	output = output * CloudinessFogginessMean
 	output = output * light
     return output
 end
