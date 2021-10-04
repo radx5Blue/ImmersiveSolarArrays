@@ -147,7 +147,9 @@ end
 				end
 				if LimitedScan == true then
 					--TODO: transmit number of panels to powerbank data
-					
+					local noOfPanels = PanelScan(square)
+					addPanelData(square, noOfPanels)
+					print("*********************************************************************************************Number of Panels: ", noOfPanels)
 				end
 end
 
