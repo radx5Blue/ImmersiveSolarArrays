@@ -18,7 +18,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
     end
 	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("AAAAAA! Shiny solar panels")
-	   solarscan(_square, true, false, true, 0)
+	   solarscan(_square, false, false, false, 0)
 	   
 	end
 	
@@ -45,7 +45,7 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
 	   _character:Say("must not trip over, must not trip over")
-	   solarscan(_square, false, false, true, 0)
+	   solarscan(_square, false, false, false, 0)
 	end
 	
   else
