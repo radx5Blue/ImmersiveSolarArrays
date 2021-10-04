@@ -274,6 +274,22 @@ function PowerCheck()
             globalPCounter = 0
             print("Not Created")
         end
+		
+		 if (square ~= nil and globalPCounter > 500 and noPB == 0 ) then
+			local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(false)
+            NewGenerator:setFuel(0)
+            NewGenerator:setCondition(0)
+            NewGenerator:setActivated(false)
+            NewGenerator:setSurroundingElectricity()
+            NewGenerator:remove()
+
+            globalPCounter = 0
+
+            loc = true
+			
+		end
+		
     end
 end
 
