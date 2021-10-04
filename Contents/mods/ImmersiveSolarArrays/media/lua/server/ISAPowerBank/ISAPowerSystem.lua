@@ -19,7 +19,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 print("numberOfPanels: ", numberOfPanels * 83)
 print("powerConsumption: ", powerConsumption)
 
-    if (numberOfPanels * 83) > powerConsumption then
+
 		 if createKey == true then
             local pbKey = ModData.get("PBK")
             local pbX = ModData.get("PBX")
@@ -50,6 +50,7 @@ print("powerConsumption: ", powerConsumption)
             print("Created Passed Y: ", sqY)
             print("Created Passed Z: ", sqZ)
 
+	if (numberOfPanels * 83) > powerConsumption then
         local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
         NewGenerator:setConnected(false)
         NewGenerator:setFuel(0)
