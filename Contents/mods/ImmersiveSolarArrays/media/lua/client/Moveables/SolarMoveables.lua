@@ -85,7 +85,8 @@ for x = bottom, top do
 				if IsBank == false then
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-							solarscan(mysquare, true, true, false, 0)
+							local scan = solarscan(mysquare, true, true, false, 0)
+							addPanelData(mysquare, scan)
 						end
 				end
 				if LimitedScan == true then
@@ -139,17 +140,14 @@ end
 					if InitialScan == true then
 						TurnOnPower(powerconsumption, numberofpanels, square, true)
 					end
-					if InitialScan == false then
+					if InitialScan == false and LimitedScan == false then
 			
 					return powerconsumption
 
 					end
 				end
 				if LimitedScan == true then
-					--TODO: transmit number of panels to powerbank data
-					local noOfPanels = PanelScan(square)
-					addPanelData(square, noOfPanels)
-					print("*********************************************************************************************Number of Panels: ", noOfPanels)
+					return numberofpanels
 				end
 end
 
