@@ -73,23 +73,23 @@ for x = bottom, top do
 				if mysquare ~= nil then			
 				if IsBank == true then
 					--scan coming from power bank
-					if InitialScan == true then
+					if InitialScan == true and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 						numberofpanels = numberofpanels + PanelScan(mysquare)
 					end
-					if InitialScan == false then
+					if InitialScan == false and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					end
 				end
 				
-				if IsBank == false then
+				if IsBank == false and backupgenerator == 0 then
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
 							local scan = solarscan(mysquare, true, true, false, 0)
 							changePanelData(mysquare, scan)
 						end
 				end
-				if LimitedScan == true then
+				if LimitedScan == true and backupgenerator == 0 then
 						numberofpanels = numberofpanels + PanelScan(mysquare)
 					
 				end
@@ -135,7 +135,7 @@ for x = bottom, top do
 	end	
 end
 --------ALL power bank ACTION GO BELOW
-				if IsBank == true then
+				if IsBank == true and backupgenerator == 0 then
 					--scan coming from power bank
 					if InitialScan == true then
 						TurnOnPower(powerconsumption, numberofpanels, square, true)
@@ -146,7 +146,7 @@ end
 
 					end
 				end
-				if LimitedScan == true then
+				if LimitedScan == true and backupgenerator == 0 then
 					return numberofpanels
 				end
 end
