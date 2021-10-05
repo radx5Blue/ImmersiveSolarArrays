@@ -72,7 +72,7 @@ end
 end
 
 
-function addPanelData(square, noOfPanels)
+function changePanelData(square, noOfPanels)
 	
 	sqX = square:getX()
     sqY = square:getY()
@@ -102,13 +102,6 @@ function addPanelData(square, noOfPanels)
     end
 	
 	
-	
-	
-	
-end
-
-
-function removePanelData(square)
 	
 	
 	
