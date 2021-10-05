@@ -86,7 +86,7 @@ for x = bottom, top do
 				--scan coming from solar panel
 						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
 							local scan = solarscan(mysquare, true, true, false, 0)
-							addPanelData(mysquare, scan)
+							changePanelData(mysquare, scan)
 						end
 				end
 				if LimitedScan == true then
