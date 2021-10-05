@@ -228,7 +228,7 @@ function ConsumptionScan(square)
 			end
 		end
 	end
-	return powerconsumption	* 1000				
+	return powerconsumption	* 920				
 end
 
 
