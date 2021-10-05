@@ -187,7 +187,7 @@ function ConsumptionScan(square)
 						if instanceof(myObject, "IsoTelevision") then
 							if myObject:getDeviceData() ~= nil then
 								if myObject:getDeviceData():getIsTurnedOn() then
-									powerconsumption = powerconsumption + 0.01
+									powerconsumption = powerconsumption + 0.017
 									--print("found tv")
 								end
 							end					
@@ -195,7 +195,7 @@ function ConsumptionScan(square)
 						if instanceof(myObject, "IsoRadio") then
 							if myObject:getDeviceData() ~= nil then
 								if myObject:getDeviceData():getIsTurnedOn() then
-									powerconsumption = powerconsumption + 0.01
+									powerconsumption = powerconsumption + 0.005
 									--print("found radio")
 								end
 							end					
@@ -203,7 +203,7 @@ function ConsumptionScan(square)
 						
 						--print("is this running3")
 					if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
-						powerconsumption = powerconsumption + 0.09
+						powerconsumption = powerconsumption + 0.13
 					end
 						--print("is this running4")
 						for containerIndex = 1,myObject:getContainerCount() do
