@@ -393,6 +393,7 @@ function chargeLogic()
 				NewGenerator:setActivated(false)
 				NewGenerator:setSurroundingElectricity()
 				NewGenerator:remove()
+				solarscan(square, true, true, false, 1)
 			end
 			if actualCharge <= 0 and difference > 0 and noOff == 0 then
 				noOff = 1
@@ -405,6 +406,7 @@ function chargeLogic()
 				NewGenerator:setActivated(true)
 				NewGenerator:setSurroundingElectricity()
 				NewGenerator:remove()
+				solarscan(square, true, true, false, 2)
 
 			end
 			
