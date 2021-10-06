@@ -153,17 +153,17 @@ end
 
 function PanelScan(mysquare)
 local numberofpanels = 0
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
+					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
 						--print("panel found")
 					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
+					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
 						--print("panel found")
 					end
-					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
+					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
 				     --this is a flat solar panel, add to count
 						numberofpanels = numberofpanels + 1
 						--print("panel found")
