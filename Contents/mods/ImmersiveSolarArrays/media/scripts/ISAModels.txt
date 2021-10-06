@@ -8,5 +8,12 @@ module ISA
 		scale = 0.007,
 	}
 
+	model SolarMagModel
+	{
+		mesh = WorldItems/Magazine,
+		texture = WorldItems/MagazineSolar,
+		scale =  0.4,
+	}
+
 
 }

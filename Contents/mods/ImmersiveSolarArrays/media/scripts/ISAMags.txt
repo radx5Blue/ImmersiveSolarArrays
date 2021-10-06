@@ -9,7 +9,7 @@
         Icon	=	ISAMag1,
         TeachedRecipes  =   Wire 50Ah Battery; Wire 75Ah Battery; Wire 100Ah Battery; Unwire 50Ah Battery; Unwire 75Ah Battery; Unwire 100Ah Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel;  Create Solar Failsafe; Create Battery Bank,
         ReplaceOnUse    =   ISAMag1,
-        StaticModel = Magazine,
+        WorldStaticModel = ISA.SolarMagModel,
     }
 	
 }
