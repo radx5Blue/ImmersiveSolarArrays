@@ -67,7 +67,7 @@ print("powerConsumption: ", powerConsumption)
         NewGenerator:setSurroundingElectricity()
         NewGenerator:remove()
 		
-		square.getBuilding().setToxic(false)
+		square:getBuilding():setToxic(false)
         print("Solar Array Created")
     end
 end
@@ -245,7 +245,7 @@ local function ReloadPower()
             NewGenerator:remove()
             testL[key] = "0"
 			
-			square.getBuilding().setToxic(false)
+			square:getBuilding():setToxic(false)
 
             print("Solar Array Re-created")
         --print("Solar Array Re-created and: ", testL[key])
@@ -298,7 +298,7 @@ function PowerCheck()
             NewGenerator:setActivated(true)
             NewGenerator:remove()
 			
-			square.getBuilding().setToxic(false)
+			square:getBuilding():setToxic(false)
 			
             globalPCounter = 0
 
@@ -414,7 +414,7 @@ function chargeLogic()
 				NewGenerator:remove()
 				solarscan(square, true, true, false, 2)
 				
-				square.getBuilding().setToxic(false)
+				square:getBuilding():setToxic(false)
 
 			end
 			
