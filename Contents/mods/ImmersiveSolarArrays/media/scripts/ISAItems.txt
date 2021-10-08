@@ -34,7 +34,7 @@ module ISA
         Type	=	Drainable,
         UseDelta	=	0.00001,
         UseWhileEquipped	=	FALSE,
-        DisplayName	=	200Ah Deep-Cycle Battery,
+        DisplayName	=	200Ah Battery,
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
