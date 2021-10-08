@@ -12,8 +12,12 @@ local iReg = "";
 iReg = "ISA.ISAMag1";
 registerAsLoot(iReg, 1.0, "BookstoreBooks");
 registerAsLoot(iReg, 0.5, "PostOfficeBooks");
+registerAsLoot(iReg, 0.7, "PostOfficeMagazines");
 registerAsLoot(iReg, 0.8, "LibraryBooks");
 registerAsLoot(iReg, 1.0, "LivingRoomShelf");
+registerAsLoot(iReg, 1.0, "ElectronicStoreMagazines");
+registerAsLoot(iReg, 0.4, "MagazineRackMixed");
+registerAsLoot(iReg, 0.6, "ShelfGeneric");
 
 -- Solar panel
 
