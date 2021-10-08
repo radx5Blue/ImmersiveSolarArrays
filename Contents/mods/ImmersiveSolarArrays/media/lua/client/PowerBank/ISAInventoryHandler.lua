@@ -4,19 +4,19 @@ local capacity = 0
 for i=1,container:getItems():size() do 
 local item = container:getItems():get(i-1)
 local type = item:getType()
-			if type == "50AhBattery" then
+			if type == "50AhBattery" and item:getCondition() > 0 then
 			capacity = capacity + 50
 			item:setUsedDelta(powerpercentage)
 			end
-			if type == "75AhBattery" then
+			if type == "75AhBattery" and item:getCondition() > 0 then
 			capacity = capacity + 75
 			item:setUsedDelta(powerpercentage)
 			end
-			if type == "100AhBattery" then
+			if type == "100AhBattery" and item:getCondition() > 0 then
 			capacity = capacity + 100
 			item:setUsedDelta(powerpercentage)
 			end
-			if type == "DeepCycleBattery" then
+			if type == "DeepCycleBattery" and item:getCondition() > 0 then
 			capacity = capacity + 200
 			item:setUsedDelta(powerpercentage)
 			end

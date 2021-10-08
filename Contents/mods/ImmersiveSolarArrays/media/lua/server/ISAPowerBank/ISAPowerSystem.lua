@@ -128,19 +128,19 @@ local batterynumber = 0
 					local batterypower = item:getUsedDelta()
 					local capacity = 0
 					local isBattery = false
-					if type == "50AhBattery" then
+					if type == "50AhBattery" and item:getCondition() > 0 then
 						capacity = 50
 						isBattery = true
 					end
-					if type == "75AhBattery" then
+					if type == "75AhBattery" and item:getCondition() > 0 then
 						capacity = 75
 						isBattery = true
 					end
-					if type == "100AhBattery" then
+					if type == "100AhBattery" and item:getCondition() > 0 then
 						capacity = 100
 						isBattery = true
 					end
-					if type == "DeepCycleBattery" then
+					if type == "DeepCycleBattery" and item:getCondition() > 0 then
 						capacity = 200
 						isBattery = true
 					end
@@ -149,19 +149,19 @@ local batterynumber = 0
 						for i=1,container:getItems():size() do 
 						local itemx = container:getItems():get(i-1)
 						local type = itemx:getType()
-						if type == "50AhBattery" then
+						if type == "50AhBattery" and itemx:getCondition() > 0 then
 						bankcapacity = bankcapacity + 50
 						batterynumber = batterynumber + 1
 						end
-						if type == "75AhBattery" then
+						if type == "75AhBattery" and itemx:getCondition() > 0 then
 						bankcapacity = bankcapacity + 75
 						batterynumber = batterynumber + 1
 						end
-						if type == "100AhBattery" then
+						if type == "100AhBattery" and itemx:getCondition() > 0 then
 						bankcapacity = bankcapacity + 100
 						batterynumber = batterynumber + 1
 						end
-						if type == "DeepCycleBattery" then
+						if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
 						bankcapacity = bankcapacity + 200
 						batterynumber = batterynumber + 1
 						end
