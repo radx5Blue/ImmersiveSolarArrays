@@ -153,7 +153,7 @@ recipe Create Battery Bank
 		ISA.50AhBattery = 1,
 		CanBeDoneFromFloor:false,
       		Time:250,
-		SkillRequired:Electricity=5,
+		SkillRequired:Electricity=3,
 		Result: SolarFailsafe,
 		NeedToBeLearn:true,
        		Category:Electrical,
