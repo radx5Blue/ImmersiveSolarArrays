@@ -5,7 +5,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
   if res == nil and self.isMoveable then
     -- Your stuff here example below
     if _origSpriteName == "solarmod_tileset_01_0" then
-      _character:Say("Cool, a battery bank! Is it shiny?")
+     -- _character:Say("Cool, a battery bank! Is it shiny?")
 	  solarscan(_square, false, true, true, 0)
 	  
 	  
@@ -17,7 +17,7 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 	  
     end
 	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
-	   _character:Say("AAAAAA! Shiny solar panels")
+	  -- _character:Say("AAAAAA! Shiny solar panels")
 	   solarscan(_square, false, false, false, 0)
 	   
 	end
@@ -38,13 +38,13 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
     -- Your stuff here example below
 	local _spriteName = self.spriteName
     if _spriteName == "solarmod_tileset_01_0" then
-      _character:Say("oo, heavy")
+     -- _character:Say("oo, heavy")
 		--TODO: battery bank data for the removed bank should be deleted here
 		DisconnectPower(_square)
 
     end
 	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
-	   _character:Say("must not trip over, must not trip over")
+	   --_character:Say("must not trip over, must not trip over")
 	   solarscan(_square, false, false, false, 0)
 	end
 	
