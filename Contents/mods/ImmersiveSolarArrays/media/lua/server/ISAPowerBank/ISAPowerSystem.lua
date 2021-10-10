@@ -892,6 +892,7 @@ function batteryDegrade()
         noZ = tonumber(testZ[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
 
         if (square ~= nil) then
 			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
@@ -904,8 +905,78 @@ function batteryDegrade()
 	end
 end
 
+function GenCheck()
+    local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+	local testB = ModData.get("PBBO")
+	
+	player = getPlayer()
+
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
+        noCH = tonumber(testC[key])
+		noPB = tonumber(testB[key])
+
+        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
+		if square ~= nil then
+
+        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY())) > 30 then
+
+            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(true)
+            NewGenerator:setFuel(100)
+            NewGenerator:setCondition(100)
+            NewGenerator:setActivated(true)
+            NewGenerator:remove()
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
+			player:Say("Generator")
+
+            print("Created")
+        end
+		
+		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY())) < 30 then
+
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(false)
+				NewGenerator:setFuel(0)
+				NewGenerator:setCondition(0)
+				NewGenerator:setActivated(false)
+				NewGenerator:setSurroundingElectricity()
+				NewGenerator:remove()
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
+			player:Say("Generator Gone")
+
+            print("Created")
+        end
+		
+		
+    end
+end
+end
+
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryTenMinutes.Add(chargeLogic)
 Events.OnTick.Add(PowerCheck)
+Events.OnTick.Add(GenCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
