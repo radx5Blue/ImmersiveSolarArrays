@@ -947,13 +947,14 @@ function GenCheck()
 		
 		if square ~= nil then
 
-        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 1 and noGN == 1) then
+        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and noGN == 1) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
             NewGenerator:setFuel(100)
             NewGenerator:setCondition(100)
             NewGenerator:setActivated(true)
+			NewGenerator:setSurroundingElectricity()
             --NewGenerator:remove()
 			
 			if square:getBuilding() ~= nil then
@@ -967,7 +968,7 @@ function GenCheck()
            
         end
 		
-		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 1 and noGN == 0)  then
+		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and noGN == 0)  then
 					
 								if square:getObjects():size() ~= nil then
 								for objs = 1, square:getObjects():size() do
@@ -975,6 +976,7 @@ function GenCheck()
 									if (myObject ~= nil) then
 										if instanceof(myObject, "IsoGenerator") then
 											myObject:setActivated(false)
+											NewGenerator:setSurroundingElectricity()
 											myObject:remove()	
 											
 				-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
@@ -990,6 +992,7 @@ function GenCheck()
             NewGenerator:setConnected(true)
             NewGenerator:setFuel(100)
             NewGenerator:setCondition(100)
+			NewGenerator:setSurroundingElectricity()
             NewGenerator:setActivated(true)
             NewGenerator:remove()
 											
