@@ -431,7 +431,6 @@ function DisconnectPower(square)
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
     testB = ModData.get("PBBO")
-	testG = ModData.get("PBGN")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -463,10 +462,6 @@ function DisconnectPower(square)
             table.remove(testL, key, testL)
             table.remove(testC, key, testC)
             table.remove(testB, key, testB)
-			table.remove(testG, key, testG)
-			
-			--Load
-			
         end
     end
 end
@@ -871,19 +866,6 @@ function batteryDegrade()
         noZ = tonumber(testZ[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-		
-		local gen = DebugGlobalObjectStateUI:setObjectList(square, noX, noY, noZ)
-		
-		player:Say("Generator: ", gen)
-		
-		if gen ~= nil then
-		
-		gen:setFuel(100)
-        gen:setCondition(100)
-		
-		player:Say("Generator: ", gen)
-		
-	end
 
         if (square ~= nil) then
             local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
@@ -897,10 +879,6 @@ function batteryDegrade()
 end
 
 function GenCheck()
-	
-	
-	
-	
     local testK = ModData.get("PBK")
     local testX = ModData.get("PBX")
     local testY = ModData.get("PBY")
@@ -923,13 +901,8 @@ function GenCheck()
         noCH = tonumber(testC[key])
         noPB = tonumber(testB[key])
         noGN = tonumber(testG[key])
-		
-		--local IsoChunk.Load(noX, noY)
-		
-		--player:Say(IsoChunk.Load(noX, noY))
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-		
 
         if square ~= nil then
             if
