@@ -911,9 +911,9 @@ function GenCheck()
         noPB = tonumber(testB[key])
         noGN = tonumber(testG[key])
 		
-		local IsoChunk.Load(noX, noY)
+		--local IsoChunk.Load(noX, noY)
 		
-		player:Say(IsoChunk.Load(noX, noY))
+		--player:Say(IsoChunk.Load(noX, noY))
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
