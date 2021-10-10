@@ -29,6 +29,9 @@ print("powerConsumption: ", powerConsumption)
             local pbLD = ModData.get("PBLD")
             local pbCH = ModData.get("PBCH")
 			local pbBO = ModData.get("PBBO")
+			local pbGN = ModData.get("PBGN")
+			
+			
 
             local pbkLen = #pbKey
             local newpbKLen = pbkLen + 1
@@ -38,9 +41,10 @@ print("powerConsumption: ", powerConsumption)
             table.insert(pbY, newpbKLen, square:getY())
             table.insert(pbZ, newpbKLen, square:getZ())
             table.insert(pbNP, newpbKLen, numberOfPanels)
-            table.insert(pbLD, newpbKLen, "1")
-            table.insert(pbCH, newpbKLen, "1") -- get charge here!! *******************************************************************************************
-			table.insert(pbBO, newpbKLen, "1") 
+            table.insert(pbLD, newpbKLen, 1)
+            table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
+			table.insert(pbBO, newpbKLen, 1) 
+			table.insert(pbGN, newpbKLen, 0) 
 
             sqX = square:getX()
             sqY = square:getY()
@@ -494,6 +498,7 @@ function CheckGlobalData()
     local PowerBankLoaded = {}
     local PowerBankCharge = {}
 	local PowerBankOn = {}
+	local PowerBankGen = {}
 
     if ModData.exists("PBK") == false then
         ModData.add("PBK", powerBankKey)
@@ -504,7 +509,15 @@ function CheckGlobalData()
         ModData.add("PBLD", PowerBankLoaded)
         ModData.add("PBCH", PowerBankCharge)
 		ModData.add("PBBO", PowerBankCharge)
+		ModData.add("PBGN", PowerBankGen)
     end
+	
+	
+	if ModData.exists("PBGN") == false then
+		ModData.add("PBGN", PowerBankGen)
+		
+	end
+	
 end
 
 function getModifiedSolarOutput(SolarInput)
@@ -914,6 +927,7 @@ function GenCheck()
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
 	local testB = ModData.get("PBBO")
+	local testG = ModData.get("PBGN")
 	
 	player = getPlayer()
 
@@ -927,12 +941,50 @@ function GenCheck()
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
 		noPB = tonumber(testB[key])
+		noGN = tonumber(testG[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
 		if square ~= nil then
 
-        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY())) > 30 then
+        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 20 and noGN == 1) then
+
+            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(true)
+            NewGenerator:setFuel(100)
+            NewGenerator:setCondition(100)
+            NewGenerator:setActivated(true)
+            --NewGenerator:remove()
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
+			player:Say("Generator")
+			
+			table.insert(testG, key, 0)  
+
+            print("Created")
+        end
+		
+		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 20 and noGN == 0)  then
+					
+								if square:getObjects():size() ~= nil then
+								for objs = 1, square:getObjects():size() do
+								local myObject = square:getObjects():get(objs-1);
+									if (myObject ~= nil) then
+										if instanceof(myObject, "IsoGenerator") then
+											myObject:setActivated(false)
+											myObject:remove()	
+											
+				-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				-- NewGenerator:setConnected(false)
+				-- NewGenerator:setFuel(0)
+				-- NewGenerator:setCondition(0)
+				-- NewGenerator:setActivated(false)
+				-- NewGenerator:setSurroundingElectricity()
+				-- NewGenerator:remove()
+
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -940,29 +992,19 @@ function GenCheck()
             NewGenerator:setCondition(100)
             NewGenerator:setActivated(true)
             NewGenerator:remove()
+											
+										end 
+									end
+								end
+							end
+
+
 			
 			if square:getBuilding() ~= nil then
 			square:getBuilding():setToxic(false)
 			end
 			
-			player:Say("Generator")
-
-            print("Created")
-        end
-		
-		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY())) < 30 then
-
-				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-				NewGenerator:setConnected(false)
-				NewGenerator:setFuel(0)
-				NewGenerator:setCondition(0)
-				NewGenerator:setActivated(false)
-				NewGenerator:setSurroundingElectricity()
-				NewGenerator:remove()
-			
-			if square:getBuilding() ~= nil then
-			square:getBuilding():setToxic(false)
-			end
+			table.insert(testG, key, 1)  
 			
 			player:Say("Generator Gone")
 
