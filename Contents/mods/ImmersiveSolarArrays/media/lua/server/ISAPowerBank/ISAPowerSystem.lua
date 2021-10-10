@@ -16,325 +16,340 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 
     -- local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-    print("numberOfPanels: ", numberOfPanels * 83)
-    print("powerConsumption: ", powerConsumption)
+print("numberOfPanels: ", numberOfPanels * 83)
+print("powerConsumption: ", powerConsumption)
 
-    if createKey == true then
-        local pbKey = ModData.get("PBK")
-        local pbX = ModData.get("PBX")
-        local pbY = ModData.get("PBY")
-        local pbZ = ModData.get("PBZ")
-        local pbNP = ModData.get("PBNP")
-        local pbLD = ModData.get("PBLD")
-        local pbCH = ModData.get("PBCH")
-        local pbBO = ModData.get("PBBO")
-        local pbGN = ModData.get("PBGN")
 
-        local pbkLen = #pbKey
-        local newpbKLen = pbkLen + 1
+		 if createKey == true then
+            local pbKey = ModData.get("PBK")
+            local pbX = ModData.get("PBX")
+            local pbY = ModData.get("PBY")
+            local pbZ = ModData.get("PBZ")
+            local pbNP = ModData.get("PBNP")
+            local pbLD = ModData.get("PBLD")
+            local pbCH = ModData.get("PBCH")
+			local pbBO = ModData.get("PBBO")
+			local pbGN = ModData.get("PBGN")
+			
+			
 
-        table.insert(pbKey, newpbKLen, newpbKLen)
-        table.insert(pbX, newpbKLen, square:getX())
-        table.insert(pbY, newpbKLen, square:getY())
-        table.insert(pbZ, newpbKLen, square:getZ())
-        table.insert(pbNP, newpbKLen, numberOfPanels)
-        table.insert(pbLD, newpbKLen, 1)
-        table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
-        table.insert(pbBO, newpbKLen, 1)
-        table.insert(pbGN, newpbKLen, 0)
+            local pbkLen = #pbKey
+            local newpbKLen = pbkLen + 1
 
-        sqX = square:getX()
-        sqY = square:getY()
-        sqZ = square:getZ()
+            table.insert(pbKey, newpbKLen, newpbKLen)
+            table.insert(pbX, newpbKLen, square:getX())
+            table.insert(pbY, newpbKLen, square:getY())
+            table.insert(pbZ, newpbKLen, square:getZ())
+            table.insert(pbNP, newpbKLen, numberOfPanels)
+            table.insert(pbLD, newpbKLen, 1)
+            table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
+			table.insert(pbBO, newpbKLen, 1) 
+			table.insert(pbGN, newpbKLen, 0) 
 
-        print("Created Passed X: ", sqX)
-        print("Created Passed Y: ", sqY)
-        print("Created Passed Z: ", sqZ)
+            sqX = square:getX()
+            sqY = square:getY()
+            sqZ = square:getZ()
 
-        if (numberOfPanels * 83) > powerConsumption then
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(false)
-            NewGenerator:setFuel(0)
-            NewGenerator:setCondition(0)
-            NewGenerator:setActivated(false)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
+            print("Created Passed X: ", sqX)
+            print("Created Passed Y: ", sqY)
+            print("Created Passed Z: ", sqZ)
 
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(true)
-            NewGenerator:setFuel(100)
-            NewGenerator:setCondition(100)
-            NewGenerator:setActivated(true)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
+	if (numberOfPanels * 83) > powerConsumption then
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        NewGenerator:setConnected(false)
+        NewGenerator:setFuel(0)
+        NewGenerator:setCondition(0)
+        NewGenerator:setActivated(false)
+        NewGenerator:setSurroundingElectricity()
+        NewGenerator:remove()
 
-            if square:getBuilding() ~= nil then
-                square:getBuilding():setToxic(false)
-            end
-            print("Solar Array Created")
-        end
+        local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+        NewGenerator:setConnected(true)
+        NewGenerator:setFuel(100)
+        NewGenerator:setCondition(100)
+        NewGenerator:setActivated(true)
+        NewGenerator:setSurroundingElectricity()
+        NewGenerator:remove()
+		
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+        print("Solar Array Created")
     end
+end
 end
 
 ---------sprite fix:---------
 ISInventoryTransferAction.OriginaltransferItem = ISInventoryTransferAction.transferItem -- we save the original function so we can run it as well as our code
 function ISInventoryTransferAction:transferItem(item)
-    local res = self:OriginaltransferItem(item)
-    print("testing")
-    local bankfinal = nil
-    local bank1 = nil
-    local bank2 = nil
-    local adding = nil
-    local container = nil
-    local updatedCH = 0
-    local batterynumber = 0
+local res = self:OriginaltransferItem(item)
+print("testing")
+local bankfinal = nil
+local bank1 = nil
+local bank2 = nil
+local adding = nil
+local container = nil
+local updatedCH = 0
+local batterynumber = 0
 
-    if self.srcContainer:getSourceGrid() ~= nil then
-        print("src sqr found")
-        bank1 = ISMoveableSpriteProps:findOnSquare(self.srcContainer:getSourceGrid(), "solarmod_tileset_01_0")
-        if bank1 ~= nil then
-            container = bank1:getContainer()
-        end
-    end
-    if self.destContainer:getSourceGrid() ~= nil then
-        print("dest sqr found")
-        bank2 = ISMoveableSpriteProps:findOnSquare(self.destContainer:getSourceGrid(), "solarmod_tileset_01_0")
-        if bank2 ~= nil then
-            container = bank2:getContainer()
-        end
-    end
-    if bank1 ~= nil then
-        print("src is bank")
-        bankfinal = bank1
-        adding = false
-    elseif bank2 ~= nil then
-        print("dest is bank")
-        bankfinal = bank2
-        adding = true
-    end
-    if bank1 == nil and bank2 == nil then
-        print("stopping now")
-        return res
-    end
-    if bankfinal ~= nil and container ~= nil then
-        print("looks like someone is transferring items to/from a powerbank")
-        local square = bankfinal:getSquare()
-        print(square)
-        local charge = getBankCharge(square)
-        local updatedCH = getBankCharge(square) --remove this line later when done
-        print(charge)
-        if charge ~= nil and adding == true then
-            local type = item:getType()
-            local batterypower = item:getUsedDelta()
-            local capacity = 0
-            local isBattery = false
-            if type == "50AhBattery" and item:getCondition() > 0 then
-                capacity = 50
-                isBattery = true
-            end
-            if type == "75AhBattery" and item:getCondition() > 0 then
-                capacity = 75
-                isBattery = true
-            end
-            if type == "100AhBattery" and item:getCondition() > 0 then
-                capacity = 100
-                isBattery = true
-            end
-            if type == "DeepCycleBattery" and item:getCondition() > 0 then
-                capacity = 200
-                isBattery = true
-            end
-            --get the bank's capacity
-            local bankcapacity = 0
-            for i = 1, container:getItems():size() do
-                local itemx = container:getItems():get(i - 1)
-                local type = itemx:getType()
-                if type == "50AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 50
-                    batterynumber = batterynumber + 1
-                end
-                if type == "75AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 75
-                    batterynumber = batterynumber + 1
-                end
-                if type == "100AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 100
-                    batterynumber = batterynumber + 1
-                end
-                if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 200
-                    batterynumber = batterynumber + 1
-                end
-            end
-            if isBattery == true then
-                print("doing Advanced(TM) charge math!")
-                --do Advanced(TM) charge math!
-                local newbatteryamount = batterypower * capacity -- bat charge in Ah
-                local oldbatteryamount = bankcapacity * charge -- bank charge in Ah
-                --add up and divive
-                print("newbatteryamount")
-                print(newbatteryamount)
-                print("oldbatteryamount")
-                print(oldbatteryamount)
-                local systemtotal = (newbatteryamount + oldbatteryamount)
-                local systemmax = capacity + bankcapacity
-                print("systemtotal")
-                print(systemtotal)
-                print("systemmax")
-                print(systemmax)
-                updatedCH = systemtotal / systemmax
-                print("updatedCH")
-                print(updatedCH)
-                --got it, now set the charge!
-                item:setUsedDelta(updatedCH)
-                for i = 1, container:getItems():size() do
-                    local itemx = container:getItems():get(i - 1)
-                    local type = itemx:getType()
-                    if
-                        type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or
-                            type == "DeepCycleBattery"
-                     then
-                        itemx:setUsedDelta(updatedCH)
-                    end
-                end
-                setBankCharge(square, updatedCH)
-            end
-        elseif charge == nil and isBattery == true then
-            updatedCH = batterypower
-        elseif charge == nil and isBattery == false then
-            updatedCH = 0
-        end
-        --fix the sprites!
-        if adding == false then
-            for i = 1, container:getItems():size() do
-                local itemx = container:getItems():get(i - 1)
-                local type = itemx:getType()
-                if type == "50AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "75AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "100AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "DeepCycleBattery" then
-                    batterynumber = batterynumber + 1
-                end
-            end
-        end
-        local batterybank = bankfinal
-        if updatedCH < 0.25 then
-            --batterybank:setOverlaySprite(nil)
-            --show 0 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_1")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_2")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_3")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_4")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_5")
-            end
-        elseif updatedCH >= 0.25 and updatedCH < 0.50 then
-            --
-            --show 25 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_16")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_20")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_24")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_28")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_32")
-            end
-        elseif updatedCH >= 0.50 and updatedCH < 0.75 then
-            --batterybank:setOverlaySprite("solarmod_tileset_01_12")
-            -- show 50 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_17")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_21")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_25")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_29")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_33")
-            end
-        elseif updatedCH >= 0.75 and updatedCH < 0.95 then
-            --batterybank:setOverlaySprite("solarmod_tileset_01_13")
-            -- show 75 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_18")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_22")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_26")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_30")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_34")
-            end
-        elseif updatedCH >= 0.95 then
-            --show 100 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_19")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_23")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_27")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_31")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_35")
-            end
-        end
-    end
-    return res
+
+			if self.srcContainer:getSourceGrid() ~= nil then
+				print("src sqr found")
+				bank1 = ISMoveableSpriteProps:findOnSquare(self.srcContainer:getSourceGrid(), "solarmod_tileset_01_0")
+				if bank1 ~= nil then
+				container = bank1:getContainer()
+				end
+			end
+			if self.destContainer:getSourceGrid() ~= nil then
+				print("dest sqr found")
+				bank2 = ISMoveableSpriteProps:findOnSquare(self.destContainer:getSourceGrid(), "solarmod_tileset_01_0")
+				if bank2 ~= nil then
+				container = bank2:getContainer()
+				end
+			end
+			if bank1 ~= nil then
+				print("src is bank")
+				bankfinal = bank1
+				adding = false
+			elseif bank2 ~= nil then
+				print("dest is bank")
+				bankfinal = bank2
+				adding = true
+			end
+			if bank1 == nil and bank2 == nil then
+				print("stopping now")
+				return res
+			end
+			if bankfinal ~= nil and container ~= nil then
+				print("looks like someone is transferring items to/from a powerbank")
+				local square = bankfinal:getSquare() 
+				print(square)
+				local charge = getBankCharge(square)
+				local updatedCH = getBankCharge(square) --remove this line later when done
+				print(charge)
+				if charge ~= nil and adding == true then
+					local type = item:getType()
+					local batterypower = item:getUsedDelta()
+					local capacity = 0
+					local isBattery = false
+					if type == "50AhBattery" and item:getCondition() > 0 then
+						capacity = 50
+						isBattery = true
+					end
+					if type == "75AhBattery" and item:getCondition() > 0 then
+						capacity = 75
+						isBattery = true
+					end
+					if type == "100AhBattery" and item:getCondition() > 0 then
+						capacity = 100
+						isBattery = true
+					end
+					if type == "DeepCycleBattery" and item:getCondition() > 0 then
+						capacity = 200
+						isBattery = true
+					end
+					--get the bank's capacity
+					local bankcapacity = 0	
+						for i=1,container:getItems():size() do 
+						local itemx = container:getItems():get(i-1)
+						local type = itemx:getType()
+						if type == "50AhBattery" and itemx:getCondition() > 0 then
+						bankcapacity = bankcapacity + 50
+						batterynumber = batterynumber + 1
+						end
+						if type == "75AhBattery" and itemx:getCondition() > 0 then
+						bankcapacity = bankcapacity + 75
+						batterynumber = batterynumber + 1
+						end
+						if type == "100AhBattery" and itemx:getCondition() > 0 then
+						bankcapacity = bankcapacity + 100
+						batterynumber = batterynumber + 1
+						end
+						if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
+						bankcapacity = bankcapacity + 200
+						batterynumber = batterynumber + 1
+						end
+					
+					end
+				if isBattery == true then
+				print("doing Advanced(TM) charge math!")
+				--do Advanced(TM) charge math!
+				local newbatteryamount = batterypower * capacity -- bat charge in Ah
+				local oldbatteryamount = bankcapacity * charge -- bank charge in Ah
+				--add up and divive
+				print("newbatteryamount")
+				print(newbatteryamount)
+				print("oldbatteryamount")
+				print(oldbatteryamount)
+				local systemtotal = (newbatteryamount + oldbatteryamount)
+				local systemmax = capacity + bankcapacity
+				print("systemtotal")
+				print(systemtotal)
+				print("systemmax")
+				print(systemmax)
+				updatedCH = systemtotal / systemmax
+				print("updatedCH")
+				print(updatedCH)
+				--got it, now set the charge!
+				item:setUsedDelta(updatedCH)
+						for i=1,container:getItems():size() do 
+						local itemx = container:getItems():get(i-1)
+						local type = itemx:getType()
+						if type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or type == "DeepCycleBattery" then
+						itemx:setUsedDelta(updatedCH)
+						end
+					
+						end
+				setBankCharge(square, updatedCH)
+			
+				end
+				elseif charge == nil and isBattery == true then
+					updatedCH = batterypower
+				elseif charge == nil and isBattery == false then
+					updatedCH = 0	
+		end
+				--fix the sprites!
+				if adding == false then
+				for i=1,container:getItems():size() do 
+						local itemx = container:getItems():get(i-1)
+						local type = itemx:getType()
+						if type == "50AhBattery" then
+						
+						batterynumber = batterynumber + 1
+						end
+						if type == "75AhBattery" then
+						
+						batterynumber = batterynumber + 1
+						end
+						if type == "100AhBattery" then
+						
+						batterynumber = batterynumber + 1
+						end
+						if type == "DeepCycleBattery" then
+						
+						batterynumber = batterynumber + 1
+						end
+				end
+				end
+				local batterybank = bankfinal
+				if updatedCH < 0.25 then
+			--show 0 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_1")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_2")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_3")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_4")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_5")
+				end
+			--batterybank:setOverlaySprite(nil)
+			elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+			--show 25 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_16")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_20")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_24")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_28")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_32")
+				
+				end
+			--
+			elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+			-- show 50 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_17")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_21")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_25")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_29")
+				
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_33")
+				
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_12")
+			elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+			-- show 75 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_18")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_22")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_26")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_30")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_34")
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_13")
+			elseif updatedCH >= 0.95 then
+			--show 100 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_19")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_23")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_27")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_31")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_35")
+				
+				end
+
+			end
+				
+			end		
+return res			
 end
 
 function getBankCharge(square)
-    sqX = square:getX()
+	
+	sqX = square:getX()
     sqY = square:getY()
     sqZ = square:getZ()
 
@@ -345,7 +360,7 @@ function getBankCharge(square)
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
-    testB = ModData.get("PBBO")
+	testB = ModData.get("PBBO")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -355,13 +370,15 @@ function getBankCharge(square)
         noZ = tonumber(testZ[key])
 
         if (sqX == noX and sqY == noY and sqZ == noZ) then
-            return (tonumber(testC[key]))
+			return(tonumber(testC[key]))
+            
         end
     end
 end
 
 function setBankCharge(square, charge)
-    sqX = square:getX()
+	
+	sqX = square:getX()
     sqY = square:getY()
     sqZ = square:getZ()
 
@@ -372,7 +389,7 @@ function setBankCharge(square, charge)
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
-    testB = ModData.get("PBBO")
+	testB = ModData.get("PBBO")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -382,7 +399,9 @@ function setBankCharge(square, charge)
         noZ = tonumber(testZ[key])
 
         if (sqX == noX and sqY == noY and sqZ == noZ) then
-            table.insert(testC, key, charge)
+		
+			table.insert(testC, key, charge)
+            
         end
     end
 end
@@ -390,7 +409,8 @@ end
 ---end sprite fix-------------
 
 function changePanelData(square, noOfPanels)
-    sqX = square:getX()
+	
+	sqX = square:getX()
     sqY = square:getY()
     sqZ = square:getZ()
 
@@ -401,7 +421,7 @@ function changePanelData(square, noOfPanels)
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
-    testB = ModData.get("PBBO")
+	testB = ModData.get("PBBO")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -416,7 +436,10 @@ function changePanelData(square, noOfPanels)
             table.insert(testNP, key, noOfPanels)
         end
     end
+	
 end
+	
+
 
 function DisconnectPower(square)
     sqX = square:getX()
@@ -430,7 +453,7 @@ function DisconnectPower(square)
     testNP = ModData.get("PBNP")
     testL = ModData.get("PBLD")
     testC = ModData.get("PBCH")
-    testB = ModData.get("PBBO")
+	 testB = ModData.get("PBBO")
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -461,7 +484,7 @@ function DisconnectPower(square)
             table.remove(testNP, key, testNP)
             table.remove(testL, key, testL)
             table.remove(testC, key, testC)
-            table.remove(testB, key, testB)
+			table.remove(testB, key, testB)
         end
     end
 end
@@ -474,8 +497,8 @@ function CheckGlobalData()
     local NumberOfPanels = {}
     local PowerBankLoaded = {}
     local PowerBankCharge = {}
-    local PowerBankOn = {}
-    local PowerBankGen = {}
+	local PowerBankOn = {}
+	local PowerBankGen = {}
 
     if ModData.exists("PBK") == false then
         ModData.add("PBK", powerBankKey)
@@ -485,28 +508,31 @@ function CheckGlobalData()
         ModData.add("PBNP", NumberOfPanels)
         ModData.add("PBLD", PowerBankLoaded)
         ModData.add("PBCH", PowerBankCharge)
-        ModData.add("PBBO", PowerBankCharge)
-        ModData.add("PBGN", PowerBankGen)
+		ModData.add("PBBO", PowerBankCharge)
+		ModData.add("PBGN", PowerBankGen)
     end
-
-    if ModData.exists("PBGN") == false then
-        ModData.add("PBGN", PowerBankGen)
-    end
+	
+	
+	if ModData.exists("PBGN") == false then
+		ModData.add("PBGN", PowerBankGen)
+		
+	end
+	
 end
 
 function getModifiedSolarOutput(SolarInput)
-    local myWeather = getClimateManager()
-    local currentHour = getGameTime():getHour()
-
-    print("My weather: ", myWeather)
-    print("My time: ", currentHour)
+  local myWeather = getClimateManager()
+  local currentHour = getGameTime():getHour()
+  
+  print("My weather: ", myWeather)
+  print("My time: ", currentHour)
     local cloudiness = getClimateManager():getCloudIntensity()
-    local light = getClimateManager():getDayLightStrength()
-    local fogginess = getClimateManager():getFogIntensity()
-    local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = SolarInput * 100 --boosted this to get reasonable number with light intensity
-    output = output * CloudinessFogginessMean
-    output = output * light
+	local light = getClimateManager():getDayLightStrength()
+	local fogginess = getClimateManager():getFogIntensity()
+	local CloudinessFogginessMean = 1 - (((cloudiness + fogginess)/2)*0.25) --make it so that clouds and fog can only reduce output by 25%
+	local output = SolarInput * 100 --boosted this to get reasonable number with light intensity
+	output = output * CloudinessFogginessMean
+	output = output * light
     return output
 end
 
@@ -518,7 +544,7 @@ local function ReloadPower()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
-    local testB = ModData.get("PBBO")
+	local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
 
@@ -538,7 +564,7 @@ local function ReloadPower()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
-        noPB = tonumber(testB[key])
+		noPB = tonumber(testB[key])
 
         if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
@@ -559,10 +585,10 @@ local function ReloadPower()
             NewGenerator:setSurroundingElectricity()
             NewGenerator:remove()
             testL[key] = "0"
-
-            if square:getBuilding() ~= nil then
-                square:getBuilding():setToxic(false)
-            end
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
 
             print("Solar Array Re-created")
         --print("Solar Array Re-created and: ", testL[key])
@@ -581,7 +607,7 @@ function PowerCheck()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
-    local testB = ModData.get("PBBO")
+	local testB = ModData.get("PBBO")
 
     globalPCounter = globalPCounter + 1
 
@@ -595,11 +621,11 @@ function PowerCheck()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
-        noPB = tonumber(testB[key])
+		noPB = tonumber(testB[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1) then
+        if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1 ) then
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
@@ -614,11 +640,11 @@ function PowerCheck()
             NewGenerator:setCondition(100)
             NewGenerator:setActivated(true)
             NewGenerator:remove()
-
-            if square:getBuilding() ~= nil then
-                square:getBuilding():setToxic(false)
-            end
-
+			
+						if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
             globalPCounter = 0
 
             loc = true
@@ -631,9 +657,9 @@ function PowerCheck()
             globalPCounter = 0
             print("Not Created")
         end
-
-        if (square ~= nil and globalPCounter > 500 and noPB == 0) then
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+		
+		 if (square ~= nil and globalPCounter > 500 and noPB == 0 ) then
+			local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
             NewGenerator:setCondition(0)
@@ -644,7 +670,9 @@ function PowerCheck()
             globalPCounter = 0
 
             loc = true
-        end
+			
+		end
+		
     end
 end
 
@@ -656,7 +684,7 @@ function chargeLogic()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
-    local testB = ModData.get("PBBO")
+	local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
 
@@ -668,7 +696,7 @@ function chargeLogic()
         print("Check ModData NP: ", testNP[key])
         print("Check ModData LOADED: ", testL[key])
         print("Check ModData Charge: ", testC[key])
-        print("Check ModData On: ", testB[key])
+		print("Check ModData On: ", testB[key])
 
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -677,175 +705,186 @@ function chargeLogic()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
-        noOff = tonumber(testB[key])
+		noOff = tonumber(testB[key]) 
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
         if (square ~= nil) then
             local updatedCH = 0
-            local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
-            local inventory = batterybank:getContainer()
-            local capacity = HandleBatteries(inventory, noCH, false)
-            local batterynumber = HandleBatteries(inventory, noCH, true)
-            local drain = solarscan(square, false, true, false, 0)
-            local input = getModifiedSolarOutput(noPZ)
-            local actualCharge = capacity * noCH
-            local difference = input - drain
+			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
+			local inventory = batterybank:getContainer()
+			local capacity = HandleBatteries(inventory, noCH, false)
+			local batterynumber = HandleBatteries(inventory, noCH, true)
+			local drain = solarscan(square, false, true, false, 0)
+			local input = getModifiedSolarOutput(noPZ)
+			local actualCharge = capacity * noCH
+			local difference = input - drain
 
-            updatedCH = (actualCharge + difference / 6) / capacity -- uh, divide by 6 I guess because we're doing this every 10 mins and not hourly
+			
 
-            --make sure charge is within bounds
-            if updatedCH > 1 then
-                updatedCH = 1
-            end
-            if updatedCH < 0 then
-                updatedCH = 0
-            end
+			updatedCH = (actualCharge + difference / 6) / capacity -- uh, divide by 6 I guess because we're doing this every 10 mins and not hourly
+			
+			--make sure charge is within bounds
+			if updatedCH > 1 then
+			 updatedCH = 1
+			end
+			if updatedCH < 0 then
+			 updatedCH = 0
+			end
+			
+			--shutdown logic goes below
+			if actualCharge <= 0 and difference < 0 and noOff ~= 0 then
+				noOff = 0
+				table.insert(testB, key, noOff)  
+				------------------------------turn off
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(false)
+				NewGenerator:setFuel(0)
+				NewGenerator:setCondition(0)
+				NewGenerator:setActivated(false)
+				NewGenerator:setSurroundingElectricity()
+				NewGenerator:remove()
+				solarscan(square, true, true, false, 1)
+			end
+			if actualCharge <= 0 and difference > 0 and noOff == 0 then
+				noOff = 1
+				table.insert(testB, key, noOff)  
+				-------------------------------turn on
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(true)
+				NewGenerator:setFuel(100)
+				NewGenerator:setCondition(100)
+				NewGenerator:setActivated(true)
+				NewGenerator:setSurroundingElectricity()
+				NewGenerator:remove()
+				solarscan(square, true, true, false, 2)
+				
+							if square:getBuilding() ~= nil then
+							square:getBuilding():setToxic(false)
+							end
 
-            --shutdown logic goes below
-            if actualCharge <= 0 and difference < 0 and noOff ~= 0 then
-                noOff = 0
-                table.insert(testB, key, noOff)
-                ------------------------------turn off
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                NewGenerator:setConnected(false)
-                NewGenerator:setFuel(0)
-                NewGenerator:setCondition(0)
-                NewGenerator:setActivated(false)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
-                solarscan(square, true, true, false, 1)
-            end
-            if actualCharge <= 0 and difference > 0 and noOff == 0 then
-                noOff = 1
-                table.insert(testB, key, noOff)
-                -------------------------------turn on
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
-                solarscan(square, true, true, false, 2)
+			end
+			
+		--new sprite handler:
+			
+			if updatedCH < 0.25 then
+			--show 0 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_1")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_2")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_3")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_4")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_5")
+				end
+			--batterybank:setOverlaySprite(nil)
+			elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+			--show 25 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_16")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_20")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_24")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_28")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_32")
+				
+				end
+			--
+			elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+			-- show 50 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_17")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_21")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_25")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_29")
+				
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_33")
+				
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_12")
+			elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+			-- show 75 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_18")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_22")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_26")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_30")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_34")
+				end
+			--batterybank:setOverlaySprite("solarmod_tileset_01_13")
+			elseif updatedCH >= 0.95 then
+			--show 100 charge
+				if batterynumber == 0 then
+					batterybank:setOverlaySprite(nil)
+				elseif batterynumber > 0 and batterynumber < 5 then
+				--show bottom shelf
+					batterybank:setOverlaySprite("solarmod_tileset_01_19")
+				elseif batterynumber >= 5 and batterynumber < 9 then
+				--show two shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_23")
+				elseif batterynumber >= 9 and batterynumber < 13 then
+				--show three shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_27")
+				elseif batterynumber >= 13 and batterynumber < 17 then
+				--show four shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_31")
+				elseif batterynumber >= 17 then
+				--show five shelves
+					batterybank:setOverlaySprite("solarmod_tileset_01_35")
+				
+				end
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
-                end
-            end
+			end
+			
+       
 
-            --new sprite handler:
-
-            if updatedCH < 0.25 then
-                --batterybank:setOverlaySprite(nil)
-                --show 0 charge
-                if batterynumber == 0 then
-                    batterybank:setOverlaySprite(nil)
-                elseif batterynumber > 0 and batterynumber < 5 then
-                    --show bottom shelf
-                    batterybank:setOverlaySprite("solarmod_tileset_01_1")
-                elseif batterynumber >= 5 and batterynumber < 9 then
-                    --show two shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_2")
-                elseif batterynumber >= 9 and batterynumber < 13 then
-                    --show three shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_3")
-                elseif batterynumber >= 13 and batterynumber < 17 then
-                    --show four shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_4")
-                elseif batterynumber >= 17 then
-                    --show five shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_5")
-                end
-            elseif updatedCH >= 0.25 and updatedCH < 0.50 then
-                --
-                --show 25 charge
-                if batterynumber == 0 then
-                    batterybank:setOverlaySprite(nil)
-                elseif batterynumber > 0 and batterynumber < 5 then
-                    --show bottom shelf
-                    batterybank:setOverlaySprite("solarmod_tileset_01_16")
-                elseif batterynumber >= 5 and batterynumber < 9 then
-                    --show two shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_20")
-                elseif batterynumber >= 9 and batterynumber < 13 then
-                    --show three shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_24")
-                elseif batterynumber >= 13 and batterynumber < 17 then
-                    --show four shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_28")
-                elseif batterynumber >= 17 then
-                    --show five shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_32")
-                end
-            elseif updatedCH >= 0.50 and updatedCH < 0.75 then
-                --batterybank:setOverlaySprite("solarmod_tileset_01_12")
-                -- show 50 charge
-                if batterynumber == 0 then
-                    batterybank:setOverlaySprite(nil)
-                elseif batterynumber > 0 and batterynumber < 5 then
-                    --show bottom shelf
-                    batterybank:setOverlaySprite("solarmod_tileset_01_17")
-                elseif batterynumber >= 5 and batterynumber < 9 then
-                    --show two shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_21")
-                elseif batterynumber >= 9 and batterynumber < 13 then
-                    --show three shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_25")
-                elseif batterynumber >= 13 and batterynumber < 17 then
-                    --show four shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_29")
-                elseif batterynumber >= 17 then
-                    --show five shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_33")
-                end
-            elseif updatedCH >= 0.75 and updatedCH < 0.95 then
-                --batterybank:setOverlaySprite("solarmod_tileset_01_13")
-                -- show 75 charge
-                if batterynumber == 0 then
-                    batterybank:setOverlaySprite(nil)
-                elseif batterynumber > 0 and batterynumber < 5 then
-                    --show bottom shelf
-                    batterybank:setOverlaySprite("solarmod_tileset_01_18")
-                elseif batterynumber >= 5 and batterynumber < 9 then
-                    --show two shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_22")
-                elseif batterynumber >= 9 and batterynumber < 13 then
-                    --show three shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_26")
-                elseif batterynumber >= 13 and batterynumber < 17 then
-                    --show four shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_30")
-                elseif batterynumber >= 17 then
-                    --show five shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_34")
-                end
-            elseif updatedCH >= 0.95 then
-                --show 100 charge
-                if batterynumber == 0 then
-                    batterybank:setOverlaySprite(nil)
-                elseif batterynumber > 0 and batterynumber < 5 then
-                    --show bottom shelf
-                    batterybank:setOverlaySprite("solarmod_tileset_01_19")
-                elseif batterynumber >= 5 and batterynumber < 9 then
-                    --show two shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_23")
-                elseif batterynumber >= 9 and batterynumber < 13 then
-                    --show three shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_27")
-                elseif batterynumber >= 13 and batterynumber < 17 then
-                    --show four shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_31")
-                elseif batterynumber >= 17 then
-                    --show five shelves
-                    batterybank:setOverlaySprite("solarmod_tileset_01_35")
-                end
-            end
-
-            table.insert(testC, key, updatedCH)
+        table.insert(testC, key, updatedCH)  
         end
     end
 end
+
 
 function batteryDegrade()
     local testK = ModData.get("PBK")
@@ -855,7 +894,7 @@ function batteryDegrade()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
-    local testB = ModData.get("PBBO")
+	local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
 
@@ -866,16 +905,17 @@ function batteryDegrade()
         noZ = tonumber(testZ[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
 
         if (square ~= nil) then
-            local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
-            local inventory = batterybank:getContainer()
-
-            if inventory ~= nil then
-                DegradeBatteries(inventory)
-            end
-        end
-    end
+			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
+			local inventory = batterybank:getContainer()
+			
+			if inventory ~= nil then
+				DegradeBatteries(inventory)
+			end
+		end
+	end
 end
 
 function GenCheck()
@@ -886,10 +926,11 @@ function GenCheck()
     local testNP = ModData.get("PBNP")
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
-    local testB = ModData.get("PBBO")
-    local testG = ModData.get("PBGN")
+	local testB = ModData.get("PBBO")
+	local testG = ModData.get("PBGN")
+	
+	player = getPlayer()
 
-    player = getPlayer()
 
     for key = 1, #testK do
         noKey = tonumber(testK[key])
@@ -899,77 +940,80 @@ function GenCheck()
         noPZ = tonumber(testNP[key])
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
-        noPB = tonumber(testB[key])
-        noGN = tonumber(testG[key])
+		noPB = tonumber(testB[key])
+		noGN = tonumber(testG[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
+		if square ~= nil then
 
-        if square ~= nil then
-            if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 20 and
-                    noGN == 1)
-             then
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                --NewGenerator:remove()
+        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 1 and noGN == 1) then
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
-                end
+            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(true)
+            NewGenerator:setFuel(100)
+            NewGenerator:setCondition(100)
+            NewGenerator:setActivated(true)
+            --NewGenerator:remove()
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
+			player:Say("Generator")
+			
+			table.insert(testG, key, 0)  
 
-                player:Say("Generator")
-
-                table.insert(testG, key, 0)
-
-                print("Created")
-            end
-
-            if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 20 and
-                    noGN == 0)
-             then
-                if square:getObjects():size() ~= nil then
-                    for objs = 1, square:getObjects():size() do
-                        local myObject = square:getObjects():get(objs - 1)
-                        if (myObject ~= nil) then
-                            if instanceof(myObject, "IsoGenerator") then
-                                myObject:setActivated(false)
-                                myObject:remove()
-
-                                -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                                -- NewGenerator:setConnected(false)
-                                -- NewGenerator:setFuel(0)
-                                -- NewGenerator:setCondition(0)
-                                -- NewGenerator:setActivated(false)
-                                -- NewGenerator:setSurroundingElectricity()
-                                -- NewGenerator:remove()
-
-                                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                                NewGenerator:setConnected(true)
-                                NewGenerator:setFuel(100)
-                                NewGenerator:setCondition(100)
-                                NewGenerator:setActivated(true)
-                                NewGenerator:remove()
-                            end
-                        end
-                    end
-                end
-
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
-                end
-
-                table.insert(testG, key, 1)
-
-                player:Say("Generator Gone")
-
-                print("Created")
-            end
+           
         end
+		
+		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 1 and noGN == 0)  then
+					
+								if square:getObjects():size() ~= nil then
+								for objs = 1, square:getObjects():size() do
+								local myObject = square:getObjects():get(objs-1);
+									if (myObject ~= nil) then
+										if instanceof(myObject, "IsoGenerator") then
+											myObject:setActivated(false)
+											myObject:remove()	
+											
+				-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				-- NewGenerator:setConnected(false)
+				-- NewGenerator:setFuel(0)
+				-- NewGenerator:setCondition(0)
+				-- NewGenerator:setActivated(false)
+				-- NewGenerator:setSurroundingElectricity()
+				-- NewGenerator:remove()
+
+
+            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            NewGenerator:setConnected(true)
+            NewGenerator:setFuel(100)
+            NewGenerator:setCondition(100)
+            NewGenerator:setActivated(true)
+            NewGenerator:remove()
+											
+										end 
+									end
+								end
+							end
+
+
+			
+			if square:getBuilding() ~= nil then
+			square:getBuilding():setToxic(false)
+			end
+			
+			table.insert(testG, key, 1)  
+			
+			player:Say("Generator Gone")
+
+           
+        end
+		
+		
     end
+end
 end
 
 Events.EveryDays.Add(batteryDegrade)
