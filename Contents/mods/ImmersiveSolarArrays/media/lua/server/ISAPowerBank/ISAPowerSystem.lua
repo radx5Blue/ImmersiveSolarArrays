@@ -871,6 +871,19 @@ function batteryDegrade()
         noZ = tonumber(testZ[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
+		local gen = DebugGlobalObjectStateUI:setObjectList(square, noX, noY, noZ)
+		
+		player:Say("Generator: ", gen)
+		
+		if gen ~= nil then
+		
+		gen:setFuel(100)
+        gen:setCondition(100)
+		
+		player:Say("Generator: ", gen)
+		
+	end
 
         if (square ~= nil) then
             local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
