@@ -976,7 +976,7 @@ function GenCheck()
 									if (myObject ~= nil) then
 										if instanceof(myObject, "IsoGenerator") then
 											myObject:setActivated(false)
-											NewGenerator:setSurroundingElectricity()
+											myObject:setSurroundingElectricity()
 											myObject:remove()	
 											
 				-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
