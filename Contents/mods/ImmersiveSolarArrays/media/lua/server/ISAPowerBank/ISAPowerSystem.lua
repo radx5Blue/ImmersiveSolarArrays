@@ -973,6 +973,7 @@ function GenCheck()
 		
 		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and noGN == 0)  then
 					
+								objectsTable = {}
 					
 								if square:getObjects():size() ~= nil then
 								for objs = 1, square:getObjects():size() do
