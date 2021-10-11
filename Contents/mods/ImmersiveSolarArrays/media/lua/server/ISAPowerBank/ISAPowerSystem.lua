@@ -948,7 +948,9 @@ function GenCheck()
 		if square ~= nil then
 
         if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and noGN == 1) then
+			
 
+		for i=1,50 do
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
             NewGenerator:setFuel(100)
@@ -960,6 +962,7 @@ function GenCheck()
 			if square:getBuilding() ~= nil then
 			square:getBuilding():setToxic(false)
 			end
+		end
 			
 			player:Say("Generator")
 			
@@ -970,31 +973,22 @@ function GenCheck()
 		
 		        if (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and noGN == 0)  then
 					
+					
 								if square:getObjects():size() ~= nil then
 								for objs = 1, square:getObjects():size() do
 								local myObject = square:getObjects():get(objs-1);
 									if (myObject ~= nil) then
 										if instanceof(myObject, "IsoGenerator") then
-											myObject:setActivated(false)
-											myObject:setSurroundingElectricity()
 											myObject:remove()	
 											
-				-- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-				-- NewGenerator:setConnected(false)
-				-- NewGenerator:setFuel(0)
-				-- NewGenerator:setCondition(0)
-				-- NewGenerator:setActivated(false)
-				-- NewGenerator:setSurroundingElectricity()
-				-- NewGenerator:remove()
 
-
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(true)
-            NewGenerator:setFuel(100)
-            NewGenerator:setCondition(100)
-			NewGenerator:setSurroundingElectricity()
-            NewGenerator:setActivated(true)
-            NewGenerator:remove()
+            --local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            --NewGenerator:setConnected(true)
+            --NewGenerator:setFuel(100)
+            --NewGenerator:setCondition(100)
+			--NewGenerator:setSurroundingElectricity()
+            --NewGenerator:setActivated(true)
+            --NewGenerator:remove()
 											
 										end 
 									end
@@ -1008,7 +1002,6 @@ function GenCheck()
 			end
 			
 			table.insert(testG, key, 1)  
-			
 			player:Say("Generator Gone")
 
            
