@@ -915,11 +915,11 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 60 and
                     noGN == 1)
              then
 			 
-			 for i = 1, 10 do
+			 for i = 1, 20 do
                 local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
                 NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
@@ -997,7 +997,7 @@ function GenCheck()
             end
 
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 60 and
                     noGN == 0)
              then
                 GenRemove(square, noX, noY, noZ)
@@ -1146,8 +1146,6 @@ if objs and sz > 0 then
         local myObject = objs:get(i);
         if myObject and instanceof(myObject, "IsoGenerator") then
             myObject:remove();
-        else
-            print("ERR: couldn't get object id "..i.."!");
         end
     end
 end
