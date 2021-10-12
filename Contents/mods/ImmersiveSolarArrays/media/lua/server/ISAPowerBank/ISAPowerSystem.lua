@@ -915,72 +915,76 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 60 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and
                     noGN == 1)
              then
+			 
+			 for i = 1, 10 do
                 local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
                 NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
                 NewGenerator:setCondition(100)
                 NewGenerator:setActivated(true)
                 NewGenerator:setSurroundingElectricity()
+				
+			end
                 --NewGenerator:remove()
 
-                local NewGenerator = IsoGenerator.new(nil, square1:getCell(), square1)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square1:getCell(), square1)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square2:getCell(), square2)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square2:getCell(), square2)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square3:getCell(), square3)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square3:getCell(), square3)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square4:getCell(), square4)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square4:getCell(), square4)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square5:getCell(), square5)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square5:getCell(), square5)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square6:getCell(), square6)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square6:getCell(), square6)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square7:getCell(), square7)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square7:getCell(), square7)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
-                local NewGenerator = IsoGenerator.new(nil, square8:getCell(), square8)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
+                -- local NewGenerator = IsoGenerator.new(nil, square8:getCell(), square8)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
 
 
                 if square:getBuilding() ~= nil then
@@ -993,7 +997,7 @@ function GenCheck()
             end
 
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 60 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and
                     noGN == 0)
              then
                 GenRemove(square, noX, noY, noZ)
@@ -1020,115 +1024,133 @@ function GenCheck()
 end
 
 function GenRemove(square, SnoX, SnoY, SnoZ)
-    local square = getWorld():getCell():getGridSquare(SnoX, SnoY, SnoZ)
-    local square1 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY - 1, SnoZ)
-    local square2 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY + 1, SnoZ)
-    local square3 = getWorld():getCell():getGridSquare(SnoX, SnoY - 1, SnoZ)
-    local square4 = getWorld():getCell():getGridSquare(SnoX, SnoY + 1, SnoZ)
-    local square5 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY, SnoZ)
-    local square6 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY, SnoZ)
-    local square7 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY + 1, SnoZ)
-    local square8 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY - 1, SnoZ)
+    -- local square = getWorld():getCell():getGridSquare(SnoX, SnoY, SnoZ)
+    -- local square1 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY - 1, SnoZ)
+    -- local square2 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY + 1, SnoZ)
+    -- local square3 = getWorld():getCell():getGridSquare(SnoX, SnoY - 1, SnoZ)
+    -- local square4 = getWorld():getCell():getGridSquare(SnoX, SnoY + 1, SnoZ)
+    -- local square5 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY, SnoZ)
+    -- local square6 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY, SnoZ)
+    -- local square7 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY + 1, SnoZ)
+    -- local square8 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY - 1, SnoZ)
 
 
-    if square:getObjects():size() ~= nil then
-        for objs = 1, square:getObjects():size() do
-            local myObject = square:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
+    -- if square:getObjects():size() ~= nil then
+        -- for objs = 1, square:getObjects():size() do
+            -- local myObject = square:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square1:getObjects():size() ~= nil then
+        -- for objs = 1, square1:getObjects():size() do
+            -- local myObject = square1:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square2:getObjects():size() ~= nil then
+        -- for objs = 1, square2:getObjects():size() do
+            -- local myObject = square2:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square3:getObjects():size() ~= nil then
+        -- for objs = 1, square3:getObjects():size() do
+            -- local myObject = square3:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square4:getObjects():size() ~= nil then
+        -- for objs = 1, square4:getObjects():size() do
+            -- local myObject = square4:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square5:getObjects():size() ~= nil then
+        -- for objs = 1, square5:getObjects():size() do
+            -- local myObject = square5:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square6:getObjects():size() ~= nil then
+        -- for objs = 1, square6:getObjects():size() do
+            -- local myObject = square6:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square7:getObjects():size() ~= nil then
+        -- for objs = 1, square7:getObjects():size() do
+            -- local myObject = square7:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+
+    -- if square8:getObjects():size() ~= nil then
+        -- for objs = 1, square8:getObjects():size() do
+            -- local myObject = square8:getObjects():get(objs - 1)
+            -- if (myObject ~= nil) then
+                -- if instanceof(myObject, "IsoGenerator") then
+                    -- myObject:remove()
+                -- end
+            -- end
+        -- end
+    -- end
+	
+	
+							
+	
+	                
+											
+local objs = square:getObjects();
+local sz = objs:size()
+if objs and sz > 0 then
+    for i = sz-1, 0, -1 do -- reverse iteration
+        local myObject = objs:get(i);
+        if myObject and instanceof(myObject, "IsoGenerator") then
+            myObject:remove();
+        else
+            print("ERR: couldn't get object id "..i.."!");
         end
     end
-
-    if square1:getObjects():size() ~= nil then
-        for objs = 1, square1:getObjects():size() do
-            local myObject = square1:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square2:getObjects():size() ~= nil then
-        for objs = 1, square2:getObjects():size() do
-            local myObject = square2:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square3:getObjects():size() ~= nil then
-        for objs = 1, square3:getObjects():size() do
-            local myObject = square3:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square4:getObjects():size() ~= nil then
-        for objs = 1, square4:getObjects():size() do
-            local myObject = square4:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square5:getObjects():size() ~= nil then
-        for objs = 1, square5:getObjects():size() do
-            local myObject = square5:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square6:getObjects():size() ~= nil then
-        for objs = 1, square6:getObjects():size() do
-            local myObject = square6:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square7:getObjects():size() ~= nil then
-        for objs = 1, square7:getObjects():size() do
-            local myObject = square7:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
-
-    if square8:getObjects():size() ~= nil then
-        for objs = 1, square8:getObjects():size() do
-            local myObject = square8:getObjects():get(objs - 1)
-            if (myObject ~= nil) then
-                if instanceof(myObject, "IsoGenerator") then
-                    myObject:remove()
-                end
-            end
-        end
-    end
+end
 
 end
 
