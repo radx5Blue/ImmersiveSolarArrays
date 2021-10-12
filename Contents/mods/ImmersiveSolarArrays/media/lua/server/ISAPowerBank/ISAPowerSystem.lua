@@ -889,8 +889,6 @@ function GenCheck()
     local testB = ModData.get("PBBO")
     local testG = ModData.get("PBGN")
 
-    local objsTable = {}
-
     player = getPlayer()
 
     for key = 1, #testK do
@@ -913,6 +911,7 @@ function GenCheck()
         local square6 = getWorld():getCell():getGridSquare(noX - 1, noY, noZ)
         local square7 = getWorld():getCell():getGridSquare(noX - 1, noY + 1, noZ)
         local square8 = getWorld():getCell():getGridSquare(noX + 1, noY - 1, noZ)
+		
 
         if square ~= nil then
             if
@@ -997,7 +996,7 @@ function GenCheck()
                 (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 60 and
                     noGN == 0)
              then
-                GenRemove(square)
+                GenRemove(square, noX, noY, noZ)
 
                 if square:getBuilding() ~= nil then
                     square:getBuilding():setToxic(false)
@@ -1008,18 +1007,28 @@ function GenCheck()
             end
         end
     end
+	
+	
+	if noPB == 0 then 
+		GenRemove(square, noX, noY, noZ)
+		
+	end
+	
+	
+	
+	
 end
 
-function GenRemove(square)
-    local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-    local square1 = getWorld():getCell():getGridSquare(noX - 1, noY - 1, noZ)
-    local square2 = getWorld():getCell():getGridSquare(noX + 1, noY + 1, noZ)
-    local square3 = getWorld():getCell():getGridSquare(noX, noY - 1, noZ)
-    local square4 = getWorld():getCell():getGridSquare(noX, noY + 1, noZ)
-    local square5 = getWorld():getCell():getGridSquare(noX + 1, noY, noZ)
-    local square6 = getWorld():getCell():getGridSquare(noX - 1, noY, noZ)
-    local square7 = getWorld():getCell():getGridSquare(noX - 1, noY + 1, noZ)
-    local square8 = getWorld():getCell():getGridSquare(noX + 1, noY - 1, noZ)
+function GenRemove(square, SnoX, SnoY, SnoZ)
+    local square = getWorld():getCell():getGridSquare(SnoX, SnoY, SnoZ)
+    local square1 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY - 1, SnoZ)
+    local square2 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY + 1, SnoZ)
+    local square3 = getWorld():getCell():getGridSquare(SnoX, SnoY - 1, SnoZ)
+    local square4 = getWorld():getCell():getGridSquare(SnoX, SnoY + 1, SnoZ)
+    local square5 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY, SnoZ)
+    local square6 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY, SnoZ)
+    local square7 = getWorld():getCell():getGridSquare(SnoX - 1, SnoY + 1, SnoZ)
+    local square8 = getWorld():getCell():getGridSquare(SnoX + 1, SnoY - 1, SnoZ)
 
 
     if square:getObjects():size() ~= nil then
