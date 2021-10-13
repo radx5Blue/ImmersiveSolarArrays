@@ -894,7 +894,7 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 60 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and
                     noGN == 1)
              then
 			 
@@ -919,7 +919,7 @@ function GenCheck()
             end
 
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 60 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and
                     noGN == 0)
              then
                 GenRemove(square, noX, noY, noZ)
@@ -935,10 +935,10 @@ function GenCheck()
     end
 	
 	
-	if noPB == 0 then 
-		GenRemove(square, noX, noY, noZ)
+	--if noPB == 0 then 
+		--GenRemove(square, noX, noY, noZ)
 		
-	end
+	--end
 	
 	
 	
@@ -957,6 +957,16 @@ if objs and sz > 0 then
         end
     end
 end
+
+
+
+                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                NewGenerator:setConnected(true)
+                NewGenerator:setFuel(100)
+                NewGenerator:setCondition(100)
+                NewGenerator:setActivated(true)
+                NewGenerator:setSurroundingElectricity()
+                NewGenerator:remove()
 
 end
 
