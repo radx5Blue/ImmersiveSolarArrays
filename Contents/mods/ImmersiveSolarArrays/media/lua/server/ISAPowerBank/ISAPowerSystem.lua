@@ -959,20 +959,11 @@ if objs and sz > 0 then
 end
 
 
-
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
-
 end
 
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryTenMinutes.Add(chargeLogic)
-Events.OnTick.Add(PowerCheck)
+--Events.OnTick.Add(PowerCheck)
 Events.OnTick.Add(GenCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
