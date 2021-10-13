@@ -1,21 +1,4 @@
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
-    -- testK = ModData.get("PBK")
-    -- testX = ModData.get("PBX")
-    -- testY = ModData.get("PBY")
-    -- testZ = ModData.get("PBZ")
-
-    -- print("ModData Key: ", testK[key])
-    -- print("ModData X: ",testX[key])
-    -- print("ModData Y: ",testY[key])
-    -- print("ModData Z: ",testZ[key])
-
-    -- noKey = tonumber(testK[key])
-    -- noX = tonumber(testX[key])
-    -- noY = tonumber(testY[key])
-    -- noZ = tonumber(testZ[key])
-
-    -- local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-
     print("numberOfPanels: ", numberOfPanels * 83)
     print("powerConsumption: ", powerConsumption)
 
@@ -46,10 +29,6 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         sqX = square:getX()
         sqY = square:getY()
         sqZ = square:getZ()
-
-        print("Created Passed X: ", sqX)
-        print("Created Passed Y: ", sqY)
-        print("Created Passed Z: ", sqZ)
 
         if (numberOfPanels * 83) > powerConsumption then
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
@@ -90,39 +69,39 @@ function ISInventoryTransferAction:transferItem(item)
     local batterynumber = 0
 
     if self.srcContainer:getSourceGrid() ~= nil then
-        print("src sqr found")
+        --print("src sqr found")
         bank1 = ISMoveableSpriteProps:findOnSquare(self.srcContainer:getSourceGrid(), "solarmod_tileset_01_0")
         if bank1 ~= nil then
             container = bank1:getContainer()
         end
     end
     if self.destContainer:getSourceGrid() ~= nil then
-        print("dest sqr found")
+        --print("dest sqr found")
         bank2 = ISMoveableSpriteProps:findOnSquare(self.destContainer:getSourceGrid(), "solarmod_tileset_01_0")
         if bank2 ~= nil then
             container = bank2:getContainer()
         end
     end
     if bank1 ~= nil then
-        print("src is bank")
+        --print("src is bank")
         bankfinal = bank1
         adding = false
     elseif bank2 ~= nil then
-        print("dest is bank")
+        --print("dest is bank")
         bankfinal = bank2
         adding = true
     end
     if bank1 == nil and bank2 == nil then
-        print("stopping now")
+       -- print("stopping now")
         return res
     end
     if bankfinal ~= nil and container ~= nil then
-        print("looks like someone is transferring items to/from a powerbank")
+        --print("looks like someone is transferring items to/from a powerbank")
         local square = bankfinal:getSquare()
-        print(square)
+        --print(square)
         local charge = getBankCharge(square)
         local updatedCH = getBankCharge(square) --remove this line later when done
-        print(charge)
+       -- print(charge)
         if charge ~= nil and adding == true then
             local type = item:getType()
             local batterypower = item:getUsedDelta()
@@ -167,24 +146,24 @@ function ISInventoryTransferAction:transferItem(item)
                 end
             end
             if isBattery == true then
-                print("doing Advanced(TM) charge math!")
+               -- print("doing Advanced(TM) charge math!")
                 --do Advanced(TM) charge math!
                 local newbatteryamount = batterypower * capacity -- bat charge in Ah
                 local oldbatteryamount = bankcapacity * charge -- bank charge in Ah
                 --add up and divive
-                print("newbatteryamount")
-                print(newbatteryamount)
-                print("oldbatteryamount")
-                print(oldbatteryamount)
+               -- print("newbatteryamount")
+               -- print(newbatteryamount)
+               -- print("oldbatteryamount")
+               -- print(oldbatteryamount)
                 local systemtotal = (newbatteryamount + oldbatteryamount)
                 local systemmax = capacity + bankcapacity
-                print("systemtotal")
-                print(systemtotal)
-                print("systemmax")
-                print(systemmax)
+               -- print("systemtotal")
+               -- print(systemtotal)
+               -- print("systemmax")
+                --print(systemmax)
                 updatedCH = systemtotal / systemmax
-                print("updatedCH")
-                print(updatedCH)
+               -- print("updatedCH")
+                --print(updatedCH)
                 --got it, now set the charge!
                 item:setUsedDelta(updatedCH)
                 for i = 1, container:getItems():size() do
@@ -498,8 +477,8 @@ function getModifiedSolarOutput(SolarInput)
     local myWeather = getClimateManager()
     local currentHour = getGameTime():getHour()
 
-    print("My weather: ", myWeather)
-    print("My time: ", currentHour)
+   -- print("My weather: ", myWeather)
+   -- print("My time: ", currentHour)
     local cloudiness = getClimateManager():getCloudIntensity()
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
@@ -523,13 +502,13 @@ local function ReloadPower()
     local pbkLen = #testK
 
     for key = 1, #testK do
-        print("Check ModData Key: ", testK[key])
-        print("Check ModData X: ", testX[key])
-        print("Check ModData Y: ", testY[key])
-        print("Check ModData Z: ", testZ[key])
-        print("Check ModData NP: ", testNP[key])
-        print("Check ModData LOADED: ", testL[key])
-        print("Check ModData Charge: ", testC[key])
+        --print("Check ModData Key: ", testK[key])
+        --print("Check ModData X: ", testX[key])
+        --print("Check ModData Y: ", testY[key])
+        --print("Check ModData Z: ", testZ[key])
+        --print("Check ModData NP: ", testNP[key])
+        --print("Check ModData LOADED: ", testL[key])
+        --print("Check ModData Charge: ", testC[key])
 
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
