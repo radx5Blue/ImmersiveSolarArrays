@@ -922,7 +922,7 @@ function GenCheck()
                 (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and
                     noGN == 0)
              then
-                GenRemove(square, noX, noY, noZ)
+                GenRemove(square, noX + 1, noY, noZ)
 
                 if square:getBuilding() ~= nil then
                     square:getBuilding():setToxic(false)
