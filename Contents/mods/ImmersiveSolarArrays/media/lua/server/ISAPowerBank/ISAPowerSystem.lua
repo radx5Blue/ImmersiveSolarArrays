@@ -894,7 +894,7 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 5 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 50 and
                     noGN == 1)
              then
 			 
@@ -913,13 +913,12 @@ function GenCheck()
                     square:getBuilding():setToxic(false)
                 end
 
-               -- player:Say("Generator")
 
                 table.insert(testG, key, 0)
             end
 
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and
+                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and
                     noGN == 0)
              then
                 GenRemove(square, noX + 1, noY, noZ)
@@ -929,18 +928,9 @@ function GenCheck()
                 end
 
                 table.insert(testG, key, 1)
-               -- player:Say("Generator Gone")
             end
         end
     end
-	
-	
-	--if noPB == 0 then 
-		--GenRemove(square, noX, noY, noZ)
-		
-	--end
-	
-	
 	
 	
 end
