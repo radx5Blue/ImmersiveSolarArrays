@@ -523,14 +523,6 @@ local function ReloadPower()
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(false)
-            NewGenerator:setFuel(0)
-            NewGenerator:setCondition(0)
-            NewGenerator:setActivated(false)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
-
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
             NewGenerator:setFuel(100)
             NewGenerator:setCondition(100)
@@ -579,13 +571,6 @@ function PowerCheck()
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
         if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1) then
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(false)
-            NewGenerator:setFuel(0)
-            NewGenerator:setCondition(0)
-            NewGenerator:setActivated(false)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
