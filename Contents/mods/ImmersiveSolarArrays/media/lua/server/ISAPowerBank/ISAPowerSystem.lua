@@ -903,8 +903,7 @@ function GenCheck()
             end
 
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and
-                    noGN == 0)
+                (bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50)
              then
                 GenRemove(square, noX + 1, noY, noZ)
 
