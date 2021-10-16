@@ -79,9 +79,46 @@ end
 
 OpenBatterBankInfo = function(square)
 
+    sqX = square:getX()
+    sqY = square:getY()
+    sqZ = square:getZ()
+
+	local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+    local testB = ModData.get("PBBO")
+    local testG = ModData.get("PBGN")
+
+    player = getPlayer()
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
+        noCH = tonumber(testC[key])
+        noPB = tonumber(testB[key])
+        noGN = tonumber(testG[key])
+		
+
+        if (sqX == noX and sqY == noY and sqZ == noZ) then
+         
+		 -- do logic in here
+		 
+	 end
+
+		
+	 
+ end
+
 
 end
-
 
 
 Events.OnFillWorldObjectContextMenu.Add(ISAMenu.createMenuEntries);
