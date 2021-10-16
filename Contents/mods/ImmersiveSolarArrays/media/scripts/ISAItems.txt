@@ -39,7 +39,7 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
 	VehicleType =   9384579,
-        ConditionMax = 100000,
+        ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
