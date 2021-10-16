@@ -44,9 +44,12 @@ local type = item:getType()
 			item:setCondition(item:getCondition() - ZombRand(2, 6))
 			--breaks in 33 days 
 			end
-			--if type == "DeepCycleBattery" then
-			--item:setCondition(item:getCondition() - ZombRand(1, 60))
+			if type == "DeepCycleBattery" then
+				local chance = ZombRand(1, 33)
+				if chance == 1 then
+					item:setCondition(item:getCondition() - 1)
+				end
 			--breaks in 9+ years
-			--end
+			end
 end
 end
