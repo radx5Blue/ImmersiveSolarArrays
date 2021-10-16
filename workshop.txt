@@ -1,8 +1,6 @@
 version=1
 id=2623458493
 title=Immersive Solar Arrays
-description=** Now requires blindcoders Modding Utility **
-description=
 description=The mod requires version IWBUMS Beta: 41.54+
 description=
 description=Immersive Solar Arrays (ISA) adds a solar power system to Project Zomboid. It allows players to power their bases during the day, and during the night if they have enough battery capacity. ISA adds a number of new items to Zomboid, including solar panels, battery banks, deep-cycle batteries and recipes to convert car batteries into storage batteries.
