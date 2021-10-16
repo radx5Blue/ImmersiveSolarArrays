@@ -872,7 +872,7 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) >= 50 and
+                (noPB == 1 and calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) >= 50 and
                     noGN == 1)
              then
 			 
@@ -885,7 +885,7 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
-			--print("gens created")
+			print("gens created")
 
 
                 if square:getBuilding() ~= nil then
@@ -897,7 +897,7 @@ function GenCheck()
             end
 
             if
-                (bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
+                (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
                 GenRemove(square, noX + 1, noY, noZ)
 
@@ -913,6 +913,13 @@ function GenCheck()
 	
 end
 
+function calculateDistance(x1, y1, x2, y2)
+	return math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
+end
+
+
+
+
 function GenRemove(square)
      											
 local objs = square:getObjects();
@@ -926,7 +933,7 @@ if objs and sz > 0 then
     end
 end
 
---print("gens removed")
+print("gens removed")
 
 end
 
