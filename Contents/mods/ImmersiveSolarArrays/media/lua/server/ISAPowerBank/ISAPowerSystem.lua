@@ -570,7 +570,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 500 and loc == false and noPB == 1) then
+        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -590,25 +590,26 @@ function PowerCheck()
             print("Created")
         end
 
-        if (globalPCounter > 400 and loc == true) then
+        if (globalPCounter > 1500 and loc == true) then
             loc = false
             globalPCounter = 0
             print("Not Created")
         end
 
-        if (square ~= nil and globalPCounter > 500 and noPB == 0) then
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(false)
-            NewGenerator:setFuel(0)
-            NewGenerator:setCondition(0)
-            NewGenerator:setActivated(false)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
+        -- if (square ~= nil and globalPCounter > 1500 and noPB == 0) then
+            -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+            -- NewGenerator:setConnected(false)
+            -- NewGenerator:setFuel(0)
+            -- NewGenerator:setCondition(0)
+            -- NewGenerator:setActivated(false)
+            -- NewGenerator:setSurroundingElectricity()
+            -- NewGenerator:remove()
 
-            globalPCounter = 0
+            -- globalPCounter = 0
 
-            loc = true
-        end
+            -- loc = true
+			-- print("No power remove")
+        -- end
     end
 end
 
@@ -867,14 +868,6 @@ function GenCheck()
         noGN = tonumber(testG[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-        local square1 = getWorld():getCell():getGridSquare(noX - 1, noY - 1, noZ)
-        local square2 = getWorld():getCell():getGridSquare(noX + 1, noY + 1, noZ)
-        local square3 = getWorld():getCell():getGridSquare(noX, noY - 1, noZ)
-        local square4 = getWorld():getCell():getGridSquare(noX, noY + 1, noZ)
-        local square5 = getWorld():getCell():getGridSquare(noX + 1, noY, noZ)
-        local square6 = getWorld():getCell():getGridSquare(noX - 1, noY, noZ)
-        local square7 = getWorld():getCell():getGridSquare(noX - 1, noY + 1, noZ)
-        local square8 = getWorld():getCell():getGridSquare(noX + 1, noY - 1, noZ)
 		
 
         if square ~= nil then
@@ -892,6 +885,7 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
+			print("gens created")
 
 
                 if square:getBuilding() ~= nil then
@@ -903,7 +897,7 @@ function GenCheck()
             end
 
             if
-                (bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50)
+                (bcUtils.realDist(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
                 GenRemove(square, noX + 1, noY, noZ)
 
@@ -932,12 +926,14 @@ if objs and sz > 0 then
     end
 end
 
+print("gens removed")
 
 end
 
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryTenMinutes.Add(chargeLogic)
-Events.OnTick.Add(PowerCheck)
+--Events.OnTick.Add(PowerCheck)
+Events.OnPlayerUpdate.Add(PowerCheck)
 Events.OnTick.Add(GenCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
