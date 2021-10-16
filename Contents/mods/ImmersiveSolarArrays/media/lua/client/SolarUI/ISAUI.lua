@@ -79,9 +79,9 @@ end
 
 OpenBatterBankInfo = function(square)
 
-    sqX = square:getX()
-    sqY = square:getY()
-    sqZ = square:getZ()
+    local sqX = square:getX()
+    local sqY = square:getY()
+    local sqZ = square:getZ()
 
 	local testK = ModData.get("PBK")
     local testX = ModData.get("PBX")
