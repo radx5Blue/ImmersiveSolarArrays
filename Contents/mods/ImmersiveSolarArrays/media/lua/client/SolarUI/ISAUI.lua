@@ -61,7 +61,7 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	
 	if bank ~= nil then
 		
-	local ISAOption = context:addOption("Battery Bank", function() openBatteryBankInfo(square) end));
+	local ISAOption = context:addOption("Battery Bank", function() openBatteryBankInfo(square));
 	
 	
 	--local subMenu = ISContextMenu:getNew(context);
@@ -75,7 +75,29 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 
 function openBatteryBankInfo(square)
 
-player = getPlayer()
+ISAWindow = ISCollapsableWindow:derive("ISAWindowPB");
+ISAWindow.compassLines = {}
+
+function ISAWindow:initialise()
+	ISCollapsableWindow.initialise(self);
+end
+
+function ISAWindow:new(x, y, width, height)
+	local o = {};
+	o = ISCollapsableWindow:new(x, y, width, height);
+	setmetatable(o, self);
+	self.__index = self;
+	o.title = "ISA";
+	o.pin = false;
+	o:noBackground();
+	return o;
+end
+
+function ISAWindow:setText(newText)
+	ISAWindow.HomeWindow.text = newText;
+	ISAWindow.HomeWindow:paginate();
+end
+
 
 
 end
