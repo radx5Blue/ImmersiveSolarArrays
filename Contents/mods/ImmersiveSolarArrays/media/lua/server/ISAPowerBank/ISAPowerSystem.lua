@@ -885,7 +885,7 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
-			print("gens created")
+			--print("gens created")
 
 
                 if square:getBuilding() ~= nil then
@@ -926,7 +926,7 @@ if objs and sz > 0 then
     end
 end
 
-print("gens removed")
+--print("gens removed")
 
 end
 
