@@ -808,6 +808,7 @@ function chargeLogic()
             end
 
             table.insert(testC, key, updatedCH)
+			
         end
     end
 end
@@ -892,9 +893,10 @@ function GenCheck()
                     square:getBuilding():setToxic(false)
                 end
 
-
-                table.insert(testG, key, 0)
-            end
+                
+			table.insert(testG, key, 0)
+            
+			end
 
             if
                 (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)

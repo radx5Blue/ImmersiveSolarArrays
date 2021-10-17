@@ -6,39 +6,6 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	local context = _context;
 	local worldobjects = _worldObjects; 
 	
-	
-
-	
-	
-	
-	-- local testK = ModData.get("PBK")
-    -- local testX = ModData.get("PBX")
-    -- local testY = ModData.get("PBY")
-    -- local testZ = ModData.get("PBZ")
-    -- local testNP = ModData.get("PBNP")
-    -- local testL = ModData.get("PBLD")
-    -- local testC = ModData.get("PBCH")
-    -- local testB = ModData.get("PBBO")
-    -- local testG = ModData.get("PBGN")
-
-    -- player = getPlayer()
-
-    -- for key = 1, #testK do
-        -- noKey = tonumber(testK[key])
-        -- noX = tonumber(testX[key])
-        -- noY = tonumber(testY[key])
-        -- noZ = tonumber(testZ[key])
-        -- noPZ = tonumber(testNP[key])
-        -- noLD = tonumber(testL[key])
-        -- noCH = tonumber(testC[key])
-        -- noPB = tonumber(testB[key])
-        -- noGN = tonumber(testG[key])
-
-		
-		
-	 -- subMenu:addOption("Battery Bank", worldobjects, function() SaySolar() end);
-	 
- -- end
  
  	if test and ISWorldObjectContextMenu.Test then return true end
 
@@ -56,17 +23,11 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 			end
 		end
 	end
-
-	if not bank then return end
 	
 	if bank ~= nil then
 		
-			local ISAOption = context:addOption("Battery Bank Status", worldobjects, function() OpenBatterBankInfo(square) end);
-	--local subMenu = ISContextMenu:getNew(context);
-	--context:addSubMenu(ISAOption, subMenu);
-	
-	ISAOption.context = context
-	ISAOption.subMenu = subMenu
+	local savedSquare = getWorld():getCell():getGridSquare(noX, noY, noZ)	
+	local ISAOption = context:addOption("Battery Bank Status", worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
 		
 	end
 	 
@@ -77,11 +38,11 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 end
 
 
-OpenBatterBankInfo = function(square)
+OpenBatterBankInfo = function(fsquare)
 
-    local sqX = square:getX()
-    local sqY = square:getY()
-    local sqZ = square:getZ()
+    local sqX = fsquare:getX()
+    local sqY = fsquare:getY()
+    local sqZ = fsquare:getZ()
 
 	local testK = ModData.get("PBK")
     local testX = ModData.get("PBX")
@@ -109,11 +70,11 @@ OpenBatterBankInfo = function(square)
 
         if (sqX == noX and sqY == noY and sqZ == noZ) then
 			
-			local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
+			local batterybank = ISMoveableSpriteProps:findOnSquare(fsquare, "solarmod_tileset_01_0")
             local inventory = batterybank:getContainer()
             local capacity = HandleBatteries(inventory, noCH, false)
             local batterynumber = HandleBatteries(inventory, noCH, true)
-            local drain = solarscan(square, false, true, false, 0)
+            local drain = solarscan(fsquare, false, true, false, 0)
             local input = getModifiedSolarOutput(noPZ)
             local actualCharge = capacity * noCH
             local difference = input - drain
