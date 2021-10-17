@@ -570,7 +570,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1) then
+        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -583,33 +583,22 @@ function PowerCheck()
                 square:getBuilding():setToxic(false)
             end
 
-            globalPCounter = 0
+            --globalPCounter = 0
 
             loc = true
+			
+			table.insert(testL, key, 0)
 
-            print("Created")
+            --print("Created")
         end
 
-        if (globalPCounter > 1500 and loc == true) then
+       if (globalPCounter > 1500 and loc == true and noLD == 0) then
             loc = false
             globalPCounter = 0
             print("Not Created")
+			
         end
 
-        -- if (square ~= nil and globalPCounter > 1500 and noPB == 0) then
-            -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            -- NewGenerator:setConnected(false)
-            -- NewGenerator:setFuel(0)
-            -- NewGenerator:setCondition(0)
-            -- NewGenerator:setActivated(false)
-            -- NewGenerator:setSurroundingElectricity()
-            -- NewGenerator:remove()
-
-            -- globalPCounter = 0
-
-            -- loc = true
-			-- print("No power remove")
-        -- end
     end
 end
 
@@ -626,14 +615,7 @@ function chargeLogic()
     local pbkLen = #testK
 
     for key = 1, #testK do
-        print("Check ModData Key: ", testK[key])
-        print("Check ModData X: ", testX[key])
-        print("Check ModData Y: ", testY[key])
-        print("Check ModData Z: ", testZ[key])
-        print("Check ModData NP: ", testNP[key])
-        print("Check ModData LOADED: ", testL[key])
-        print("Check ModData Charge: ", testC[key])
-        print("Check ModData On: ", testB[key])
+
 
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -643,6 +625,17 @@ function chargeLogic()
         noLD = tonumber(testL[key])
         noCH = tonumber(testC[key])
         noOff = tonumber(testB[key])
+		
+		if noLD == 1 then
+			
+		print("Check ModData Key: ", testK[key])
+        print("Check ModData X: ", testX[key])
+        print("Check ModData Y: ", testY[key])
+        print("Check ModData Z: ", testZ[key])
+        print("Check ModData NP: ", testNP[key])
+        print("Check ModData LOADED: ", testL[key])
+        print("Check ModData Charge: ", testC[key])
+        print("Check ModData On: ", testB[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
@@ -812,6 +805,7 @@ function chargeLogic()
         end
     end
 end
+end
 
 function batteryDegrade()
     local testK = ModData.get("PBK")
@@ -886,7 +880,7 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
-			print("gens created")
+			--print("gens created")
 
 
                 if square:getBuilding() ~= nil then
@@ -908,6 +902,7 @@ function GenCheck()
                 end
 
                 table.insert(testG, key, 1)
+				table.insert(testL, key, 1)
             end
         end
     end
@@ -935,14 +930,14 @@ if objs and sz > 0 then
     end
 end
 
-print("gens removed")
+--print("gens removed")
 
 end
 
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryTenMinutes.Add(chargeLogic)
---Events.OnTick.Add(PowerCheck)
-Events.OnPlayerUpdate.Add(PowerCheck)
+Events.OnTick.Add(PowerCheck)
+--Events.OnPlayerUpdate.Add(PowerCheck)
 Events.OnTick.Add(GenCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
