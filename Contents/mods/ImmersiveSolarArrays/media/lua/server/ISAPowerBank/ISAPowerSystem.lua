@@ -626,7 +626,7 @@ function chargeLogic()
         noCH = tonumber(testC[key])
         noOff = tonumber(testB[key])
 		
-		if noLD == 1 then
+		if noLD == 0 then
 			
 		print("Check ModData Key: ", testK[key])
         print("Check ModData X: ", testX[key])
