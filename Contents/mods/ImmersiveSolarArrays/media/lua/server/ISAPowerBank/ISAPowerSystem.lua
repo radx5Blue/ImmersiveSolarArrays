@@ -602,6 +602,8 @@ function PowerCheck()
     end
 end
 
+chargeCounter = 0
+
 function chargeLogic()
     local testK = ModData.get("PBK")
     local testX = ModData.get("PBX")
@@ -613,6 +615,8 @@ function chargeLogic()
     local testB = ModData.get("PBBO")
 
     local pbkLen = #testK
+	
+	chargeCounter = chargeCounter + 1
 
     for key = 1, #testK do
 
@@ -626,7 +630,6 @@ function chargeLogic()
         noCH = tonumber(testC[key])
         noOff = tonumber(testB[key])
 		
-
 			
 		print("Check ModData Key: ", testK[key])
         print("Check ModData X: ", testX[key])
@@ -639,7 +642,8 @@ function chargeLogic()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil) then
+        if (square ~= nil and chargeCounter == 3) then
+			chargeCounter = 0
             local updatedCH = 0
             local batterybank = ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0")
             local inventory = batterybank:getContainer()
