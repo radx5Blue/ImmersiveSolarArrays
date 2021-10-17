@@ -650,7 +650,7 @@ function chargeLogic()
             local actualCharge = capacity * noCH
             local difference = input - drain
 
-            updatedCH = (actualCharge + difference / 3) / capacity -- uh, divide by 3 bc every 30 mins
+            updatedCH = (actualCharge + difference / 6) / capacity 
 
             --make sure charge is within bounds
             if updatedCH > 1 then
