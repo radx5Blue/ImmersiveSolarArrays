@@ -46,7 +46,7 @@ function SpawnPanels()
     panelSquare:getObjects():add(newSprite)
     panelSquare:RecalcProperties()    
 	
-	player:Say("Solars")
+	--player:Say("Solars")
 	
 	table.insert(hasSpawned, key, 1)
 	
