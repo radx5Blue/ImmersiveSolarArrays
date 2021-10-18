@@ -26,7 +26,6 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	
 	if bank ~= nil then
 		
-	local savedSquare = getWorld():getCell():getGridSquare(noX, noY, noZ)	
 	local ISAOption = context:addOption("Battery Bank Status", worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
 		
 	end

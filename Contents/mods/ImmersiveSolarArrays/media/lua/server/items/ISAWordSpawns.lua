@@ -7,28 +7,33 @@ function SpawnPanels()
     local pY = ModData.get("SpawnCellY")
     local pZ = ModData.get("SpawnCellZ")
     local pType = ModData.get("SpawnCellType")
+	 local hasSpawned = ModData.get("SpawnCellSpawned")
 	
 
     local keyIndex = #pKeys
 
     for key = 1, #pKeys do
 		
-        noKey = tonumber(pKeys[key])
-        noX = tonumber(pX[key])
-        noY = tonumber(pY[key])
-        noZ = tonumber(pZ[key])
+     local   noKey = tonumber(pKeys[key])
+      local  noX = tonumber(pX[key])
+      local  noY = tonumber(pY[key])
+      local  noZ = tonumber(pZ[key])
+	  local  spawned = tonumber(hasSpawned[key])
+	  
+	  
+	 if spawned == 0 then
 
-	local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+	local panelSquare = getWorld():getCell():getGridSquare(noX, noY, noZ)
 	
-	if square ~= nil then
-	if (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 5 and test == false) then
+	if panelSquare ~= nil then
+	if (calculateDistance(player:getX(), player:getY(), panelSquare:getX(), panelSquare:getY()) < 70) then
 		
 	local sprite_type = tostring(pType[key])
     if not sprite_type then
         print("NO SPRITE TYPE!")
         return false
     end        
-    local newSprite = (IsoObject.new(getCell(), square, sprite_type))    
+    local newSprite = (IsoObject.new(getCell(), panelSquare, sprite_type))    
     if not newSprite then
         print("NO NEW SPRITE!")
         return false
@@ -38,17 +43,14 @@ function SpawnPanels()
              newSprite:createContainersFromSpriteProperties()                
         end
     end
-    square:getObjects():add(newSprite)
-    square:RecalcProperties()    
+    panelSquare:getObjects():add(newSprite)
+    panelSquare:RecalcProperties()    
 	
 	player:Say("Solars")
 	
-	table.remove(pKeys, key, key)
-    table.remove(pX, key, noX)
-    table.remove(pY, key, noY)
-    table.remove(pZ, key, noZ)
-    table.remove(pType, key, pType)
-     end
+	table.insert(hasSpawned, key, 1)
+	
+    end
 		
 		
 
@@ -60,7 +62,7 @@ end
 	
 	
 	
-	
+end
 	
 	
 	
@@ -74,6 +76,7 @@ function SpawnRolls()
 	local spawnCellY = {}
 	local spawnCellZ = {}
 	local spawnCellType = {}
+	local spawnCellSpawned = {}
 	--local spawnCellChance = {}
 	--local spawnCellHasSpawned = {}
 
@@ -83,18 +86,21 @@ function SpawnRolls()
 		
 		local CellKeysNumber = 0
 		
-		table.insert(spawnCellKeys, CellKeysNumber + 1, CellKeysNumber + 1)
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
 		table.insert(spawnCellX, CellKeysNumber, 4723)
 		table.insert(spawnCellY, CellKeysNumber, 7997)
 		table.insert(spawnCellZ, CellKeysNumber, 0)
 		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_7")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
 		
-		
-		table.insert(spawnCellKeys, CellKeysNumber + 1, CellKeysNumber + 1)
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
 		table.insert(spawnCellX, CellKeysNumber, 4744)
 		table.insert(spawnCellY, CellKeysNumber, 7849)
 		table.insert(spawnCellZ, CellKeysNumber, 0)
 		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_7")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
 		
 		
 		ModData.add("SpawnCellKeys", spawnCellKeys)
@@ -102,6 +108,7 @@ function SpawnRolls()
 		ModData.add("SpawnCellY", spawnCellY)
 		ModData.add("SpawnCellZ", spawnCellZ)
 		ModData.add("SpawnCellType", spawnCellType)
+		ModData.add("SpawnCellSpawned", spawnCellSpawned)
 		--ModData.add("SpawnCellChance", spawnCellChance)
 		--ModData.add("SpawnCellHasSpawned", spawnCellHasSpawned)
 		
