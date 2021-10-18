@@ -134,6 +134,94 @@ function SpawnRolls()
 		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_7")
 		table.insert(spawnCellSpawned, CellKeysNumber, 0)
 		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 12478)
+		table.insert(spawnCellY, CellKeysNumber, 8919)
+		table.insert(spawnCellZ, CellKeysNumber, 0)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_6")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 12067)
+		table.insert(spawnCellY, CellKeysNumber, 7379)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_7")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 13632)
+		table.insert(spawnCellY, CellKeysNumber, 7220)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 9346)
+		table.insert(spawnCellY, CellKeysNumber, 10299)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_8")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 9672)
+		table.insert(spawnCellY, CellKeysNumber, 8776)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 4254)
+		table.insert(spawnCellY, CellKeysNumber, 7229)
+		table.insert(spawnCellZ, CellKeysNumber, 0)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_6")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 7461)
+		table.insert(spawnCellY, CellKeysNumber, 7969)
+		table.insert(spawnCellZ, CellKeysNumber, 0)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_6")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 11613)
+		table.insert(spawnCellY, CellKeysNumber, 9296)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 11589)
+		table.insert(spawnCellY, CellKeysNumber, 9293)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_8")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 10380)
+		table.insert(spawnCellY, CellKeysNumber, 10099)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_9")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
+		CellKeysNumber = CellKeysNumber + 1
+		table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+		table.insert(spawnCellX, CellKeysNumber, 10186)
+		table.insert(spawnCellY, CellKeysNumber, 6769)
+		table.insert(spawnCellZ, CellKeysNumber, 1)
+		table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_8")
+		table.insert(spawnCellSpawned, CellKeysNumber, 0)
+		
 		
 		ModData.add("SpawnCellKeys", spawnCellKeys)
 		ModData.add("SpawnCellX", spawnCellX)
