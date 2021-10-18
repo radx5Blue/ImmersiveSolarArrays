@@ -250,6 +250,28 @@ function SpawnRolls()
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_8")
             table.insert(spawnCellSpawned, CellKeysNumber, 0)
         end
+		
+		chance = ZombRand(1, 10) --unchecked
+        if chance >= 5 then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 10745)
+            table.insert(spawnCellY, CellKeysNumber, 9843)
+            table.insert(spawnCellZ, CellKeysNumber, 1)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)
+        end
+		
+		chance = ZombRand(1, 10) --unchecked
+        if chance >= 5 then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 8540)
+            table.insert(spawnCellY, CellKeysNumber, 9037)
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_6")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)
+        end
 
         ModData.add("SpawnCellKeys", spawnCellKeys)
         ModData.add("SpawnCellX", spawnCellX)
