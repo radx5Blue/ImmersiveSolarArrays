@@ -20,6 +20,10 @@ local type = item:getType()
 			capacity = capacity + 200
 			item:setUsedDelta(powerpercentage)
 			end
+			if type == "SuperBattery" and item:getCondition() > 0 then
+			capacity = capacity + 400
+			item:setUsedDelta(powerpercentage)
+			end
 end
 if getnumber == false then
 return capacity
@@ -45,6 +49,13 @@ local type = item:getType()
 			--breaks in 33 days 
 			end
 			if type == "DeepCycleBattery" then
+				local chance = ZombRand(1, 33)
+				if chance == 1 then
+					item:setCondition(item:getCondition() - 1)
+				end
+			--breaks in 9+ years
+			end
+			if type == "SuperBattery" then
 				local chance = ZombRand(1, 33)
 				if chance == 1 then
 					item:setCondition(item:getCondition() - 1)

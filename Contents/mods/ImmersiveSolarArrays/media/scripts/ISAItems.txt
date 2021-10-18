@@ -30,11 +30,28 @@ module ISA
 
 	    item DeepCycleBattery
     {
-        Weight	=	5,
+        Weight	=	6,
         Type	=	Drainable,
         UseDelta	=	0.00001,
         UseWhileEquipped	=	FALSE,
         DisplayName	=	200Ah Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+	VehicleType =   9384579,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = FALSE,
+        WorldStaticModel = CarBattery,
+    }
+
+	    item SuperBattery
+    {
+        Weight	=	8,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	400Ah Battery,
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,

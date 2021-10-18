@@ -44,21 +44,40 @@ registerAsLoot(iReg, 0.10, "ToolStoreFarming");
 -- Deep cycle battery
 
 iReg = "ISA.DeepCycleBattery";
-registerAsLoot(iReg, 0.10, "JanitorMisc");
-registerAsLoot(iReg, 0.10, "StoreShelfElectronics");
-registerAsLoot(iReg, 0.10, "MechanicShelfElectric");
-registerAsLoot(iReg, 0.15, "StoreShelfMechanics");
-registerAsLoot(iReg, 0.10, "CrateElectronics");
-registerAsLoot(iReg, 0.10, "CrateMechanics");
-registerAsLoot(iReg, 0.10, "ToolStoreTools");
-registerAsLoot(iReg, 0.15, "ToolStoreMisc");
-registerAsLoot(iReg, 0.10, "ArmyStorageElectronics");
-registerAsLoot(iReg, 0.10, "ElectronicStoreMisc");
-registerAsLoot(iReg, 0.10, "CrateRandomJunk");
-registerAsLoot(iReg, 0.10, "CrateTools");
-registerAsLoot(iReg, 0.10, "OtherGeneric");
-registerAsLoot(iReg, 0.10, "GarageMechanic");
-registerAsLoot(iReg, 0.10, "ToolStoreFarming");
+registerAsLoot(iReg, 0.15, "JanitorMisc");
+registerAsLoot(iReg, 0.15, "StoreShelfElectronics");
+registerAsLoot(iReg, 0.15, "MechanicShelfElectric");
+registerAsLoot(iReg, 0.2, "StoreShelfMechanics");
+registerAsLoot(iReg, 0.15, "CrateElectronics");
+registerAsLoot(iReg, 0.15, "CrateMechanics");
+registerAsLoot(iReg, 0.15, "ToolStoreTools");
+registerAsLoot(iReg, 0.2, "ToolStoreMisc");
+registerAsLoot(iReg, 0.15, "ArmyStorageElectronics");
+registerAsLoot(iReg, 0.15, "ElectronicStoreMisc");
+registerAsLoot(iReg, 0.15, "CrateRandomJunk");
+registerAsLoot(iReg, 0.15, "CrateTools");
+registerAsLoot(iReg, 0.15, "OtherGeneric");
+registerAsLoot(iReg, 0.15, "GarageMechanic");
+registerAsLoot(iReg, 0.15, "ToolStoreFarming");
+
+-- Super battery
+
+iReg = "ISA.SuperBattery";
+registerAsLoot(iReg, 0.05, "JanitorMisc");
+registerAsLoot(iReg, 0.05, "StoreShelfElectronics");
+registerAsLoot(iReg, 0.05, "MechanicShelfElectric");
+registerAsLoot(iReg, 0.1, "StoreShelfMechanics");
+registerAsLoot(iReg, 0.05, "CrateElectronics");
+registerAsLoot(iReg, 0.05, "CrateMechanics");
+registerAsLoot(iReg, 0.05, "ToolStoreTools");
+registerAsLoot(iReg, 0.1, "ToolStoreMisc");
+registerAsLoot(iReg, 0.2, "ArmyStorageElectronics");
+registerAsLoot(iReg, 0.05, "ElectronicStoreMisc");
+registerAsLoot(iReg, 0.05, "CrateRandomJunk");
+registerAsLoot(iReg, 0.05, "CrateTools");
+registerAsLoot(iReg, 0.05, "OtherGeneric");
+registerAsLoot(iReg, 0.05, "GarageMechanic");
+registerAsLoot(iReg, 0.05, "ToolStoreFarming");
 
 
 

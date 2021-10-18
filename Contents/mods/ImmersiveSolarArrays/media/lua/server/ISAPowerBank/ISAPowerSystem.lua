@@ -123,6 +123,10 @@ function ISInventoryTransferAction:transferItem(item)
                 capacity = 200
                 isBattery = true
             end
+			if type == "SuperBattery" and item:getCondition() > 0 then
+                capacity = 400
+                isBattery = true
+            end
             --get the bank's capacity
             local bankcapacity = 0
             for i = 1, container:getItems():size() do
@@ -142,6 +146,10 @@ function ISInventoryTransferAction:transferItem(item)
                 end
                 if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
                     bankcapacity = bankcapacity + 200
+                    batterynumber = batterynumber + 1
+                end
+				if type == "SuperBattery" and itemx:getCondition() > 0 then
+                    bankcapacity = bankcapacity + 400
                     batterynumber = batterynumber + 1
                 end
             end
@@ -171,7 +179,7 @@ function ISInventoryTransferAction:transferItem(item)
                     local type = itemx:getType()
                     if
                         type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or
-                            type == "DeepCycleBattery"
+                            type == "DeepCycleBattery" or type == "SuperBattery"
                      then
                         itemx:setUsedDelta(updatedCH)
                     end
@@ -198,6 +206,9 @@ function ISInventoryTransferAction:transferItem(item)
                     batterynumber = batterynumber + 1
                 end
                 if type == "DeepCycleBattery" then
+                    batterynumber = batterynumber + 1
+                end
+				if type == "SuperBattery" then
                     batterynumber = batterynumber + 1
                 end
             end
