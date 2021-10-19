@@ -1,5 +1,5 @@
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
-    print("numberOfPanels: ", numberOfPanels * 16)
+    print("numberOfPanels: ", numberOfPanels * 25)
     print("powerConsumption: ", powerConsumption)
 
     if createKey == true then
@@ -494,7 +494,7 @@ function getModifiedSolarOutput(SolarInput)
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
     local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = SolarInput * 16 --changed to more realistic 1993 levels
+    local output = SolarInput * 25 --changed to more realistic 1993 levels
 	local temperature = getClimateManager():getTemperature()
 	local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
     output = output * CloudinessFogginessMean
