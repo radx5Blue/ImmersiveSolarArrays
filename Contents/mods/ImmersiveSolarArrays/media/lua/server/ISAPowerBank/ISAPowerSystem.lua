@@ -30,7 +30,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         sqY = square:getY()
         sqZ = square:getZ()
 
-        if numberOfPanels  > 0 then --player may get a few mins of free power bc of this change, but allows for use of system even with fewer panels than needed. 
+        if numberOfPanels * 25  > powerConsumption then 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
