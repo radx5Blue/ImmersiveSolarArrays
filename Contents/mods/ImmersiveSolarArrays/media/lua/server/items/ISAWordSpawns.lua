@@ -63,9 +63,10 @@ function SpawnRolls()
         local CellKeysNumber = 0
 
         local chance = 0
+		local spawnChance = 6
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 4722)
@@ -76,7 +77,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 4743) --checked and working
@@ -87,7 +88,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 9656) --checked and working
@@ -98,7 +99,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 10254) --working
@@ -109,7 +110,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 9670) --working
@@ -120,7 +121,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 12482) 
@@ -131,7 +132,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 12477) --working
@@ -142,7 +143,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 12066) --checked and works
@@ -153,7 +154,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 13631) 
@@ -164,7 +165,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 9345)
@@ -175,7 +176,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 9671)
@@ -186,7 +187,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 4253)
@@ -197,7 +198,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 7460)
@@ -208,7 +209,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 11612)
@@ -219,7 +220,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 11588)
@@ -230,7 +231,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 10379)
@@ -241,7 +242,7 @@ function SpawnRolls()
         end
 
         chance = ZombRand(1, 10)
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 10182)
@@ -252,7 +253,7 @@ function SpawnRolls()
         end
 		
 		chance = ZombRand(1, 10) 
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 10745)
@@ -263,13 +264,24 @@ function SpawnRolls()
         end
 		
 		chance = ZombRand(1, 10) 
-        if chance >= 5 then
+        if chance >= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 8540)
             table.insert(spawnCellY, CellKeysNumber, 9037) --works as intended
             table.insert(spawnCellZ, CellKeysNumber, 0)
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_6")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)
+        end
+		
+		chance = ZombRand(1, 10) 
+        if chance >= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 8622)
+            table.insert(spawnCellY, CellKeysNumber, 8824) 
+            table.insert(spawnCellZ, CellKeysNumber, 1) -- User Suggested Spawn - Works
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
             table.insert(spawnCellSpawned, CellKeysNumber, 0)
         end
 
