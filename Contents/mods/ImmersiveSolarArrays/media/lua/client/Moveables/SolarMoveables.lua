@@ -28,11 +28,13 @@ function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteNa
 end
 
 
+
+
 ISMoveableSpriteProps.originalpickUpMoveableFunction = ISMoveableSpriteProps.pickUpMoveable
 
-function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem, _forceAllow) -- we override the original function so our code runs whenever this runs.
+function ISMoveableSpriteProps:pickUpMoveable(_character, _square, _createItem, _forceAllow) -- we override the original function so our code runs whenever this runs.
   -- depending on when you want to do something, either run the original now, or after your code. In this example original is ran first
-  local res = self:originalpickUpMoveableFunction( _character, _square, _createItem, _forceAllow ) -- you may have to actually pass the parameters directly instead of self. Unsure here as i didn't test it, but one of the two should work
+  local res = self:originalpickUpMoveableFunction(_character, _square, _createItem, _forceAllow) -- you may have to actually pass the parameters directly instead of self. Unsure here as i didn't test it, but one of the two should work
 	if res ~= nil and self.isMoveable then
 	-- local item = self.spriteName;
     -- Your stuff here example below
@@ -48,10 +50,12 @@ function ISMoveableSpriteProps:pickUpMoveable( _character, _square, _createItem,
 	   solarscan(_square, false, false, false, 0)
 	end
 	
-  else
-    return res
+
   end
+  return res
 end
+
+
 
 function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
 ----print("running solar scan")
