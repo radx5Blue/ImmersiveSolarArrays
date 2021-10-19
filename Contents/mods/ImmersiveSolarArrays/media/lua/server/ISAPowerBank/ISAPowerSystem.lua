@@ -1,5 +1,5 @@
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
-    print("numberOfPanels: ", numberOfPanels * 83)
+    print("numberOfPanels: ", numberOfPanels * 16)
     print("powerConsumption: ", powerConsumption)
 
     if createKey == true then
@@ -30,7 +30,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         sqY = square:getY()
         sqZ = square:getZ()
 
-        if (numberOfPanels * 83) > powerConsumption then
+        if numberOfPanels  > 0 then --player may get a few mins of free power bc of this change, but allows for use of system even with fewer panels than needed. 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
@@ -494,8 +494,11 @@ function getModifiedSolarOutput(SolarInput)
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
     local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = SolarInput * 100 --boosted this to get reasonable number with light intensity
+    local output = SolarInput * 16 --changed to more realistic 1993 levels
+	local temperature = getClimateManager():getTemperature()
+	local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
     output = output * CloudinessFogginessMean
+	output = output * temperaturefactor
     output = output * light
     return output
 end
