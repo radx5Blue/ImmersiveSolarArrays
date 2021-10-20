@@ -2,52 +2,65 @@ VERSION = 1,
 
 option ISA.CustomOption1
 {
-	type = double,
-	min = 0.0,
-	max = 10.0,
-	default = 5.0,
+	type = integer,
+	min = 1,
+	max = 1000,
+	default = 16,
 
 	page = ISA,
-	translation = MySandboxMod_CustomOption1,
+	translation = ISA_CustomOption1,
 }
 
-option MySandboxMod.CustomOption2
+option ISA.CustomOption2
+{
+	type = integer,
+	min = 1,
+	max = 100,
+	default = 25,
+
+	page = ISA,
+	translation = ISA_CustomOption2,
+}
+
+option ISA.CustomOption3
+{
+	type = integer,
+	min = 0,
+	max = 100,
+	default = 50,
+
+	page = ISA,
+	translation = ISA_CustomOption3,
+}
+
+option ISA.CustomOption4
 {
 	type = enum,
 	numValues = 5,
 	default = 1,
 
-	page = MySandboxMod,
-	translation = MySandboxMod_CustomOption2,
-	valueTranslation = MySandboxMod_CustomOption2,
+	page = ISA,
+	translation = ISA_CustomOption4,
+	valueTranslation = ISA_CustomOption4,
 }
 
-option MySandboxMod.CustomOption3
+option ISA.CustomOption6
 {
 	type = integer,
-	min = 0,
-	max = 10,
-	default = 5,
+	min = 200,
+	max = 10000,
+	default = 200,
 
-	page = MySandboxMod,
-	translation = MySandboxMod_CustomOption3,
+	page = ISA,
+	translation = ISA_CustomOption6,
 }
 
-option MySandboxMod.CustomOption4
-{
-	type = string,
-	default = This is the default,
-
-	page = MySandboxMod,
-	translation = MySandboxMod_CustomOption4,
-}
-
-option MySandboxMod.CustomOption5
+option ISA.CustomOption5
 {
 	type = boolean,
 	default = true,
 
-	page = ZombieLore,
-	translation = MySandboxMod_CustomOption5,
+	page = ISA,
+	translation = ISA_CustomOption5,
 }
 

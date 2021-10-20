@@ -1,23 +1,26 @@
 Sandbox_EN = {
 	Sandbox_ISA = "Immersive Solar Arrays",
 
-	Sandbox_MySandboxMod_CustomOption1 = "Solar Panel Efficiency",
-	Sandbox_MySandboxMod_CustomOption1_tooltip = "Tooltip for custom option #1",
+	Sandbox_ISA_CustomOption1 = "Solar Panel Efficiency",
+	Sandbox_ISA_CustomOption1_tooltip = "How much energy a solar panel generates.",
 
-	Sandbox_MySandboxMod_CustomOption2 = "Custom option #2",
-	Sandbox_MySandboxMod_CustomOption2_tooltip = "Tooltip for custom option #2",
-	Sandbox_MySandboxMod_CustomOption2_option1 = "Value #1",
-	Sandbox_MySandboxMod_CustomOption2_option2 = "Value #2",
-	Sandbox_MySandboxMod_CustomOption2_option3 = "Value #3",
-	Sandbox_MySandboxMod_CustomOption2_option4 = "Value #4",
-	Sandbox_MySandboxMod_CustomOption2_option5 = "Value #5",
+	Sandbox_ISA_CustomOption2 = "Battery Degrade Rate",
+	Sandbox_ISA_CustomOption2_tooltip = "How fast the batteries break.",
 
-	Sandbox_MySandboxMod_CustomOption3 = "Custom option #3",
-	Sandbox_MySandboxMod_CustomOption3_tooltip = "Tooltip for custom option #3",
+	Sandbox_ISA_CustomOption3 = "Solar Panel World Spawns",
+	Sandbox_ISA_CustomOption3_tooltip = "What percent each world spawn has a chance to spawn.",
 
-	Sandbox_MySandboxMod_CustomOption4 = "Custom option #4",
-	Sandbox_MySandboxMod_CustomOption4_tooltip = "Tooltip for custom option #4",
+	Sandbox_ISA_CustomOption4 = "Mod Loot Rarity",
+	Sandbox_ISA_CustomOption4_tooltip = "How often the mod loot spawns in containers.",
+	Sandbox_ISA_CustomOption4_option1 = "Very Rare",
+	Sandbox_ISA_CustomOption4_option2 = "Rare",
+	Sandbox_ISA_CustomOption4_option3 = "More",
+	Sandbox_ISA_CustomOption4_option4 = "Lots",
+	Sandbox_ISA_CustomOption4_option5 = "Etc",
 
-	Sandbox_MySandboxMod_CustomOption5 = "Custom option #5",
-	Sandbox_MySandboxMod_CustomOption5_tooltip = "Tooltip for custom option #5",
+	Sandbox_ISA_CustomOption5 = "Custom option #5",
+	Sandbox_ISA_CustomOption5_tooltip = "Tooltip for custom option #5",
+	
+	Sandbox_ISA_CustomOption6 = "DIY Battery Capacity",
+	Sandbox_ISA_CustomOption6_tooltip = "How much energy a single DIY Battery can store.",
 }
