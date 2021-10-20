@@ -2,13 +2,13 @@ Sandbox_EN = {
 	Sandbox_ISA = "Immersive Solar Arrays",
 
 	Sandbox_ISA_CustomOption1 = "Solar Panel Efficiency (0-100)",
-	Sandbox_ISA_CustomOption1_tooltip = "How much energy a solar panel generates.",
+	Sandbox_ISA_CustomOption1_tooltip = "Solar panel power efficiency. 12% is realistic for 1993, 25% is modern solar",
 
 	Sandbox_ISA_CustomOption2 = "Battery Degrade Chance (0-100)",
-	Sandbox_ISA_CustomOption2_tooltip = "Chance of batteries degrading each day.",
+	Sandbox_ISA_CustomOption2_tooltip = "Chance of batteries degrading each day. Decreasing this will dramatically increase battery life",
 
 	Sandbox_ISA_CustomOption3 = "Solar Panel World Spawns (0-100)",
-	Sandbox_ISA_CustomOption3_tooltip = "What percent each world spawn has a chance to spawn.",
+	Sandbox_ISA_CustomOption3_tooltip = "What percent each world spawn has a chance to spawn a solar panel.",
 
 	Sandbox_ISA_CustomOption4 = "Loot Rarity Multiplier - Solar panels",
 	Sandbox_ISA_CustomOption4_tooltip = "Solar panel spawns in containers multiplier",
@@ -18,10 +18,7 @@ Sandbox_EN = {
 
 	Sandbox_ISA_CustomOption6 = "Loot Rarity Multiplier - Misc",
 	Sandbox_ISA_CustomOption6_tooltip = "Magazine and inverter spawns in containers multiplier",
-
-	Sandbox_ISA_CustomOption7 = "Custom option #7",
-	Sandbox_ISA_CustomOption7_tooltip = "Tooltip for custom option #7",
 	
-	Sandbox_ISA_CustomOption8 = "DIY Battery Capacity (Ah)",
-	Sandbox_ISA_CustomOption8_tooltip = "How much energy a single DIY Battery can store.",
+	Sandbox_ISA_CustomOption7 = "DIY Battery Capacity (Ah)",
+	Sandbox_ISA_CustomOption7_tooltip = "How much energy in Ah a single DIY Battery can store.",
 }

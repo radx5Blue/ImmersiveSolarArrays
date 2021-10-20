@@ -4,8 +4,8 @@ option ISA.CustomOption1
 {
 	type = integer,
 	min = 1,
-	max = 1000,
-	default = 16,
+	max = 100,
+	default = 12,
 
 	page = ISA,
 	translation = ISA_CustomOption1,
@@ -14,9 +14,9 @@ option ISA.CustomOption1
 option ISA.CustomOption2
 {
 	type = integer,
-	min = 1,
+	min = 0,
 	max = 100,
-	default = 25,
+	default = 100,
 
 	page = ISA,
 	translation = ISA_CustomOption2,
@@ -35,7 +35,7 @@ option ISA.CustomOption3
 
 option ISA.CustomOption4
 {
-	type = float,
+	type = double,
 	min = 0,
 	max = 100,
 	default = 1,
@@ -47,7 +47,7 @@ option ISA.CustomOption4
 
 option ISA.CustomOption5
 {
-	type = float,
+	type = double,
 	min = 0,
 	max = 100,
 	default = 1,
@@ -59,7 +59,7 @@ option ISA.CustomOption5
 
 option ISA.CustomOption6
 {
-	type = float,
+	type = double,
 	min = 0,
 	max = 100,
 	default = 1,
@@ -69,23 +69,15 @@ option ISA.CustomOption6
 	valueTranslation = ISA_CustomOption6,
 }
 
+
 option ISA.CustomOption7
 {
 	type = integer,
-	min = 200,
+	min = 1,
 	max = 10000,
 	default = 200,
 
 	page = ISA,
 	translation = ISA_CustomOption7,
-}
-
-option ISA.CustomOption8
-{
-	type = boolean,
-	default = true,
-
-	page = ISA,
-	translation = ISA_CustomOption8,
 }
 
