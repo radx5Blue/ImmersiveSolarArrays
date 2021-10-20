@@ -35,8 +35,9 @@ option ISA.CustomOption3
 
 option ISA.CustomOption4
 {
-	type = enum,
-	numValues = 5,
+	type = float,
+	min = 0,
+	max = 100,
 	default = 1,
 
 	page = ISA,
@@ -44,7 +45,31 @@ option ISA.CustomOption4
 	valueTranslation = ISA_CustomOption4,
 }
 
+option ISA.CustomOption5
+{
+	type = float,
+	min = 0,
+	max = 100,
+	default = 1,
+
+	page = ISA,
+	translation = ISA_CustomOption5,
+	valueTranslation = ISA_CustomOption5,
+}
+
 option ISA.CustomOption6
+{
+	type = float,
+	min = 0,
+	max = 100,
+	default = 1,
+
+	page = ISA,
+	translation = ISA_CustomOption6,
+	valueTranslation = ISA_CustomOption6,
+}
+
+option ISA.CustomOption7
 {
 	type = integer,
 	min = 200,
@@ -52,15 +77,15 @@ option ISA.CustomOption6
 	default = 200,
 
 	page = ISA,
-	translation = ISA_CustomOption6,
+	translation = ISA_CustomOption7,
 }
 
-option ISA.CustomOption5
+option ISA.CustomOption8
 {
 	type = boolean,
 	default = true,
 
 	page = ISA,
-	translation = ISA_CustomOption5,
+	translation = ISA_CustomOption8,
 }
 
