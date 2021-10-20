@@ -110,29 +110,30 @@ function ISInventoryTransferAction:transferItem(item)
             local type = item:getType()
             local batterypower = item:getUsedDelta()
             local capacity = 0
+			local condition = (item:getCondition() / 100)
             local isBattery = false
             if type == "50AhBattery" and item:getCondition() > 0 then
-                capacity = 50
+                capacity = 50 * condition
                 isBattery = true
             end
             if type == "75AhBattery" and item:getCondition() > 0 then
-                capacity = 75
+                capacity = 75 * condition
                 isBattery = true
             end
             if type == "100AhBattery" and item:getCondition() > 0 then
-                capacity = 100
+                capacity = 100 * condition
                 isBattery = true
             end
             if type == "DeepCycleBattery" and item:getCondition() > 0 then
-                capacity = 200
+                capacity = 200 * condition
                 isBattery = true
             end
 			if type == "SuperBattery" and item:getCondition() > 0 then
-                capacity = 400
+                capacity = 400 * condition
                 isBattery = true
             end
 			if type == "DIYBattery" and item:getCondition() > 0 then
-                capacity = ISADIYBatteryCapacity
+                capacity = ISADIYBatteryCapacity * condition
                 isBattery = true
             end
             --get the bank's capacity
@@ -140,28 +141,29 @@ function ISInventoryTransferAction:transferItem(item)
             for i = 1, container:getItems():size() do
                 local itemx = container:getItems():get(i - 1)
                 local type = itemx:getType()
+				local conditionx = (itemx:getCondition() / 100)
                 if type == "50AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 50
+                    bankcapacity = bankcapacity + 50 * conditionx
                     batterynumber = batterynumber + 1
                 end
                 if type == "75AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 75
+                    bankcapacity = bankcapacity + 75 * conditionx
                     batterynumber = batterynumber + 1
                 end
                 if type == "100AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 100
+                    bankcapacity = bankcapacity + 100 * conditionx
                     batterynumber = batterynumber + 1
                 end
                 if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 200
+                    bankcapacity = bankcapacity + 200 * conditionx
                     batterynumber = batterynumber + 1
                 end
 				if type == "SuperBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 400
+                    bankcapacity = bankcapacity + 400 * conditionx
                     batterynumber = batterynumber + 1
                 end
 				if type == "DIYBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + ISADIYBatteryCapacity
+                    bankcapacity = bankcapacity + ISADIYBatteryCapacity * conditionx
                     batterynumber = batterynumber + 1
                 end
             end
