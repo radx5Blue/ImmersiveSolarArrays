@@ -1,5 +1,5 @@
 Sandbox_EN = {
-	Sandbox_ISA = "Immersive Solar Arrays,
+	Sandbox_ISA = "Immersive Solar Arrays",
 
 	Sandbox_MySandboxMod_CustomOption1 = "Solar Panel Efficiency",
 	Sandbox_MySandboxMod_CustomOption1_tooltip = "Tooltip for custom option #1",
