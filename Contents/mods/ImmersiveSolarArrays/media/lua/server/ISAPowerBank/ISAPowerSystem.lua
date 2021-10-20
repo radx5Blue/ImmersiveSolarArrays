@@ -1,5 +1,7 @@
+local ISASolarEfficiency = 25; -- note that this gets reduced by 20 to produce the actual percentage
+
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
-    print("numberOfPanels: ", numberOfPanels * 25)
+    print("numberOfPanels: ", numberOfPanels * ISASolarEfficiency)
     print("powerConsumption: ", powerConsumption)
 
     if createKey == true then
@@ -30,7 +32,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         sqY = square:getY()
         sqZ = square:getZ()
 
-        if numberOfPanels * 25  > powerConsumption then 
+        if numberOfPanels * ISASolarEfficiency  > powerConsumption then 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(false)
             NewGenerator:setFuel(0)
@@ -494,7 +496,7 @@ function getModifiedSolarOutput(SolarInput)
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
     local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = SolarInput * 25 --changed to more realistic 1993 levels
+    local output = SolarInput * ISASolarEfficiency --changed to more realistic 1993 levels
 	local temperature = getClimateManager():getTemperature()
 	local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
     output = output * CloudinessFogginessMean
