@@ -7,10 +7,34 @@ module ISA
     }
 
 
-recipe Make DIY Battery
+recipe Make DIY Battery from 50Ah
 {
 keep Base.Screwdriver,
-50AhBattery = 4/75AhBattery = 3/100AhBattery = 2,
+50AhBattery = 4,
+SkillRequired:Electricity=5,
+Result: DIYBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+}
+
+recipe Make DIY Battery from 75Ah
+{
+keep Base.Screwdriver,
+75AhBattery = 3,
+SkillRequired:Electricity=5,
+Result: DIYBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+}
+
+recipe Make DIY Battery from 100Ah
+{
+keep Base.Screwdriver,
+100AhBattery = 2,
 SkillRequired:Electricity=5,
 Result: DIYBattery,
 Time:30,
