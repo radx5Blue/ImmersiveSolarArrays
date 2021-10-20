@@ -6,6 +6,19 @@ module ISA
 	Radio
     }
 
+
+recipe Make DIY Battery
+{
+keep Base.Screwdriver,
+50AhBattery = 4/75AhBattery = 3/100AhBattery = 2,
+SkillRequired:Electricity=5,
+Result: DIYBattery,
+Time:30,
+CanBeDoneFromFloor:true,
+NeedToBeLearn:true,
+Category:Electrical,
+}
+
 recipe Wire 50Ah Battery
 {
 keep Base.Screwdriver,

@@ -62,6 +62,23 @@ module ISA
         WorldStaticModel = CarBattery,
     }
 
+	    item DIYBattery
+    {
+        Weight	=	7,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	DIY Battery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+	VehicleType =   9384579,
+        ConditionMax = 100,
+        ChanceToSpawnDamaged = 0,
+        MechanicsItem = FALSE,
+        WorldStaticModel = CarBattery,
+    }
+
 	    item 50AhBattery
     {
         Weight	=	5,
