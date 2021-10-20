@@ -1,13 +1,13 @@
 VERSION = 1,
 
-option ISASandboxOptions.SolarPanel
+option ISA.CustomOption1
 {
 	type = double,
 	min = 0.0,
 	max = 10.0,
 	default = 5.0,
 
-	page = ISA_Sandbox,
+	page = ISA,
 	translation = MySandboxMod_CustomOption1,
 }
 
@@ -17,7 +17,7 @@ option MySandboxMod.CustomOption2
 	numValues = 5,
 	default = 1,
 
-	page = ISA_Sandbox,
+	page = MySandboxMod,
 	translation = MySandboxMod_CustomOption2,
 	valueTranslation = MySandboxMod_CustomOption2,
 }
@@ -29,7 +29,7 @@ option MySandboxMod.CustomOption3
 	max = 10,
 	default = 5,
 
-	page = ISA_Sandbox,
+	page = MySandboxMod,
 	translation = MySandboxMod_CustomOption3,
 }
 
@@ -38,6 +38,16 @@ option MySandboxMod.CustomOption4
 	type = string,
 	default = This is the default,
 
-	page = ISA_Sandbox,
+	page = MySandboxMod,
 	translation = MySandboxMod_CustomOption4,
 }
+
+option MySandboxMod.CustomOption5
+{
+	type = boolean,
+	default = true,
+
+	page = ZombieLore,
+	translation = MySandboxMod_CustomOption5,
+}
+

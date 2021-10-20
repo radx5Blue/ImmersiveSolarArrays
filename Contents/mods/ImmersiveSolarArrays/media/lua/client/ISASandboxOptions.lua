@@ -1,4 +1,4 @@
-print( "Solar Panel Efficiency= ", SandboxVars.ISASandboxOptions.SolarPanel)
+print( "CustomOption1=", SandboxVars.ISA.CustomOption1 )
 print( "CustomOption2=", SandboxVars.MySandboxMod.CustomOption2 )
 print( "CustomOption3=", SandboxVars.MySandboxMod.CustomOption3 )
 print( "CustomOption4=", SandboxVars.MySandboxMod.CustomOption4 )
