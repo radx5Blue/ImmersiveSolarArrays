@@ -1,4 +1,5 @@
 local ISADIYBatteryCapacity = 200
+local ISABatteryDegradeChance = 100
 
 function HandleBatteries(container, powerpercentage, getnumber)
 --percentage from 0 to 1 to set battery charge
@@ -40,6 +41,8 @@ end
 end
 
 function DegradeBatteries(container)
+if ZombRand(0, 99) < ISABatteryDegradeChance then
+
 for i=1,container:getItems():size() do 
 local item = container:getItems():get(i-1)
 local type = item:getType()
@@ -76,5 +79,6 @@ local type = item:getType()
 				end
 			--breaks in 2 years
 			end
+end
 end
 end
