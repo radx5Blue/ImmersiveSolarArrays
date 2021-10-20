@@ -1,3 +1,5 @@
+require 'PowerBank/ISAInventoryHandler'
+
 local ISASolarEfficiency = 25; -- note that this gets reduced by 20 to produce the actual percentage
 
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
@@ -129,6 +131,10 @@ function ISInventoryTransferAction:transferItem(item)
                 capacity = 400
                 isBattery = true
             end
+			if type == "DIYBattery" and item:getCondition() > 0 then
+                capacity = ISADIYBatteryCapacity
+                isBattery = true
+            end
             --get the bank's capacity
             local bankcapacity = 0
             for i = 1, container:getItems():size() do
@@ -152,6 +158,10 @@ function ISInventoryTransferAction:transferItem(item)
                 end
 				if type == "SuperBattery" and itemx:getCondition() > 0 then
                     bankcapacity = bankcapacity + 400
+                    batterynumber = batterynumber + 1
+                end
+				if type == "DIYBattery" and itemx:getCondition() > 0 then
+                    bankcapacity = bankcapacity + ISADIYBatteryCapacity
                     batterynumber = batterynumber + 1
                 end
             end
@@ -181,7 +191,7 @@ function ISInventoryTransferAction:transferItem(item)
                     local type = itemx:getType()
                     if
                         type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or
-                            type == "DeepCycleBattery" or type == "SuperBattery"
+                            type == "DeepCycleBattery" or type == "SuperBattery" or type == "DIYBattery"
                      then
                         itemx:setUsedDelta(updatedCH)
                     end
@@ -211,6 +221,9 @@ function ISInventoryTransferAction:transferItem(item)
                     batterynumber = batterynumber + 1
                 end
 				if type == "SuperBattery" then
+                    batterynumber = batterynumber + 1
+                end
+				if type == "DIYBattery" then
                     batterynumber = batterynumber + 1
                 end
             end
