@@ -26,7 +26,7 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	
 	if bank ~= nil then
 		
-	local ISAOption = context:addOption("ContextMenu_ISA_BatteryBankStatus", worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
+	local ISAOption = context:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
 		
 	end
 	 

@@ -1,6 +1,3 @@
 ContextMenu_EN = {
 ContextMenu_ISA_BatteryBankStatus = "Battery Bank Status",
-
-
-
 }
