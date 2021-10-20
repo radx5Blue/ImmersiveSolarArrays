@@ -1,0 +1,43 @@
+VERSION = 1,
+
+option ISASandboxOptions.SolarPanel
+{
+	type = double,
+	min = 0.0,
+	max = 10.0,
+	default = 5.0,
+
+	page = ISA_Sandbox,
+	translation = MySandboxMod_CustomOption1,
+}
+
+option MySandboxMod.CustomOption2
+{
+	type = enum,
+	numValues = 5,
+	default = 1,
+
+	page = ISA_Sandbox,
+	translation = MySandboxMod_CustomOption2,
+	valueTranslation = MySandboxMod_CustomOption2,
+}
+
+option MySandboxMod.CustomOption3
+{
+	type = integer,
+	min = 0,
+	max = 10,
+	default = 5,
+
+	page = ISA_Sandbox,
+	translation = MySandboxMod_CustomOption3,
+}
+
+option MySandboxMod.CustomOption4
+{
+	type = string,
+	default = This is the default,
+
+	page = ISA_Sandbox,
+	translation = MySandboxMod_CustomOption4,
+}

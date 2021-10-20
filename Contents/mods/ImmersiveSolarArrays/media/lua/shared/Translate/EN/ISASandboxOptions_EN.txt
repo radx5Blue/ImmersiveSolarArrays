@@ -1,0 +1,23 @@
+ISASandbox_EN = {
+	ISA_Sandbox = "Immersive Solar Arrays",
+
+	Sandbox_MySandboxMod_CustomOption1 = "Solar Panels",
+	Sandbox_MySandboxMod_CustomOption1_tooltip = "Tooltip for custom option #1",
+
+	Sandbox_MySandboxMod_CustomOption2 = "Custom option #2",
+	Sandbox_MySandboxMod_CustomOption2_tooltip = "Tooltip for custom option #2",
+	Sandbox_MySandboxMod_CustomOption2_option1 = "Value #1",
+	Sandbox_MySandboxMod_CustomOption2_option2 = "Value #2",
+	Sandbox_MySandboxMod_CustomOption2_option3 = "Value #3",
+	Sandbox_MySandboxMod_CustomOption2_option4 = "Value #4",
+	Sandbox_MySandboxMod_CustomOption2_option5 = "Value #5",
+
+	Sandbox_MySandboxMod_CustomOption3 = "Custom option #3",
+	Sandbox_MySandboxMod_CustomOption3_tooltip = "Tooltip for custom option #3",
+
+	Sandbox_MySandboxMod_CustomOption4 = "Custom option #4",
+	Sandbox_MySandboxMod_CustomOption4_tooltip = "Tooltip for custom option #4",
+
+	Sandbox_MySandboxMod_CustomOption5 = "Custom option #5",
+	Sandbox_MySandboxMod_CustomOption5_tooltip = "Tooltip for custom option #5",
+}
