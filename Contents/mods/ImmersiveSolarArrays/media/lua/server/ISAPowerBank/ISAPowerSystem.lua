@@ -119,7 +119,8 @@ function ISInventoryTransferAction:transferItem(item)
             local type = item:getType()
             local batterypower = item:getUsedDelta()
             local capacity = 0
-			local condition = (item:getCondition() / 100)
+			local cond = 1 - (item:getCondition()/100)
+			local condition = 1 - (cond*cond*cond*cond*cond*cond)
             local isBattery = false
             if type == "50AhBattery" and item:getCondition() > 0 then
                 capacity = 50 * condition
@@ -150,7 +151,8 @@ function ISInventoryTransferAction:transferItem(item)
             for i = 1, container:getItems():size() do
                 local itemx = container:getItems():get(i - 1)
                 local type = itemx:getType()
-				local conditionx = (itemx:getCondition() / 100)
+				local condx = 1 - (itemx:getCondition()/100)
+				local conditionx = 1 - (condx*condx*condx*condx*condx*condx)
                 if type == "50AhBattery" and itemx:getCondition() > 0 then
                     bankcapacity = bankcapacity + 50 * conditionx
                     batterynumber = batterynumber + 1
