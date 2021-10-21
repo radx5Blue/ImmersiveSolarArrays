@@ -27,12 +27,55 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	if bank ~= nil then
 		
 	local ISAOption = context:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
+	local ISAOption = context:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() ResetBatteryBank(bank:getSquare()) end);
 		
 	end
 	 
 
 
 	
+
+end
+
+ResetBatteryBank = function(fsquare)
+
+    local sqX = fsquare:getX()
+    local sqY = fsquare:getY()
+    local sqZ = fsquare:getZ()
+
+	local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+    local testB = ModData.get("PBBO")
+    local testG = ModData.get("PBGN")
+
+    player = getPlayer()
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
+        noCH = tonumber(testC[key])
+        noPB = tonumber(testB[key])
+        noGN = tonumber(testG[key])
+		
+
+        if (sqX == noX and sqY == noY and sqZ == noZ) then
+			DisconnectPower(fsquare)
+			solarscan(fsquare, false, true, true, 0)
+	 end
+
+		
+	 
+ end
+
 
 end
 
