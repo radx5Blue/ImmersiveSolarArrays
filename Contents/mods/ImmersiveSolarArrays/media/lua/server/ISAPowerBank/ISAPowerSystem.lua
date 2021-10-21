@@ -3,8 +3,13 @@ require 'PowerBank/ISAInventoryHandler'
 local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
 
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
+	
+	local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
+	  local player = getPlayer()
+	
     print("numberOfPanels: ", numberOfPanels * ISASolarEfficiency)
     print("powerConsumption: ", powerConsumption)
+	
 
     if createKey == true then
         local pbKey = ModData.get("PBK")
@@ -54,9 +59,13 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
             if square:getBuilding() ~= nil then
                 square:getBuilding():setToxic(false)
             end
-            print("Solar Array Created")
         end
     end
+	
+	
+
+	
+	
 end
 
 ---------sprite fix:---------
@@ -504,6 +513,7 @@ end
 function getModifiedSolarOutput(SolarInput)
     local myWeather = getClimateManager()
     local currentHour = getGameTime():getHour()
+	local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
 
    -- print("My weather: ", myWeather)
    -- print("My time: ", currentHour)
