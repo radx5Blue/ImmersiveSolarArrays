@@ -1,9 +1,7 @@
-local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
-local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
-
 function HandleBatteries(container, powerpercentage, getnumber)
 --percentage from 0 to 1 to set battery charge
 local capacity = 0
+local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
 for i=1,container:getItems():size() do 
 local item = container:getItems():get(i-1)
 local cond = 1 - (item:getCondition()/100)
@@ -43,6 +41,7 @@ end
 end
 
 function DegradeBatteries(container)
+local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
 if ZombRand(0, 99) < ISABatteryDegradeChance then
 
 for i=1,container:getItems():size() do 

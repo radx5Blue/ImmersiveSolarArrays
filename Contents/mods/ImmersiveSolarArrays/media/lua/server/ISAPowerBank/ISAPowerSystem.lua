@@ -1,7 +1,3 @@
-require 'PowerBank/ISAInventoryHandler'
-
-local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
-
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 	
 	local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
@@ -143,6 +139,7 @@ function ISInventoryTransferAction:transferItem(item)
                 isBattery = true
             end
 			if type == "DIYBattery" and item:getCondition() > 0 then
+				local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
                 capacity = ISADIYBatteryCapacity * condition
                 isBattery = true
             end
@@ -174,6 +171,7 @@ function ISInventoryTransferAction:transferItem(item)
                     batterynumber = batterynumber + 1
                 end
 				if type == "DIYBattery" and itemx:getCondition() > 0 then
+					local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
                     bankcapacity = bankcapacity + ISADIYBatteryCapacity * conditionx
                     batterynumber = batterynumber + 1
                 end
