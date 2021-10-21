@@ -124,7 +124,7 @@ OpenBatterBankInfo = function(fsquare)
 
 			
 		if noPZ < 1 then
-			local text = "There are currently no solar panels connected"
+			local text = (getText("ContextMenu_ISA_NoPanels"))
 			player:Say(text)
 		end
 				
