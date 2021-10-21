@@ -6,9 +6,9 @@ function registerAsLoot(item, chance, allocation)
 end
 
 local iReg = "";
-local ISAmiscLootMult = 1;
-local ISAbatteryLootMult = 1;
-local ISApanelLootMult = 1;
+local ISAmiscLootMult = SandboxVars.ISA.LRMMisc;
+local ISAbatteryLootMult = SandboxVars.ISA.LRMBatteries;
+local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
 
 
 -- Solar Mag

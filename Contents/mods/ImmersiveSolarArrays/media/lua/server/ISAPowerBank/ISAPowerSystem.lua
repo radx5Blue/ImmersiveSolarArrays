@@ -937,10 +937,6 @@ function GenCheck()
         end
     end
 	
-	
-	print("SHOW ME**************************************************************************************************************", ISASolarEfficiency)
-	
-	
 end
 
 function calculateDistance(x1, y1, x2, y2)

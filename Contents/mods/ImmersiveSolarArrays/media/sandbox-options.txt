@@ -11,7 +11,7 @@ option ISA.solarPanelEfficiency
 	translation = ISA_solarPanelEfficiency,
 }
 
-option ISA.CustomOption2
+option ISA.batteryDegradeChance
 {
 	type = integer,
 	min = 0,
@@ -19,10 +19,10 @@ option ISA.CustomOption2
 	default = 100,
 
 	page = ISA,
-	translation = ISA_CustomOption2,
+	translation = batteryDegradeChance,
 }
 
-option ISA.CustomOption3
+option ISA.solarPanelWorldSpawns 
 {
 	type = integer,
 	min = 0,
@@ -30,10 +30,10 @@ option ISA.CustomOption3
 	default = 50,
 
 	page = ISA,
-	translation = ISA_CustomOption3,
+	translation = ISA_solarPanelWorldSpawns,
 }
 
-option ISA.CustomOption4
+option ISA.LRMSolarPanels
 {
 	type = double,
 	min = 0,
@@ -41,11 +41,11 @@ option ISA.CustomOption4
 	default = 1,
 
 	page = ISA,
-	translation = ISA_CustomOption4,
-	valueTranslation = ISA_CustomOption4,
+	translation = ISA_LRMSolarPanels,
+	valueTranslation = ISA_LRMSolarPanels,
 }
 
-option ISA.CustomOption5
+option ISA.LRMBatteries
 {
 	type = double,
 	min = 0,
@@ -53,11 +53,11 @@ option ISA.CustomOption5
 	default = 1,
 
 	page = ISA,
-	translation = ISA_CustomOption5,
-	valueTranslation = ISA_CustomOption5,
+	translation = ISA_LRMBatteries,
+	valueTranslation = ISA_LRMBatteries,
 }
 
-option ISA.CustomOption6
+option ISA.LRMMisc
 {
 	type = double,
 	min = 0,
@@ -65,12 +65,12 @@ option ISA.CustomOption6
 	default = 1,
 
 	page = ISA,
-	translation = ISA_CustomOption6,
-	valueTranslation = ISA_CustomOption6,
+	translation = ISA_LRMMisc,
+	valueTranslation = ISA_LRMMisc,
 }
 
 
-option ISA.CustomOption7
+option ISA.DIYBatteryCapacity
 {
 	type = integer,
 	min = 1,
@@ -78,6 +78,6 @@ option ISA.CustomOption7
 	default = 200,
 
 	page = ISA,
-	translation = ISA_CustomOption7,
+	translation = ISA_CDIYBatteryCapacity,
 }
 

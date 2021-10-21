@@ -1,5 +1,5 @@
-local ISADIYBatteryCapacity = 200
-local ISABatteryDegradeChance = 100
+local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
+local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
 
 function HandleBatteries(container, powerpercentage, getnumber)
 --percentage from 0 to 1 to set battery charge
