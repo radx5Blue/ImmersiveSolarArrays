@@ -1,8 +1,8 @@
 Sandbox_EN = {
 	Sandbox_ISA = "Immersive Solar Arrays",
 
-	Sandbox_ISA_CustomOption1 = "Solar Panel Efficiency (0-100)",
-	Sandbox_ISA_CustomOption1_tooltip = "Solar panel power efficiency. 12% is realistic for 1993, 25% is modern solar",
+	Sandbox_ISA_solarPanelEfficiency = "Solar Panel Efficiency (0-100)",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "Solar panel power efficiency. 12% is realistic for 1993, 25% is modern solar",
 
 	Sandbox_ISA_CustomOption2 = "Battery Degrade Chance (0-100)",
 	Sandbox_ISA_CustomOption2_tooltip = "Chance of batteries degrading each day. Decreasing this will dramatically increase battery life",

@@ -1,6 +1,6 @@
 VERSION = 1,
 
-option ISA.CustomOption1
+option ISA.solarPanelEfficiency
 {
 	type = integer,
 	min = 1,
@@ -8,7 +8,7 @@ option ISA.CustomOption1
 	default = 12,
 
 	page = ISA,
-	translation = ISA_CustomOption1,
+	translation = ISA_solarPanelEfficiency,
 }
 
 option ISA.CustomOption2
