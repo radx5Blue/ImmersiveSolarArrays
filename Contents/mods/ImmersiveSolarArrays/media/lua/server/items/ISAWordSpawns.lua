@@ -19,9 +19,11 @@ function SpawnPanels()
 
         if spawned == 0 then
             local panelSquare = getWorld():getCell():getGridSquare(noX, noY, noZ)
-
+			
             if panelSquare ~= nil then
                 if (calculateDistance(player:getX(), player:getY(), panelSquare:getX(), panelSquare:getY()) < 70) then
+					
+					
                     local sprite_type = tostring(pType[key])
                     if not sprite_type then
                         print("NO SPRITE TYPE!")
@@ -35,18 +37,34 @@ function SpawnPanels()
                     if newSprite and newSprite:getProperties() then
                         if newSprite:getProperties():Val("ContainerType") or newSprite:getProperties():Val("container") then
                             newSprite:createContainersFromSpriteProperties()
+							--newSprite:addItem("ISA.SolarPanel") 
                         end
                     end
                     panelSquare:getObjects():add(newSprite)
                     panelSquare:RecalcProperties()
 
                     --player:Say("Solars")
+					
+					AddItemsToBox(panelSquare)
 
                     table.insert(hasSpawned, key, 1)
                 end
             end
         end
     end
+end
+
+
+
+function AddItemsToBox(panelSquare)
+	
+	local fonSquare = ISMoveableSpriteProps:findOnSquare(panelSquare, "solarmod_tileset_01_36")
+	local container = fonSquare:getContainer()
+	container:AddItem("ISA.SolarPanel") 
+	
+	
+	
+	
 end
 
 function SpawnRolls()
@@ -72,8 +90,8 @@ function SpawnRolls()
             table.insert(spawnCellX, CellKeysNumber, 4722)
             table.insert(spawnCellY, CellKeysNumber, 7997) --working
             table.insert(spawnCellZ, CellKeysNumber, 0)
-            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_7")
-            table.insert(spawnCellSpawned, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
         end
 
         chance = ZombRand(1, 100)
