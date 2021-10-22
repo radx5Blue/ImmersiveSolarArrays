@@ -35,15 +35,10 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         sqY = square:getY()
         sqZ = square:getZ()
 
+    end
+	
+	
         if numberOfPanels * (83 * ((ISASolarEfficiency * 1.2) / 100))  > powerConsumption then 
-            local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-            NewGenerator:setConnected(false)
-            NewGenerator:setFuel(0)
-            NewGenerator:setCondition(0)
-            NewGenerator:setActivated(false)
-            NewGenerator:setSurroundingElectricity()
-            NewGenerator:remove()
-
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
             NewGenerator:setFuel(100)
@@ -56,7 +51,6 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
                 square:getBuilding():setToxic(false)
             end
         end
-    end
 	
 	
 
@@ -430,6 +424,9 @@ function changePanelData(square, noOfPanels)
             squareTest = getWorld():getCell():getGridSquare(sqX, sqY, sqZ)
 
             table.insert(testNP, key, noOfPanels)
+			local pc = solarscan(squareTest, false, true, false, 0)
+			print("pc: ", pc)
+			TurnOnPower(pc, noOfPanels, squareTest, false)
         end
     end
 end
@@ -611,7 +608,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1) then
+        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1 and noCH > 0 or  square ~= nil and globalPCounter > 1500 and loc == false and noCH > 0 and noLD == 1 ) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
