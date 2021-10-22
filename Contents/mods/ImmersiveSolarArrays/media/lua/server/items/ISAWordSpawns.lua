@@ -63,7 +63,24 @@ function AddItemsToBox(panelSquare)
 	
 	local fonSquare = ISMoveableSpriteProps:findOnSquare(panelSquare, "solarmod_tileset_01_36")
 	local container = fonSquare:getContainer()
-	container:AddItem("ISA.SolarPanel") 
+	--generate numbers:
+	local panelnumber = ZombRand(4, 5) * SandboxVars.ISA.LRMSolarPanels
+	local batterynumber = ZombRand(1, 2) * SandboxVars.ISA.LRMBatteries
+	local miscnumber = 1 * SandboxVars.ISA.LRMMisc
+	
+		for i=1,panelnumber do 
+			container:AddItem("ISA.SolarPanel") 
+		end
+		for i=1,batterynumber do 
+			container:AddItem("ISA.DeepCycleBattery") 
+		end
+		for i=1,miscnumber do 
+			container:AddItem("ISA.Inverter")
+			container:AddItem("ISA.ISAMag1")
+			container:AddItem("Radio.ElectricWire")
+			container:AddItem("Radio.ElectricWire")
+		end
+
 	
 	
 	
@@ -426,6 +443,140 @@ function SpawnRolls()
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_10")
             table.insert(spawnCellSpawned, CellKeysNumber, 0)
         end
+		
+		--adding boxes here
+		
+		--riverside hardware:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 6364)
+            table.insert(spawnCellY, CellKeysNumber, 5325) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--west point hardware:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 11972)
+            table.insert(spawnCellY, CellKeysNumber, 6908) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--dixie hardware:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 7252)
+            table.insert(spawnCellY, CellKeysNumber, 8227) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--The mall electronics:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 13918)
+            table.insert(spawnCellY, CellKeysNumber, 5787) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--The mall hardware:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 13917)
+            table.insert(spawnCellY, CellKeysNumber, 5804) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--Army quarter warehouse:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 9186)
+            table.insert(spawnCellY, CellKeysNumber, 11829) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end
+		
+		--warehouse near rosewood:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 8280)
+            table.insert(spawnCellY, CellKeysNumber, 10029) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end		
+
+		--warehouse in muldraugh:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 10699)
+            table.insert(spawnCellY, CellKeysNumber, 10452) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end		
+		
+		--warehouse in the countryside:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 5879)
+            table.insert(spawnCellY, CellKeysNumber, 9862) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end	
+		
+		--warehouse near valley station:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 12622)
+            table.insert(spawnCellY, CellKeysNumber, 4713) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end	
+		
+		--Secret military base:
+		chance = ZombRand(1, 100)
+        if chance <= spawnChance then
+            CellKeysNumber = CellKeysNumber + 1
+            table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
+            table.insert(spawnCellX, CellKeysNumber, 5542)
+            table.insert(spawnCellY, CellKeysNumber, 12441) 
+            table.insert(spawnCellZ, CellKeysNumber, 0)
+            table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
+            table.insert(spawnCellSpawned, CellKeysNumber, 0)	
+        end	
 		
 		
         ModData.add("SpawnCellKeys", spawnCellKeys)
