@@ -45,7 +45,10 @@ function SpawnPanels()
 
                     --player:Say("Solars")
 					
+					
+				if pType == solarmod_tileset_01_36 then
 					AddItemsToBox(panelSquare)
+				end
 
                     table.insert(hasSpawned, key, 1)
                 end
