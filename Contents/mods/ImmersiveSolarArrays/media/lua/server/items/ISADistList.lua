@@ -9,8 +9,17 @@ end
 
 local iReg = "";
 local ISAmiscLootMult = SandboxVars.ISA.LRMMisc;
+	if SandboxVars.ISA.LRMMisc == nil then
+		ISAmiscLootMult = 1
+	end
 local ISAbatteryLootMult = SandboxVars.ISA.LRMBatteries;
+	if SandboxVars.ISA.LRMBatteries == nil then
+		ISAbatteryLootMult = 1
+	end
 local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
+	if SandboxVars.ISA.LRMSolarPanels == nil then
+		ISApanelLootMult = 1
+	end
 
 
 -- Solar Mag

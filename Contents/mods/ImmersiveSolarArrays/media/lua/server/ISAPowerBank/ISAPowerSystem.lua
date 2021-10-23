@@ -1,7 +1,11 @@
 function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 	
 	local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
-	  local player = getPlayer()
+		if SandboxVars.ISA.solarPanelEfficiency == nil then
+			ISASolarEfficiency = 90
+		end
+	
+	local player = getPlayer()
 	
     print("numberOfPanels: ", numberOfPanels * ISASolarEfficiency)
     print("powerConsumption: ", powerConsumption)
@@ -134,6 +138,9 @@ function ISInventoryTransferAction:transferItem(item)
             end
 			if type == "DIYBattery" and item:getCondition() > 0 then
 				local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
+					if SandboxVars.ISA.DIYBatteryCapacity == nil then
+						ISADIYBatteryCapacity = 200
+					end
                 capacity = ISADIYBatteryCapacity * condition
                 isBattery = true
             end
@@ -166,6 +173,9 @@ function ISInventoryTransferAction:transferItem(item)
                 end
 				if type == "DIYBattery" and itemx:getCondition() > 0 then
 					local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
+						if SandboxVars.ISA.DIYBatteryCapacity == nil then
+							ISADIYBatteryCapacity = 200
+						end
                     bankcapacity = bankcapacity + ISADIYBatteryCapacity * conditionx
                     batterynumber = batterynumber + 1
                 end
@@ -511,6 +521,9 @@ function getModifiedSolarOutput(SolarInput)
     local myWeather = getClimateManager()
     local currentHour = getGameTime():getHour()
 	local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency;
+		if SandboxVars.ISA.solarPanelEfficiency == nil then
+			ISASolarEfficiency = 90
+		end
 
    -- print("My weather: ", myWeather)
    -- print("My time: ", currentHour)
