@@ -703,6 +703,8 @@ function chargeLogic()
                 noOff = 0
                 table.insert(testB, key, noOff)
                 ------------------------------turn off
+				solarscan(square, true, true, false, 1)
+				--^^run this first for uninterrupted power... maybe?
                 local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
                 NewGenerator:setConnected(false)
                 NewGenerator:setFuel(0)
@@ -710,7 +712,7 @@ function chargeLogic()
                 NewGenerator:setActivated(false)
                 NewGenerator:setSurroundingElectricity()
                 NewGenerator:remove()
-                solarscan(square, true, true, false, 1)
+                
             end
             if actualCharge <= 0 and difference > 0 and noOff == 0 then
                 noOff = 1
