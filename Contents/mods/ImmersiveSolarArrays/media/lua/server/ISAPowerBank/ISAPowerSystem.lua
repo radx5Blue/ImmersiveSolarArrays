@@ -32,7 +32,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         table.insert(pbNP, newpbKLen, numberOfPanels)
         table.insert(pbLD, newpbKLen, 1)
         table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
-        table.insert(pbBO, newpbKLen, 1)
+        table.insert(pbBO, newpbKLen, 0) --changed this to 0
         table.insert(pbGN, newpbKLen, 0)
 
         sqX = square:getX()
@@ -727,7 +727,7 @@ function chargeLogic()
                 NewGenerator:remove()
                 
             end
-            if actualCharge <= 0 and difference > 0 and noOff == 0 then
+            if actualCharge <= 0 and difference >= 0 and noOff == 0 then
                 noOff = 1
                 table.insert(testB, key, noOff)
                 -------------------------------turn on
