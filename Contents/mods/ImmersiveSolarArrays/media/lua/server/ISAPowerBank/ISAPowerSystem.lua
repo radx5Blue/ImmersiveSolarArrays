@@ -650,6 +650,29 @@ function PowerCheck()
             print("Not Created")
 			
         end
+		
+		f (square ~= nil and noPB == 1 and noLD == 1 and noCH <= 0) then
+
+                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                NewGenerator:setConnected(false)
+                NewGenerator:setFuel(0)
+                NewGenerator:setCondition(0)
+                NewGenerator:setActivated(false)
+                NewGenerator:setSurroundingElectricity()
+                NewGenerator:remove()
+
+            if square:getBuilding() ~= nil then
+                square:getBuilding():setToxic(false)
+            end
+
+            --globalPCounter = 0
+
+            loc = true
+			
+			table.insert(testL, key, 1)
+
+            --print("Created")
+        end
 
     end
 end
