@@ -32,7 +32,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         table.insert(pbNP, newpbKLen, numberOfPanels)
         table.insert(pbLD, newpbKLen, 1)
         table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
-        table.insert(pbBO, newpbKLen, 0) --changed this to 0
+        table.insert(pbBO, newpbKLen, 1) --changed this to 0
         table.insert(pbGN, newpbKLen, 0)
 
         sqX = square:getX()
