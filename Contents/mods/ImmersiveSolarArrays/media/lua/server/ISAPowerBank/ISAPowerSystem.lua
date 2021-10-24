@@ -651,7 +651,7 @@ function PowerCheck()
 			
         end
 		
-		f (square ~= nil and noPB == 1 and noLD == 1 and noCH <= 0) then
+		if (square ~= nil and noPB == 1 and noLD == 1 and noCH <= 0) then
 
                 local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
                 NewGenerator:setConnected(false)
