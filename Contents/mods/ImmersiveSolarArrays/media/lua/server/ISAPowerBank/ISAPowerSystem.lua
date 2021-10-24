@@ -508,7 +508,7 @@ function CheckGlobalData()
         ModData.add("PBNP", NumberOfPanels)
         ModData.add("PBLD", PowerBankLoaded)
         ModData.add("PBCH", PowerBankCharge)
-        ModData.add("PBBO", PowerBankCharge)
+        ModData.add("PBBO", PowerBankOn)
         ModData.add("PBGN", PowerBankGen)
     end
 
