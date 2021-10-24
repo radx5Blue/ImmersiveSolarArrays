@@ -914,7 +914,7 @@ function GenCheck()
         noPB = tonumber(testB[key])
         noGN = tonumber(testG[key])
 
-        local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+        
 		
 
         if square ~= nil then
@@ -947,7 +947,19 @@ function GenCheck()
             if
                 (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
-                GenRemove(square, noX + 1, noY, noZ)
+			 
+
+			 
+			 
+                GenRemove(square)
+				
+				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+				NewGenerator:setConnected(true)
+                NewGenerator:setFuel(100)
+                NewGenerator:setCondition(100)
+                NewGenerator:setActivated(true)
+                NewGenerator:setSurroundingElectricity()
+                NewGenerator:remove()
 
                 if square:getBuilding() ~= nil then
                     square:getBuilding():setToxic(false)
@@ -969,6 +981,7 @@ end
 
 
 function GenRemove(square)
+	
      											
 local objs = square:getObjects();
 local sz = objs:size()
