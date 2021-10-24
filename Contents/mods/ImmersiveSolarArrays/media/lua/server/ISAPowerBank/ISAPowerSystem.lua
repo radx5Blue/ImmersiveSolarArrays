@@ -580,13 +580,14 @@ local function ReloadPower()
             NewGenerator:setActivated(true)
             NewGenerator:setSurroundingElectricity()
             NewGenerator:remove()
-            testL[key] = "0"
+			table.insert(testL, key, 0)
+            --testL[key] = "0"
 
             if square:getBuilding() ~= nil then
                 square:getBuilding():setToxic(false)
             end
 
-            print("Solar Array Re-created")
+            print("Solar Array Loaded")
         --print("Solar Array Re-created and: ", testL[key])
         end
     end
@@ -914,7 +915,8 @@ function GenCheck()
         noPB = tonumber(testB[key])
         noGN = tonumber(testG[key])
 
-        
+         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		 	local squarex = getWorld():getCell():getGridSquare(noX+1, noY, noZ)
 		
 
         if square ~= nil then
@@ -924,7 +926,7 @@ function GenCheck()
              then
 			 
 			 for i = 1, 20 do
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                local NewGenerator = IsoGenerator.new(nil, squarex:getCell(), squarex)
                 NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
                 NewGenerator:setCondition(100)
@@ -932,11 +934,11 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
-			--print("gens created")
+			print("gens created")
 
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
+                if squarex:getBuilding() ~= nil then
+                    squarex:getBuilding():setToxic(false)
                 end
 
                 
@@ -948,21 +950,19 @@ function GenCheck()
                 (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
 			 
-
-			 
-			 
-                GenRemove(square)
-				
-				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+			 	local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
 				NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
                 NewGenerator:setCondition(100)
                 NewGenerator:setActivated(true)
                 NewGenerator:setSurroundingElectricity()
                 NewGenerator:remove()
+			 
+                GenRemove(squarex)
+				
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
+                if squarex:getBuilding() ~= nil then
+                    squarex:getBuilding():setToxic(false)
                 end
 
                 table.insert(testG, key, 1)
@@ -994,7 +994,7 @@ if objs and sz > 0 then
     end
 end
 
---print("gens removed")
+print("gens removed")
 
 end
 
