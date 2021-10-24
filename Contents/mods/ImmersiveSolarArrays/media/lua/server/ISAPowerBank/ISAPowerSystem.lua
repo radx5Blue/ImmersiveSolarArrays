@@ -32,7 +32,7 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         table.insert(pbNP, newpbKLen, numberOfPanels)
         table.insert(pbLD, newpbKLen, 1)
         table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
-        table.insert(pbBO, newpbKLen, 1) --changed this to 0
+        table.insert(pbBO, newpbKLen, 0) --changed this to 0
         table.insert(pbGN, newpbKLen, 0)
 
         sqX = square:getX()
@@ -570,7 +570,7 @@ local function ReloadPower()
         noCH = tonumber(testC[key])
         noPB = tonumber(testB[key])
 
-        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1) then
+        if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1 and noCH > 0) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
@@ -622,7 +622,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1 and noCH > 0 or  square ~= nil and globalPCounter > 1500 and loc == false and noCH > 0 and noLD == 1 ) then
+        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1 and noCH > 0) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -639,7 +639,7 @@ function PowerCheck()
 
             loc = true
 			
-			table.insert(testL, key, 0)
+			table.insert(testL, key, 1)
 
             --print("Created")
         end
@@ -728,23 +728,23 @@ function chargeLogic()
                 NewGenerator:remove()
                 
             end
-            if actualCharge <= 0 and difference >= 0 and noOff == 0 then
-                noOff = 1
-                table.insert(testB, key, noOff)
-                -------------------------------turn on
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-                NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
-                solarscan(square, true, true, false, 2)
+            -- if actualCharge <= 0 and difference >= 0 and noOff == 0 then
+                -- noOff = 1
+                -- table.insert(testB, key, noOff)
+                -- -------------------------------turn on
+                -- local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                -- NewGenerator:setConnected(true)
+                -- NewGenerator:setFuel(100)
+                -- NewGenerator:setCondition(100)
+                -- NewGenerator:setActivated(true)
+                -- NewGenerator:setSurroundingElectricity()
+                -- NewGenerator:remove()
+                -- solarscan(square, true, true, false, 2)
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
-                end
-            end
+                -- if square:getBuilding() ~= nil then
+                    -- square:getBuilding():setToxic(false)
+                -- end
+            -- end
 
             --new sprite handler:
 
@@ -921,7 +921,7 @@ function GenCheck()
 
         if square ~= nil then
             if
-                (noPB == 1 and calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) >= 50 and
+                (noCH > 0 and calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) >= 50 and
                     noGN == 1)
              then
 			 
@@ -950,13 +950,6 @@ function GenCheck()
                 (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
 			 
-			 	local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-				NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
 			 
                 GenRemove(squarex)
 				
@@ -990,10 +983,11 @@ if objs and sz > 0 then
         local myObject = objs:get(i);
         if myObject and instanceof(myObject, "IsoGenerator") then
             myObject:remove();
+		else
+			break;
         end
     end
 end
-
 print("gens removed")
 
 end
