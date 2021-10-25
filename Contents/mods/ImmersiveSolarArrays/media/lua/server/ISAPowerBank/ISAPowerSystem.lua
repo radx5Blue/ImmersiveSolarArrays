@@ -31,8 +31,8 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
         table.insert(pbZ, newpbKLen, square:getZ())
         table.insert(pbNP, newpbKLen, numberOfPanels)
         table.insert(pbLD, newpbKLen, 1)
-        table.insert(pbCH, newpbKLen, 1) -- get charge here!! *******************************************************************************************
-        table.insert(pbBO, newpbKLen, 1) 
+        table.insert(pbCH, newpbKLen, 0) -- get charge here!! *******************************************************************************************
+        table.insert(pbBO, newpbKLen, 0) 
         table.insert(pbGN, newpbKLen, 0)
 
         sqX = square:getX()
@@ -103,6 +103,45 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 	
 	
 
+	
+	
+end
+
+
+function ResetBank(square, charge)
+	
+	
+	solarscan(square, false, true, true, 0)
+	
+	
+	sqX = square:getX()
+    sqY = square:getY()
+    sqZ = square:getZ()
+
+    testK = ModData.get("PBK")
+    testX = ModData.get("PBX")
+    testY = ModData.get("PBY")
+    testZ = ModData.get("PBZ")
+    testNP = ModData.get("PBNP")
+    testL = ModData.get("PBLD")
+    testC = ModData.get("PBCH")
+    testB = ModData.get("PBBO")
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+
+        if (sqX == noX and sqY == noY and sqZ == noZ) then
+
+            table.insert(testC, key, charge)
+        end
+    end
+	
+
+	
 	
 	
 end
@@ -598,14 +637,6 @@ local function ReloadPower()
     local pbkLen = #testK
 
     for key = 1, #testK do
-        --print("Check ModData Key: ", testK[key])
-        --print("Check ModData X: ", testX[key])
-        --print("Check ModData Y: ", testY[key])
-        --print("Check ModData Z: ", testZ[key])
-        --print("Check ModData NP: ", testNP[key])
-        --print("Check ModData LOADED: ", testL[key])
-        --print("Check ModData Charge: ", testC[key])
-
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
         noY = tonumber(testY[key])
@@ -631,8 +662,7 @@ local function ReloadPower()
                 square:getBuilding():setToxic(false)
             end
 
-            print("Solar Array Re-created")
-        --print("Solar Array Re-created and: ", testL[key])
+            print("Solar Array Reloaded")
         end
     end
 end
@@ -652,8 +682,6 @@ function PowerCheck()
 
     globalPCounter = globalPCounter + 1
 
-    --print(globalPCounter)
-
     for key = 1, #testK do
         noKey = tonumber(testK[key])
         noX = tonumber(testX[key])
@@ -666,7 +694,7 @@ function PowerCheck()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
-        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1 and noCH > 0 or  square ~= nil and globalPCounter > 1500 and loc == false and noCH > 0 and noLD == 1 ) then
+        if (square ~= nil and globalPCounter > 1500 and loc == false and noPB == 1 and noLD == 1 and noCH > 0) then
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -679,22 +707,16 @@ function PowerCheck()
                 square:getBuilding():setToxic(false)
             end
 
-            --globalPCounter = 0
-
             loc = true
-			
 			table.insert(testL, key, 0)
 
-            --print("Created")
         end
 
        if (globalPCounter > 1500 and loc == true and noLD == 0) then
             loc = false
             globalPCounter = 0
-            print("Not Created")
 			
         end
-
     end
 end
 
@@ -966,6 +988,10 @@ function GenCheck()
         noCH = tonumber(testC[key])
         noPB = tonumber(testB[key])
         noGN = tonumber(testG[key])
+		
+		
+		local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		local squarex = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
         
 		
@@ -977,7 +1003,7 @@ function GenCheck()
              then
 			 
 			 for i = 1, 20 do
-                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                local NewGenerator = IsoGenerator.new(nil, squarex:getCell(), squarex)
                 NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
                 NewGenerator:setCondition(100)
@@ -988,8 +1014,8 @@ function GenCheck()
 			--print("gens created")
 
 
-                if square:getBuilding() ~= nil then
-                    square:getBuilding():setToxic(false)
+                if squarex:getBuilding() ~= nil then
+                    squarex:getBuilding():setToxic(false)
                 end
 
                 
@@ -1000,19 +1026,10 @@ function GenCheck()
             if
                 (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noGN == 0)
              then
-			 
 
-			 
-			 
-                GenRemove(square)
+                GenRemove(squarex)
 				
-				local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
-				NewGenerator:setConnected(true)
-                NewGenerator:setFuel(100)
-                NewGenerator:setCondition(100)
-                NewGenerator:setActivated(true)
-                NewGenerator:setSurroundingElectricity()
-                NewGenerator:remove()
+
 
                 if square:getBuilding() ~= nil then
                     square:getBuilding():setToxic(false)

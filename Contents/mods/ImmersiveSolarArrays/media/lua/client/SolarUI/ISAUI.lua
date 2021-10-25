@@ -69,7 +69,8 @@ ResetBatteryBank = function(fsquare)
 
         if (sqX == noX and sqY == noY and sqZ == noZ) then
 			DisconnectPower(fsquare)
-			solarscan(fsquare, false, true, true, 0)
+			--solarscan(fsquare, false, true, true, 0)
+			ResetBank(fsquare, noCH)
 	 end
 
 		
