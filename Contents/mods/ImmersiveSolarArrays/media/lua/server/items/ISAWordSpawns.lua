@@ -37,13 +37,10 @@ function SpawnPanels()
                     if newSprite and newSprite:getProperties() then
                         if newSprite:getProperties():Val("ContainerType") or newSprite:getProperties():Val("container") then
                             newSprite:createContainersFromSpriteProperties()
-							--newSprite:addItem("ISA.SolarPanel") 
                         end
                     end
                     panelSquare:getObjects():add(newSprite)
                     panelSquare:RecalcProperties()
-
-                    --player:Say("Solars")
 					
 					
 				if sprite_type == "solarmod_tileset_01_36" then
