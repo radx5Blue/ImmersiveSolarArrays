@@ -17,6 +17,7 @@ Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
 Category:Electrical,
+OnCreate:SolarModConvertBatteryDIY,
 }
 
 recipe Make DIY Battery from 75Ah
@@ -29,6 +30,7 @@ Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
 Category:Electrical,
+OnCreate:SolarModConvertBatteryDIY,
 }
 
 recipe Make DIY Battery from 100Ah
@@ -41,6 +43,7 @@ Time:30,
 CanBeDoneFromFloor:true,
 NeedToBeLearn:true,
 Category:Electrical,
+OnCreate:SolarModConvertBatteryDIY,
 }
 
 recipe Wire 50Ah Battery
