@@ -45,16 +45,18 @@ function SpawnPanels()
                     panelSquare:RecalcProperties()
 					
 					
-				if sprite_type == "solarmod_tileset_01_36" and spawned == 0 then
+				if sprite_type == "solarmod_tileset_01_36" then
 					AddItemsToBox(panelSquare)
 					newSprite:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
-					table.insert(hasSpawned, key, 1)
 					
 					
-					print("******************* Spawned after: ", spawned)
+					
 				end
 
-                    table.insert(hasSpawned, key, 1)
+					hasSpawned[key] = 1
+                    --table.insert(hasSpawned, key, 1)
+					--print("******************* Spawned after: ", spawned)
+					--print("******************* Has Spawned after: ", hasSpawned[key])
                 end
             end
         end
@@ -78,7 +80,7 @@ function AddItemsToBox(panelSquare)
 			container:AddItem("ISA.DeepCycleBattery") 
 		end
 		for i=1,miscnumber do 
-			container:AddItem("ISA.Inverter")
+			container:AddItem("ISA.ISAInverter")
 			container:AddItem("ISA.ISAMag1")
 			container:AddItem("Radio.ElectricWire")
 			container:AddItem("Radio.ElectricWire")
