@@ -16,6 +16,8 @@ function SpawnPanels()
         local noY = tonumber(pY[key])
         local noZ = tonumber(pZ[key])
         local spawned = tonumber(hasSpawned[key])
+		
+		--print("******************* Spawned before: ", spawned)
 
         if spawned == 0 then
             local panelSquare = getWorld():getCell():getGridSquare(noX, noY, noZ)
@@ -43,9 +45,13 @@ function SpawnPanels()
                     panelSquare:RecalcProperties()
 					
 					
-				if sprite_type == "solarmod_tileset_01_36" then
+				if sprite_type == "solarmod_tileset_01_36" and spawned == 0 then
 					AddItemsToBox(panelSquare)
 					newSprite:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
+					table.insert(hasSpawned, key, 1)
+					
+					
+					print("******************* Spawned after: ", spawned)
 				end
 
                     table.insert(hasSpawned, key, 1)
