@@ -804,7 +804,7 @@ function chargeLogic()
 			
 		if noLiteMode == 1 then
 			if noLiteDrain == nil then
-			liteModeFunction()
+			liteModeFunction(square)
 			end
 			drain = noLiteDrain
 		end
