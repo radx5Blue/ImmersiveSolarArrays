@@ -100,6 +100,8 @@ function TurnOnPower(powerConsumption, numberOfPanels, square, createKey)
 					end
 				end
         end
+		
+		liteModeFunction(square)
 	
 	
 
@@ -521,6 +523,7 @@ function changePanelData(square, noOfPanels)
 			local pc = solarscan(squareTest, false, true, false, 0)
 			print("pc: ", pc)
 			TurnOnPower(pc, noOfPanels, squareTest, false)
+			liteModeFunction(squareTest)
         end
     end
 end
@@ -546,9 +549,9 @@ function DisconnectPower(square)
         noY = tonumber(testY[key])
         noZ = tonumber(testZ[key])
 
-        print("Removed Passed X: ", sqX)
-        print("Removed Passed Y: ", sqY)
-        print("Removed Passed Z: ", sqZ)
+       -- print("Removed Passed X: ", sqX)
+       -- print("Removed Passed Y: ", sqY)
+       -- print("Removed Passed Z: ", sqZ)
 
         if (sqX == noX and sqY == noY and sqZ == noZ) then
             squareTest = getWorld():getCell():getGridSquare(sqX, sqY, sqZ)
@@ -559,7 +562,7 @@ function DisconnectPower(square)
             NewGenerator:setSurroundingElectricity()
             NewGenerator:setActivated(false)
             NewGenerator:remove()
-            print("removed")
+          --  print("removed")
 
             table.remove(testK, key, key)
             table.remove(testX, key, sqX)
@@ -583,6 +586,8 @@ function CheckGlobalData()
     local PowerBankCharge = {}
     local PowerBankOn = {}
     local PowerBankGen = {}
+	local PowerBankLiteDrain = {}
+	local PowerBankLiteMode = {}
 
     if ModData.exists("PBK") == false then
         ModData.add("PBK", powerBankKey)
@@ -598,6 +603,19 @@ function CheckGlobalData()
 
     if ModData.exists("PBGN") == false then
         ModData.add("PBGN", PowerBankGen)
+    end
+	
+	 if ModData.exists("PBLiteDrain") == false then
+		
+		
+		table.insert(PowerBankLiteMode, 1, 1)
+		
+        ModData.add("PBLiteDrain", PowerBankLiteDrain)
+		ModData.add("PBLiteMode", PowerBankLiteMode)
+		
+		
+		
+		
     end
 end
 
@@ -730,7 +748,12 @@ function chargeLogic()
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
     local testB = ModData.get("PBBO")
-
+	
+	local liteMode = ModData.get("PBLiteMode")
+	local liteDrain = ModData.get("PBLiteDrain")
+	
+	local noLiteMode = tonumber(liteMode[1])
+	
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -745,15 +768,20 @@ function chargeLogic()
         noCH = tonumber(testC[key])
         noOff = tonumber(testB[key])
 		
+		
+		local noLiteDrain = tonumber(liteDrain[key])
+		
+		--local currentHour = getGameTime():getHour()
+		
 			
-		print("Check ModData Key: ", testK[key])
-        print("Check ModData X: ", testX[key])
-        print("Check ModData Y: ", testY[key])
-        print("Check ModData Z: ", testZ[key])
-        print("Check ModData NP: ", testNP[key])
-        print("Check ModData LOADED: ", testL[key])
-        print("Check ModData Charge: ", testC[key])
-        print("Check ModData On: ", testB[key])
+		-- print("Check ModData Key: ", testK[key])
+        -- print("Check ModData X: ", testX[key])
+        -- print("Check ModData Y: ", testY[key])
+        -- print("Check ModData Z: ", testZ[key])
+        -- print("Check ModData NP: ", testNP[key])
+        -- print("Check ModData LOADED: ", testL[key])
+        -- print("Check ModData Charge: ", testC[key])
+        -- print("Check ModData On: ", testB[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 
@@ -763,7 +791,28 @@ function chargeLogic()
             local inventory = batterybank:getContainer()
             local capacity = HandleBatteries(inventory, noCH, false)
             local batterynumber = HandleBatteries(inventory, noCH, true)
-            local drain = solarscan(square, false, true, false, 0)
+			local drain
+			
+			
+			print("LITEMODE: ", noLiteMode)
+			
+			
+		if noLiteMode == 0 then
+            drain = solarscan(square, false, true, false, 0)
+		end
+			
+			
+		if noLiteMode == 1 then
+			if noLiteDrain == nil then
+			liteModeFunction()
+			end
+			drain = noLiteDrain
+		end
+		
+		print("Drain: ", drain)
+		print("noLiteDrain: ", noLiteDrain)
+			
+			
             local input = getModifiedSolarOutput(noPZ)
             local actualCharge = capacity * noCH
             local difference = input - drain
@@ -778,16 +827,17 @@ function chargeLogic()
                 updatedCH = 0
             end
 
-			print("noOff is:")
-			print(noOff)
+			--print("noOff is:")
+			--print(noOff)
 			
 			
             --shutdown logic goes below
             if actualCharge <= 0 and difference < 0 then --and noOff ~= 0 
                 noOff = 0
-                table.insert(testB, key, noOff)
-				print("turn off: setting noOff to:")
-				print(noOff)
+                --table.insert(testB, key, noOff)
+				testB[key] = noOff
+				--print("turn off: setting noOff to:")
+				--print(noOff)
                 ------------------------------turn off
 				solarscan(square, true, true, false, 1)
 				--^^run this first for uninterrupted power... maybe?
@@ -802,10 +852,11 @@ function chargeLogic()
             end
             if (actualCharge > 0 or difference >= 0) and noOff == 0 then
                 noOff = 1
-                table.insert(testB, key, noOff)
+                --table.insert(testB, key, noOff)
+				testB[key] = noOff
                 -------------------------------turn on
-				print("turn on: setting noOff to:")
-				print(noOff)
+				--print("turn on: setting noOff to:")
+				--print(noOff)
                 local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
                 NewGenerator:setConnected(true)
                 NewGenerator:setFuel(100)
@@ -819,8 +870,10 @@ function chargeLogic()
                     square:getBuilding():setToxic(false)
                 end
             end
+			
+			
 
-            --new sprite handler:
+           -- new sprite handler:
 
             if updatedCH < 0.25 then
                 --batterybank:setOverlaySprite(nil)
@@ -928,7 +981,8 @@ function chargeLogic()
                 end
             end
 
-            table.insert(testC, key, updatedCH)
+           --table.insert(testC, key, updatedCH)
+			testC[key] = updatedCH
 			
         end
     end
@@ -1011,7 +1065,6 @@ function GenCheck()
                 NewGenerator:setSurroundingElectricity()
 				
 			end
-			--print("gens created")
 
 
                 if squarex:getBuilding() ~= nil then
@@ -1039,8 +1092,8 @@ function GenCheck()
 				table.insert(testL, key, 1)
             end
         end
-    end
-	
+ end
+ 
 end
 
 function calculateDistance(x1, y1, x2, y2)
@@ -1064,14 +1117,69 @@ if objs and sz > 0 then
     end
 end
 
---print("gens removed")
+end
 
+function liteModeFunction(square)
+	
+	
+	local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+    local testB = ModData.get("PBBO")
+	
+	local liteMode = ModData.get("PBLiteMode")
+	local liteDrain = ModData.get("PBLiteDrain")
+	
+	
+	
+    local pbkLen = #testK
+
+    for key = 1, #testK do
+
+
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
+        noCH = tonumber(testC[key])
+        noOff = tonumber(testB[key])
+
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+
+		if square == nil then
+        square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+	end
+		
+		local noLiteDrain = tonumber(liteDrain[key])
+	
+		local drain = solarscan(square, false, true, false, 0)
+
+		liteDrain[key] = drain
+		
+		print("*********************new day************")
+		print("********* this drain ************", drain)
+	 
+	 
+	 
+	 
+ end
+	
+	
+	
 end
 
 Events.EveryDays.Add(batteryDegrade)
+Events.EveryDays.Add(liteModeFunction)
 Events.EveryTenMinutes.Add(chargeLogic)
 Events.OnTick.Add(PowerCheck)
---Events.OnPlayerUpdate.Add(PowerCheck)
 Events.OnTick.Add(GenCheck)
 Events.OnGameStart.Add(CheckGlobalData)
 Events.OnGameStart.Add(ReloadPower)
