@@ -605,19 +605,17 @@ function CheckGlobalData()
         ModData.add("PBGN", PowerBankGen)
     end
 	
-	 if ModData.exists("PBLiteDrain") == false then
-		
-		
-		table.insert(PowerBankLiteMode, 1, 1)
-		
+	
+	if ModData.exists("PBLiteDrain") == false then
         ModData.add("PBLiteDrain", PowerBankLiteDrain)
 		ModData.add("PBLiteMode", PowerBankLiteMode)
+		table.insert(PowerBankLiteMode, 1, 0)
+	end
 		
 		
 		
 		
     end
-end
 
 function getModifiedSolarOutput(SolarInput)
     local myWeather = getClimateManager()
@@ -791,7 +789,7 @@ function chargeLogic()
             local inventory = batterybank:getContainer()
             local capacity = HandleBatteries(inventory, noCH, false)
             local batterynumber = HandleBatteries(inventory, noCH, true)
-			local drain
+			local drain = 0
 			
 			
 			print("LITEMODE: ", noLiteMode)

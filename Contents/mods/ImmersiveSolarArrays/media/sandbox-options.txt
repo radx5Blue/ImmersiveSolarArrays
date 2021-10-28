@@ -81,3 +81,4 @@ option ISA.DIYBatteryCapacity
 	translation = ISA_DIYBatteryCapacity,
 }
 
+

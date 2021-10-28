@@ -21,4 +21,6 @@ Sandbox_EN = {
 	
 	Sandbox_ISA_DIYBatteryCapacity = "DIY Battery Capacity (Ah)",
 	Sandbox_ISA_DIYBatteryCapacity_tooltip = "How much energy in Ah a single DIY Battery can store.",
+	
+	
 }
