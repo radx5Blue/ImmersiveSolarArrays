@@ -541,7 +541,7 @@ function SpawnRolls()
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
             table.insert(spawnCellX, CellKeysNumber, 10698)
-            table.insert(spawnCellY, CellKeysNumber, 10451) --may need to fix
+            table.insert(spawnCellY, CellKeysNumber, 10450) --may need to fix
             table.insert(spawnCellZ, CellKeysNumber, 0)
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
             table.insert(spawnCellSpawned, CellKeysNumber, 0)	
@@ -652,8 +652,8 @@ function SpawnRolls()
         if chance <= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
-            table.insert(spawnCellX, CellKeysNumber, 10692)
-            table.insert(spawnCellY, CellKeysNumber, 10100) 
+            table.insert(spawnCellX, CellKeysNumber, 10693) --need to check
+            table.insert(spawnCellY, CellKeysNumber, 10099) 
             table.insert(spawnCellZ, CellKeysNumber, 0)
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
             table.insert(spawnCellSpawned, CellKeysNumber, 0)	
@@ -665,7 +665,7 @@ function SpawnRolls()
         if chance <= spawnChance then
             CellKeysNumber = CellKeysNumber + 1
             table.insert(spawnCellKeys, CellKeysNumber, CellKeysNumber)
-            table.insert(spawnCellX, CellKeysNumber, 10623)
+            table.insert(spawnCellX, CellKeysNumber, 10623) --no work
             table.insert(spawnCellY, CellKeysNumber, 9890) 
             table.insert(spawnCellZ, CellKeysNumber, 0)
             table.insert(spawnCellType, CellKeysNumber, "solarmod_tileset_01_36")
