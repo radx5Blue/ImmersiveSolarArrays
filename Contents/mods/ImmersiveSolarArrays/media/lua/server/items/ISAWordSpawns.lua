@@ -75,6 +75,11 @@ function AddItemsToBox(panelSquare)
 	local miscnumber = 1 * SandboxVars.ISA.LRMMisc
 		for i=1,panelnumber do 
 			container:AddItem("ISA.SolarPanel") 
+			container:AddItem("Radio.ElectricWire")
+			container:AddItem("Radio.ElectricWire")
+			container:AddItem("Radio.ElectricWire")
+			container:AddItem("Base.MetalBar")
+			container:AddItem("Base.MetalBar")
 		end
 		for i=1,batterynumber do 
 			container:AddItem("ISA.DeepCycleBattery") 
@@ -82,8 +87,6 @@ function AddItemsToBox(panelSquare)
 		for i=1,miscnumber do 
 			container:AddItem("ISA.ISAInverter")
 			container:AddItem("ISA.ISAMag1")
-			container:AddItem("Radio.ElectricWire")
-			container:AddItem("Radio.ElectricWire")
 		end
 
 	
