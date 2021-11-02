@@ -1152,18 +1152,17 @@ function liteModeFunction(square)
         noY = tonumber(testY[key])
         noZ = tonumber(testZ[key])
 
-		if square == nil then
-        square = getWorld():getCell():getGridSquare(noX, noY, noZ)
-	end
+        squarea = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
 		
 		local noLiteDrain = tonumber(liteDrain[key])
 	
-		local drain = solarscan(square, false, true, false, 0)
+		local drain = solarscan(squarea, false, true, false, 0)
 
 		liteDrain[key] = drain
 		
-		print("*********************new day************")
-		print("********* this drain ************", drain)
+		--print("*********************new day************")
+		--print("********* this drain ************", drain)
 	 
 	 
 	 
