@@ -1,0 +1,7 @@
+Moveables_RU = {
+	Battery_Bank = "Аккумуляторный стеллаж",
+	Solar_Roof_Tile = "Солнечная батарея (крыша)",
+	Wall_Mounted_Solar_Panel = "Солнечная батарея (стена)",
+	Floor_Mounted_Solar_Panel = "Солнечная батарея (пол)",
+	Failsafe_Trigger = "Блок автоматического ввода резерва",
+}

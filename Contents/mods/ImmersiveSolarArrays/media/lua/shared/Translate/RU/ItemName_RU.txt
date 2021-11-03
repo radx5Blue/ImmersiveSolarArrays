@@ -1,0 +1,11 @@
+ItemName_RU = {	
+	ItemName_ISA.SolarPanel = "Солнечная панель",
+	ItemName_ISA.ISAInverter = "Инвертор",
+	ItemName_ISA.DeepCycleBattery = "Аккумулятор (200Ач)",
+	ItemName_ISA.SuperBattery = "Аккумулятор (400Ач)",
+	ItemName_ISA.DIYBattery = "Аккумуляторная батарея",
+	ItemName_ISA.50AhBattery = "Аккумулятор (50Ач)",
+	ItemName_ISA.75AhBattery = "Аккумулятор (75Ач)",
+	ItemName_ISA.100AhBattery = "Аккумулятор (100Ач)",
+	ItemName_ISA.ISAMag1 = "Журнал «Новые достижения: Энергия солнца»",
+}

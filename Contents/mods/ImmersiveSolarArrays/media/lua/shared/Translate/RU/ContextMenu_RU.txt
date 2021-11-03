@@ -1,0 +1,5 @@
+ContextMenu_RU = {		
+	ContextMenu_ISA_BatteryBankStatus = "Проверить",
+	ContextMenu_ISA_DiagnoseBankIssues = "Переподключить",
+	ContextMenu_ISA_NoPanels = "У вас нет подключенных солнечный панелей.",
+}
