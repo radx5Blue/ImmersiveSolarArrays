@@ -782,6 +782,10 @@ function chargeLogic()
         -- print("Check ModData On: ", testB[key])
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		
+		if (ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0") == nil) then
+			DisconnectPower(square)
+		end
 
         if (square ~= nil) then
             local updatedCH = 0
