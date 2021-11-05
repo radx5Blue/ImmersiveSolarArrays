@@ -1,0 +1,19 @@
+Recipes_RU = {	
+	Recipe_Wire_50Ah_Battery = "Подсоеденить провода (50Ач)",
+	Recipe_Unwire_50Ah_Battery = "Отсоединить провода (50Ач)",
+	Recipe_Wire_75Ah_Battery = "Подсоеденить провода (75Ач)",
+	Recipe_Unwire_75Ah_Battery = "Отсоединить провода (75Ач)",
+	Recipe_Wire_100Ah_Battery = "Подсоеденить провода (100Ач)",
+	Recipe_Unwire_100Ah_Battery = "Отсоединить провода (100Ач)",
+	
+	Recipe_Make_Solar_Roof_Tile = "Сделать солнечную батарею (крыша)",
+	Recipe_Make_Wall-Mounted_Solar_Panel = "Сделать солнечную батарею (стена)",
+	Recipe_Make_Floor-Mounted_Solar_Panel = "Сделать солнечную батарею (пол)",
+	
+	Recipe_Create_Battery_Bank = "Сделать аккумуляторный стеллаж",
+	Recipe_Create_Solar_Failsafe = "Сделать блок АВР",
+	
+	Recipe_Make_DIY_Battery_from_100Ah = "Сделать аккумуляторную батарею (2х100Ач)",
+	Recipe_Make_DIY_Battery_from_50Ah = "Сделать аккумуляторную батарею (4х50Ач)",
+	Recipe_Make_DIY_Battery_from_75Ah = "Сделать аккумуляторную батарею (3х75Ач)",
+}
