@@ -439,7 +439,7 @@ function ISInventoryTransferAction:transferItem(item)
     return res
 end
 
-function getBankCharge(square)
+function getBankCharge(square) -- get the battery bank charge and stores it for later
     sqX = square:getX()
     sqY = square:getY()
     sqZ = square:getZ()
@@ -664,6 +664,8 @@ local function ReloadPower()
 
         if (getWorld():getCell():getGridSquare(noX, noY, noZ) ~= nil and noPB == 1) then
             local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+			
+			GenRemove(square)
 
             local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
             NewGenerator:setConnected(true)
@@ -677,10 +679,15 @@ local function ReloadPower()
             if square:getBuilding() ~= nil then
                 square:getBuilding():setToxic(false)
             end
+			
+			--GenRemove(square)
 
             print("Solar Array Reloaded")
         end
     end
+	
+	
+	
 end
 
 globalPCounter = 0
@@ -1177,6 +1184,107 @@ function liteModeFunction(square)
 	
 end
 
+timeToSave = false
+
+function Test()
+	
+	local testK = ModData.get("PBK")
+    local testX = ModData.get("PBX")
+    local testY = ModData.get("PBY")
+    local testZ = ModData.get("PBZ")
+    local testNP = ModData.get("PBNP")
+    local testL = ModData.get("PBLD")
+    local testC = ModData.get("PBCH")
+    local testB = ModData.get("PBBO")
+    local testG = ModData.get("PBGN")
+
+    player = getPlayer()
+	
+
+    for key = 1, #testK do
+        noKey = tonumber(testK[key])
+        noX = tonumber(testX[key])
+        noY = tonumber(testY[key])
+        noZ = tonumber(testZ[key])
+        noPZ = tonumber(testNP[key])
+        noLD = tonumber(testL[key])
+        noCH = tonumber(testC[key])
+        noPB = tonumber(testB[key])
+        noGN = tonumber(testG[key])
+		
+		
+		local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
+		local squarex = getWorld():getCell():getGridSquare(noX, noY, noZ)
+
+        
+		
+
+            if
+                (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50)
+             then
+
+				if player:isAsleep() == true then
+	timeToSave = true
+end
+        
+		
+		if player:isAsleep() == false and timeToSave == false then 
+     
+			timeToSave = true
+		
+                local NewGenerator = IsoGenerator.new(nil, square:getCell(), square)
+                NewGenerator:setConnected(true)
+                NewGenerator:setFuel(100)
+               NewGenerator:setCondition(100)
+                NewGenerator:setActivated(true)
+               NewGenerator:setSurroundingElectricity()
+			   
+			   
+			   if player:getSquare():getBuilding() ~= nil then
+                    player:getSquare():getBuilding():setToxic(false)
+                end
+			   
+		   end
+				
+			-- --table.insert(testG, key, 0)
+			
+			
+			if player:isAsleep() == false then 
+				
+				timeToSave = false
+				
+				
+			end
+				
+
+
+                if square:getBuilding() ~= nil then
+                    square:getBuilding():setToxic(false)
+                end
+
+               -- table.insert(testG, key, 1)
+				-- table.insert(testL, key, 1)
+            end
+			
+			
+		end
+	
+	
+	
+	
+	
+	print("*********************SAVE AND CLOSE?************")
+	
+
+            
+			
+	
+end
+
+
+--Events.OnServerFinishSaving.Add(Test)
+--Events.OnDisconnect.Add(Test)
+Events.OnSave.Add(Test)
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryDays.Add(liteModeFunction)
 Events.EveryTenMinutes.Add(chargeLogic)
