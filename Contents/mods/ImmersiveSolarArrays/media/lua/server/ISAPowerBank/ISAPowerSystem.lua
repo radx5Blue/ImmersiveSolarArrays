@@ -1220,7 +1220,7 @@ function Test()
 		
 
             if
-                (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50)
+                (calculateDistance(player:getX(), player:getY(), square:getX(), square:getY()) < 50 and noPB == 1)
              then
 
 				if player:isAsleep() == true then
