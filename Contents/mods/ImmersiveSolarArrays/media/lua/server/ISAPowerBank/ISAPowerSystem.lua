@@ -1171,9 +1171,7 @@ function liteModeFunction(square)
 		local drain = solarscan(squarea, false, true, false, 0)
 
 		liteDrain[key] = drain
-		
-		--print("*********************new day************")
-		--print("********* this drain ************", drain)
+
 	 
 	 
 	 
@@ -1270,10 +1268,7 @@ end
 		end
 	
 	
-	
-	
-	
-	print("*********************SAVE AND CLOSE?************")
+
 	
 
             
@@ -1281,9 +1276,6 @@ end
 	
 end
 
-
---Events.OnServerFinishSaving.Add(Test)
---Events.OnDisconnect.Add(Test)
 Events.OnSave.Add(Test)
 Events.EveryDays.Add(batteryDegrade)
 Events.EveryDays.Add(liteModeFunction)
