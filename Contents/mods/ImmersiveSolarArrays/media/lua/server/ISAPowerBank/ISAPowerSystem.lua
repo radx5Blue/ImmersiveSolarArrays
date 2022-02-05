@@ -1198,6 +1198,8 @@ function Test()
 
     player = getPlayer()
 	
+	
+	if test ~= nil then
 
     for key = 1, #testK do
         noKey = tonumber(testK[key])
@@ -1269,7 +1271,7 @@ end
 	
 	
 
-	
+end
 
             
 			

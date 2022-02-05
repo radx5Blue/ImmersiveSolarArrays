@@ -206,7 +206,7 @@ function ConsumptionScan(square)
 						end 
 						
 						--print("is this running3")
-					if instanceof(myObject, "IsoStove") and myObject:getContainer() and myObject:getContainer():isPowered() then
+					if instanceof(myObject, "IsoStove") and myObject:Activated() then
 						powerconsumption = powerconsumption + 0.13
 					end
 						--print("is this running4")

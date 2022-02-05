@@ -134,13 +134,17 @@ OpenBatterBankInfo = function(fsquare)
 		player:Say(text)
 		end
 			
-		if noPZ > 1 then
+				if noPZ > 1 then
 			local text = "There are currently " .. noPZ .. " solar panels connected"
 			player:Say(text)
 		end
 		
 		if difference > 0 then
+		    local dtime = ((capacity - actualCharge) / difference)
 			local text4 = "The battery bank has enough solar panels to power my connected devices"
+			if dtime > 0 then
+				text4 = text4 .. " It will take about " .. math.abs(math.floor(dtime)) .. " hours to fully charge"
+			end
 			player:Say(text4)
 		end
 		
@@ -150,7 +154,14 @@ OpenBatterBankInfo = function(fsquare)
 		end
 		
 		if difference < 0 then
-			local text4 = "I need more solar panels to power my devices"
+		    local dtime = (actualCharge / difference)
+			local text4 = ""
+			if input > 0 then
+				text4 = "I need more solar panels to power my devices."
+			else
+				text4 = "Panels do not generate electricity - need to check during sunny day."
+		    end
+			text4 = text4 .. " Power will remain for about " .. math.abs(math.floor(dtime)) .. "hours."
 			player:Say(text4)
 		end
 		
