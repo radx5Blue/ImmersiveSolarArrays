@@ -1042,6 +1042,12 @@ function GenCheck()
     local testG = ModData.get("PBGN")
 
     player = getPlayer()
+	
+	if testK == nil then
+		break;
+	end
+	
+	if testK ~= nil then
 
     for key = 1, #testK do
         noKey = tonumber(testK[key])
@@ -1104,6 +1110,8 @@ function GenCheck()
             end
         end
  end
+ 
+end
  
 end
 
