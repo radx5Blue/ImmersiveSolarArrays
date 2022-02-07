@@ -148,296 +148,296 @@ function ResetBank(square, charge)
 	
 end
 
----------sprite fix:---------
-ISInventoryTransferAction.OriginaltransferItem = ISInventoryTransferAction.transferItem -- we save the original function so we can run it as well as our code
-function ISInventoryTransferAction:transferItem(item)
-    local res = self:OriginaltransferItem(item)
-    print("testing")
-    local bankfinal = nil
-    local bank1 = nil
-    local bank2 = nil
-    local adding = nil
-    local container = nil
-    local updatedCH = 0
-    local batterynumber = 0
+-- ---------sprite fix:---------
+-- ISInventoryTransferAction.OriginaltransferItem = ISInventoryTransferAction.transferItem -- we save the original function so we can run it as well as our code
+-- function ISInventoryTransferAction:transferItem(item)
+    -- local res = self:OriginaltransferItem(item)
+    -- print("testing")
+    -- local bankfinal = nil
+    -- local bank1 = nil
+    -- local bank2 = nil
+    -- local adding = nil
+    -- local container = nil
+    -- local updatedCH = 0
+    -- local batterynumber = 0
 
-    if self.srcContainer:getSourceGrid() ~= nil then
-        --print("src sqr found")
-        bank1 = ISMoveableSpriteProps:findOnSquare(self.srcContainer:getSourceGrid(), "solarmod_tileset_01_0")
-        if bank1 ~= nil then
-            container = bank1:getContainer()
-        end
-    end
-    if self.destContainer:getSourceGrid() ~= nil then
-        --print("dest sqr found")
-        bank2 = ISMoveableSpriteProps:findOnSquare(self.destContainer:getSourceGrid(), "solarmod_tileset_01_0")
-        if bank2 ~= nil then
-            container = bank2:getContainer()
-        end
-    end
-    if bank1 ~= nil then
-        --print("src is bank")
-        bankfinal = bank1
-        adding = false
-    elseif bank2 ~= nil then
-        --print("dest is bank")
-        bankfinal = bank2
-        adding = true
-    end
-    if bank1 == nil and bank2 == nil then
-       -- print("stopping now")
-        return res
-    end
-    if bankfinal ~= nil and container ~= nil then
-        --print("looks like someone is transferring items to/from a powerbank")
-        local square = bankfinal:getSquare()
-        --print(square)
-        local charge = getBankCharge(square)
-        local updatedCH = getBankCharge(square) --remove this line later when done
-       -- print(charge)
-        if charge ~= nil and adding == true then
-            local type = item:getType()
-            local batterypower = item:getUsedDelta()
-            local capacity = 0
-			local cond = 1 - (item:getCondition()/100)
-			local condition = 1 - (cond*cond*cond*cond*cond*cond)
-            local isBattery = false
-            if type == "50AhBattery" and item:getCondition() > 0 then
-                capacity = 50 * condition
-                isBattery = true
-            end
-            if type == "75AhBattery" and item:getCondition() > 0 then
-                capacity = 75 * condition
-                isBattery = true
-            end
-            if type == "100AhBattery" and item:getCondition() > 0 then
-                capacity = 100 * condition
-                isBattery = true
-            end
-            if type == "DeepCycleBattery" and item:getCondition() > 0 then
-                capacity = 200 * condition
-                isBattery = true
-            end
-			if type == "SuperBattery" and item:getCondition() > 0 then
-                capacity = 400 * condition
-                isBattery = true
-            end
-			if type == "DIYBattery" and item:getCondition() > 0 then
-				local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
-					if SandboxVars.ISA.DIYBatteryCapacity == nil then
-						ISADIYBatteryCapacity = 200
-					end
-                capacity = ISADIYBatteryCapacity * condition
-                isBattery = true
-            end
-            --get the bank's capacity
-            local bankcapacity = 0
-            for i = 1, container:getItems():size() do
-                local itemx = container:getItems():get(i - 1)
-                local type = itemx:getType()
-				local condx = 1 - (itemx:getCondition()/100)
-				local conditionx = 1 - (condx*condx*condx*condx*condx*condx)
-                if type == "50AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 50 * conditionx
-                    batterynumber = batterynumber + 1
-                end
-                if type == "75AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 75 * conditionx
-                    batterynumber = batterynumber + 1
-                end
-                if type == "100AhBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 100 * conditionx
-                    batterynumber = batterynumber + 1
-                end
-                if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 200 * conditionx
-                    batterynumber = batterynumber + 1
-                end
-				if type == "SuperBattery" and itemx:getCondition() > 0 then
-                    bankcapacity = bankcapacity + 400 * conditionx
-                    batterynumber = batterynumber + 1
-                end
-				if type == "DIYBattery" and itemx:getCondition() > 0 then
-					local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
-						if SandboxVars.ISA.DIYBatteryCapacity == nil then
-							ISADIYBatteryCapacity = 200
-						end
-                    bankcapacity = bankcapacity + ISADIYBatteryCapacity * conditionx
-                    batterynumber = batterynumber + 1
-                end
-            end
-            if isBattery == true then
-               -- print("doing Advanced(TM) charge math!")
-                --do Advanced(TM) charge math!
-                local newbatteryamount = batterypower * capacity -- bat charge in Ah
-                local oldbatteryamount = bankcapacity * charge -- bank charge in Ah
-                --add up and divive
-               -- print("newbatteryamount")
-               -- print(newbatteryamount)
-               -- print("oldbatteryamount")
-               -- print(oldbatteryamount)
-                local systemtotal = (newbatteryamount + oldbatteryamount)
-                local systemmax = capacity + bankcapacity
-               -- print("systemtotal")
-               -- print(systemtotal)
-               -- print("systemmax")
-                --print(systemmax)
-                updatedCH = systemtotal / systemmax
-               -- print("updatedCH")
-                --print(updatedCH)
-                --got it, now set the charge!
-                item:setUsedDelta(updatedCH)
-                for i = 1, container:getItems():size() do
-                    local itemx = container:getItems():get(i - 1)
-                    local type = itemx:getType()
-                    if
-                        type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or
-                            type == "DeepCycleBattery" or type == "SuperBattery" or type == "DIYBattery"
-                     then
-                        itemx:setUsedDelta(updatedCH)
-                    end
-                end
-                setBankCharge(square, updatedCH)
-            end
-        elseif charge == nil and isBattery == true then
-            updatedCH = batterypower
-        elseif charge == nil and isBattery == false then
-            updatedCH = 0
-        end
-        --fix the sprites!
-        if adding == false then
-            for i = 1, container:getItems():size() do
-                local itemx = container:getItems():get(i - 1)
-                local type = itemx:getType()
-                if type == "50AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "75AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "100AhBattery" then
-                    batterynumber = batterynumber + 1
-                end
-                if type == "DeepCycleBattery" then
-                    batterynumber = batterynumber + 1
-                end
-				if type == "SuperBattery" then
-                    batterynumber = batterynumber + 1
-                end
-				if type == "DIYBattery" then
-                    batterynumber = batterynumber + 1
-                end
-            end
-        end
-        local batterybank = bankfinal
-        if updatedCH < 0.25 then
-            --batterybank:setOverlaySprite(nil)
-            --show 0 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_1")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_2")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_3")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_4")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_5")
-            end
-        elseif updatedCH >= 0.25 and updatedCH < 0.50 then
-            --
-            --show 25 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_16")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_20")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_24")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_28")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_32")
-            end
-        elseif updatedCH >= 0.50 and updatedCH < 0.75 then
-            --batterybank:setOverlaySprite("solarmod_tileset_01_12")
-            -- show 50 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_17")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_21")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_25")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_29")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_33")
-            end
-        elseif updatedCH >= 0.75 and updatedCH < 0.95 then
-            --batterybank:setOverlaySprite("solarmod_tileset_01_13")
-            -- show 75 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_18")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_22")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_26")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_30")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_34")
-            end
-        elseif updatedCH >= 0.95 then
-            --show 100 charge
-            if batterynumber == 0 then
-                batterybank:setOverlaySprite(nil)
-            elseif batterynumber > 0 and batterynumber < 5 then
-                --show bottom shelf
-                batterybank:setOverlaySprite("solarmod_tileset_01_19")
-            elseif batterynumber >= 5 and batterynumber < 9 then
-                --show two shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_23")
-            elseif batterynumber >= 9 and batterynumber < 13 then
-                --show three shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_27")
-            elseif batterynumber >= 13 and batterynumber < 17 then
-                --show four shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_31")
-            elseif batterynumber >= 17 then
-                --show five shelves
-                batterybank:setOverlaySprite("solarmod_tileset_01_35")
-            end
-        end
-    end
-    return res
-end
+    -- if self.srcContainer:getSourceGrid() ~= nil then
+        -- --print("src sqr found")
+        -- bank1 = ISMoveableSpriteProps:findOnSquare(self.srcContainer:getSourceGrid(), "solarmod_tileset_01_0")
+        -- if bank1 ~= nil then
+            -- container = bank1:getContainer()
+        -- end
+    -- end
+    -- if self.destContainer:getSourceGrid() ~= nil then
+        -- --print("dest sqr found")
+        -- bank2 = ISMoveableSpriteProps:findOnSquare(self.destContainer:getSourceGrid(), "solarmod_tileset_01_0")
+        -- if bank2 ~= nil then
+            -- container = bank2:getContainer()
+        -- end
+    -- end
+    -- if bank1 ~= nil then
+        -- --print("src is bank")
+        -- bankfinal = bank1
+        -- adding = false
+    -- elseif bank2 ~= nil then
+        -- --print("dest is bank")
+        -- bankfinal = bank2
+        -- adding = true
+    -- end
+    -- if bank1 == nil and bank2 == nil then
+       -- -- print("stopping now")
+        -- return res
+    -- end
+    -- if bankfinal ~= nil and container ~= nil then
+        -- --print("looks like someone is transferring items to/from a powerbank")
+        -- local square = bankfinal:getSquare()
+        -- --print(square)
+        -- local charge = getBankCharge(square)
+        -- local updatedCH = getBankCharge(square) --remove this line later when done
+       -- -- print(charge)
+        -- if charge ~= nil and adding == true then
+            -- local type = item:getType()
+            -- local batterypower = item:getUsedDelta()
+            -- local capacity = 0
+			-- local cond = 1 - (item:getCondition()/100)
+			-- local condition = 1 - (cond*cond*cond*cond*cond*cond)
+            -- local isBattery = false
+            -- if type == "50AhBattery" and item:getCondition() > 0 then
+                -- capacity = 50 * condition
+                -- isBattery = true
+            -- end
+            -- if type == "75AhBattery" and item:getCondition() > 0 then
+                -- capacity = 75 * condition
+                -- isBattery = true
+            -- end
+            -- if type == "100AhBattery" and item:getCondition() > 0 then
+                -- capacity = 100 * condition
+                -- isBattery = true
+            -- end
+            -- if type == "DeepCycleBattery" and item:getCondition() > 0 then
+                -- capacity = 200 * condition
+                -- isBattery = true
+            -- end
+			-- if type == "SuperBattery" and item:getCondition() > 0 then
+                -- capacity = 400 * condition
+                -- isBattery = true
+            -- end
+			-- if type == "DIYBattery" and item:getCondition() > 0 then
+				-- local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
+					-- if SandboxVars.ISA.DIYBatteryCapacity == nil then
+						-- ISADIYBatteryCapacity = 200
+					-- end
+                -- capacity = ISADIYBatteryCapacity * condition
+                -- isBattery = true
+            -- end
+            -- --get the bank's capacity
+            -- local bankcapacity = 0
+            -- for i = 1, container:getItems():size() do
+                -- local itemx = container:getItems():get(i - 1)
+                -- local type = itemx:getType()
+				-- local condx = 1 - (itemx:getCondition()/100)
+				-- local conditionx = 1 - (condx*condx*condx*condx*condx*condx)
+                -- if type == "50AhBattery" and itemx:getCondition() > 0 then
+                    -- bankcapacity = bankcapacity + 50 * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "75AhBattery" and itemx:getCondition() > 0 then
+                    -- bankcapacity = bankcapacity + 75 * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "100AhBattery" and itemx:getCondition() > 0 then
+                    -- bankcapacity = bankcapacity + 100 * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "DeepCycleBattery" and itemx:getCondition() > 0 then
+                    -- bankcapacity = bankcapacity + 200 * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+				-- if type == "SuperBattery" and itemx:getCondition() > 0 then
+                    -- bankcapacity = bankcapacity + 400 * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+				-- if type == "DIYBattery" and itemx:getCondition() > 0 then
+					-- local ISADIYBatteryCapacity = SandboxVars.ISA.DIYBatteryCapacity
+						-- if SandboxVars.ISA.DIYBatteryCapacity == nil then
+							-- ISADIYBatteryCapacity = 200
+						-- end
+                    -- bankcapacity = bankcapacity + ISADIYBatteryCapacity * conditionx
+                    -- batterynumber = batterynumber + 1
+                -- end
+            -- end
+            -- if isBattery == true then
+               -- -- print("doing Advanced(TM) charge math!")
+                -- --do Advanced(TM) charge math!
+                -- local newbatteryamount = batterypower * capacity -- bat charge in Ah
+                -- local oldbatteryamount = bankcapacity * charge -- bank charge in Ah
+                -- --add up and divive
+               -- -- print("newbatteryamount")
+               -- -- print(newbatteryamount)
+               -- -- print("oldbatteryamount")
+               -- -- print(oldbatteryamount)
+                -- local systemtotal = (newbatteryamount + oldbatteryamount)
+                -- local systemmax = capacity + bankcapacity
+               -- -- print("systemtotal")
+               -- -- print(systemtotal)
+               -- -- print("systemmax")
+                -- --print(systemmax)
+                -- updatedCH = systemtotal / systemmax
+               -- -- print("updatedCH")
+                -- --print(updatedCH)
+                -- --got it, now set the charge!
+                -- item:setUsedDelta(updatedCH)
+                -- for i = 1, container:getItems():size() do
+                    -- local itemx = container:getItems():get(i - 1)
+                    -- local type = itemx:getType()
+                    -- if
+                        -- type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or
+                            -- type == "DeepCycleBattery" or type == "SuperBattery" or type == "DIYBattery"
+                     -- then
+                        -- itemx:setUsedDelta(updatedCH)
+                    -- end
+                -- end
+                -- setBankCharge(square, updatedCH)
+            -- end
+        -- elseif charge == nil and isBattery == true then
+            -- updatedCH = batterypower
+        -- elseif charge == nil and isBattery == false then
+            -- updatedCH = 0
+        -- end
+        -- --fix the sprites!
+        -- if adding == false then
+            -- for i = 1, container:getItems():size() do
+                -- local itemx = container:getItems():get(i - 1)
+                -- local type = itemx:getType()
+                -- if type == "50AhBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "75AhBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "100AhBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+                -- if type == "DeepCycleBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+				-- if type == "SuperBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+				-- if type == "DIYBattery" then
+                    -- batterynumber = batterynumber + 1
+                -- end
+            -- end
+        -- end
+        -- local batterybank = bankfinal
+        -- if updatedCH < 0.25 then
+            -- --batterybank:setOverlaySprite(nil)
+            -- --show 0 charge
+            -- if batterynumber == 0 then
+                -- batterybank:setOverlaySprite(nil)
+            -- elseif batterynumber > 0 and batterynumber < 5 then
+                -- --show bottom shelf
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_1")
+            -- elseif batterynumber >= 5 and batterynumber < 9 then
+                -- --show two shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_2")
+            -- elseif batterynumber >= 9 and batterynumber < 13 then
+                -- --show three shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_3")
+            -- elseif batterynumber >= 13 and batterynumber < 17 then
+                -- --show four shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_4")
+            -- elseif batterynumber >= 17 then
+                -- --show five shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_5")
+            -- end
+        -- elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+            -- --
+            -- --show 25 charge
+            -- if batterynumber == 0 then
+                -- batterybank:setOverlaySprite(nil)
+            -- elseif batterynumber > 0 and batterynumber < 5 then
+                -- --show bottom shelf
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_16")
+            -- elseif batterynumber >= 5 and batterynumber < 9 then
+                -- --show two shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_20")
+            -- elseif batterynumber >= 9 and batterynumber < 13 then
+                -- --show three shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_24")
+            -- elseif batterynumber >= 13 and batterynumber < 17 then
+                -- --show four shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_28")
+            -- elseif batterynumber >= 17 then
+                -- --show five shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_32")
+            -- end
+        -- elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+            -- --batterybank:setOverlaySprite("solarmod_tileset_01_12")
+            -- -- show 50 charge
+            -- if batterynumber == 0 then
+                -- batterybank:setOverlaySprite(nil)
+            -- elseif batterynumber > 0 and batterynumber < 5 then
+                -- --show bottom shelf
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_17")
+            -- elseif batterynumber >= 5 and batterynumber < 9 then
+                -- --show two shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_21")
+            -- elseif batterynumber >= 9 and batterynumber < 13 then
+                -- --show three shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_25")
+            -- elseif batterynumber >= 13 and batterynumber < 17 then
+                -- --show four shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_29")
+            -- elseif batterynumber >= 17 then
+                -- --show five shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_33")
+            -- end
+        -- elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+            -- --batterybank:setOverlaySprite("solarmod_tileset_01_13")
+            -- -- show 75 charge
+            -- if batterynumber == 0 then
+                -- batterybank:setOverlaySprite(nil)
+            -- elseif batterynumber > 0 and batterynumber < 5 then
+                -- --show bottom shelf
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_18")
+            -- elseif batterynumber >= 5 and batterynumber < 9 then
+                -- --show two shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_22")
+            -- elseif batterynumber >= 9 and batterynumber < 13 then
+                -- --show three shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_26")
+            -- elseif batterynumber >= 13 and batterynumber < 17 then
+                -- --show four shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_30")
+            -- elseif batterynumber >= 17 then
+                -- --show five shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_34")
+            -- end
+        -- elseif updatedCH >= 0.95 then
+            -- --show 100 charge
+            -- if batterynumber == 0 then
+                -- batterybank:setOverlaySprite(nil)
+            -- elseif batterynumber > 0 and batterynumber < 5 then
+                -- --show bottom shelf
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_19")
+            -- elseif batterynumber >= 5 and batterynumber < 9 then
+                -- --show two shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_23")
+            -- elseif batterynumber >= 9 and batterynumber < 13 then
+                -- --show three shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_27")
+            -- elseif batterynumber >= 13 and batterynumber < 17 then
+                -- --show four shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_31")
+            -- elseif batterynumber >= 17 then
+                -- --show five shelves
+                -- batterybank:setOverlaySprite("solarmod_tileset_01_35")
+            -- end
+        -- end
+    -- end
+    -- return res
+-- end
 
 function getBankCharge(square) -- get the battery bank charge and stores it for later
     sqX = square:getX()
@@ -790,9 +790,10 @@ function chargeLogic()
 
         local square = getWorld():getCell():getGridSquare(noX, noY, noZ)
 		
-		if (ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0") == nil) then
-			DisconnectPower(square)
-		end
+		if (square ~= nil) then
+		--if (ISMoveableSpriteProps:findOnSquare(square, "solarmod_tileset_01_0") == nil) then
+		--	DisconnectPower(square)
+		--end
 
         if (square ~= nil) then
             local updatedCH = 0
@@ -994,6 +995,7 @@ function chargeLogic()
 			testC[key] = updatedCH
 			
         end
+	end
     end
 end
 
