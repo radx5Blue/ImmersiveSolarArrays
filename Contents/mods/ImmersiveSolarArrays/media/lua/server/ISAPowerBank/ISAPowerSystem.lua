@@ -967,6 +967,8 @@ function batteryDegrade()
     local testL = ModData.get("PBLD")
     local testC = ModData.get("PBCH")
     local testB = ModData.get("PBBO")
+	
+	if testk ~= nil then
 
     local pbkLen = #testK
 
@@ -984,6 +986,7 @@ function batteryDegrade()
 
             if inventory ~= nil then
                 DegradeBatteries(inventory)
+			end
             end
         end
     end
@@ -1083,6 +1086,7 @@ function liteModeFunction(square)
     local liteMode = ModData.get("PBLiteMode")
     local liteDrain = ModData.get("PBLiteDrain")
 
+if testk ~= nil then
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -1109,6 +1113,7 @@ function liteModeFunction(square)
 
         liteDrain[key] = drain
 	end
+end
     end
 end
 
