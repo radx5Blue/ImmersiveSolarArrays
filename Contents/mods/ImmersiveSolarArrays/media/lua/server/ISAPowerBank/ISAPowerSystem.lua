@@ -730,7 +730,6 @@ function chargeLogic()
 if liteMode ~= nil then
     local noLiteMode = tonumber(liteMode[1])
 
-if test ~=nil then
     local pbkLen = #testK
 
     for key = 1, #testK do
@@ -957,7 +956,6 @@ if test ~=nil then
             end
         end
     end
-end
 end
 
 function batteryDegrade()
