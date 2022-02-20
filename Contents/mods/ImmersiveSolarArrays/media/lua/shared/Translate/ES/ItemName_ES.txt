@@ -1,0 +1,15 @@
+ItemName_EN = {
+    /* Magazine */
+    ItemName_ISA.ISAMag1 = "Nuevos Avances: Energía del sol",
+
+    /* Items */
+    ItemName_ISA.SolarPanel = "Panel solar",
+    ItemName_ISA.ISAInverter = "Inversor",
+    ItemName_ISA.DeepCycleBattery = "Batería de 200Ah",
+    ItemName_ISA.SuperBattery = "Batería de 400Ah",
+    ItemName_ISA.DIYBattery = "Batería fabricada",
+    ItemName_ISA.50AhBattery = "Batería de coche de 50Ah",
+    ItemName_ISA.75AhBattery = "Batería de coche de 75Ah",
+    ItemName_ISA.100AhBattery = "Batería de coche de 100Ah"
+
+}
