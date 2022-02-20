@@ -1,0 +1,24 @@
+Sandbox_ES = {
+	Sandbox_ISA = "Immersive Solar Arrays",
+
+	Sandbox_ISA_solarPanelEfficiency = "Eficiencia del panel solar (0-100)",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "Eficiencia de potencia del panel solar. 12% es realista para 1993, 25% es para paneles modernos, el por defecto es poco realista",
+
+	Sandbox_ISA_batteryDegradeChance = "Posibilidad de degradado de la batería (0-100)",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Posibilidad de que las baterías se degraden cada día. Reducir esto aumentará dramáticamente la vida útil de las baterías",
+
+	Sandbox_ISA_solarPanelWorldSpawns = "Panel solar / Aparición de cajas en el mundo (0-100)",
+	Sandbox_ISA_solarPanelWorldSpawns = "Qué tan probable es que aparezcan paneles solares y cajas pre-colocadas en ciertas localizaciones",
+
+	Sandbox_ISA_LRMSolarPanels = "Multiplicador de rareza de botín - Paneles solares",
+	Sandbox_ISA_LRMSolarPanels_tooltip = "Multiplicador de probabilidad de que aparezcan paneles solares en contenedores aleatorios y cajas pre-colocadas",
+
+	Sandbox_ISA_LRMBatteries = "Multiplicador de rareza de botín - Baterías",
+	Sandbox_ISA_LRMBatteries_tooltip = "Multiplicador de probabilidad de que aparezcan baterías en contenedores aleatorios y cajas pre-colocadas",
+
+	Sandbox_ISA_LRMMisc = "Multiplicador de rareza de botín - Misceláneo",
+	Sandbox_ISA_LRMMisc_tooltip = "Multiplicador de probabilidad de que aparezcan revistas e inversores en contenedores aleatorios y cajas pre-colocadas",
+	
+	Sandbox_ISA_DIYBatteryCapacity = "Capacidad de batería fabricada (Ah)",
+	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Cuánta energía en Ah puede almacenar una batería fabricada.",
+}

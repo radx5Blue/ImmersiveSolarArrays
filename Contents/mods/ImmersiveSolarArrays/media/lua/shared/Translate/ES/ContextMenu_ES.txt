@@ -1,0 +1,15 @@
+ContextMenu_ES = {
+    ContextMenu_ISA_BatteryBankStatus = "Estado del Banco de Baterías",
+    ContextMenu_ISA_DiagnoseBankIssues = "Resetear Banco de Baterías",
+
+
+    ContextMenu_ISA_NoPanels = "Actualmente no hay paneles conectados.",
+    ContextMenu_ISA_CurrentPanels = "Actualmente hay %d panel conectado.",
+    ContextMenu_ISA_CurrentPanels_Plural = "Actualmente hay %d paneles conectados.",
+    ContextMenu_ISA_Power_Enough_Panels = "El banco de baterías tiene suficientes paneles solares para encender mis dispositivos conectados",
+    ContextMenu_ISA_Power_Enough_Panels_No_Charging = "l banco de baterías tiene suficientes paneles solares para encender mis dispositivos conectados, pero no para cargar las baterías",
+    ContextMenu_ISA_Power_No_Enough_Panels = "Necesito más paneles solares para encender mis dispositivos",
+    ContextMenu_ISA_Batteries_No_Batteries = "No hay baterías para cargar en el banco de baterías.",
+    ContextMenu_ISA_Batteries_No_Power = "El banco de baterías no dispone de energía almacenada",
+    ContextMenu_ISA_Batteries_Power_Level = "El banco de baterías está actualmente al %d% de capacidad"
+}

@@ -1,9 +1,15 @@
 ContextMenu_EN = {
-ContextMenu_ISA_BatteryBankStatus = "Battery Bank Status",
-ContextMenu_ISA_DiagnoseBankIssues = "Reset Battery Bank",
+    ContextMenu_ISA_BatteryBankStatus = "Battery Bank Status",
+    ContextMenu_ISA_DiagnoseBankIssues = "Reset Battery Bank",
 
 
-ContextMenu_ISA_NoPanels = "There are currently no panels connected.",
-
-
+    ContextMenu_ISA_NoPanels = "There are currently no panels connected.",
+    ContextMenu_ISA_CurrentPanels = "There is currently %d solar panel connected",
+    ContextMenu_ISA_CurrentPanels_Plural = "There are currently %d solar panels connected",
+    ContextMenu_ISA_Power_Enough_Panels = "The battery bank has enough solar panels to power my connected devices",
+    ContextMenu_ISA_Power_Enough_Panels_No_Charging = "The battery bank has enough solar panels to power my connected devices but not to charge batteries",
+    ContextMenu_ISA_Power_No_Enough_Panels = "I need more solar panels to power my devices",
+    ContextMenu_ISA_Batteries_No_Batteries = "There are no batteries to charge up the battery bank",
+    ContextMenu_ISA_Batteries_No_Power = "The battery bank has no stored power",
+    ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d% power"
 }

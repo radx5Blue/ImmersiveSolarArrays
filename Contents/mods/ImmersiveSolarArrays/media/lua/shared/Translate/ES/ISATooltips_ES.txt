@@ -1,0 +1,4 @@
+Tooltip_ES = {
+    Tooltip_Recipe_ElectricalIntermediate = "Requiere de Electricidad nv. 3",
+    Tooltip_Recipe_ElectricalAdvanced = "Requiere de Electricidad nv. 5",
+}

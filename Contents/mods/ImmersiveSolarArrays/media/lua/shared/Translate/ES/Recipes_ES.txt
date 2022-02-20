@@ -1,0 +1,16 @@
+Recipes_ES {
+    Recipe_Make_DIY_Battery_from_50Ah = "Crear batería fabricada de 50Ah",
+    Recipe_Make_DIY_Battery_from_75Ah = "Crear batería fabricada de 75Ah",
+    Recipe_Make_DIY_Battery_from_100Ah = "Crear batería fabricada de 100Ah",
+    Recipe_Wire_50Ah_Battery = "Cablear batería de 50Ah",
+    Recipe_Unwire_50Ah_Battery = "Descablear batería de 50Ah",
+    Recipe_Wire_75Ah_Battery = "Cablear batería de 75Ah",
+    Recipe_Unwire_75Ah_Battery = "Descablear batería de 75Ah",
+    Recipe_Wire_100Ah_Battery = "Cablear batería de 100Ah",
+    Recipe_Unwire_100Ah_Battery = "Descablear batería de 100Ah",
+    Recipe_Make_Solar_Roof_Tile = "Hacer teja solar",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Hacer panel solar de montaje en pared",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Hacer panel solar de montaje en suelo",
+    Recipe_Create_Battery_Bank = "Crear banco de baterías",
+    Recipe_Create_Solar_Failsafe = "Crear anti-fallo solar"
+}
