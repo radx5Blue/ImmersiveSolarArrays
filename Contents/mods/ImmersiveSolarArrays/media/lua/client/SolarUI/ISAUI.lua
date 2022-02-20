@@ -123,42 +123,68 @@ OpenBatterBankInfo = function(fsquare)
             local difference = input - drain
 
 
-			if noPZ < 1 then
-				local text = (getText("ContextMenu_ISA_NoPanels"))
-				player:Say(text)
-			elseif noPZ == 1 then
-				local text = string.format(getText("ContextMenu_ISA_CurrentPanels"), noPZ)
-				player:Say(text)
-			else
-				local text = string.format(getText("ContextMenu_ISA_CurrentPanels_Plural"), noPZ)
-				player:Say(text)
-			end
 			
-			if difference > 0 then
-				local text4 = getText("ContextMenu_ISA_Power_Enough_Panels")
-				player:Say(text4)
-			elseif difference == 0 then
-				local text4 = getText("ContextMenu_ISA_Power_Enough_Panels_No_Charging")
-				player:Say(text4)
-			else
-				local text4 = getText("ContextMenu_ISA_Power_No_Enough_Panels")
-				player:Say(text4)
-			end
-			
-			if batterynumber == 0 then
-				local text3 = getText("ContextMenu_ISA_Batteries_No_Batteries")
-				player:Say(text3)
-			else
-				if noCH == 0 then
-					local text2 = getText("ContextMenu_ISA_Batteries_No_Power")
-					player:Say(text2)
-				else
-					local text2 = string.format(getText("ContextMenu_ISA_Batteries_Power_Level"), math.floor(noCH * 100))
-					player:Say(text2)
-				end
-			end			
+		if noPZ < 1 then
+			local text = (getText("ContextMenu_ISA_NoPanels"))
+			player:Say(text)
 		end
-	end
+				
+		if noPZ == 1 then
+			local text = "There is currently " .. noPZ .. " solar panel connected"
+		player:Say(text)
+		end
+			
+				if noPZ > 1 then
+			local text = "There are currently " .. noPZ .. " solar panels connected"
+			player:Say(text)
+		end
+		
+		if difference > 0 then
+		    local dtime = ((capacity - actualCharge) / difference)
+			local text4 = "The battery bank has enough solar panels to power my connected devices"
+			if dtime > 0 then
+				text4 = text4 .. " It will take about " .. math.abs(math.floor(dtime)) .. " hours to fully charge"
+			end
+			player:Say(text4)
+		end
+		
+		if difference == 0 then
+			local text4 = "The battery bank has enough solar panels to power my connected devices but not to charge batteries"
+			player:Say(text4)
+		end
+		
+		if difference < 0 then
+		    local dtime = (actualCharge / difference)
+			local text4 = ""
+			if input > 0 then
+				text4 = "I need more solar panels to power my devices."
+			else
+				text4 = "Panels do not generate electricity - need to check during sunny day."
+		    end
+			text4 = text4 .. " Power will remain for about " .. math.abs(math.floor(dtime)) .. "hours."
+			player:Say(text4)
+		end
+		
+		if batterynumber == 0 then
+			local text3 = "There are no batteries to charge up the battery bank"
+			player:Say(text3)
+		end
+		
+		if noCH == 0 and batterynumber > 0 then
+			local text2 = "The battery bank has no stored power"
+			player:Say(text2)
+		end
+		
+		if noCH > 0 and batterynumber > 0 then
+			local text2 = "The battery bank is currently at " .. math.floor(noCH * 100) .. "% power"
+			player:Say(text2)
+		end
+         
+	 end
+
+		
+	 
+ end
 
 
 end

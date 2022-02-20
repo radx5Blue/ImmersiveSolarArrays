@@ -1,10 +1,6 @@
 version=1
 id=2623458493
 title=Immersive Solar Arrays
-description=The mod requires version IWBUMS Beta: 41.54+
-description=
-description=*** If you have stuttering issues you can now download the mod options (https://steamcommunity.com/workshop/filedetails/discussion/2169435993/4260919351480715709/) mod and turn on 'lite mode' which will hopefully fix the issue. ***
-description=
 description=Immersive Solar Arrays (ISA) adds a solar power system to Project Zomboid. It allows players to power their bases during the day, and during the night if they have enough battery capacity.
 description=
 description=ISA adds several new items to Zomboid, including solar panels, battery banks, deep-cycle batteries, and recipes to convert car batteries into storage batteries.
@@ -59,5 +55,8 @@ description=Workshop ID: 2623458493
 description=Mod ID: ISA
 description=
 description=[url=https://ko-fi.com/radx5] [img]https://cdn.ko-fi.com/cdn/kofi2.png?v=3[/img] [/url]
+description=
+description=Workshop ID: 2623458493
+description=Mod ID: ISA
 tags=Build 41;Building
 visibility=public
