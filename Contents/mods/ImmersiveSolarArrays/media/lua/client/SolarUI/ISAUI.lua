@@ -186,48 +186,6 @@ OpenBatterBankInfo = function(fsquare)
 			
 		end
 	end
-
-
---[[			
-			if difference > 0 then
-				local dtime = ((capacity - actualCharge) / difference)
-				local text4 = getText("ContextMenu_ISA_Power_Enough_Panels")
-				if dtime > 2 then
-					text4 = text4 .. string.format(getText("ContextMenu_ISA_Power_Charging_Plural"), math.abs(math.floor(dtime)))
-				elseif dtime >= 1 then
-					text4 = text4 .. string.format(getText("ContextMenu_ISA_Power_Charging"), math.abs(math.floor(dtime)))
-				else
-					text4 = text4 .. getText("ContextMenu_ISA_Power_Charging_Almost_Full")
-				end
-				player:Say(text4)
-			end
-			
-			if difference == 0 then
-				local text4 = getText("ContextMenu_ISA_Power_Enough_Panels_No_Charging")
-				player:Say(text4)
-			end
-			
-			if difference < 0 then
-				local dtime = (actualCharge / difference)
-				local text4 = ""
-				if input > 0 then
-					text4 = getText("ContextMenu_ISA_Power_No_Enough_Panels")
-				else
-					text4 = getText("ContextMenu_USA_Power_No_Sun")
-				end
-				if dtime > 2 then
-					text4 = text4 .. string.format(getText("ContextMenu_ISA_Power_Charging_Plural"), math.abs(math.floor(dtime)))
-				elseif dtime >= 1 then
-					text4 = text4 .. string.format(getText("ContextMenu_ISA_Power_Charging"), math.abs(math.floor(dtime)))
-				else
-					text4 = text4 .. getText("ContextMenu_ISA_Power_Charging_Almost_Empty")
-				end
-				player:Say(text4)
-			end
-			
-		end	 
-	end
-]]
 end
 
 
