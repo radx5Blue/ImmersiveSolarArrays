@@ -18,5 +18,5 @@ ContextMenu_ES = {
     ContextMenu_ISA_Power_Discharging_Almost_Empty = "Las baterías durarán menos de una hora.",
     ContextMenu_ISA_Batteries_No_Batteries = "No hay baterías para cargar en el banco de baterías.",
     ContextMenu_ISA_Batteries_No_Power = "El banco de baterías no dispone de energía almacenada.",
-    ContextMenu_ISA_Batteries_Power_Level = "El banco de baterías está actualmente al %d% de capacidad."
+    ContextMenu_ISA_Batteries_Power_Level = "El banco de baterías está actualmente al %d%% de capacidad."
 }
