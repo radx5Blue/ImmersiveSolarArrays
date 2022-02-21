@@ -1,6 +1,7 @@
 ContextMenu_ES = {
-    ContextMenu_ISA_BatteryBankStatus = "Estado del Banco de Baterías",
-    ContextMenu_ISA_DiagnoseBankIssues = "Resetear Banco de Baterías",
+    ContextMenu_ISA_BatteryBank = "Banco de Baterías",
+    ContextMenu_ISA_BatteryBankStatus = "Ver Estado",
+    ContextMenu_ISA_DiagnoseBankIssues = "Resetear",
 
 
     ContextMenu_ISA_NoPanels = "Actualmente no hay paneles conectados.",
