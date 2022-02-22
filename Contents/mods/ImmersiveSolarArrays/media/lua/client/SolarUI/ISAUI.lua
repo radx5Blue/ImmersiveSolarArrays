@@ -25,10 +25,12 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 	end
 	
 	if bank ~= nil then
-		
-	local ISAOption = context:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
-	local ISAOption = context:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() ResetBatteryBank(bank:getSquare()) end);
-		
+		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
+		local ISASubMenu = ISContextMenu:getNew(context);
+		context:addSubMenu(ISABBMenu, ISASubMenu);
+
+		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
+		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() ResetBatteryBank(bank:getSquare()) end);
 	end
 	 
 
@@ -152,7 +154,7 @@ OpenBatterBankInfo = function(fsquare)
 			
 			
 			else
-				local dtime = (actualCharge / difference)
+				local dtime = math.abs(actualCharge / difference)
 				local text4 = ""
 				if input > 0 then
 					text4 = getText("ContextMenu_ISA_Power_No_Enough_Panels")

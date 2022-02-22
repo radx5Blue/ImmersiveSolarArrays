@@ -1,6 +1,7 @@
 ContextMenu_ES = {
-    ContextMenu_ISA_BatteryBankStatus = "Estado del Banco de Baterías",
-    ContextMenu_ISA_DiagnoseBankIssues = "Resetear Banco de Baterías",
+    ContextMenu_ISA_BatteryBank = "Banco de Baterías",
+    ContextMenu_ISA_BatteryBankStatus = "Ver Estado",
+    ContextMenu_ISA_DiagnoseBankIssues = "Resetear",
 
 
     ContextMenu_ISA_NoPanels = "Actualmente no hay paneles conectados.",
@@ -18,5 +19,5 @@ ContextMenu_ES = {
     ContextMenu_ISA_Power_Discharging_Almost_Empty = "Las baterías durarán menos de una hora.",
     ContextMenu_ISA_Batteries_No_Batteries = "No hay baterías para cargar en el banco de baterías.",
     ContextMenu_ISA_Batteries_No_Power = "El banco de baterías no dispone de energía almacenada.",
-    ContextMenu_ISA_Batteries_Power_Level = "El banco de baterías está actualmente al %d% de capacidad."
+    ContextMenu_ISA_Batteries_Power_Level = "El banco de baterías está actualmente al %d%% de capacidad."
 }
