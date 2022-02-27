@@ -27,7 +27,7 @@ function ISAWindowsStatusTab:initialise()
 	self.imageBattery.scaledHeight = 69;
 	self.imageBattery:initialise();
 	self.imageBattery.parent = self;
-	self.imageBattery:setMouseOverText("Test");
+	--self.imageBattery:setMouseOverText("Test");
     self:addChild(self.imageBattery);
 
 	self.imageBatteryCross = ISImage:new(17, 305, 72, 72, self.textureCross);
@@ -105,6 +105,18 @@ function ISAWindowsStatusTab:initialise()
 	self.imageSolarPanelCross:initialise();
 	self.imageSolarPanelCross.parent = self;
     self:addChild(self.imageSolarPanelCross);
+
+	-- Fix the daytime/nightime icon
+	local currentHour = getGameTime():getHour();
+	if ISAIsDayTime(currentHour) then
+		self.imageSun:setVisible(true)
+		self.imageMoon:setVisible(false)
+		self.night = false
+	else
+		self.imageSun:setVisible(false)
+		self.imageMoon:setVisible(true)
+		self.night = true
+	end
 end
 
 function ISAWindowsStatusTab:createChildren()
@@ -130,17 +142,10 @@ function ISAWindowsStatusTab:prerender()
 	ISPanelJoypad.prerender(self);
 end
 
-
 function ISAWindowsStatusTab:render()
 	if ((self.currentFrameDrain % 4500) == 0) then
 		-- Drain calculation is slow and causes slowdowns in game, so will be refreshed at open and every 4500 frames (5 minutes)
 		self.drain = solarscan(self.parent.parent.fsquare, false, true, false, 0)
-
-		-- We don't need to get the season every time, so will be done every 4500 frames and just because to detect changes in real time, because is not important
-		local season = getClimateManager():getSeason();
-
-		self.dawn = season:getDawn();
-		self.dusk = season:getDusk();
 
 		self.currentFrameDrain = 0;
 	end
@@ -174,7 +179,7 @@ function ISAWindowsStatusTab:render()
 				self.difference = self.panelsInput - self.drain
 
 				local currentHour = getGameTime():getHour();
-				if (currentHour > self.dawn) and (currentHour < self.dusk) then
+				if ISAIsDayTime(currentHour) then
 					if (self.night == true) then
 						self.imageSun:setVisible(true)
 						self.imageMoon:setVisible(false)
@@ -242,24 +247,24 @@ function ISAWindowsStatusTab:render()
 	-- Sumary text
 	local text_x = 435;
 	local text_y = 30;
-	self:drawTextRight("Connected Panels:", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight("Panels Status:", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight("Battery Level:", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight("Battery Status:", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 
 	-- Connected panels
 	self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
 	if (self.drain > self.panelsMaxInput) then
-		self:drawText("No enough panels", text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsStatusTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	elseif (self.drain > self.panelsMaxInput) then
-		self:drawText("Will not charge", text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsStatusTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
 		if (self.drain > self.panelsInput) then
-			self:drawText("No enough sun", text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsStatusTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		else
-			self:drawText("Charging", text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsStatusTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		end
 	end
 
@@ -270,31 +275,31 @@ function ISAWindowsStatusTab:render()
 			local ctime = ((self.capacity - self.actualCharge) / self.difference);
 
 			if (ctime == 0) then
-				self:drawText("Fully charged.", text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsStatusTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			else
 				local days = math.floor(ctime / 24);
 				local hours = math.floor(ctime % 24);
 				local minutes = (ctime - math.floor(ctime)) * 60;
-				self:drawText(string.format("Charged in:\n  %d days\n  %d hours\n  %d minutes.", days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsStatusTab_ChargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			end
 
 		elseif (self.difference < 0) then
 			local dtime = math.abs(self.actualCharge / self.difference);
 
 			if (dtime == 0) then
-				self:drawText("Fully discharged.", text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsStatusTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			else
 				local days = math.floor(dtime / 24);
 				local hours = math.floor(dtime % 24);
 				local minutes = (dtime - math.floor(dtime)) * 60;
-				self:drawText(string.format("Discharged in:\n  %d days\n  %d hours\n  %d minutes.", days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsStatusTab_DischargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			end
 		else
-			self:drawText("Not charging.", text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsStatusTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 		end
 	else
-		self:drawText("No Batteries", text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-		self:drawText("Not Charging.", text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsStatusTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsStatusTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 	end
 	
 end

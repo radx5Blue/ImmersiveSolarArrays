@@ -1,3 +1,18 @@
 IGUI_ES = {
-    IGUI_VehicleType_9384579 = "Ciclo Profundo"
+    IGUI_VehicleType_9384579 = "Ciclo Profundo",
+
+    IGUI_ISAWindowsStatusTab_ConnectedPanels = "Paneles Conectados",
+    IGUI_ISAWindowsStatusTab_PanelsStatus = "Estado de los Paneles",
+    IGUI_ISAWindowsStatusTab_BatteryLevel = "Nivel de las Baterías",
+    IGUI_ISAWindowsStatusTab_BatteryStatus = "Estado de las Baterías",
+    IGUI_ISAWindowsStatusTab_NoEnoughPanels = "No hay suficientes",
+    IGUI_ISAWindowsStatusTab_WillNotCharge = "No cargará",
+    IGUI_ISAWindowsStatusTab_NoEnoughSun = "No hay suficiente sol",
+    IGUI_ISAWindowsStatusTab_Working = "Funcionando OK",
+    IGUI_ISAWindowsStatusTab_FullyCharged = "Carga completa",
+    IGUI_ISAWindowsStatusTab_FullyDischarged = "Descargadas",
+    IGUI_ISAWindowsStatusTab_ChargedIn = "Cargado en:\n  %d días\n  %d horas\n  %d minutos",
+    IGUI_ISAWindowsStatusTab_DischargedIn = "Descargado en:\n  %d días\n  %d horas\n  %d minutos",
+    IGUI_ISAWindowsStatusTab_NotCharging = "No Cargando",
+    IGUI_ISAWindowsStatusTab_NoBatteries = "Sin Baterías"
 }

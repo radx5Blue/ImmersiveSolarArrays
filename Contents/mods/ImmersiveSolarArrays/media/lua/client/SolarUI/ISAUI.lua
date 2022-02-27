@@ -2,7 +2,6 @@ ISAMenu = ISAMenu or {};
 ISAMenu._index = ISAMenu
 
 ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
-
 	local context = _context;
 	local worldobjects = _worldObjects; 
 	
@@ -37,7 +36,6 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 end
 
 ResetBatteryBank = function(fsquare)
-
     local sqX = fsquare:getX()
     local sqY = fsquare:getY()
     local sqZ = fsquare:getZ()
@@ -72,6 +70,29 @@ ResetBatteryBank = function(fsquare)
 			ResetBank(fsquare, noCH)
 	 end	 
   end
+end
+
+ISAIsDayTime = function(currentHour)
+	-- We don't need to get the season every time, so will be done every 4500 frames and just because to detect changes in real time, because is not important
+	local season = getClimateManager():getSeason();
+
+	local dawn = season:getDawn();
+	local dusk = season:getDusk();
+
+	if (currentHour > dawn) and (currentHour < dusk) then
+		return true
+	else
+		return false
+	end
+end
+
+-- This function fixes the escaped strings that are retreived
+-- by getText as literals, making it fail.
+ISAFixedGetText = function(getTextString)
+	local text = getText(getTextString)
+	text = string.gsub(text, '\\n', '\n')
+
+	return text
 end
 
 --[[
