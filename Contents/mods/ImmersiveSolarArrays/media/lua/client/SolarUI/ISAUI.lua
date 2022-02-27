@@ -29,14 +29,11 @@ ISAMenu.createMenuEntries = function(_player, _context, _worldObjects)
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 
-		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() OpenBatterBankInfo(bank:getSquare()) end);
+		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(bank:getSquare()) end);
 		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() ResetBatteryBank(bank:getSquare()) end);
+
+		--ISASubMenu:addOption("Test", worldobjects, function() ISAStatusWindow.OnOpenPanel(bank:getSquare()) end);
 	end
-	 
-
-
-	
-
 end
 
 ResetBatteryBank = function(fsquare)
@@ -73,16 +70,11 @@ ResetBatteryBank = function(fsquare)
 			DisconnectPower(fsquare)
 			--solarscan(fsquare, false, true, true, 0)
 			ResetBank(fsquare, noCH)
-	 end
-
-		
-	 
- end
-
-
+	 end	 
+  end
 end
 
-
+--[[
 OpenBatterBankInfo = function(fsquare)
 
     local sqX = fsquare:getX()
@@ -189,6 +181,7 @@ OpenBatterBankInfo = function(fsquare)
 		end
 	end
 end
+]]
 
 
 Events.OnFillWorldObjectContextMenu.Add(ISAMenu.createMenuEntries);
