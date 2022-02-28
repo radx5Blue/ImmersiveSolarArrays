@@ -73,7 +73,7 @@ ResetBatteryBank = function(fsquare)
 end
 
 ISAIsDayTime = function(currentHour)
-	-- We don't need to get the season every time, so will be done every 4500 frames and just because to detect changes in real time, because is not important
+	-- Get the current season to calculate when is day time or night time
 	local season = getClimateManager():getSeason();
 
 	local dawn = season:getDawn();
