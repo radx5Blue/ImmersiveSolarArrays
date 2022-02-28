@@ -18,10 +18,10 @@ function ISAStatusWindow:createChildren()
 	self:addChild(self.panel);
 	--self.panel:setOnTabTornOff(self, ISAStatusWindow.onTabTornOff)
 
-	self.statusView = ISAWindowsStatusTab:new(0, 8, self.width, self.height-8);
-	self.statusView:initialise()
-    self.statusView.infoText = getText("IGUI_ISAWindowsStatusTab_InfoText");
-	self.panel:addView(getText("IGUI_ISAWindowsStatusTab_TabTitle"), self.statusView)
+	self.sumaryView = ISAWindowsSumaryTab:new(0, 8, self.width, self.height-8);
+	self.sumaryView:initialise()
+    self.sumaryView.infoText = getText("IGUI_ISAWindowsSumaryTab_InfoText");
+	self.panel:addView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"), self.sumaryView)
 
 	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
 	--self:setWidth(self.charScreen.width)

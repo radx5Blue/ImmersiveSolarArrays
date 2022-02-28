@@ -3,19 +3,19 @@ IGUI_EN = {
 
     IGUI_ISAWindowsStatus_Title = "Battery Bank Status",
 
-    IGUI_ISAWindowsStatusTab_InfoText = "Power Bank solar and batteries sumary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
-    IGUI_ISAWindowsStatusTab_TabTitle = "Sumary"
-    IGUI_ISAWindowsStatusTab_PanelsStatus = "Panels Status",
-    IGUI_ISAWindowsStatusTab_BatteryLevel = "Battery Level",
-    IGUI_ISAWindowsStatusTab_BatteryStatus = "Battery Status",
-    IGUI_ISAWindowsStatusTab_NoEnoughPanels = "No enough panels",
-    IGUI_ISAWindowsStatusTab_WillNotCharge = "Will not charge",
-    IGUI_ISAWindowsStatusTab_NoEnoughSun = "No enough sun",
-    IGUI_ISAWindowsStatusTab_Working = "Working OK",
-    IGUI_ISAWindowsStatusTab_FullyCharged = "Fully charged",
-    IGUI_ISAWindowsStatusTab_FullyDischarged = "Fully discharged",
-    IGUI_ISAWindowsStatusTab_ChargedIn = "Charged in:\n  %d days\n  %d hours\n  %d minutes",
-    IGUI_ISAWindowsStatusTab_DischargedIn = "Discharged in:\n  %d days\n  %d hours\n  %d minutes",
-    IGUI_ISAWindowsStatusTab_NotCharging = "Not Charging",
-    IGUI_ISAWindowsStatusTab_NoBatteries = "No Batteries"
+    IGUI_ISAWindowsSumaryTab_InfoText = "Power Bank solar and batteries sumary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
+    IGUI_ISAWindowsSumaryTab_TabTitle = "Sumary"
+    IGUI_ISAWindowsSumaryTab_PanelsStatus = "Panels Status",
+    IGUI_ISAWindowsSumaryTab_BatteryLevel = "Battery Level",
+    IGUI_ISAWindowsSumaryTab_BatteryStatus = "Battery Status",
+    IGUI_ISAWindowsSumaryTab_NoEnoughPanels = "No enough panels",
+    IGUI_ISAWindowsSumaryTab_WillNotCharge = "Will not charge",
+    IGUI_ISAWindowsSumaryTab_NoEnoughSun = "No enough sun",
+    IGUI_ISAWindowsSumaryTab_Working = "Working OK",
+    IGUI_ISAWindowsSumaryTab_FullyCharged = "Fully charged",
+    IGUI_ISAWindowsSumaryTab_FullyDischarged = "Fully discharged",
+    IGUI_ISAWindowsSumaryTab_ChargedIn = "Charged in:\n  %d days\n  %d hours\n  %d minutes",
+    IGUI_ISAWindowsSumaryTab_DischargedIn = "Discharged in:\n  %d days\n  %d hours\n  %d minutes",
+    IGUI_ISAWindowsSumaryTab_NotCharging = "Not Charging",
+    IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries"
 }

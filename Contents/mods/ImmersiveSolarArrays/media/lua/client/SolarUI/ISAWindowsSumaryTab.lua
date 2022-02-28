@@ -1,8 +1,8 @@
 require "ISUI/ISPanelJoypad"
 
-ISAWindowsStatusTab = ISPanelJoypad:derive("ISAWindowsStatusTab");
+ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
 
-function ISAWindowsStatusTab:initialise()
+function ISAWindowsSumaryTab:initialise()
 	ISPanelJoypad.initialise(self);
 
 	-- House
@@ -119,12 +119,12 @@ function ISAWindowsStatusTab:initialise()
 	end
 end
 
-function ISAWindowsStatusTab:createChildren()
+function ISAWindowsSumaryTab:createChildren()
 	self:setScrollChildren(true)
 	self:addScrollBars()
 end
 
-function ISAWindowsStatusTab:setVisible(visible)
+function ISAWindowsSumaryTab:setVisible(visible)
     self.javaObject:setVisible(visible);
 	if visible then
 		local th = self.parent.parent:titleBarHeight()
@@ -138,11 +138,11 @@ function ISAWindowsStatusTab:setVisible(visible)
 	end
 end
 
-function ISAWindowsStatusTab:prerender()
+function ISAWindowsSumaryTab:prerender()
 	ISPanelJoypad.prerender(self);
 end
 
-function ISAWindowsStatusTab:render()
+function ISAWindowsSumaryTab:render()
 	if ((self.currentFrameDrain % 4500) == 0) then
 		-- Drain calculation is slow and causes slowdowns in game, so will be refreshed at open and every 4500 frames (5 minutes)
 		self.drain = solarscan(self.parent.parent.fsquare, false, true, false, 0)
@@ -247,24 +247,24 @@ function ISAWindowsStatusTab:render()
 	-- Sumary text
 	local text_x = 435;
 	local text_y = 30;
-	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsStatusTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 
 	-- Connected panels
 	self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
 	if (self.drain > self.panelsMaxInput) then
-		self:drawText(getText("IGUI_ISAWindowsStatusTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	elseif (self.drain > self.panelsMaxInput) then
-		self:drawText(getText("IGUI_ISAWindowsStatusTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
 		if (self.drain > self.panelsInput) then
-			self:drawText(getText("IGUI_ISAWindowsStatusTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		else
-			self:drawText(getText("IGUI_ISAWindowsStatusTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		end
 	end
 
@@ -275,36 +275,36 @@ function ISAWindowsStatusTab:render()
 			local ctime = ((self.capacity - self.actualCharge) / self.difference);
 
 			if (ctime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsStatusTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			else
 				local days = math.floor(ctime / 24);
 				local hours = math.floor(ctime % 24);
 				local minutes = (ctime - math.floor(ctime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsStatusTab_ChargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_ChargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			end
 
 		elseif (self.difference < 0) then
 			local dtime = math.abs(self.actualCharge / self.difference);
 
 			if (dtime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsStatusTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			else
 				local days = math.floor(dtime / 24);
 				local hours = math.floor(dtime % 24);
 				local minutes = (dtime - math.floor(dtime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsStatusTab_DischargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_DischargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 			end
 		else
-			self:drawText(getText("IGUI_ISAWindowsStatusTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 		end
 	else
-		self:drawText(getText("IGUI_ISAWindowsStatusTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-		self:drawText(getText("IGUI_ISAWindowsStatusTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 	end
 	
 end
 
-function ISAWindowsStatusTab:new(x, y, width, height)
+function ISAWindowsSumaryTab:new(x, y, width, height)
 	local o = {};
 	o = ISPanelJoypad:new(x, y, width, height);
 	setmetatable(o, self);
@@ -323,7 +323,7 @@ function ISAWindowsStatusTab:new(x, y, width, height)
 	o.textureSun = getTexture("media/ui/isa_sun.png");
 	o.textureMoon = getTexture("media/ui/isa_moon.png");
 
-    ISAWindowsStatusTab.instance = o;
+    ISAWindowsSumaryTab.instance = o;
 
 	-- Used variables
 	self.currentFrame = 0;
@@ -343,7 +343,7 @@ function ISAWindowsStatusTab:new(x, y, width, height)
    return o;
 end
 
-function ISAWindowsStatusTab:close()
+function ISAWindowsSumaryTab:close()
 	ISPanelJoypad.close();
 
 	-- Reset the currentFrame
