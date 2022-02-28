@@ -1,6 +1,10 @@
 IGUI_ES = {
     IGUI_VehicleType_9384579 = "Ciclo Profundo",
 
+    IGUI_ISAWindowsStatus_Title = "Estado del banco de energía",
+
+    IGUI_ISAWindowsStatusTab_InfoText = "Resumen del banco de energía, paneles solares y baterías.\n\nContiene la infromación básica sobre el banco de poder, las baterías que contiene y los paneles solares conectados a este banco de poder.",
+    IGUI_ISAWindowsStatusTab_TabTitle = "Resumen"
     IGUI_ISAWindowsStatusTab_ConnectedPanels = "Paneles Conectados",
     IGUI_ISAWindowsStatusTab_PanelsStatus = "Estado de los Paneles",
     IGUI_ISAWindowsStatusTab_BatteryLevel = "Nivel de las Baterías",

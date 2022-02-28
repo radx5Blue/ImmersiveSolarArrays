@@ -5,7 +5,7 @@ ISAStatusWindow = ISCollapsableWindow:derive("ISAStatusWindow")
 
 function ISAStatusWindow:initialise()
 	ISCollapsableWindow.initialise(self)
-	self.title = "Battery Bank Status"
+	self.title = getText("IGUI_ISAWindowsStatus_Title")
 end
 
 function ISAStatusWindow:createChildren()
@@ -20,8 +20,8 @@ function ISAStatusWindow:createChildren()
 
 	self.statusView = ISAWindowsStatusTab:new(0, 8, self.width, self.height-8);
 	self.statusView:initialise()
-    self.statusView.infoText = "Power Bank solar and batteries status.\n\nIt contains all the statuses.";
-	self.panel:addView("Status", self.statusView)
+    self.statusView.infoText = getText("IGUI_ISAWindowsStatusTab_InfoText");
+	self.panel:addView(getText("IGUI_ISAWindowsStatusTab_TabTitle"), self.statusView)
 
 	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
 	--self:setWidth(self.charScreen.width)

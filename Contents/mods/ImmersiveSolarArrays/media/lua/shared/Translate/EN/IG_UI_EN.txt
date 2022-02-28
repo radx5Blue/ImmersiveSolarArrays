@@ -1,7 +1,10 @@
 IGUI_EN = {
     IGUI_VehicleType_9384579 = "Deep Cycle",
 
-    IGUI_ISAWindowsStatusTab_ConnectedPanels = "Connected Panels",
+    IGUI_ISAWindowsStatus_Title = "Battery Bank Status",
+
+    IGUI_ISAWindowsStatusTab_InfoText = "Power Bank solar and batteries sumary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
+    IGUI_ISAWindowsStatusTab_TabTitle = "Sumary"
     IGUI_ISAWindowsStatusTab_PanelsStatus = "Panels Status",
     IGUI_ISAWindowsStatusTab_BatteryLevel = "Battery Level",
     IGUI_ISAWindowsStatusTab_BatteryStatus = "Battery Status",
