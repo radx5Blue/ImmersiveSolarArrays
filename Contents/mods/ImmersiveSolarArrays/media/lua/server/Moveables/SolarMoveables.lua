@@ -1,60 +1,34 @@
-ISMoveableSpriteProps.originalPlaceMoveableFunction = ISMoveableSpriteProps.placeMoveable -- we save the original function so we can run it as well as our code
-function ISMoveableSpriteProps:placeMoveable( _character, _square, _origSpriteName ) -- we override the original function so our code runs whenever this runs.
-  -- depending on when you want to do something, either run the original now, or after your code. In this example original is ran first
-  local res = self:originalPlaceMoveableFunction(_character, _square, _origSpriteName) -- you may have to actually pass the parameters directly instead of self. Unsure here as i didn't test it, but one of the two should work
-  if res == nil and self.isMoveable then
-    -- Your stuff here example below
-    if _origSpriteName == "solarmod_tileset_01_0" then
-     -- _character:Say("Cool, a battery bank! Is it shiny?")
-	  solarscan(_square, false, true, true, 0)
-	  
-	  
-	
-	
-	  
+-- Removed function override and changed by an event (it caused some errors on server side)
+local function ISAplaceObject(_object)
+	local _origSpriteName = _object:getSprite():getName()
+	local _square = _object:getSquare()
 
-	  
-	  
-    end
-	if _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
-	  -- _character:Say("AAAAAA! Shiny solar panels")
-	   solarscan(_square, false, false, false, 0)
-	   
+	if _origSpriteName == "solarmod_tileset_01_0" then
+		--print("Cool, a battery bank! Is it shiny?")
+		solarscan(_square, false, true, true, 0) 
+	elseif _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
+		print("AAAAAA! Shiny solar panels")
+		solarscan(_square, false, false, false, 0)
 	end
-	
-  else
-    return res
-  end
 end
+Events.OnObjectAdded.Add(ISAplaceObject)
 
 
+function ISApickUpObject(_object)
+	local _spriteName = _object:getSprite():getName()
+	local _square = _object:getSquare()
 
-
-ISMoveableSpriteProps.originalpickUpMoveableFunction = ISMoveableSpriteProps.pickUpMoveable
-
-function ISMoveableSpriteProps:pickUpMoveable(_character, _square, _createItem, _forceAllow) -- we override the original function so our code runs whenever this runs.
-  -- depending on when you want to do something, either run the original now, or after your code. In this example original is ran first
-  local res = self:originalpickUpMoveableFunction(_character, _square, _createItem, _forceAllow) -- you may have to actually pass the parameters directly instead of self. Unsure here as i didn't test it, but one of the two should work
-	if res ~= nil and self.isMoveable then
-	-- local item = self.spriteName;
-    -- Your stuff here example below
-	local _spriteName = self.spriteName
-    if _spriteName == "solarmod_tileset_01_0" then
-     -- _character:Say("oo, heavy")
+	if _spriteName == "solarmod_tileset_01_0" then
+		--print("oo, heavy")
 		--TODO: battery bank data for the removed bank should be deleted here
 		DisconnectPower(_square)
 
-    end
-	if _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
-	   --_character:Say("must not trip over, must not trip over")
-	   solarscan(_square, false, false, false, 0)
+	elseif _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
+		--print("must not trip over, must not trip over")
+		solarscan(_square, false, false, false, 0)
 	end
-	
-
-  end
-  return res
 end
-
+Events.OnObjectAboutToBeRemoved.Add(ISApickUpObject)
 
 
 function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
