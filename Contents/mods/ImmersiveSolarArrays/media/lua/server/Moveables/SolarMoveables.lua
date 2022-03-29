@@ -1,5 +1,6 @@
 -- Removed function override and changed by an event (it caused some errors on server side)
 local function ISAplaceObject(_object)
+	if not _object:getSprite() then return end
 	local _origSpriteName = _object:getSprite():getName()
 	local _square = _object:getSquare()
 
@@ -15,6 +16,7 @@ Events.OnObjectAdded.Add(ISAplaceObject)
 
 
 function ISApickUpObject(_object)
+	if not _object:getSprite() then return end
 	local _spriteName = _object:getSprite():getName()
 	local _square = _object:getSquare()
 
