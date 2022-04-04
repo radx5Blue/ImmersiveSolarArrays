@@ -145,7 +145,6 @@ end
 function ISAWindowsSumaryTab:render()
 	if ((self.currentFrameDrain % 4500) == 0) then
 		-- Drain calculation is slow and causes slowdowns in game, so will be refreshed at open and every 4500 frames (5 minutes)
-		self.drain = solarscan(self.parent.parent.fsquare, false, true, false, 0)
 
 		self.currentFrameDrain = 0;
 	end
@@ -154,28 +153,15 @@ function ISAWindowsSumaryTab:render()
 
 	-- Update every 30 frames
 	if ((self.currentFrame % 30) == 0) then
-		local testK = ModData.get("PBK")
-		local testX = ModData.get("PBX")
-		local testY = ModData.get("PBY")
-		local testZ = ModData.get("PBZ")
-		local testNP = ModData.get("PBNP")
-		local testC = ModData.get("PBCH")
-
-		for key = 1, #testK do
-			noX = tonumber(testX[key])
-			noY = tonumber(testY[key])
-			noZ = tonumber(testZ[key])
-			self.connectedPanels = tonumber(testNP[key])
-			self.batteryLevel = tonumber(testC[key])
-
-			if (self.parent.parent.sqX == noX and self.parent.parent.sqY == noY and self.parent.parent.sqZ == noZ) then
-				local batterybank = ISMoveableSpriteProps:findOnSquare(self.parent.parent.fsquare, "solarmod_tileset_01_0")
-				local inventory = batterybank:getContainer()
-				self.capacity = HandleBatteries(inventory, self.batteryLevel, false)
-				self.batteryNumber = HandleBatteries(inventory, self.batteryLevel, true)
+				local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
+				self.connectedPanels = pb.npanels
+				self.batteryLevel = pb.charge / pb.maxcapacity
+				self.capacity = pb.maxcapacity
+				self.batteryNumber = pb.batteries
 				self.panelsMaxInput = getMaxSolarOutput(self.connectedPanels)
 				self.panelsInput = getModifiedSolarOutput(self.connectedPanels)
-				self.actualCharge = self.capacity * self.batteryLevel
+				self.actualCharge = pb.charge
+				self.drain = pb.drain
 				self.difference = self.panelsInput - self.drain
 
 				local currentHour = getGameTime():getHour();
@@ -231,9 +217,6 @@ function ISAWindowsSumaryTab:render()
 						self.batteryCharging = false;
 					end
 				end
-			end
-		end
-
 		-- Reset the frames count to avoid overflow
 		self.currentFrame = 0;
 	end

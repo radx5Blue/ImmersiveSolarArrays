@@ -81,4 +81,22 @@ option ISA.DIYBatteryCapacity
 	translation = ISA_DIYBatteryCapacity,
 }
 
+option ISA.DrainCalc
+{
+	type = enum,
+	numValues = 2,
+	default = 1,
+	page = ISA,
+	translation = ISA_DrainCalc,
+	valueTranslation = ISA_DrainCalc,
+}
 
+option ISA.ChargeFreq
+{
+	type = enum,
+	numValues = 2,
+	default = 1,
+	page = ISA,
+	translation = ISA_ChargeFreq,
+	valueTranslation = ISA_ChargeFreq,
+}
