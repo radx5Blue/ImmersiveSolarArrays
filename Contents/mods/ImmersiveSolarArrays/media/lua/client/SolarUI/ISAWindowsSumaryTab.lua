@@ -143,17 +143,18 @@ function ISAWindowsSumaryTab:prerender()
 end
 
 function ISAWindowsSumaryTab:render()
-	if ((self.currentFrameDrain % 4500) == 0) then
+	--if ((self.currentFrameDrain % 4500) == 0) then
 		-- Drain calculation is slow and causes slowdowns in game, so will be refreshed at open and every 4500 frames (5 minutes)
 
-		self.currentFrameDrain = 0;
-	end
-
-	self.currentFrameDrain = self.currentFrameDrain + 1;
+	--	self.currentFrameDrain = 0;
+	--end
+	--
+	--self.currentFrameDrain = self.currentFrameDrain + 1;
 
 	-- Update every 30 frames
 	if ((self.currentFrame % 30) == 0) then
 				local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
+				pb:updateFromIsoObject()
 				self.connectedPanels = pb.npanels
 				self.batteryLevel = pb.charge / pb.maxcapacity
 				self.capacity = pb.maxcapacity
@@ -310,7 +311,7 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 
 	-- Used variables
 	self.currentFrame = 0;
-	self.currentFrameDrain = 0;
+	--self.currentFrameDrain = 0;
 	self.thereAreBatteries = false;
 	self.thereArePanels = false;
 	self.connectedPanels = 0;

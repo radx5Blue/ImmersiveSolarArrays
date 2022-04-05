@@ -3,7 +3,7 @@ require "Map/CGlobalObjectSystem"
 CPowerbankSystem = CGlobalObjectSystem:derive("CPowerbankSystem")
 
 function CPowerbankSystem:new()
-    return CGlobalObjectSystem.new(self, "powerbank")
+    return CGlobalObjectSystem.new(self, "Powerbank")
 end
 
 function CPowerbankSystem:isValidIsoObject(isoObject)
@@ -28,12 +28,36 @@ function CPowerbankSystem.canConnectPanelTo(square)
     return options
 end
 
---function CPowerbankSystem:newLuaObjectAt(x, y, z)
---    print("isatest",x,y,z)
---    print(self.system:getObjectAt(x, y, z))
---    local globalObject = self.system:newObject(x, y, z)
---    return self:newLuaObject(globalObject)
---end
+function CPowerbankSystem.onPlugGenerator(character,generator,plug)
+    local gendata = generator:getModData()
+    if plug then
+        local isopb = ISAScan.findPowerbank(generator:getSquare(),3,0,10)
+        if isopb then
+            local pb = { x = isopb:getX(), y = isopb:getY(), z = isopb:getZ() }
+            local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
+            gendata["ISA_conGenerator"] = pb
+            generator:transmitModData()
+            CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pb, gen = gen, plug = plug })
+        end
+    else
+        if gendata["ISA_conGenerator"] then
+            local pbdata = gendata["ISA_conGenerator"]
+            if CPowerbankSystem.instance:getLuaObjectAt(pbdata.x,pbdata.y,pbdata.z) then
+                local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
+                CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pbdata, gen = gen, plug = plug })
+            end
+            gendata["ISA_conGenerator"] = nil
+            generator:transmitModData()
+        end
+    end
+end
 
+function CPowerbankSystem.updateSprite(isoObject)
+    --local pb = CPowerbankSystem.instance:getLuaObjectOnSquare(isoObject:getSquare())
+    --pb:updateFromIsoObject()
+    --pb:updateSprite()
+    local overlay = isoObject:getModData().overlay
+    isoObject:setOverlaySprite(overlay)
+end
 
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
