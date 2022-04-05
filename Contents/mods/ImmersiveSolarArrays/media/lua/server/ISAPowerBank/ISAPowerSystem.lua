@@ -1,4 +1,3 @@
-
 function getMaxSolarOutput(SolarInput)
     local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
     if ISASolarEfficiency == nil then
