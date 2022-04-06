@@ -33,6 +33,7 @@ end
 function Commands.Battery(player,args)
     local pb = getPowerbank(args[1])
     if pb then
+        noise("Transfering Battery")
         if args[2] == "take" then
             pb.batteries = pb.batteries - 1
             pb.charge = pb.charge - args[3] * args[4]
@@ -43,7 +44,6 @@ function Commands.Battery(player,args)
             pb.maxcapacity = pb.maxcapacity + args[4]
         end
         pb:updateSprite()
-        noise("Battery was Transfered")
     end
 end
 

@@ -6,7 +6,6 @@ SPowerbank = SGlobalObject:derive("SPowerbank")
 
 function SPowerbank:initNew()
     self.on = false
-    self.overlay = nil
     self.batteries = 0
     self.charge = 0
     self.maxcapacity = 0
@@ -53,7 +52,6 @@ end
 
 function SPowerbank:fromModData(modData)
     self.on = modData["on"]
-    self.overlay = modData["overlay"]
     self.batteries = modData["batteries"]
     self.charge = modData["charge"]
     self.maxcapacity = modData["maxcapacity"]
@@ -66,7 +64,6 @@ end
 
 function SPowerbank:toModData(modData)
     modData["on"] = self.on
-    modData["overlay"] = self.overlay
     modData["batteries"] = self.batteries
     modData["charge"] = self.charge
     modData["maxcapacity"] = self.maxcapacity
@@ -342,14 +339,18 @@ function SPowerbank:getSprite(updatedCH)
     end
 end
 
-function SPowerbank:updateSprite()
-    local newsprite = self:getSprite()
-    if newsprite ~= self.overlay then
-        self.overlay = self.newsprite
-        local isopb = self:getIsoObject()
-        isopb:setOverlaySprite(newsprite)
-        isopb:transmitUpdatedSpriteToClients()
-        self:saveData(true)
+function SPowerbank:updateSprite(chargemod)
+    local newsprite = self:getSprite(chargemod)
+    local gen = self:getSquare():getGenerator()
+    if newsprite ~= gen:getSpriteName() then
+        --self:noise("Changing Sprite")
+        --self.overlay = self.newsprite
+        --local isopb = self:getIsoObject()
+        --isopb:setOverlaySprite(newsprite)
+        --isopb:transmitUpdatedSpriteToClients()
+
+        gen:setSprite(newsprite)
+        gen:transmitUpdatedSpriteToClients()
     end
 end
 

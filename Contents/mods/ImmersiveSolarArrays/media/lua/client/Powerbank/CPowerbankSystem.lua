@@ -52,12 +52,66 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
     end
 end
 
-function CPowerbankSystem.updateSprite(isoObject)
+--CPowerbankSystem.maxBatteryCapacity = {
+--    ["50AhBattery"] = 50,
+--    ["75AhBattery"] = 75,
+--    ["100AhBattery"] = 100,
+--    ["DeepCycleBattery"] = 200,
+--    ["SuperBattery"] = 400,
+--    ["DIYBattery"] = (SandboxVars.ISA.DIYBatteryCapacity or 200)
+--}
+
+function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
+
+    local take =  src and src:getTextureName() == "solarmod_tileset_01_0"
+    local put =  dest and dest:getTextureName() == "solarmod_tileset_01_0"
+    if not take or put then return end
+
+    local type = item:getType()
+    if not ( type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or type == "DeepCycleBattery" or type == "SuperBattery" or
+        type == "DIYBattery") or item:getCondition() == 0 then
+        if put then character:Say(getText("IGUI_ISAContainerNotBattery")..item:getDisplayName()) end
+        return
+    end
+
+    local batterypower = item:getUsedDelta()
+    local capacity = 0
+    local cond = 1 - (item:getCondition()/100)
+    local condition = 1 - math.pow(cond,6)
+    if type == "50AhBattery" then
+        capacity = 50 * condition
+    elseif type == "75AhBattery" then
+        capacity = 75 * condition
+    elseif type == "100AhBattery" then
+        capacity = 100 * condition
+    elseif type == "DeepCycleBattery" then
+        capacity = 200 * condition
+    elseif type == "SuperBattery" then
+        capacity = 400 * condition
+    elseif type == "DIYBattery" then
+        capacity = (SandboxVars.ISA.DIYBatteryCapacity or 200) * condition
+    end
+
+    if take then
+        CPowerbankSystem.instance:sendCommand(character,"Battery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", batterypower, capacity})
+    end
+
+    if put then
+        CPowerbankSystem.instance:sendCommand(character,"Battery", { { x = dest:getX(), y = dest:getY(), z = dest:getZ()} ,"put", batterypower, capacity})
+    end
+
+    if take and put then HaloTextHelper.addText(character,"bzzz ... BZZZZZ ... bzzz") end
+
+    --item:setUsedDelta(...)
+
+end
+
+--function CPowerbankSystem.updateSprite(isoObject)
     --local pb = CPowerbankSystem.instance:getLuaObjectOnSquare(isoObject:getSquare())
     --pb:updateFromIsoObject()
     --pb:updateSprite()
-    local overlay = isoObject:getModData().overlay
-    isoObject:setOverlaySprite(overlay)
-end
+    --local overlay = isoObject:getModData().overlay
+    --isoObject:setOverlaySprite(overlay)
+--end
 
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)

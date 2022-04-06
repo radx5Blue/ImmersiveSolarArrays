@@ -9,7 +9,7 @@ end
 function SPowerbankSystem:initSystem()
     SGlobalObjectSystem.initSystem(self)
     self.system:setModDataKeys({})
-    self.system:setObjectModDataKeys({'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', 'overlay', "lastHour", "conGenerator"})
+    self.system:setObjectModDataKeys({'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"})
     --self:convertOldModData()
 end
 
@@ -93,21 +93,13 @@ function SPowerbankSystem:updateCharge(chargefreq)
         local charge = pb.charge + dif
         if charge < 0 then charge = 0 elseif charge > pb.maxcapacity then charge = pb.maxcapacity end
         local chargemod = pb.maxcapacity > 0 and charge / pb.maxcapacity or 0
-        local newsprite = pb:getSprite(chargemod)
-
+        pb.charge = charge
         if isopb then
             pb:chargeBatteries(isopb:getContainer(),chargemod)
             pb:updateGenerator()
             pb:updateConGenerator()
-
-            if newsprite ~= pb.overlay then
-                pb.overlay = newsprite
-                isopb:setOverlaySprite(newsprite)
-                --gen:setSprite(newsprite)
-                isopb:transmitUpdatedSpriteToClients()
-            end
+            pb:updateSprite(chargemod)
         end
-        pb.charge = charge
         pb:saveData(true)
 
         print("Isa Log charge: ",i," / "..tostring(math.floor(chargemod*100)).."%"," / ",math.floor(dif)," / ",math.floor(getModifiedSolarOutput(pb.npanels))," - ",math.floor(drain))
@@ -134,9 +126,9 @@ function SPowerbankSystem.rebootSystem(arg)
     newlua:initNew()
     newlua.charge = oldcharge
     newlua:handleBatteries(isopb:getContainer())
-    newlua:updateSprite()
-    --newlua:autoConnectToGenerator()
+    newlua:autoConnectToGenerator()
     newlua:createGenerator()
+    newlua:updateSprite()
     newlua:saveData(true)
 end
 

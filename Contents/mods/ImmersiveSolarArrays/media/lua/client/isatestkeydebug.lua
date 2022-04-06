@@ -18,7 +18,6 @@ zx.testthis = function()
 	--local isopb = lua:getIsoObject()
 
 
-
 	printData(index)
 
 end
