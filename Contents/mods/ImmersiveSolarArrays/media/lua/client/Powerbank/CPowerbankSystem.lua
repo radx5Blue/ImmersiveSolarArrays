@@ -65,7 +65,7 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
     local take =  src and src:getTextureName() == "solarmod_tileset_01_0"
     local put =  dest and dest:getTextureName() == "solarmod_tileset_01_0"
-    if not take or put then return end
+    if not (take or put) then return end
 
     local type = item:getType()
     if not ( type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or type == "DeepCycleBattery" or type == "SuperBattery" or
