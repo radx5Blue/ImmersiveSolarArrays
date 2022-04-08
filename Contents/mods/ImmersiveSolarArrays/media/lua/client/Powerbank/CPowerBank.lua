@@ -1,0 +1,122 @@
+require "Map/CGlobalObject"
+
+CPowerbank = CGlobalObject:derive("CPowerbank")
+
+function CPowerbank:new(luaSystem, globalObject)
+    return CGlobalObject.new(self, luaSystem, globalObject)
+end
+
+--function CPowerbank:fromModData(modData)
+--    self.on = modData["on"]
+--    self.overlay = modData["overlay"]
+--    self.batteries = modData["batteries"]
+--    self.charge = modData["charge"]
+--    self.maxcapacity = modData["maxcapacity"]
+--    self.drain = modData["drain"]
+--    self.npanels = modData["npanels"]
+--    self.panels = modData["panels"]
+--    self.lastHour = modData["lastHour"]
+--    self.conGenerator = modData["conGenerator"]
+--end
+--
+--function CPowerbank:getSprite(updatedCH)
+--    if self.batteries == 0 then return nil end
+--    if updatedCH == nil then updatedCH = self.charge / self.maxcapacity end
+--    if updatedCH < 0.25 then
+--        --show 0 charge
+--        if self.batteries < 5 then
+--            --show bottom shelf
+--            return "solarmod_tileset_01_1"
+--        elseif self.batteries >= 5 and self.batteries < 9 then
+--            --show two shelves
+--            return "solarmod_tileset_01_2"
+--        elseif self.batteries >= 9 and self.batteries < 13 then
+--            --show three shelves
+--            return "solarmod_tileset_01_3"
+--        elseif self.batteries >= 13 and self.batteries < 17 then
+--            --show four shelves
+--            return "solarmod_tileset_01_4"
+--        elseif self.batteries >= 17 then
+--            --show five shelves
+--            return "solarmod_tileset_01_5"
+--        end
+--    elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+--        --show 25 charge
+--        if self.batteries < 5 then
+--            --show bottom shelf
+--            return "solarmod_tileset_01_16"
+--        elseif self.batteries >= 5 and self.batteries < 9 then
+--            --show two shelves
+--            return "solarmod_tileset_01_20"
+--        elseif self.batteries >= 9 and self.batteries < 13 then
+--            --show three shelves
+--            return "solarmod_tileset_01_24"
+--        elseif self.batteries >= 13 and self.batteries < 17 then
+--            --show four shelves
+--            return "solarmod_tileset_01_28"
+--        elseif self.batteries >= 17 then
+--            --show five shelves
+--            return "solarmod_tileset_01_32"
+--        end
+--    elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+--        -- show 50 charge
+--        if self.batteries < 5 then
+--            --show bottom shelf
+--            return "solarmod_tileset_01_17"
+--        elseif self.batteries >= 5 and self.batteries < 9 then
+--            --show two shelves
+--            return "solarmod_tileset_01_21"
+--        elseif self.batteries >= 9 and self.batteries < 13 then
+--            --show three shelves
+--            return "solarmod_tileset_01_25"
+--        elseif self.batteries >= 13 and self.batteries < 17 then
+--            --show four shelves
+--            return "solarmod_tileset_01_29"
+--        elseif self.batteries >= 17 then
+--            --show five shelves
+--            return "solarmod_tileset_01_33"
+--        end
+--    elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+--        -- show 75 charge
+--        if self.batteries < 5 then
+--            --show bottom shelf
+--            return "solarmod_tileset_01_18"
+--        elseif self.batteries >= 5 and self.batteries < 9 then
+--            --show two shelves
+--            return "solarmod_tileset_01_22"
+--        elseif self.batteries >= 9 and self.batteries < 13 then
+--            --show three shelves
+--            return "solarmod_tileset_01_26"
+--        elseif self.batteries >= 13 and self.batteries < 17 then
+--            --show four shelves
+--            return "solarmod_tileset_01_30"
+--        elseif self.batteries >= 17 then
+--            --show five shelves
+--            return "solarmod_tileset_01_34"
+--        end
+--    elseif updatedCH >= 0.95 then
+--        --show 100 charge
+--        if self.batteries < 5 then
+--            --show bottom shelf
+--            return "solarmod_tileset_01_19"
+--        elseif self.batteries >= 5 and self.batteries < 9 then
+--            --show two shelves
+--            return "solarmod_tileset_01_23"
+--        elseif self.batteries >= 9 and self.batteries < 13 then
+--            --show three shelves
+--            return "solarmod_tileset_01_27"
+--        elseif self.batteries >= 13 and self.batteries < 17 then
+--            --show four shelves
+--            return "solarmod_tileset_01_31"
+--        elseif self.batteries >= 17 then
+--            --show five shelves
+--            return "solarmod_tileset_01_35"
+--        end
+--    end
+--end
+
+--function CPowerbank:updateSprite()
+--    local newsprite = self:getSprite()
+--    local isopb = self:getIsoObject()
+--    isopb:setOverlaySprite(newsprite)
+--end

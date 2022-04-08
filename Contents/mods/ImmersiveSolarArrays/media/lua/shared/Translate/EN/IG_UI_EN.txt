@@ -17,5 +17,6 @@ IGUI_EN = {
     IGUI_ISAWindowsSumaryTab_ChargedIn = "Charged in:\n  %d days\n  %d hours\n  %d minutes",
     IGUI_ISAWindowsSumaryTab_DischargedIn = "Discharged in:\n  %d days\n  %d hours\n  %d minutes",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Not Charging",
-    IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries"
+    IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries",
+    IGUI_ISAContainerNotBattery = "This seems like a good place to store my ",
 }
