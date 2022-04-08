@@ -1,6 +1,6 @@
 zx = zx or {}
 
-local function printData(index)
+function zx.printData(index)
 	local lua = SPowerbankSystem.instance:getLuaObjectByIndex(index)
 	for i,v in pairs(lua) do
 		print(i,"/",v)
@@ -19,7 +19,7 @@ zx.testthis = function()
 
 	ModData.get("ISAWorldSpawns")[4085 .. "," .. 11290 .. "," .. 0] = "solarmod_tileset_01_36"
 
-	--printData(index)
+	--zx.printData(index)
 end
 
 zx.testthat = function()
