@@ -3,6 +3,10 @@ if isClient() then return end
 ISAWorldSpawns = {}
 
 local data
+<<<<<<< Updated upstream
+=======
+local ModLocations = require "Distributions/ISAWorldSpawnsModMaps"
+>>>>>>> Stashed changes
 
 local function stringXYZ(iso)
     return iso:getX() .. "," .. iso:getY() .. "," .. iso:getZ()
@@ -114,6 +118,7 @@ ISAWorldSpawns.Locations = {
     { x = 7243, y = 8285, z = 0, type = 'solarmod_tileset_01_36' },
     { x = 5541, y = 6068, z = 0, type = 'solarmod_tileset_01_36' },
     { x = 5577, y = 5875, z = 0, type = 'solarmod_tileset_01_36' },
+<<<<<<< Updated upstream
     { x = 5628, y = 5957, z = 0, type = 'solarmod_tileset_01_36' },
     { x = 5704, y = 5717, z = 0, type = 'solarmod_tileset_01_36' },
 }
@@ -148,3 +153,58 @@ Events.OnInitGlobalModData.Add(ISAWorldSpawns.Rolls)
 Events.LoadGridsquare.Add(LoadGridsquare)
 
 --if getPlayer() then ISAWorldSpawns.Rolls() end
+=======
+    { x = 5628, y = 5957, z = 0, type = 'solarmod_tileset_01_36' }, --factory storage
+    { x = 5704, y = 5717, z = 0, type = 'solarmod_tileset_01_36' },
+}
+
+function ISAWorldSpawns.addModLocations()
+    local mods = getActivatedMods()
+    for id,locations in pairs(ModLocations) do
+        if mods:contains(id) then
+            for _,location in ipairs(locations) do
+                table.insert(ISAWorldSpawns.Locations,location)
+            end
+        end
+    end
+    --print("ISA Spawns Locations: ",#ISAWorldSpawns.Locations)
+end
+
+function ISAWorldSpawns.Rolls()
+    local spawnChance = SandboxVars.ISA.solarPanelWorldSpawns
+    for _,spawn in ipairs(ISAWorldSpawns.Locations) do
+        if ZombRand(1, 100) <= spawnChance then
+            data[spawn.x .. "," .. spawn.y .. "," .. spawn.z] = spawn.type
+        end
+    end
+end
+
+local LoadGridsquare = function(square)
+    local xyz = stringXYZ(square)
+    local spawn = data[xyz]
+    if spawn then
+        ISAWorldSpawns.Place(square,spawn)
+        data[xyz] = nil
+    end
+end
+
+local OnInitGlobalModData = function(newGame)
+    if ModData.exists("ISAWorldSpawns") then
+        data = ModData.get("ISAWorldSpawns")
+    else
+        data = ModData.create("ISAWorldSpawns")
+        if not string.find(getWorld():getMap(),"challengemaps") then
+            ISAWorldSpawns.addModLocations()
+            ISAWorldSpawns.Rolls()
+        end
+    end
+    --if not next(data) == nil then --doesn't seem to work in PZ
+    for _,_ in pairs(data) do
+        Events.LoadGridsquare.Add(LoadGridsquare)
+        break
+    end
+end
+Events.OnInitGlobalModData.Add(OnInitGlobalModData)
+
+--if getPlayer() then ModData.remove("ISAWorldSpawns"); OnInitGlobalModData() end
+>>>>>>> Stashed changes

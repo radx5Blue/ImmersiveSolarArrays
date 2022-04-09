@@ -75,6 +75,7 @@ function SPowerbankSystem:EveryDays()
 end
 
 function SPowerbankSystem:updateCharge(chargefreq)
+    local solaroutput = getModifiedSolarOutput(1)
     for i=1,self.system:getObjectCount() do
         --print("testing test 1",text)
         local pb = self.system:getObjectByIndex(i-1):getModData()
@@ -88,7 +89,7 @@ function SPowerbankSystem:updateCharge(chargefreq)
             drain = pb.drain
         end
 
-        local dif = getModifiedSolarOutput(pb.npanels) - drain
+        local dif = solaroutput * pb.npanels - drain
         if chargefreq == 1 then dif = dif / 6 end
         local charge = pb.charge + dif
         if charge < 0 then charge = 0 elseif charge > pb.maxcapacity then charge = pb.maxcapacity end
@@ -96,7 +97,7 @@ function SPowerbankSystem:updateCharge(chargefreq)
         pb.charge = charge
         if isopb then
             pb:chargeBatteries(isopb:getContainer(),chargemod)
-            pb:updateGenerator()
+            pb:updateGenerator(dif)
             pb:updateConGenerator()
             pb:updateSprite(chargemod)
         end

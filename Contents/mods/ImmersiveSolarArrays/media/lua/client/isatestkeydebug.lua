@@ -17,12 +17,19 @@ zx.testthis = function()
 	--local lua = SPowerbankSystem.instance:getLuaObjectByIndex(index)
 	--local isopb = lua:getIsoObject()
 
+<<<<<<< Updated upstream
 	ModData.get("ISAWorldSpawns")[4085 .. "," .. 11290 .. "," .. 0] = "solarmod_tileset_01_36"
+=======
+	--ModData.get("ISAWorldSpawns")[4085 .. "," .. 11290 .. "," .. 0] = "solarmod_tileset_01_36"
+	local square = zx.square
+	ISAWorldSpawns.Place(square,"solarmod_tileset_01_36")
+>>>>>>> Stashed changes
 
 	--zx.printData(index)
 end
 
 zx.testthat = function()
+<<<<<<< Updated upstream
 	--local square = getWorld():getCell():getOrCreateGridSquare(10254,8762,1)
 	--local isoObject = IsoObject.new(square:getCell(), square, "solarmod_tileset_01_10")
 	--print(isoObject)
@@ -33,6 +40,10 @@ zx.testthat = function()
 	--player:setY(11313
 	local def = getWorld():getMetaGrid():getBuildingAt(4135,11313)
 	getWorld():getMetaGrid():getCellData(math.floor(4135/300),math.floor(11313/300)):addTrigger(def,1,0,"ISA")
+=======
+	local player = getPlayer()
+	zx.square = getSquare(math.floor(player:getX()),math.floor(player:getY()),math.floor(player:getZ()))
+>>>>>>> Stashed changes
 end
 
 function zx.keydebug(keynum)

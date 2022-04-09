@@ -401,8 +401,14 @@ function SPowerbank:removeGenerator()
     if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
 end
 
-function SPowerbank:updateGenerator()
-    local activate = self.on and self.charge > 0
+function SPowerbank:updateGenerator(dif)
+    if dif == nil then
+        dif = getModifiedSolarOutput(self.npanels) - self.drain
+        if SandboxVars.ISA.ChargeFreq == 1 then
+            dif = dif / 6
+        end
+    end
+    local activate = self.on and self.charge + dif > 0
     local square = self:getSquare()
     local generator = square:getGenerator()
     --self:noise("Activating generator",generator,activate)
