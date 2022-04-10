@@ -139,8 +139,7 @@ local function addEvents()
     if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
     if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
 
-    Events.OnDawn.Add(function()SPowerbankSystem.instance:EveryDays() end)
-    --Events.EveryDays.Add(function()SPowerbankSystem.instance:EveryDays() end)
+    Events.EveryDays.Add(function()SPowerbankSystem.instance:EveryDays() end)
     if SandboxVars.ISA.ChargeFreq == 1 then
         Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updateCharge(1) end)
     else
