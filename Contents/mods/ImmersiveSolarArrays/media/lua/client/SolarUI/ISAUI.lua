@@ -10,13 +10,6 @@ local function ConnectPanel(worldobjects,player,panel,powerbank)
 	end
 end
 
-local function ActivatePowerbank (worlobjects,player,generator,powerbank,activate)
-	local character = getSpecificPlayer(player)
-	if luautils.walkAdj(character, powerbank:getSquare()) then
-		ISTimedActionQueue.add(ISAActivatePowerbank:new(character, generator, powerbank, activate));
-	end
-end
-
 local OnPreFillWorldObjectContextMenu = function(player, context, worldobjects, test)
 	for _,obj in pairs(worldobjects) do
 		local spritename = obj:getSprite() and obj:getSprite():getName()
@@ -47,12 +40,12 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
-		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+		--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() ISA.ResetBatteryBank(powerbank) end);
 		if pbgenerator then
 			if powerbank:getModData()["on"] then
-				ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ActivatePowerbank, player, powerbank, pbgenerator, false);
+				ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ISWorldObjectContextMenu.onActivateGenerator, false, pbgenerator, player);----------
 			else
-				ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ActivatePowerbank, player, powerbank, pbgenerator, true);
+				ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ISWorldObjectContextMenu.onActivateGenerator, true, pbgenerator, player);
 			end
 		end
 		_powerbank ,_pbgenerator = nil, nil
@@ -61,11 +54,8 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 	if _panel then
 		local options = CPowerbankSystem.instance.canConnectPanelTo(_panel:getSquare())
 		local panel = _panel
-		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
-		local ISASubMenu = ISContextMenu:getNew(context);
-		context:addSubMenu(ISABBMenu, ISASubMenu);
 		for _,opt in ipairs(options) do
-			ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel,player,panel, opt[3]);
+			context:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel,player,panel, opt[3]);
 		end
 		_panel = nil
 	end

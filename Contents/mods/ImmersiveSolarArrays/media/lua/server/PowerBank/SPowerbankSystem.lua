@@ -3,19 +3,25 @@ if isClient() then return end
 SPowerbankSystem = SGlobalObjectSystem:derive("SPowerbankSystem")
 
 function SPowerbankSystem:new()
-    return SGlobalObjectSystem.new(self, "Powerbank")
+    local o = SGlobalObjectSystem.new(self, "powerbank")
+    return o
 end
 
 function SPowerbankSystem:initSystem()
     SGlobalObjectSystem.initSystem(self)
     self.system:setModDataKeys({})
-    self.system:setObjectModDataKeys({'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', 'overlay', "lastHour", "conGenerator"})
-    --self:convertOldModData()
+    self.system:setObjectModDataKeys({'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', 'overlay', "lastHour"})
+    self:convertOldModData()
 end
 
---function SPowerbankSystem:convertOldModData()
---    if self.system:loadedWorldVersion() ~= -1 then return end
---end
+function SPowerbankSystem:convertOldModData()
+    if self.system:loadedWorldVersion() ~= -1 then return end
+    --todo
+end
+
+function SPowerbankSystem.isValidModData(modData)
+    return modData.charge ~= nil
+end
 
 function SPowerbankSystem:newLuaObject(globalObject)
     return SPowerbank:new(self, globalObject)
@@ -41,6 +47,33 @@ function SPowerbankSystem:OnClientCommand(command, playerObj, args)
     SPowerbankSystemCommands[command](playerObj, args)
 end
 
+--todo client command, fixes, etc
+function SPowerbankSystem.connectGenerator(args)
+    local x = args.x
+    local y = args.y
+    local z = args.z
+    for i=1,self.system:getObjectCount() do
+        local idata = self.system:getObjectByIndex(i-1):getModData()
+        if IsoUtils.DistanceToSquared(x,y,idata.x, idata.y) <= 10 and z == idata.z then
+            idata.conGenerator = {}
+            idata.conGenerator.x = x
+            idata.conGenerator.y = y
+            idata.conGenerator.z = z
+            idata.conGenerator.ison = false
+            return
+        end
+    end
+end
+
+function SPowerbankSystem.disconnectGenerator(args)
+    for i=1,self.system:getObjectCount() do
+        local luaObj = self.system:getObjectByIndex(i-1):getModData()
+        if args.x == luaObj.conGenerator.x and args.y == luaObj.conGenerator.y and args.z == luaObj.conGenerator.z then
+            luaObj.conGenerator = nil
+        end
+    end
+end
+
 function SPowerbankSystem.removePanel(xpanel)
     local data = xpanel:getModData()
     data.connectDelta = nil
@@ -50,14 +83,13 @@ function SPowerbankSystem.removePanel(xpanel)
     local z = xpanel:getZ()
 
     local pb = self:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
-    if pb then
-        for v,panel in ipairs(pb.panels) do
-            if panel.x == x and panel.y == y and panel.z == z then
-                table.remove(pb.panels,v)
-                pb.npanels = pb.npanels - 1
-                data["powerbank"] = nil
-                return
-            end
+
+    for v,panel in ipairs(pb.panels) do
+        if panel.x == x and panel.y == y and panel.z == z then
+            table.remove(pb.panels,v)
+            pb.npanels = pb.npanels - 1
+            data["powerbank"] = nil
+            return
         end
     end
 end
@@ -81,8 +113,8 @@ function SPowerbankSystem:updateCharge(chargefreq)
         local isopb = pb:getIsoObject()
         local drain
         if pb.switchchanged then pb.switchchanged = nil elseif not pb.on then drain = 0 end
-        if pb.conGenerator and pb.conGenerator.ison then drain = 0 end
-        --sandbox check,electricity on
+        if pb.gen and pb.gen.ison then drain = 0 end
+        --sandbox check,electricity on every day
         if drain ~= 0 then
             if isopb then pb:updateDrain() end
             drain = pb.drain
@@ -92,9 +124,10 @@ function SPowerbankSystem:updateCharge(chargefreq)
         if chargefreq == 1 then dif = dif / 6 end
         local charge = pb.charge + dif
         if charge < 0 then charge = 0 elseif charge > pb.maxcapacity then charge = pb.maxcapacity end
-        local chargemod = pb.maxcapacity > 0 and charge / pb.maxcapacity or 0
+        local chargemod = charge / pb.maxcapacity
         local newsprite = pb:getSprite(chargemod)
 
+        local transmit = false
         if isopb then
             pb:chargeBatteries(isopb:getContainer(),chargemod)
             pb:updateGenerator()
@@ -104,46 +137,24 @@ function SPowerbankSystem:updateCharge(chargefreq)
                 pb.overlay = newsprite
                 isopb:setOverlaySprite(newsprite)
                 --gen:setSprite(newsprite)
-                isopb:transmitUpdatedSpriteToClients()
+                isopb:sendObjectChange('sprite')
+                transmit = true
+            end
+            if (pb.charge == 0 or charge == 0) and charge ~= pb.charge then
+                isopb:sendObjectChange('charge')
+                transmit = true
             end
         end
         pb.charge = charge
-        pb:saveData(true)
+        pb:saveData(transmit)
 
-        print("Isa Log charge: ",i," / "..tostring(math.floor(chargemod*100)).."%"," / ",math.floor(dif)," / ",math.floor(getModifiedSolarOutput(pb.npanels))," - ",math.floor(drain))
+        print("Isa Log charge: ",i," / "..tostring(math.floor(chargemod*100)).."%"," / ",math.floor(dif))
     end
-end
-
-function SPowerbankSystem.rebootSystem(arg)
-    local square = getSquare(arg.x,arg.y,arg.z)
-    local isopb = ISAScan.squareHasPowerbank(square)
-    local data = isopb:getModData()
-    local luaObj = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
-    local oldcharge = data.charge or luaObj.charge or 0
-
-    if luaObj then SPowerbankSystem.instance:removeLuaObject(luaObj) end
-    local special = isopb:getSquare():getSpecialObjects()
-    for i = 1, special:size() do
-        local obj = special:get(i-1)
-        if instanceof(obj, "IsoGenerator") then
-            obj:remove()
-        end
-    end
-
-    local newlua = SPowerbankSystem.instance:newLuaObjectAt(isopb:getX(),isopb:getY(),isopb:getZ())
-    newlua:initNew()
-    newlua.charge = oldcharge
-    newlua:handleBatteries(isopb:getContainer())
-    newlua:updateSprite()
-    --newlua:autoConnectToGenerator()
-    newlua:createGenerator()
-    newlua:saveData(true)
 end
 
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
 
 local function addEvents()
-    print("loading isatest",SandboxVars.ISA.ChargeFreq,SandboxVars.ISA.DrainCalc)
     if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
     if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
 
@@ -156,4 +167,4 @@ local function addEvents()
 end
 Events.OnLoad.Add(addEvents)
 
---print("ISATesting Loading Stack Trace")
+print("ISATesting Loading Stack Trace")
