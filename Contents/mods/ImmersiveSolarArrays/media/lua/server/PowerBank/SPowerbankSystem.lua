@@ -57,7 +57,7 @@ function SPowerbankSystem.removePanel(xpanel)
     local y = xpanel:getY()
     local z = xpanel:getZ()
 
-    local pb = self:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
+    local pb = SPowerbankSystem.instance:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
     if pb then
         for v,panel in ipairs(pb.panels) do
             if panel.x == x and panel.y == y and panel.z == z then
