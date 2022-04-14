@@ -47,7 +47,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
 
-			ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+			--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
 
 		if powerbank:getModData()["on"] then
 			ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ActivatePowerbank, player, powerbank, false);
