@@ -4,17 +4,7 @@ require "TimedActions/ISInventoryTransferAction"
 
 local ISActivateGeneratorperform = ISActivateGenerator.perform
 function ISActivateGenerator:perform(...)
-    local pbdata = self.generator:getModData()["ISA_conGenerator"]
-    if pbdata then
-        if CPowerbankSystem.instance:getLuaObjectAt(pbdata.x,pbdata.y,pbdata.z) then
-            local gen = { x = self.generator:getX(), y = self.generator:getY(), z = self.generator:getZ() }
-            CPowerbankSystem.instance:sendCommand(self.character,"activateGenerator", { pb = pbdata, gen = gen , activate = self.activate })
-        else
-            pbdata = nil
-            self.generator:transmitModData()
-        end
-    end
-
+    CPowerbankSystem.onActivateGenerator(self.character,self.generator,self.activate)
     return ISActivateGeneratorperform(self,...)
 end
 

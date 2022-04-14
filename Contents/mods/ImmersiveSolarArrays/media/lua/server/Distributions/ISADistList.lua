@@ -33,8 +33,9 @@ registerAsLoot(iReg, 1.5 * ISAmiscLootMult, "ElectronicStoreMagazines");
 registerAsLoot(iReg, 0.4 * ISAmiscLootMult, "MagazineRackMixed");
 registerAsLoot(iReg, 0.6 * ISAmiscLootMult, "ShelfGeneric");
 
--- Solar panel
 
+
+-- Solar panel
 iReg = "ISA.SolarPanel";
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateCamping");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateElectronics");
@@ -68,15 +69,7 @@ registerAsLoot(iReg, 0.05 * ISApanelLootMult, "ArmyHangarTools");
 
 
 
-
-
-
-
-
-
-
 -- Deep cycle battery
-
 iReg = "ISA.DeepCycleBattery";
 registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "JanitorMisc");
 registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "StoreShelfElectronics");
@@ -97,8 +90,9 @@ registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CratePaint");
 registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateMetalwork");
 
--- Super battery
 
+
+-- Super battery
 iReg = "ISA.SuperBattery";
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "JanitorMisc");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "StoreShelfElectronics");
@@ -122,7 +116,6 @@ registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateMetalwork");
 
 
 -- Inverter
-
 iReg = "ISA.ISAInverter";
 registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "StoreShelfElectronics");
 registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "StoreShelfMechanics");
@@ -144,9 +137,3 @@ registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "ToolStoreFarming");
 registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CratePaint");
 registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateMetalwork");
-
-
-
-
-
-

@@ -83,4 +83,8 @@ Maps.RavenCreek = {
     { x = 3339, y = 12227, z = 0, type = 'solarmod_tileset_01_36' }, --port warehouse
     { x = 3479, y = 12684, z = 0, type = 'solarmod_tileset_01_36' }, --port container / sledge
 }
+Maps["challengemaps/Kingsmouth"] = {
+    { x = 30407, y = 30427, z = 0, type = 'solarmod_tileset_01_36' }, --military base, warehouse
+    { x = 30868, y = 30363, z = 1, type = 'solarmod_tileset_01_36' }, --container, stairs
+}
 ISAWorldSpawnsMaps = Maps

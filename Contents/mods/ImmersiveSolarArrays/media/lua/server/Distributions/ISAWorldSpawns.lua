@@ -97,6 +97,3 @@ local OnInitGlobalModData = function(newGame)
     end
 end
 Events.OnInitGlobalModData.Add(OnInitGlobalModData)
-
---SandboxVars.ISA.solarPanelWorldSpawns = 100
---if getPlayer() then ModData.remove("ISAWorldSpawns"); OnInitGlobalModData() end
