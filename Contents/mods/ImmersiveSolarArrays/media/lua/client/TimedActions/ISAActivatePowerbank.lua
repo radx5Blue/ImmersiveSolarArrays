@@ -2,13 +2,12 @@ require "TimedActions/ISBaseTimedAction"
 
 ISAActivatePowerbank = ISBaseTimedAction:derive("ISAConnectPanel");
 
-function ISAActivatePowerbank:new(character, generator, powerbank, activate)
+function ISAActivatePowerbank:new(character, powerbank, activate)
     local o = {}
     setmetatable(o, self)
     self.__index = self
     o.character = character
     o.activate = activate;
-    o.generator = generator;
     o.isopb = powerbank;
     o.stopOnWalk = true;
     o.stopOnRun = true;
@@ -38,7 +37,7 @@ function ISAActivatePowerbank:perform()
         self.character:playSound("GeneratorStarting")
     elseif self.activate then
         self.character:playSound("GeneratorFailedToStart")
-        ISAStatusWindow.OnOpenPanel(self.generator:getSquare())
+        ISAStatusWindow.OnOpenPanel(self.isopb:getSquare())
     else
         self.character:playSound("GeneratorStopping")
     end

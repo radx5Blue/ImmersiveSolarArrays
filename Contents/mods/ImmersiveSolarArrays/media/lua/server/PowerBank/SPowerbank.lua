@@ -16,10 +16,10 @@ function SPowerbank:initNew()
     self.conGenerator = nil
 end
 
---function SPowerbank:new(luaSystem, globalObject)
---    local o = SGlobalObject.new(self, luaSystem, globalObject)
---    return o
---end
+function SPowerbank:new(luaSystem, globalObject)
+    local o = SGlobalObject.new(self, luaSystem, globalObject)
+    return o
+end
 
 function SPowerbank:aboutToRemoveFromSystem()
     self:removeGenerator()
@@ -31,6 +31,7 @@ function SPowerbank:stateFromIsoObject(isoObject)
 
     --if SPowerbankSystem.isValidModData(isoObject:getModData()) then
     --    self:fromModData(isoObject:getModData())
+    --    self:handleBatteries(isoObject:getContainer())
     if ModData.exists("PBK") then
         self:fromPBK(isoObject)
     end
@@ -43,7 +44,6 @@ function SPowerbank:stateFromIsoObject(isoObject)
 end
 
 function SPowerbank:stateToIsoObject(isoObject)
-    self:noise("loading powerbank")
     self:toModData(isoObject:getModData())
     --isoObject:transmitModData()
     self:loadGenerator()
@@ -111,12 +111,13 @@ function SPowerbank:fromPBK(isoObject)
 end
 
 function SPowerbank:getDrainVanilla(square)
+    local scale = 800
     local gen = square:getGenerator()
     if gen:isActivated() then
         gen:setSurroundingElectricity()
-        return gen:getTotalPowerUsing() * 800
+        return gen:getTotalPowerUsing() * scale
     else
-        return SPowerbank.getTotalWhenoff(gen) * 800
+        return SPowerbank.getTotalWhenoff(gen) * scale
     end
 end
 
@@ -139,20 +140,11 @@ function SPowerbank:updateDrain()
 end
 
 function SPowerbank:chargeBatteries(container,charge)
-    for i=1,container:getItems():size() do
-        local item = container:getItems():get(i-1)
-        local type = item:getType()
-        if type == "50AhBattery" and item:getCondition() > 0 then
-            item:setUsedDelta(charge)
-        elseif type == "75AhBattery" and item:getCondition() > 0 then
-            item:setUsedDelta(charge)
-        elseif type == "100AhBattery" and item:getCondition() > 0 then
-            item:setUsedDelta(charge)
-        elseif type == "DeepCycleBattery" and item:getCondition() > 0 then
-            item:setUsedDelta(charge)
-        elseif type == "SuperBattery" and item:getCondition() > 0 then
-            item:setUsedDelta(charge)
-        elseif type == "DIYBattery" and item:getCondition() > 0 then
+    local max = SPowerbankSystem.instance.maxBatteryCapacity
+    local items = container:getItems()
+    for i=1,items:size() do
+        local item = items:get(i-1)
+        if max[item:getType()] then
             item:setUsedDelta(charge)
         end
     end
@@ -163,9 +155,10 @@ function SPowerbank:degradeBatteries(container)
     if SandboxVars.ISA.batteryDegradeChance == nil then
         ISABatteryDegradeChance = 100
     end
-    for i=1,container:getItems():size() do
+    local items = container:getItems()
+    for i=1,items:size() do
         if ZombRand(100) < ISABatteryDegradeChance then
-            local item = container:getItems():get(i-1)
+            local item = items:get(i-1)
             local type = item:getType()
             if type == "50AhBattery" then
                 item:setCondition(item:getCondition() - ZombRand(1, 10))
@@ -244,7 +237,7 @@ function SPowerbank:handleBatteries(container)
 end
 
 function SPowerbank:getSprite(updatedCH)
-    if self.batteries == 0 then return nil, "solarmod_tileset_01_11" end
+    if self.batteries == 0 then return nil end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
     if updatedCH < 0.25 then
         --show 0 charge
@@ -343,12 +336,6 @@ function SPowerbank:updateSprite(chargemod)
     local newsprite = self:getSprite(chargemod)
     local gen = self:getSquare():getGenerator()
     if newsprite ~= gen:getSpriteName() then
-        --self:noise("Changing Sprite")
-        --self.overlay = self.newsprite
-        --local isopb = self:getIsoObject()
-        --isopb:setOverlaySprite(newsprite)
-        --isopb:transmitUpdatedSpriteToClients()
-
         gen:setSprite(newsprite)
         gen:transmitUpdatedSpriteToClients()
     end
@@ -403,7 +390,7 @@ end
 
 function SPowerbank:updateGenerator(dif)
     if dif == nil then
-        dif = getModifiedSolarOutput(self.npanels) - self.drain
+        dif = SPowerbankSystem.instance.getModifiedSolarOutput(self.npanels) - self.drain
         if SandboxVars.ISA.ChargeFreq == 1 then
             dif = dif / 6
         end
@@ -411,20 +398,10 @@ function SPowerbank:updateGenerator(dif)
     local activate = self.on and self.charge + dif > 0
     local square = self:getSquare()
     local generator = square:getGenerator()
-    --self:noise("Activating generator",generator,activate)
     generator:setActivated(activate)
     if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
     generator:getCell():addToProcessIsoObjectRemove(generator)
 end
-
---local dtick
---function SPowerbank.delayedUpdate()
---    dtick = (dtick or 0) + 1
---    if dtick > 30 then
---        dtick = nil
---        Events.OnTick.Remove(SPowerbank.delayedUpdate)
---    end
---end
 
 --if freezer timers, Powerbank generator condition / fuel are wrong check here
 function SPowerbank:loadGenerator()

@@ -45,20 +45,21 @@ end
 function ISAStatusWindow.OnOpenPanel(fsquare)
 	if ISAStatusWindow.instance == nil then
 		local ui = ISAStatusWindow:new(100, 100, 200, 200)
-		ui.fsquare = fsquare;
-
-		-- Current square
-		ui.sqX = fsquare:getX()
-		ui.sqY = fsquare:getY()
-		ui.sqZ = fsquare:getZ()
 
 		ui:initialise()
 		--ui:instantiate()
 		ISAStatusWindow.instance = ui
 	end
+	local ui = ISAStatusWindow.instance
+	ui.fsquare = fsquare;
+
+	-- Current square
+	ui.sqX = fsquare:getX()
+	ui.sqY = fsquare:getY()
+	ui.sqZ = fsquare:getZ()
+
 	ISAStatusWindow.instance:addToUIManager()
 end
-
 
 function ISAStatusWindow:close()
 	self:removeFromUIManager()

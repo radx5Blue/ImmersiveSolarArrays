@@ -49,38 +49,3 @@ function ISAScan.squareHasPanel(square)
     end
     return false
 end
-
---function ISAScan.isSolarPanel(isoObject)
---    local spritename = isoObject:getTextureName()
---    if spritename == "solarmod_tileset_01_6" or spritename == "solarmod_tileset_01_7" or spritename == "solarmod_tileset_01_8" or
---            spritename == "solarmod_tileset_01_9" or spritename == "solarmod_tileset_01_10" then
---        return true
---    end
---    return nil
---end
-
---function ISAScan.canConnectPanelTo_test(square)
---    local distance = 20
---    local x = square:getX()
---    local y = square:getY()
---    local z = square:getZ()
---    local bottom = math.max(0, z - 3)
---    local top = math.min(8, z + 3)
---    local keylist = {}
---    for iz = bottom, top do
---        for ix = x - distance, x + distance do
---            for iy = y - distance, y + distance do
---                if IsoUtils.DistanceToSquared(ix, iy, x, y) <= 400.0 then
---                    local isquare = getSquare(ix,iy,iz)
---                    if isquare then
---                        if ISAScan.squareHasPowerbank(isquare) then
---                            local key = ISA.findKeyFromSquare(isquare)
---                            if key then table.insert(keylist,key) end
---                        end
---                    end
---                end
---            end
---        end
---     end
---    return keylist
---end

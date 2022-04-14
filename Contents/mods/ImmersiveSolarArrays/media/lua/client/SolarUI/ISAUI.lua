@@ -1,7 +1,7 @@
 ISAMenu = ISAMenu or {};
 ISAMenu._index = ISAMenu
 
-local _powerbank , _pbgenerator, _panel
+local _powerbank , _panel
 
 local function ConnectPanel(worldobjects,player,panel,powerbank)
 	local character = getSpecificPlayer(player)
@@ -10,10 +10,10 @@ local function ConnectPanel(worldobjects,player,panel,powerbank)
 	end
 end
 
-local function ActivatePowerbank (worlobjects,player,generator,powerbank,activate)
+local function ActivatePowerbank (worlobjects,player,powerbank,activate)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, powerbank:getSquare()) then
-		ISTimedActionQueue.add(ISAActivatePowerbank:new(character, generator, powerbank, activate));
+		ISTimedActionQueue.add(ISAActivatePowerbank:new(character, powerbank, activate));
 	end
 end
 
@@ -24,7 +24,6 @@ local OnPreFillWorldObjectContextMenu = function(player, context, worldobjects, 
 			return
 		elseif spritename == "solarmod_tileset_01_0" then
 			_powerbank = obj
-			_pbgenerator = generator
 			generator = nil
 			return
 		elseif spritename == "solarmod_tileset_01_6" or spritename == "solarmod_tileset_01_7" or spritename == "solarmod_tileset_01_8" or
@@ -40,22 +39,22 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 	if test and ISWorldObjectContextMenu.Test then return true end
 
 	if _powerbank then
-		local powerbank , pbgenerator = _powerbank , _pbgenerator
+		local powerbank = _powerbank
 		local square = powerbank:getSquare()
 		--local key = ISA.findKeyFromSquare(square)
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
-		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
-		if pbgenerator then
-			if powerbank:getModData()["on"] then
-				ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ActivatePowerbank, player, powerbank, pbgenerator, false);
-			else
-				ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ActivatePowerbank, player, powerbank, pbgenerator, true);
-			end
+
+			--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+
+		if powerbank:getModData()["on"] then
+			ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ActivatePowerbank, player, powerbank, false);
+		else
+			ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ActivatePowerbank, player, powerbank, true);
 		end
-		_powerbank ,_pbgenerator = nil, nil
+		_powerbank = nil
 	end
 
 	if _panel then

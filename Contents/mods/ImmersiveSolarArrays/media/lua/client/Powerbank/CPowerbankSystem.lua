@@ -28,6 +28,35 @@ function CPowerbankSystem.canConnectPanelTo(square)
     return options
 end
 
+function CPowerbankSystem.getMaxSolarOutput(SolarInput)
+    local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
+    if ISASolarEfficiency == nil then
+        ISASolarEfficiency = 90
+    end
+
+    local output = SolarInput * (83 * ((ISASolarEfficiency * 1.25) / 100)) --changed to more realistic 1993 levels
+    return output
+end
+
+function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
+    --local myWeather = getClimateManager()
+    --local currentHour = getGameTime():getHour()
+
+    -- print("My weather: ", myWeather)
+    -- print("My time: ", currentHour)
+    local cloudiness = getClimateManager():getCloudIntensity()
+    local light = getClimateManager():getDayLightStrength()
+    local fogginess = getClimateManager():getFogIntensity()
+    local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
+    local output = SPowerbankSystem.instance.getMaxSolarOutput(SolarInput)
+    local temperature = getClimateManager():getTemperature()
+    local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
+    output = output * CloudinessFogginessMean
+    output = output * temperaturefactor
+    output = output * light
+    return output
+end
+
 function CPowerbankSystem.onPlugGenerator(character,generator,plug)
     local gendata = generator:getModData()
     if plug then
@@ -47,6 +76,19 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
                 CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pbdata, gen = gen, plug = plug })
             end
             gendata["ISA_conGenerator"] = nil
+            generator:transmitModData()
+        end
+    end
+end
+
+function CPowerbankSystem.onActivateGenerator(character,generator,activate)
+    local pbdata = generator:getModData()["ISA_conGenerator"]
+    if pbdata then
+        if CPowerbankSystem.instance:getLuaObjectAt(pbdata.x,pbdata.y,pbdata.z) then
+            local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
+            CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { pb = pbdata, gen = gen , activate = activate })
+        else
+            pbdata = nil
             generator:transmitModData()
         end
     end
@@ -102,16 +144,6 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
     if take and put then HaloTextHelper.addText(character,"bzzz ... BZZZZZ ... bzzz") end
 
-    --item:setUsedDelta(...)
-
 end
-
---function CPowerbankSystem.updateSprite(isoObject)
-    --local pb = CPowerbankSystem.instance:getLuaObjectOnSquare(isoObject:getSquare())
-    --pb:updateFromIsoObject()
-    --pb:updateSprite()
-    --local overlay = isoObject:getModData().overlay
-    --isoObject:setOverlaySprite(overlay)
---end
 
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
