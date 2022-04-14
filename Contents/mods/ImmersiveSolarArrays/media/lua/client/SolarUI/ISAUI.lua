@@ -34,7 +34,7 @@ local OnPreFillWorldObjectContextMenu = function(player, context, worldobjects, 
 	end
 end
 
-ISAMenu.createMenuEntries = function(player, context, worldobjects)
+ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 
 	if test and ISWorldObjectContextMenu.Test then return true end
 
@@ -42,16 +42,21 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 		local powerbank = _powerbank
 		local square = powerbank:getSquare()
 		--local key = ISA.findKeyFromSquare(square)
+		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
+		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
 
-			--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+		--if test then return ISWorldObjectContextMenu.setTest() end
+		--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
 
 		if powerbank:getModData()["on"] then
+			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_Turn_Off"), worldobjects, ActivatePowerbank, player, powerbank, false);
 		else
+			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ActivatePowerbank, player, powerbank, true);
 		end
 		_powerbank = nil
@@ -60,10 +65,12 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects)
 	if _panel then
 		local options = CPowerbankSystem.instance.canConnectPanelTo(_panel:getSquare())
 		local panel = _panel
+		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		for _,opt in ipairs(options) do
+			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel,player,panel, opt[3]);
 		end
 		_panel = nil
