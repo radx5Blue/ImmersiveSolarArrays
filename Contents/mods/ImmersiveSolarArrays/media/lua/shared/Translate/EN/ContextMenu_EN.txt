@@ -19,5 +19,7 @@ ContextMenu_EN = {
     ContextMenu_ISA_Power_Discharging_Almost_Empty = "Power will remain for less than an hour.",
     ContextMenu_ISA_Batteries_No_Batteries = "There are no batteries to charge up the battery bank.",
     ContextMenu_ISA_Batteries_No_Power = "The battery bank has no stored power.",
-    ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d%% power."
+    ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d%% power.",
+    ContextMenu_ISA_SolarPanel = "Solar Panel",
+    ContextMenu_ISA_Connect_Panel = "Connect to PowerBank: ",
 }
