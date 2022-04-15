@@ -242,7 +242,8 @@ function SPowerbank:handleBatteries(container)
 end
 
 function SPowerbank:getSprite(updatedCH)
-    if self.batteries == 0 then return "solarmod_tileset_01_11" end
+    if self.batteries == 0 then return nil end
+    --if self.batteries == 0 then return "solarmod_tileset_01_11" end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
     if updatedCH < 0.25 then
         --show 0 charge
@@ -342,7 +343,8 @@ function SPowerbank:updateSprite(chargemod)
     local gen = self:getSquare():getGenerator()
     if newsprite ~= gen:getSpriteName() then
         gen:setSprite(newsprite)
-        gen:transmitUpdatedSpriteToClients()
+        --gen:transmitUpdatedSpriteToClients()
+        gen:sendObjectChange("sprite")
     end
 end
 
@@ -381,7 +383,8 @@ function SPowerbank:createGenerator()
     generator:setConnected(true)
     generator:setFuel(100)
     generator:setCondition(100)
-    generator:setSprite("solarmod_tileset_01_11")
+    generator:setSprite(nil)
+    --generator:setSprite("solarmod_tileset_01_11")
 end
 
 function SPowerbank:removeGenerator()
