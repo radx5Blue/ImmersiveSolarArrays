@@ -20,9 +20,9 @@ function SPowerbankSystem:isValidIsoObject(isoObject)
     return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
 end
 
---function SPowerbankSystem.isValidModData(modData)
---    return modData.charge ~= nil
---end
+function SPowerbankSystem.isValidModData(modData)
+    return modData.charge ~= nil
+end
 
 function SPowerbankSystem:getIsoObjectOnSquare(square)
     if square then
@@ -131,9 +131,8 @@ function SPowerbankSystem:updateCharge(chargefreq)
             pb:updateGenerator(dif)
             pb:updateConGenerator()
             pb:updateSprite(chargemod)
+            pb:saveData(true)
         end
-        pb:saveData(true)
-
         if getDebug() then
             print("Isa Log charge: "..i.." / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)).." - "..math.floor(drain))
         end

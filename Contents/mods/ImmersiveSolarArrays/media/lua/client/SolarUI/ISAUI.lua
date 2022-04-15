@@ -49,8 +49,8 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
 
-		--if test then return ISWorldObjectContextMenu.setTest() end
-		--ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+		if test then return ISWorldObjectContextMenu.setTest() end
+		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
 
 		if powerbank:getModData()["on"] then
 			if test then return ISWorldObjectContextMenu.setTest() end
@@ -102,4 +102,4 @@ ISAFixedGetText = function(getTextString)
 end
 
 Events.OnPreFillWorldObjectContextMenu.Add(OnPreFillWorldObjectContextMenu)
-Events.OnFillWorldObjectContextMenu.Add(ISAMenu.createMenuEntries);
+Events.OnFillWorldObjectContextMenu.Add(ISAMenu.createMenuEntries)

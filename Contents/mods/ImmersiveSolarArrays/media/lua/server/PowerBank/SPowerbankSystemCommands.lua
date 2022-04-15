@@ -19,7 +19,7 @@ function Commands.removePanel(player,args)
                 return
             end
         end
-        --pb:saveData(true)
+        pb:saveData(true)
     end
 end
 
@@ -28,7 +28,7 @@ function Commands.addPanel(player,args)
     if pb then
         table.insert(pb.panels,args.panel)
         pb.npanels = pb.npanels + 1
-        --pb:saveData(true)
+        pb:saveData(true)
     end
 end
 
@@ -46,7 +46,7 @@ function Commands.Battery(player,args)
             pb.maxcapacity = pb.maxcapacity + args[4]
         end
         pb:updateSprite()
-        --pb:saveData(true)
+        pb:saveData(true)
     end
 end
 

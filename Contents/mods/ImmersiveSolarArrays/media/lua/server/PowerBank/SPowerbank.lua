@@ -22,6 +22,7 @@ function SPowerbank:new(luaSystem, globalObject)
 end
 
 function SPowerbank:aboutToRemoveFromSystem()
+    table.wipe(self:getIsoObject():getModData())
     self:removeGenerator()
 end
 
@@ -29,15 +30,19 @@ end
 function SPowerbank:stateFromIsoObject(isoObject)
     self:initNew()
 
-    --if SPowerbankSystem.isValidModData(isoObject:getModData()) then
-    --    self:fromModData(isoObject:getModData())
-    --    self:handleBatteries(isoObject:getContainer())
-    if ModData.exists("PBK") then
-        self:fromPBK(isoObject)
+    if SPowerbankSystem.isValidModData(isoObject:getModData()) then
+        self:fromModData(isoObject:getModData())
+        --self:handleBatteries(isoObject:getContainer())
+        if not self:getSquare():getGenerator() then self:createGenerator() end
+        self:loadGenerator()
+    else
+        if ModData.exists("PBK") then
+            self:fromPBK(isoObject)
+        end
+        self:autoConnectToGenerator()
+        self:createGenerator()
     end
 
-    self:autoConnectToGenerator()
-    self:createGenerator()
     self:updateSprite()
     self:toModData(isoObject:getModData())
     isoObject:transmitModData()
@@ -237,7 +242,7 @@ function SPowerbank:handleBatteries(container)
 end
 
 function SPowerbank:getSprite(updatedCH)
-    if self.batteries == 0 then return nil end
+    if self.batteries == 0 then return "solarmod_tileset_01_11" end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
     if updatedCH < 0.25 then
         --show 0 charge
@@ -376,7 +381,7 @@ function SPowerbank:createGenerator()
     generator:setConnected(true)
     generator:setFuel(100)
     generator:setCondition(100)
-    generator:setSprite(nil)
+    generator:setSprite("solarmod_tileset_01_11")
 end
 
 function SPowerbank:removeGenerator()
