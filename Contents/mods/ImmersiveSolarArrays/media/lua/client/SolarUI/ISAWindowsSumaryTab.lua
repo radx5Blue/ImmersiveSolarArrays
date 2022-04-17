@@ -146,7 +146,7 @@ function ISAWindowsSumaryTab:render()
 	-- Update every 30 frames
 	if ((self.currentFrame % 30) == 0) then
 				local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
-				pb:updateFromIsoObject()
+				--pb:updateFromIsoObject() -- getluaobjectat does that
 				self.connectedPanels = pb.npanels
 				self.batteryLevel = pb.charge / pb.maxcapacity
 				self.capacity = pb.maxcapacity

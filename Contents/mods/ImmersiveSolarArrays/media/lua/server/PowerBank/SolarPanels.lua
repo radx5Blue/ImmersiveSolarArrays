@@ -1,3 +1,5 @@
+if isClient() then return end
+
 require "PowerBank/SpowerbankSystem"
 
 local function OnObjectAboutToBeRemoved(isoObject)

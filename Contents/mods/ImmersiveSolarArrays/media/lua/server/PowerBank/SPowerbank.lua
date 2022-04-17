@@ -452,9 +452,9 @@ function SPowerbank:updateConGenerator()
             end
         else
             if conGenerator:isActivated() then
-                if self.charge == 1 then conGenerator:setActivated(false);self.conGenerator.ison = false end
+                if self.charge == self.maxcapacity then conGenerator:setActivated(false);self.conGenerator.ison = false end
             else
-                if self.charge < 1 and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
+                if self.charge < self.maxcapacity and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
             end
         end
         self.lastHour = math.floor(getGameTime():getWorldAgeHours())

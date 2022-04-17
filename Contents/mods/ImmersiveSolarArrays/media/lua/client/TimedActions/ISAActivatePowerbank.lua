@@ -25,7 +25,7 @@ end
 
 function ISAActivatePowerbank:perform()
     local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(self.isopb:getSquare())
-    luapb:updateFromIsoObject()
+    --luapb:updateFromIsoObject() --getluaobject does that
     if self.activate then
         local level = self.character:getPerkLevel(Perks.Electricity)
         if level < 3 and ZombRand(6-2*level) ~= 0 then

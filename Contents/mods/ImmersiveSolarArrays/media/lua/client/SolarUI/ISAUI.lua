@@ -41,7 +41,6 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 	if _powerbank then
 		local powerbank = _powerbank
 		local square = powerbank:getSquare()
-		--local key = ISA.findKeyFromSquare(square)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
@@ -49,8 +48,10 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
 
-		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end);
+		if getDebug() then
+			if test then return ISWorldObjectContextMenu.setTest() end
+			ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)
+		end
 
 		if powerbank:getModData()["on"] then
 			if test then return ISWorldObjectContextMenu.setTest() end
@@ -63,15 +64,15 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 	end
 
 	if _panel then
-		local options = CPowerbankSystem.instance.canConnectPanelTo(_panel:getSquare())
 		local panel = _panel
+		local options = CPowerbankSystem.instance.canConnectPanelTo(panel:getSquare())
 		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		for _,opt in ipairs(options) do
 			if test then return ISWorldObjectContextMenu.setTest() end
-			ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel,player,panel, opt[3]);
+			ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel, player, panel, opt[3]);
 		end
 		_panel = nil
 	end
