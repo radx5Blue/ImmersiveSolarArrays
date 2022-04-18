@@ -341,6 +341,7 @@ end
 function SPowerbank:updateSprite(chargemod)
     local newsprite = self:getSprite(chargemod)
     local gen = self:getSquare():getGenerator()
+    print(newsprite, gen:getSpriteName())
     if newsprite ~= gen:getSpriteName() then
         gen:setSprite(newsprite)
         --gen:transmitUpdatedSpriteToClients()
@@ -376,6 +377,7 @@ function SPowerbank:autoConnectToGenerator()
 end
 
 function SPowerbank:createGenerator()
+    self:noise("Creating Generator")
     local square = self:getSquare()
     --local invgenerator = InventoryItemFactory.CreateItem("Base.Generator")
     --local generator = IsoGenerator.new(invgenerator, square:getCell(), square)
@@ -384,6 +386,7 @@ function SPowerbank:createGenerator()
     generator:setFuel(100)
     generator:setCondition(100)
     generator:setSprite(nil)
+    generator:transmitCompleteItemToClients()
     --generator:setSprite("solarmod_tileset_01_11")
 end
 
@@ -392,6 +395,7 @@ function SPowerbank:removeGenerator()
     local gen = square:getGenerator()
     if not gen then return end
     gen:setActivated(false)
+    print(square:getObjects())
     gen:remove()
     if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
 end

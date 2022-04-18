@@ -14,6 +14,15 @@ function CPowerbankSystem:newLuaObject(globalObject)
     return CPowerbank:new(self, globalObject)
 end
 
+function CPowerbankSystem:removeLuaObject(luaObject)
+    --remove on client because of index errors
+    if luaObject and luaObject.luaSystem == self then
+        local gen = luaObject:getSquare():getGenerator()
+        if gen then gen:remove() end
+    end
+    CGlobalObjectSystem.removeLuaObject(self,luaObject)
+end
+
 function CPowerbankSystem.canConnectPanelTo(square)
     local x = square:getX()
     local y = square:getY()
