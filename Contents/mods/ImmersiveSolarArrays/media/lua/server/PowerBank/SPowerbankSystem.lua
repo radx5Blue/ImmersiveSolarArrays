@@ -139,7 +139,7 @@ function SPowerbankSystem:updateCharge(chargefreq)
     end
 end
 
-function SPowerbankSystem.rebootSystem(arg)
+function SPowerbankSystem.rebootSystem(player,arg)
     local square = getSquare(arg.x,arg.y,arg.z)
     local isopb = ISAScan.squareHasPowerbank(square)
     local data = isopb:getModData()
@@ -154,6 +154,7 @@ function SPowerbankSystem.rebootSystem(arg)
             obj:remove()
         end
     end
+    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorRed())
 
     local newlua = SPowerbankSystem.instance:newLuaObjectAt(isopb:getX(),isopb:getY(),isopb:getZ())
     newlua:initNew()
@@ -163,6 +164,7 @@ function SPowerbankSystem.rebootSystem(arg)
     newlua:createGenerator()
     newlua:updateSprite()
     newlua:saveData(true)
+    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorGreen())
 end
 
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)

@@ -11,6 +11,11 @@ function CPowerbankSystem:isValidIsoObject(isoObject)
 end
 
 function CPowerbankSystem:newLuaObject(globalObject)
+    --mask generator
+    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
+    local generator = square and square:getGenerator()
+    if generator then generator:getCell():addToProcessIsoObjectRemove(generator) end
+
     return CPowerbank:new(self, globalObject)
 end
 

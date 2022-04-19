@@ -42,7 +42,7 @@ function ISAActivatePowerbank:perform()
         self.character:playSound("GeneratorStopping")
     end
 
-    luapb.on = self.activate
+    --luapb.on = self.activate
     local pb =  { x = luapb.x, y = luapb.y, z = luapb.z }
     CPowerbankSystem.instance:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
 

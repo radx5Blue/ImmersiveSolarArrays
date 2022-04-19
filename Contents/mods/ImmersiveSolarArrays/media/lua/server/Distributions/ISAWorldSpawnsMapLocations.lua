@@ -1,5 +1,5 @@
 local Maps = {}
---challenges on main map list this map
+--main map, mp and challenges list this map
 Maps["Muldraugh, KY"] = {
     { x = 4722, y = 7997, z = 0, type = 'solarmod_tileset_01_07' },
     { x = 4743, y = 7848, z = 0, type = 'solarmod_tileset_01_7' },

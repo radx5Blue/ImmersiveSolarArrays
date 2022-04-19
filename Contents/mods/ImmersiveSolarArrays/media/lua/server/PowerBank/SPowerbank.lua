@@ -22,7 +22,12 @@ function SPowerbank:new(luaSystem, globalObject)
 end
 
 function SPowerbank:aboutToRemoveFromSystem()
+    --removedata
     table.wipe(self:getIsoObject():getModData())
+    --self:getIsoObject():getModData().charge = nil
+    --self.charge = nil
+    --self:saveData(true)
+
     self:removeGenerator()
 end
 
@@ -31,8 +36,12 @@ function SPowerbank:stateFromIsoObject(isoObject)
     self:initNew()
 
     if SPowerbankSystem.isValidModData(isoObject:getModData()) then
-        self:fromModData(isoObject:getModData())
-        --self:handleBatteries(isoObject:getContainer())
+        self:noise("Valid Data")
+
+        --need to reset data on pickup
+        --self:fromModData(isoObject:getModData())
+        print("ISA Powerbank stateFromIsoObject isValidModData")
+
         if not self:getSquare():getGenerator() then self:createGenerator() end
         self:loadGenerator()
     else
@@ -341,7 +350,7 @@ end
 function SPowerbank:updateSprite(chargemod)
     local newsprite = self:getSprite(chargemod)
     local gen = self:getSquare():getGenerator()
-    print(newsprite, gen:getSpriteName())
+    self:noise("Sprite / "..tostring(newsprite).." == ".. tostring(gen:getSpriteName()))
     if newsprite ~= gen:getSpriteName() then
         gen:setSprite(newsprite)
         --gen:transmitUpdatedSpriteToClients()
@@ -379,15 +388,12 @@ end
 function SPowerbank:createGenerator()
     self:noise("Creating Generator")
     local square = self:getSquare()
-    --local invgenerator = InventoryItemFactory.CreateItem("Base.Generator")
-    --local generator = IsoGenerator.new(invgenerator, square:getCell(), square)
     local generator = IsoGenerator.new(nil, square:getCell(), square)
     generator:setConnected(true)
     generator:setFuel(100)
     generator:setCondition(100)
     generator:setSprite(nil)
     generator:transmitCompleteItemToClients()
-    --generator:setSprite("solarmod_tileset_01_11")
 end
 
 function SPowerbank:removeGenerator()
@@ -395,9 +401,9 @@ function SPowerbank:removeGenerator()
     local gen = square:getGenerator()
     if not gen then return end
     gen:setActivated(false)
-    print(square:getObjects())
-    gen:remove()
-    if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
+    gen:remove() --index error
+    --square:transmitRemoveItemFromSquare(gen) --index error
+    --if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
 end
 
 function SPowerbank:updateGenerator(dif)
@@ -411,8 +417,8 @@ function SPowerbank:updateGenerator(dif)
     local square = self:getSquare()
     local generator = square:getGenerator()
     generator:setActivated(activate)
-    if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
     generator:getCell():addToProcessIsoObjectRemove(generator)
+    if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
 end
 
 --if freezer timers, Powerbank generator condition / fuel are wrong check here

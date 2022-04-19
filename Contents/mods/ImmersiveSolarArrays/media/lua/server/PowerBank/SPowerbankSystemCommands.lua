@@ -45,6 +45,7 @@ function Commands.Battery(player,args)
             pb.charge = pb.charge + args[3] * args[4]
             pb.maxcapacity = pb.maxcapacity + args[4]
         end
+        pb:updateGenerator()
         pb:updateSprite()
         pb:saveData(true)
     end
@@ -96,7 +97,7 @@ function Commands.activatePowerbank(player,args)
 end
 
 function Commands.reboot(player,args)
-    SPowerbankSystem.instance.rebootSystem(args)
+    SPowerbankSystem.instance.rebootSystem(player,args)
 end
 
 SPowerbankSystemCommands = Commands

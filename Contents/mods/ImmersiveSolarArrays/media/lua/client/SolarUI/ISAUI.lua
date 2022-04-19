@@ -69,10 +69,23 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
-		context:addSubMenu(ISABBMenu, ISASubMenu);
-		for _,opt in ipairs(options) do
+		context:addSubMenu(ISABBMenu, ISASubMenu)
+		if #options ~= 0 then
+			for i,opt in ipairs(options) do
+				if test then return ISWorldObjectContextMenu.setTest() end
+				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel")..i, worldobjects, ConnectPanel, player, panel, opt[3])
+				local tooltip = ISWorldObjectContextMenu.addToolTip()
+				tooltip.description = getText("ContextMenu_ISA_Connect_Panel_toolTip").."( "..opt[1].." : "..opt[2].." )"
+				option.toolTip = tooltip;
+			end
+		else
 			if test then return ISWorldObjectContextMenu.setTest() end
-			ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel").."( "..opt[1].." : "..opt[2].." )", worldobjects, ConnectPanel, player, panel, opt[3]);
+			local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
+			local tooltip = ISWorldObjectContextMenu.addToolTip()
+			tooltip.description = getText("ContextMenu_ISA_Connect_Panel_NoPowerbank")
+			option.notAvailable = true;
+			option.toolTip = tooltip;
+			option.onSelect = nil;
 		end
 		_panel = nil
 	end

@@ -1,8 +1,13 @@
-if isClient() then return end
 require "Powerbank/SPowerbankSystem"
 
 local function LoadPowerbank(isoObject)
-    SPowerbankSystem.instance:loadIsoObject(isoObject)
+    if isClient() then
+        local gen = isoObject:getSquare():getGenerator()
+        if gen then gen:getCell():addToProcessIsoObjectRemove(gen) end
+    end
+    if isServer() then
+        SPowerbankSystem.instance:loadIsoObject(isoObject)
+    end
 end
 
 MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
