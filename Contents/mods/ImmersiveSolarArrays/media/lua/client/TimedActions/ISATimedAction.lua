@@ -1,6 +1,7 @@
 require "TimedActions/ISActivateGenerator"
 require "TimedActions/ISPlugGenerator"
 require "TimedActions/ISInventoryTransferAction"
+require "Moveables/ISMoveablesAction"
 
 local ISActivateGeneratorperform = ISActivateGenerator.perform
 function ISActivateGenerator:perform(...)
@@ -21,4 +22,12 @@ function ISInventoryTransferAction:transferItem(item,...)
     CPowerbankSystem.instance.onInventoryTransfer(self.srcContainer:getParent(), self.destContainer:getParent(), item, self.character)
 
     return original
+end
+
+local ISMoveablesActionperform = ISMoveablesAction.perform
+function ISMoveablesAction:perform(...)
+    if self.origSpriteName == "solarmod_tileset_01_0" then
+        return CPowerbankSystem.instance.onMoveableAction(self)
+    end
+    return ISMoveablesActionperform(self,...)
 end

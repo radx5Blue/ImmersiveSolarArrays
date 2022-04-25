@@ -21,15 +21,15 @@ function SPowerbank:new(luaSystem, globalObject)
     return o
 end
 
-function SPowerbank:aboutToRemoveFromSystem()
+--function SPowerbank:aboutToRemoveFromSystem()
     --removedata
-    table.wipe(self:getIsoObject():getModData())
+    --table.wipe(self:getIsoObject():getModData())
     --self:getIsoObject():getModData().charge = nil
     --self.charge = nil
     --self:saveData(true)
 
-    self:removeGenerator()
-end
+    --self:removeGenerator()
+--end
 
 --when you load isoobject without luaobject, place object
 function SPowerbank:stateFromIsoObject(isoObject)
@@ -39,19 +39,19 @@ function SPowerbank:stateFromIsoObject(isoObject)
         self:noise("Valid Data")
 
         --need to reset data on pickup
-        --self:fromModData(isoObject:getModData())
+        self:fromModData(isoObject:getModData())
         print("ISA Powerbank stateFromIsoObject isValidModData")
 
-        if not self:getSquare():getGenerator() then self:createGenerator() end
-        self:loadGenerator()
+        --if not self:getSquare():getGenerator() then self:createGenerator() end
     else
-        if ModData.exists("PBK") then
-            self:fromPBK(isoObject)
-        end
-        self:autoConnectToGenerator()
-        self:createGenerator()
+        --if ModData.exists("PBK") then
+        --    self:fromPBK(isoObject)
+        --end
+        --self:autoConnectToGenerator()
+        --self:createGenerator()
     end
 
+    self:loadGenerator()
     self:updateSprite()
     self:toModData(isoObject:getModData())
     isoObject:transmitModData()
@@ -124,9 +124,9 @@ function SPowerbank:fromPBK(isoObject)
     end
 end
 
-function SPowerbank:getDrainVanilla(square)
+function SPowerbank:getDrainVanilla()
     local scale = 800
-    local gen = square:getGenerator()
+    local gen = self:getIsoObject()
     if gen:isActivated() then
         gen:setSurroundingElectricity()
         return gen:getTotalPowerUsing() * scale
@@ -145,11 +145,11 @@ function SPowerbank.getTotalWhenoff(generator)
 end
 
 function SPowerbank:updateDrain()
-    local square = self:getSquare()
     if SandboxVars.ISA.DrainCalc == 1 then
+        local square = self:getSquare()
         self.drain = solarscan(square, false, true, false, 0)
     else
-        self.drain = SPowerbank:getDrainVanilla(square)
+        self.drain = SPowerbank:getDrainVanilla()
     end
 end
 
@@ -348,13 +348,11 @@ function SPowerbank:getSprite(updatedCH)
 end
 
 function SPowerbank:updateSprite(chargemod)
-    local newsprite = self:getSprite(chargemod)
-    local gen = self:getSquare():getGenerator()
-    self:noise("Sprite / "..tostring(newsprite).." == ".. tostring(gen:getSpriteName()))
-    if newsprite ~= gen:getSpriteName() then
-        gen:setSprite(newsprite)
-        --gen:transmitUpdatedSpriteToClients()
-        gen:sendObjectChange("sprite")
+    local overlay = self:getSprite(chargemod)
+    local gen = self:getIsoObject()
+    self:noise("Sprite / "..tostring(overlay).." == ".. tostring(gen:getOverlaySprite()))
+    if overlay ~= gen:getOverlaySprite() then
+        gen:setOverlaySprite(overlay,true)
     end
 end
 
@@ -368,7 +366,7 @@ function SPowerbank:autoConnectToGenerator()
             if IsoUtils.DistanceToSquared(x,y,ix,iy) <= 10 then
                 local isquare = getSquare(ix, iy, self.z)
                 local generator = isquare and isquare:getGenerator()
-                if generator and generator:isConnected() then
+                if generator and generator:isConnected() and not self.luaSystem:isValidIsoObject(generator) then
                     self.conGenerator = {}
                     self.conGenerator.x = ix
                     self.conGenerator.y = iy
@@ -383,8 +381,10 @@ function SPowerbank:autoConnectToGenerator()
             end
         end
     end
+    self.conGenerator = nil
 end
 
+--todo update or remove
 function SPowerbank:createGenerator()
     self:noise("Creating Generator")
     local square = self:getSquare()
@@ -396,6 +396,7 @@ function SPowerbank:createGenerator()
     generator:transmitCompleteItemToClients()
 end
 
+--todo update or remove
 function SPowerbank:removeGenerator()
     local square = self:getSquare()
     local gen = square:getGenerator()
@@ -415,7 +416,7 @@ function SPowerbank:updateGenerator(dif)
     end
     local activate = self.on and self.charge + dif > 0
     local square = self:getSquare()
-    local generator = square:getGenerator()
+    local generator = self:getIsoObject()
     generator:setActivated(activate)
     generator:getCell():addToProcessIsoObjectRemove(generator)
     if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
@@ -423,6 +424,10 @@ end
 
 --if freezer timers, Powerbank generator condition / fuel are wrong check here
 function SPowerbank:loadGenerator()
+
+    --todo remove or update
+    self:removeExtraGenerators()
+    if self.conGenerator and not self:getConGenerator() then self:autoConnectToGenerator() end
 
     self:getSquare():getGenerator():setSurroundingElectricity()
 
@@ -432,17 +437,27 @@ function SPowerbank:loadGenerator()
 
 end
 
-function SPowerbank:getConGenerator()
-    if not self.conGenerator then return end
-    local square = getSquare(self.conGenerator.x,self.conGenerator.y,self.conGenerator.z)
-    if square then
-        local generator = square:getGenerator()
-        if generator then
-            return generator
-        else
-            self.conGenerator = nil
+function SPowerbank:removeExtraGenerators(index)
+    if index == nil then index = 1 end
+    local special = self:getSquare():getSpecialObjects()
+    for index = 1, special:size() do
+        local obj = special:get(index-1)
+        if instanceof(obj, "IsoGenerator") and obj:getTextureName() ~= "solarmod_tileset_01_0" then
+            obj:remove()
+            return self:removeExtraGenerators(index)
         end
     end
+end
+
+function SPowerbank:getConGenerator()
+    if self.conGenerator then
+        local square = getSquare(self.conGenerator.x,self.conGenerator.y,self.conGenerator.z)
+        if square then
+            local generator = square:getGenerator()
+            return generator
+        end
+    end
+    return nil
 end
 
 function SPowerbank:updateConGenerator()
@@ -460,12 +475,12 @@ function SPowerbank:updateConGenerator()
             else
                 if self.charge < minfailsafe and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
             end
-        else
-            if conGenerator:isActivated() then
-                if self.charge == self.maxcapacity then conGenerator:setActivated(false);self.conGenerator.ison = false end
-            else
-                if self.charge < self.maxcapacity and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
-            end
+        --else
+        --    if conGenerator:isActivated() then
+        --        if self.charge == self.maxcapacity then conGenerator:setActivated(false);self.conGenerator.ison = false end --no electricity
+        --    else
+        --        if self.charge < self.maxcapacity and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
+        --    end
         end
         self.lastHour = math.floor(getGameTime():getWorldAgeHours())
     end

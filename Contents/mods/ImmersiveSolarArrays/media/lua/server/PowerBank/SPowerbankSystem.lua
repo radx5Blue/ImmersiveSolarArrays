@@ -17,7 +17,7 @@ function SPowerbankSystem:newLuaObject(globalObject)
 end
 
 function SPowerbankSystem:isValidIsoObject(isoObject)
-    return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
+    return isoObject:getTextureName() == "solarmod_tileset_01_0"
 end
 
 function SPowerbankSystem.isValidModData(modData)
@@ -39,6 +39,31 @@ end
 function SPowerbankSystem:OnClientCommand(command, playerObj, args)
     SPowerbankSystemCommands[command](playerObj, args)
 end
+
+--function SPowerbankSystem:OnObjectAdded(isoObject)
+--    if not self:isValidIsoObject(isoObject) then return end
+--    local square = isoObject:getSquare()
+--
+--    square:transmitRemoveItemFromSquare(isoObject)
+--
+--    --if not obj then return end
+--    --local square = obj:getSquare()
+--    local inv = InventoryItemFactory.CreateItem("ISA.PowerBank")
+--    local generator = IsoGenerator.new(inv, square:getCell(), square)
+--    generator:setConnected(true)
+--    generator:setFuel(100)
+--    generator:setCondition(100)
+--    local sprite = IsoSpriteManager.instance:getSprite("solarmod_tileset_01_0")
+--    generator:setSprite(sprite)
+--    generator:createContainersFromSpriteProperties()
+--    --square:getObjects():add(generator)
+--    --square:RecalcProperties()
+--    generator:transmitCompleteItemToClients()
+--
+--    return
+--    self:loadIsoObject(generator)
+--
+--end
 
 SPowerbankSystem.maxBatteryCapacity = {
     ["50AhBattery"] = 50,
