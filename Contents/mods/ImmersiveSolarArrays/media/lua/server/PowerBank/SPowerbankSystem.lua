@@ -180,4 +180,4 @@ local function addEvents()
         Events.EveryHours.Add(function()SPowerbankSystem.instance:updateCharge(2) end)
     end
 end
-Events.OnLoad.Add(addEvents)
+Events.OnGameBoot.Add(addEvents)
