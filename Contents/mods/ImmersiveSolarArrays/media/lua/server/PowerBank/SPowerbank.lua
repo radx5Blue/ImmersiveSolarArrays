@@ -350,10 +350,7 @@ end
 function SPowerbank:updateSprite(chargemod)
     local overlay = self:getSprite(chargemod)
     local gen = self:getIsoObject()
-    self:noise("Sprite / "..tostring(overlay).." == ".. tostring(gen:getOverlaySprite()))
-    if overlay ~= gen:getOverlaySprite() then
-        gen:setOverlaySprite(overlay,true)
-    end
+	gen:setOverlaySprite(overlay)
 end
 
 function SPowerbank:autoConnectToGenerator()

@@ -255,7 +255,7 @@ function CPowerbankSystem.onMoveableAction(obj)
                 end
                 generator:createContainersFromSpriteProperties()
                 generator:getContainerByIndex(0):setExplored(true)
-                --_square:AddSpecialObject( obj, insertIndex );
+                --_square:AddSpecialObject( obj, insertIndex )
                 if isClient() then generator:transmitCompleteItemToServer() end
                 triggerEvent("OnObjectAdded", generator)
                 obj.square:RecalcProperties();
@@ -275,4 +275,11 @@ function CPowerbankSystem.onMoveableAction(obj)
     ISBaseTimedAction.perform(obj)
 end
 
+function CPowerbankSystem:OnObjectAdded(isoObject)
+   if instanceof(isoObject,"IsoGenerator") and isoObject:getTextureName() == "solarmod_tileset_01_0" then
+       isoObject:getCell():addToProcessIsoObjectRemove(isoObject)
+   end
+end
+
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
+Events.OnObjectAdded.Add(CPowerbankSystem.OnObjectAdded)

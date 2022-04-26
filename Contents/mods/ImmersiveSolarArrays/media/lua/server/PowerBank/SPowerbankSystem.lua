@@ -41,28 +41,63 @@ function SPowerbankSystem:OnClientCommand(command, playerObj, args)
 end
 
 --function SPowerbankSystem:OnObjectAdded(isoObject)
---    if not self:isValidIsoObject(isoObject) then return end
---    local square = isoObject:getSquare()
+--    --if not self:isValidIsoObject(isoObject) then return end
 --
---    square:transmitRemoveItemFromSquare(isoObject)
+--    if instanceof(isoObject,"IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0" then
+--        local square = isoObject:getSquare()
 --
---    --if not obj then return end
---    --local square = obj:getSquare()
+--
 --    local inv = InventoryItemFactory.CreateItem("ISA.PowerBank")
 --    local generator = IsoGenerator.new(inv, square:getCell(), square)
+--    local sprite = IsoSpriteManager.instance:getSprite("solarmod_tileset_01_0")
+--    generator:setSprite(sprite)
 --    generator:setConnected(true)
 --    generator:setFuel(100)
 --    generator:setCondition(100)
---    local sprite = IsoSpriteManager.instance:getSprite("solarmod_tileset_01_0")
---    generator:setSprite(sprite)
+--
 --    generator:createContainersFromSpriteProperties()
---    --square:getObjects():add(generator)
---    --square:RecalcProperties()
---    generator:transmitCompleteItemToClients()
+--    generator:getContainerByIndex(0):setExplored(true)
 --
---    return
---    self:loadIsoObject(generator)
+--        print("isatest",square:getObjects())
+--        generator:transmitCompleteItemToClients()
 --
+--        print("isatest",square:getObjects())
+--
+--        triggerEvent("OnObjectAdded", generator)
+--        square:RecalcProperties();
+--    square:RecalcAllWithNeighbours(true);
+--    --generator:getCell():addToProcessIsoObjectRemove(generator)
+--    triggerEvent("OnContainerUpdate")
+--
+--    buildUtil.setHaveConstruction(square, true);
+--
+--        square:transmitRemoveItemFromSquare(isoObject)
+--
+--    --local square = isoObject:getSquare()
+--    --
+--    --square:transmitRemoveItemFromSquare(isoObject)
+--    --
+--    ----if not obj then return end
+--    ----local square = obj:getSquare()
+--    --local inv = InventoryItemFactory.CreateItem("ISA.PowerBank")
+--    --local generator = IsoGenerator.new(inv, square:getCell(), square)
+--    --generator:setConnected(true)
+--    --generator:setFuel(100)
+--    --generator:setCondition(100)
+--    --local sprite = IsoSpriteManager.instance:getSprite("solarmod_tileset_01_0")
+--    --generator:setSprite(sprite)
+--    --generator:createContainersFromSpriteProperties()
+--    ----square:getObjects():add(generator)
+--    ----square:RecalcProperties()
+--    --generator:transmitCompleteItemToClients()
+--    --
+--    --return
+--    --self:loadIsoObject(generator)
+--
+--
+--    --SGlobalObjectSystem.OnObjectAdded(self,isoObject)
+--
+--    end
 --end
 
 SPowerbankSystem.maxBatteryCapacity = {
@@ -132,6 +167,7 @@ function SPowerbankSystem:EveryDays()
 end
 
 function SPowerbankSystem:updateCharge(chargefreq)
+    self:noise("updateCharge")
     local solaroutput = self.getModifiedSolarOutput(1)
     for i=1,self.system:getObjectCount() do
         local pb = self.system:getObjectByIndex(i-1):getModData()
@@ -195,6 +231,7 @@ end
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
 
 local function addEvents()
+    --print("ISA Loading Events",SandboxVars.ISA.ChargeFreq,SandboxVars.ISA.DrainCalc)
     if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
     if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
 
@@ -205,4 +242,4 @@ local function addEvents()
         Events.EveryHours.Add(function()SPowerbankSystem.instance:updateCharge(2) end)
     end
 end
-Events.OnLoad.Add(addEvents)
+Events.OnGameBoot.Add(addEvents)
