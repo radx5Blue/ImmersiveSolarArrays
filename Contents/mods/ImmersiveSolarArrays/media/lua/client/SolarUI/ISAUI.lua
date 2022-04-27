@@ -1,7 +1,7 @@
 ISAMenu = ISAMenu or {};
 ISAMenu._index = ISAMenu
 
-local _powerbank , _panel
+local _powerbank
 
 local function ConnectPanel(worldobjects,player,panel,powerbank)
 	local character = getSpecificPlayer(player)
@@ -18,28 +18,29 @@ local function ActivatePowerbank (worlobjects,player,powerbank,activate)
 end
 
 local OnPreFillWorldObjectContextMenu = function(player, context, worldobjects, test)
-	for _,obj in pairs(worldobjects) do
-		local spritename = obj:getSprite() and obj:getSprite():getName()
-		if not spritename then
-			return
-		elseif spritename == "solarmod_tileset_01_0" then
-			_powerbank = obj
-			generator = nil
-			return
-		elseif spritename == "solarmod_tileset_01_6" or spritename == "solarmod_tileset_01_7" or spritename == "solarmod_tileset_01_8" or
-				spritename == "solarmod_tileset_01_9" or spritename == "solarmod_tileset_01_10" then
-			_panel = obj
-			return
-		end
+	if generator then
+		_powerbank = ISAScan.squareHasPowerbank(generator:getSquare())
+		if _powerbank then generator = nil end
 	end
 end
 
 ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
-
 	if test and ISWorldObjectContextMenu.Test then return true end
+	local powerbank = _powerbank
+	local panel
 
-	if _powerbank then
-		local powerbank = _powerbank
+	for _,obj in pairs(worldobjects) do
+		local spritename = obj:getSprite() and obj:getSprite():getName()
+		if spritename == "solarmod_tileset_01_0" then
+			powerbank = obj
+		elseif spritename == "solarmod_tileset_01_6" or spritename == "solarmod_tileset_01_7" or spritename == "solarmod_tileset_01_8" or
+				spritename == "solarmod_tileset_01_9" or spritename == "solarmod_tileset_01_10" then
+			panel = obj
+		end
+	end
+
+	if powerbank then
+		_powerbank = nil
 		local square = powerbank:getSquare()
 		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
@@ -60,16 +61,14 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_Turn_On"), worldobjects, ActivatePowerbank, player, powerbank, true);
 		end
-		_powerbank = nil
 	end
 
-	if _panel then
-		local panel = _panel
-		local options = CPowerbankSystem.instance.canConnectPanelTo(panel:getSquare())
+	if panel then
 		if test then return ISWorldObjectContextMenu.setTest() end
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu)
+		local options = CPowerbankSystem.instance.canConnectPanelTo(panel:getSquare())
 		if #options ~= 0 then
 			for i,opt in ipairs(options) do
 				if test then return ISWorldObjectContextMenu.setTest() end
@@ -87,9 +86,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 			option.toolTip = tooltip;
 			option.onSelect = nil;
 		end
-		_panel = nil
 	end
-
 end
 
 ISAIsDayTime = function(currentHour)

@@ -11,21 +11,36 @@ function CPowerbankSystem:isValidIsoObject(isoObject)
 end
 
 function CPowerbankSystem:newLuaObject(globalObject)
-    --mask generator
-    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
-    local generator = square and square:getGenerator()
-    if generator then generator:getCell():addToProcessIsoObjectRemove(generator) end
+    self.delayedSquare = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
+    if self.delayedSquare then
+        Events.OnTick.Add(CPowerbankSystem.delayedPR)
+    end
 
     return CPowerbank:new(self, globalObject)
 end
 
 function CPowerbankSystem:removeLuaObject(luaObject)
-    --remove on client because of index errors
-    if luaObject and luaObject.luaSystem == self then
-        local gen = luaObject:getSquare():getGenerator()
-        if gen then gen:remove() end
+    --todo remove on client because of index errors
+    --if luaObject and luaObject.luaSystem == self then
+    --    local gen = luaObject:getSquare():getGenerator()
+    --    if gen then gen:remove() end
+    --end
+    return CGlobalObjectSystem.removeLuaObject(self,luaObject)
+end
+
+local dprTick
+function CPowerbankSystem.delayedPR(globalObject)
+    local gen = CPowerbankSystem.instance.delayedSquare:getGenerator()
+    if gen then
+        gen:getCell():addToProcessIsoObjectRemove(gen)
+        dprTick = 16
     end
-    CGlobalObjectSystem.removeLuaObject(self,luaObject)
+    if dprTick > 15 then
+        dprTick = nil
+        CPowerbankSystem.instance.delayedSquare = nil
+        Events.OnTick.Remove(CPowerbankSystem.delayedPR)
+    end
+    dprTick = (dprTick or 0) + 1
 end
 
 function CPowerbankSystem.canConnectPanelTo(square)
@@ -119,8 +134,8 @@ end
 
 function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
-    local take =  src and src:getTextureName() == "solarmod_tileset_01_0"
-    local put =  dest and dest:getTextureName() == "solarmod_tileset_01_0"
+    local take = src and src:getTextureName() == "solarmod_tileset_01_0"
+    local put = dest and dest:getTextureName() == "solarmod_tileset_01_0"
     if not (take or put) then return end
 
     local type = item:getType()
@@ -160,4 +175,37 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
 end
 
+--function CPowerbankSystem.onMoveableAction(obj)
+--    CPowerbankSystem.instance:noise("onMoveableAction "..tostring(obj.mode))
+--
+--end
+
+function CPowerbankSystem:createGenerator(square)
+    local generator = IsoGenerator.new(nil, square:getCell(), square)
+    generator:setConnected(true)
+    generator:setFuel(100)
+    generator:setCondition(100)
+    generator:setSprite(nil)
+    if isClient() then generator:transmitCompleteItemToServer() else triggerEvent("OnObjectAdded", generator) end
+end
+
+function CPowerbankSystem:removeGenerator(square)
+    local gen = square:getGenerator()
+    if gen then
+        gen:setActivated(false)
+        gen:remove()
+    end
+end
+
+-- 41.68, doesn't trigger on clients
+--function CPowerbankSystem:OnObjectAdded(isoObject)
+--    print("isatest OnObjectAdded",isoObject)
+--    if instanceof(isoObject,"IsoGenerator") and ISAScan.squareHasPowerbank(isoObject:getSquare()) then
+--        isoObject:getCell():addToProcessIsoObjectRemove(isoObject)
+--        print("isatest test")
+--    end
+--end
+
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
+
+--Events.OnObjectAdded.Add(CPowerbankSystem.OnObjectAdded)

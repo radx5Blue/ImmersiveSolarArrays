@@ -40,6 +40,12 @@ function SPowerbankSystem:OnClientCommand(command, playerObj, args)
     SPowerbankSystemCommands[command](playerObj, args)
 end
 
+--function SPowerbankSystem:OnObjectAboutToBeRemoved(isoObject)
+--    if not self:isValidIsoObject(isoObject) then return end
+--
+--    return SGlobalObjectSystem.OnObjectAboutToBeRemoved(self,isoObject)
+--end
+
 SPowerbankSystem.maxBatteryCapacity = {
     ["50AhBattery"] = 50,
     ["75AhBattery"] = 75,
@@ -67,6 +73,72 @@ function SPowerbankSystem.removePanel(xpanel)
                 return
             end
         end
+    end
+end
+
+--todo test this
+function SPowerbankSystem.fixForGenerators(square, index, bank, hasGen)
+    if index == nil then index = 1 end
+    local special = square:getSpecialObjects()
+    local i = special:size() > 0 and 1 or 0
+    while i <= special:size() do
+        local obj = special:get(i-1)
+        if not bank then
+            if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then bank = true;
+            elseif instanceof(obj, "IsoGenerator") then obj:remove(); i=i-1;
+            end
+        else
+            if instanceof(obj, "IsoGenerator") then
+                if hasGen then
+                    obj:remove()
+                    i=i-1
+                else
+                    hasGen = true
+                end
+            end
+        end
+        i = i +1
+    end
+    return hasGen
+end
+--function SPowerbankSystem.fixForGenerators(square, index, bank, first)
+--    if index == nil then index = 1 end
+--    local special = square:getSpecialObjects()
+--    for i = index, special:size() do
+--        local obj = special:get(i-1)
+--        if not bank then
+--            if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then bank = true;
+--            elseif instanceof(obj, "IsoGenerator") then obj:remove();
+--            end
+--        else
+--            if instanceof(obj, "IsoGenerator") then
+--                if first then
+--                    obj:remove()
+--                    return SPowerbankSystem.instance.fixForGenerators(square,i,bank,first)
+--                else
+--                    first = true
+--                end
+--            end
+--        end
+--    end
+--end
+
+local spsgen, objCount
+function SPowerbankSystem.delayedGenRemove()
+    if objCount > spsgen:getSquare():getObjects():size() then
+        spsgen:setActivated(false)
+        spsgen:remove()
+        spsgen,objCount = nil,nil
+        Events.OnTick.Remove(SPowerbankSystem.delayedGenRemove)
+    end
+end
+
+--remove generator after powerbank has been removed
+function SPowerbankSystem.genRemove(square)
+    spsgen = square:getGenerator()
+    if spsgen then
+        objCount = square:getObjects():size()
+        Events.OnTick.Add(SPowerbankSystem.delayedGenRemove)
     end
 end
 
@@ -107,6 +179,7 @@ function SPowerbankSystem:EveryDays()
 end
 
 function SPowerbankSystem:updateCharge(chargefreq)
+    self:noise("updateCharge")
     local solaroutput = self.getModifiedSolarOutput(1)
     for i=1,self.system:getObjectCount() do
         local pb = self.system:getObjectByIndex(i-1):getModData()
@@ -170,6 +243,7 @@ end
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
 
 local function addEvents()
+    if getDebug() then print("Powerbank Loading Events: "..tostring(SandboxVars.ISA.ChargeFreq).." / "..tostring(SandboxVars.ISA.DrainCalc)) end
     if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
     if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
 

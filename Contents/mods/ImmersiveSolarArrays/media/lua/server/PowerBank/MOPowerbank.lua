@@ -4,8 +4,8 @@ local function LoadPowerbank(isoObject)
     if isClient() then
         local gen = isoObject:getSquare():getGenerator()
         if gen then gen:getCell():addToProcessIsoObjectRemove(gen) end
-    end
-    if isServer() then
+    else
+    --if isServer() then
         SPowerbankSystem.instance:loadIsoObject(isoObject)
     end
 end
