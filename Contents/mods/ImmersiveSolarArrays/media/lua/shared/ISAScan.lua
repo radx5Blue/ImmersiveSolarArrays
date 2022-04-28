@@ -49,3 +49,13 @@ function ISAScan.squareHasPanel(square)
     end
     return false
 end
+
+function ISAScan.squareHasFailsafe(square)
+    local special = square:getSpecialObjects()
+    for i = 1, special:size() do
+        if special:get(i-1):getTextureName() == "solarmod_tileset_01_15" then
+            return special:get(i-1)
+        end
+    end
+    return false
+end

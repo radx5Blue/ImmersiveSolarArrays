@@ -174,6 +174,7 @@ function SPowerbankSystem:EveryDays()
             local inv = isopb:getContainer()
             pb:degradeBatteries(inv) -- x days passed
             pb:handleBatteries(inv)
+
         end
     end
 end

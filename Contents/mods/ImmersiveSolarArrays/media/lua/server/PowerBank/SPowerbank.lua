@@ -32,18 +32,13 @@ function SPowerbank:stateFromIsoObject(isoObject)
 
     if SPowerbankSystem.isValidModData(isoObject:getModData()) then
         self:noise("Valid Data")
-
-        --todo reset data on pickup, remove generators if index lower than powerbank
         self:fromModData(isoObject:getModData())
-        print("ISA Powerbank stateFromIsoObject isValidModData")
-
     else
         --if ModData.exists("PBK") then
         --    self:fromPBK(isoObject)
         --end
 
-
-        self:autoConnectToGenerator()
+        --self:createGenerator()
     end
 
     self:loadGenerator()
@@ -425,10 +420,16 @@ end
 --todo remove or update fix
 function SPowerbank:loadGenerator()
     local square = self:getSquare()
-    local haveGen = SPowerbankSystem.instance.fixForGenerators(square,1,false,false)
-    if self.conGenerator and not self:getConGenerator() then self:autoConnectToGenerator() end
 
+    local haveGen = SPowerbankSystem.instance.fixForGenerators(square,1,false,false)
+    if self.conGenerator then
+        local conGenerator = self:getConGenerator()
+        if not conGenerator or conGenerator:getTextureName() ~= "appliances_misc_01_0" then
+            self:autoConnectToGenerator()
+        end
+    end
     if not haveGen then self:createGenerator() end
+
     local gen = square:getGenerator()
     gen:setSurroundingElectricity()
     gen:getCell():addToProcessIsoObjectRemove(gen)
@@ -453,7 +454,7 @@ end
 function SPowerbank:updateConGenerator()
     if self.lastHour == math.floor(getGameTime():getWorldAgeHours()) then return end
     local conGenerator = self:getConGenerator()
-    if conGenerator and ISMoveableSpriteProps:findOnSquare(conGenerator:getSquare(), "solarmod_tileset_01_15") then
+    if conGenerator and ISAScan.squareHasFailsafe(conGenerator:getSquare()) then
         self:noise("updating connected generator with failsafe")
 
         conGenerator:update()
