@@ -18,11 +18,12 @@ function ISAConnectPanel:start()
     local data = self.panel:getModData()
     local prevdelta = data["connectDelta"]
     if not prevdelta then prevdelta = 0 elseif prevdelta > 90 then prevdelta = 90 end
+    data["connectDelta"] = prevdelta
     self:setCurrentTime(self.maxTime * prevdelta / 100)
     if data["powerbank"] then
         local pb = CPowerbankSystem.instance:getIsoObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z) and data["powerbank"]
         if pb then
-            CPowerbankSystem.instance:sendCommand(self.character,"removePanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
+            CPowerbankSystem.instance:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
         end
         data["powerbank"] = nil
         self.panel:transmitModData()
@@ -58,7 +59,7 @@ function ISAConnectPanel:perform()
     if isopb then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
         local panel = { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }
-        CPowerbankSystem.instance:sendCommand(self.character,"addPanel", { panel = panel, pb = pb })
+        CPowerbankSystem.instance:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
         local data = self.panel:getModData()
         data.connectDelta = 100
         data.powerbank = pb

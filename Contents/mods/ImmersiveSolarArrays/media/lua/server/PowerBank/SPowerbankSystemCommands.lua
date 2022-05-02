@@ -9,21 +9,21 @@ local function getPowerbank(args)
     return SPowerbankSystem.instance:getLuaObjectAt(args.x, args.y, args.z)
 end
 
-function Commands.removePanel(player,args)
+function Commands.disconnectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         for i,panel in ipairs(pb.panels) do
             if panel.x == args.panel.x and panel.y == args.panel.y and panel.z == args.panel.z then
                 table.remove(pb.panels,i)
                 pb.npanels = pb.npanels - 1
-                return
+                break
             end
         end
         pb:saveData(true)
     end
 end
 
-function Commands.addPanel(player,args)
+function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         table.insert(pb.panels,args.panel)

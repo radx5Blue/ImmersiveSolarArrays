@@ -25,9 +25,15 @@ end
 
 local ISMoveablesActionperform = ISMoveablesAction.perform
 function ISMoveablesAction:perform(...)
-    if self.origSpriteName == "solarmod_tileset_01_0" and self.mode == "pickup" then
-        local isopb = ISAScan.squareHasPowerbank(self.square)
-        isopb:getModData().charge = nil
+    local type = ISAScan.Types[self.origSpriteName]
+    if self.mode == "pickup" then
+        local isoObject = ISAScan.findOnSquare(self.square,self.origSpriteName)
+        if type == "Powerbank" then
+            isoObject:getModData().charge = nil
+        elseif type == "Panel" then
+            local modData = isoObject:getModData()
+            modData.connectDelta = nil
+        end
     end
 
     local o = ISMoveablesActionperform(self,...)

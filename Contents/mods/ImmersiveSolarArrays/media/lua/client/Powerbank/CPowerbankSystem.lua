@@ -11,9 +11,8 @@ function CPowerbankSystem:isValidIsoObject(isoObject)
 end
 
 function CPowerbankSystem:newLuaObject(globalObject)
-    self.delayedSquare = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
-    if self.delayedSquare then
-        Events.OnTick.Add(CPowerbankSystem.delayedPR)
+    if CPowerbankSystem.instance then
+        CPowerbankSystem.instance.hideGenerator(globalObject)
     end
 
     return CPowerbank:new(self, globalObject)
@@ -24,18 +23,29 @@ end
 --    return CGlobalObjectSystem.removeLuaObject(self,luaObject)
 --end
 
+local delayedHide = {}
 local dprTick
-function CPowerbankSystem.delayedPR(globalObject)
-    local gen = CPowerbankSystem.instance.delayedSquare:getGenerator()
-    if gen then
-        gen:getCell():addToProcessIsoObjectRemove(gen)
-        dprTick = 15
+function CPowerbankSystem.delayedPR()
+    for i,square in ipairs(delayedHide) do
+        local gen = square:getGenerator()
+        if gen then
+            gen:getCell():addToProcessIsoObjectRemove(gen)
+            table.remove(delayedHide,i)
+        end
     end
     dprTick = (dprTick or 0) + 1
-    if dprTick > 15 then
+    if #delayedHide == 0 or dprTick > 15 then
         dprTick = nil
-        CPowerbankSystem.instance.delayedSquare = nil
         Events.OnTick.Remove(CPowerbankSystem.delayedPR)
+    end
+end
+
+function CPowerbankSystem.hideGenerator(globalObject)
+    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
+    if square then
+        table.insert(delayedHide, square)
+        if not dprTick then Events.OnTick.Add(CPowerbankSystem.delayedPR) end
+        dprTick = 0
     end
 end
 
@@ -68,7 +78,7 @@ function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
     local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = CPowerbankSystem.instance.getMaxSolarOutput(SolarInput)
+    local output = CPowerbankSystem.getMaxSolarOutput(SolarInput)
     local temperature = getClimateManager():getTemperature()
     local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
     output = output * CloudinessFogginessMean
@@ -114,15 +124,6 @@ function CPowerbankSystem.onActivateGenerator(character,generator,activate)
     end
 end
 
---CPowerbankSystem.maxBatteryCapacity = {
---    ["50AhBattery"] = 50,
---    ["75AhBattery"] = 75,
---    ["100AhBattery"] = 100,
---    ["DeepCycleBattery"] = 200,
---    ["SuperBattery"] = 400,
---    ["DIYBattery"] = (SandboxVars.ISA.DIYBatteryCapacity or 200)
---}
-
 function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
     local take = src and src:getTextureName() == "solarmod_tileset_01_0"
@@ -166,6 +167,36 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
 end
 
+function CPowerbankSystem.updateBank()
+    local max = ISAPowerbank.maxBatteryCapacity
+    for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
+        local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
+        local isopb = pb:getIsoObject()
+        if isopb then
+            pb:fromModData(isopb:getModData())
+            isopb:getContainer():setExplored(false)
+            isopb:getContainer():requestServerItemsForContainer()
+        end
+    end
+end
+--function CPowerbankSystem.updateBank()
+--    local max = ISAPowerbank.maxBatteryCapacity
+--    for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
+--        local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
+--        local isopb = pb:getIsoObject()
+--        if isopb then
+--            pb:fromModData(isopb:getModData())
+--            local items = isopb:getContainer():getItems()
+--            for i=1,items:size() do
+--                local item = items:get(i-1)
+--                if max[item:getType()] then
+--                    item:setUsedDelta(pb.charge / pb.maxcapacity)
+--                end
+--            end
+--        end
+--    end
+--end
+
 --function CPowerbankSystem.onMoveableAction(obj)
 --    CPowerbankSystem.instance:noise("onMoveableAction "..tostring(obj.mode))
 --
@@ -200,6 +231,14 @@ end
 --    end
 --end
 --Events.OnObjectAdded.Add(CPowerbankSystem.OnObjectAdded)
+
+if isClient() then
+    if SandboxVars.ISA.ChargeFreq == 1 then
+        Events.EveryTenMinutes.Add(CPowerbankSystem.updateBank)
+    else
+        Events.EveryHours.Add(CPowerbankSystem.updateBank)
+    end
+end
 
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
 

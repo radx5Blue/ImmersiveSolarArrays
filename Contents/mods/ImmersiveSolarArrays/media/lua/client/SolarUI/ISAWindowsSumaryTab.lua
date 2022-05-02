@@ -107,7 +107,7 @@ function ISAWindowsSumaryTab:initialise()
     self:addChild(self.imageSolarPanelCross);
 
 	-- Fix the daytime/nightime icon
-	local currentHour = getGameTime():getHour();
+	local currentHour = getGameTime():getTimeOfDay();
 	if ISAIsDayTime(currentHour) then
 		self.imageSun:setVisible(true)
 		self.imageMoon:setVisible(false)
@@ -145,20 +145,19 @@ end
 function ISAWindowsSumaryTab:render()
 	-- Update every 30 frames
 	if ((self.currentFrame % 30) == 0) then
-				local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
-		if not pb then return ISAStatusWindow.instance:close() end
-				--pb:updateFromIsoObject() -- getluaobjectat does that
-				self.connectedPanels = pb.npanels
-				self.batteryLevel = pb.charge / pb.maxcapacity
-				self.capacity = pb.maxcapacity
-				self.batteryNumber = pb.batteries
+				--local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
+		if not (self.powerbank and self.powerbank:getIsoObject()) then return ISAStatusWindow.instance:close() end
+				self.connectedPanels = self.powerbank.npanels
+				self.batteryLevel = self.powerbank.charge / self.powerbank.maxcapacity
+				self.capacity = self.powerbank.maxcapacity
+				self.batteryNumber = self.powerbank.batteries
 				self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(self.connectedPanels)
 				self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(self.connectedPanels)
-				self.actualCharge = pb.charge
-				self.drain = pb.drain
+				self.actualCharge = self.powerbank.charge
+				self.drain = self.powerbank.drain
 				self.difference = self.panelsInput - self.drain
 
-				local currentHour = getGameTime():getHour();
+				local currentHour = getGameTime():getTimeOfDay();
 				if ISAIsDayTime(currentHour) then
 					if (self.night == true) then
 						self.imageSun:setVisible(true)
