@@ -3,13 +3,13 @@ IGUI_EN = {
 
     IGUI_ISAWindowsStatus_Title = "Battery Bank Status",
 
-    IGUI_ISAWindowsSumaryTab_InfoText = "Power Bank solar and batteries sumary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
-    IGUI_ISAWindowsSumaryTab_TabTitle = "Sumary",
+    IGUI_ISAWindowsSumaryTab_InfoText = "Powerbank solar panels and batteries summary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
+    IGUI_ISAWindowsSumaryTab_TabTitle = "Summary",
     IGUI_ISAWindowsSumaryTab_ConnectedPanels = "Connected Panels",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Panels Status",
     IGUI_ISAWindowsSumaryTab_BatteryLevel = "Battery Level",
     IGUI_ISAWindowsSumaryTab_BatteryStatus = "Battery Status",
-    IGUI_ISAWindowsSumaryTab_NoEnoughPanels = "No enough panels",
+    IGUI_ISAWindowsSumaryTab_NoEnoughPanels = "Not enough panels",
     IGUI_ISAWindowsSumaryTab_WillNotCharge = "Will not charge",
     IGUI_ISAWindowsSumaryTab_NoEnoughSun = "Not enough sunlight",
     IGUI_ISAWindowsSumaryTab_Working = "Working OK",

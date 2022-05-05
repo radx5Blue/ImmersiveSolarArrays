@@ -55,11 +55,9 @@ function Commands.plugGenerator(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         if args.plug then
-            pb.conGenerator = {}
-            pb.conGenerator.x = args.gen.x
-            pb.conGenerator.y = args.gen.y
-            pb.conGenerator.z = args.gen.z
-            pb.conGenerator.ison = false
+            local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
+            local generator = square and square:getGenerator()
+            if generator then pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z) end
         else
             if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
                 pb.conGenerator = nil

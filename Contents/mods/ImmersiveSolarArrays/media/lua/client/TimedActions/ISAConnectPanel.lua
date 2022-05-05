@@ -54,7 +54,6 @@ end
 function ISAConnectPanel:perform()
     self.character:stopOrTriggerSound(self.sound)
 
-    --self.powerbank:updateFromIsoObject()
     local isopb = self.powerbank:getIsoObject()
     if isopb then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
@@ -79,7 +78,7 @@ function ISAConnectPanel:new(character, panel, powerbank)
     o.stopOnWalk = true;
     o.stopOnRun = true;
     o.stopOnAim = false
-    o.maxTime = 150 --(240 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay()
+    o.maxTime = 150 --todo (240 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay()
     if o.character:isTimedActionInstant() then
         o.maxTime = 1
     end

@@ -127,20 +127,20 @@ Category:Electrical,
 OnCreate:SolarModConvertBatteryReverse,
 }
 
-		recipe Make Solar Roof Tile
+    recipe Make Solar Roof Tile
     {
 		keep Base.Screwdriver,
 		SolarPanel,
 		Radio.ElectricWire = 3,		
 		CanBeDoneFromFloor:false,
-      		Time:120,
+        Time:120,
 		SkillRequired:Electricity=3,
 		Result: SolarPanelFlat,
 		NeedToBeLearn:true,
-       		Category:Electrical,
+        Category:Electrical,
     }
 
-		recipe Make Wall-Mounted Solar Panel
+    recipe Make Wall-Mounted Solar Panel
     {
 		keep Base.Screwdriver,
 		SolarPanel,
@@ -148,13 +148,13 @@ OnCreate:SolarModConvertBatteryReverse,
 		Base.MetalBar = 4,	
 		Base.Screws = 4,		
 		CanBeDoneFromFloor:false,
-      		Time:120,
+        Time:120,
 		SkillRequired:Electricity=3,
 		Result: SolarPanelWall,
 		NeedToBeLearn:true,
-       		Category:Electrical,
+        Category:Electrical,
     }
-		recipe Make Floor-Mounted Solar Panel
+    recipe Make Floor-Mounted Solar Panel
     {
 		keep Base.Screwdriver,
 		SolarPanel,
@@ -162,14 +162,14 @@ OnCreate:SolarModConvertBatteryReverse,
 		Base.Screws = 4,
 		Base.MetalBar = 4,		
 		CanBeDoneFromFloor:false,
-      		Time:120,
+        Time:120,
 		SkillRequired:Electricity=3,
 		Result: SolarPanelMounted,
 		NeedToBeLearn:true,
-       		Category:Electrical,
+        Category:Electrical,
     }
 
-recipe Create Battery Bank
+    recipe Create Battery Bank
     {
 		keep Base.Screwdriver,
 		Radio.ElectricWire = 3,
@@ -178,28 +178,25 @@ recipe Create Battery Bank
 		Base.MetalBar = 4,
 		ISAInverter = 1,
 		CanBeDoneFromFloor:false,
-      		Time:250,
+        Time:250,
 		SkillRequired:Electricity=3,
 		Result: PowerBank,
 		NeedToBeLearn:true,
-       		Category:Electrical,
+        Category:Electrical,
     }
 
-		recipe Create Solar Failsafe
+    recipe Create Solar Failsafe
     {
 		keep Base.Screwdriver,
 		Radio.ElectricWire = 2,
 		Base.RemoteCraftedV3 = 1,
-		ISA.50AhBattery = 1,
+		destroy ISA.50AhBattery,
 		CanBeDoneFromFloor:false,
-      		Time:250,
+        Time:250,
 		SkillRequired:Electricity=3,
 		Result: SolarFailsafe,
 		NeedToBeLearn:true,
-       		Category:Electrical,
+        Category:Electrical,
     }
-
-
-
 
 }

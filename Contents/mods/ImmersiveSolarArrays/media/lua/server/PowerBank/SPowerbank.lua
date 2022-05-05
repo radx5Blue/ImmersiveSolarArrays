@@ -11,8 +11,8 @@ function SPowerbank:initNew()
     self.maxcapacity = 0
     self.panels = {}
     self.npanels = 0
-    self.drain = 0 --calc
-    self.lastHour = math.floor(getGameTime():getWorldAgeHours())
+    self.drain = 0
+    self.lastHour = 0
     self.conGenerator = nil
 end
 
@@ -114,6 +114,16 @@ function SPowerbank:fromPBK(isoObject)
     end
 end
 
+function SPowerbank:shouldDrain(isoPb)
+    if self.switchchanged then self.switchchanged = nil elseif not self.on then return false end
+    if self.conGenerator and self.conGenerator.ison then return false end
+    if getWorld():isHydroPowerOn() then
+        if isoPb and not isoPb:getSquare():isOutside() then return false end
+        if getWorld():getMetaGrid():getRoomAt(self.x,self.y,self.z) then return false end
+    end
+    return true
+end
+
 function SPowerbank:getDrainVanilla(square)
     local scale = 800
     local gen = square:getGenerator()
@@ -136,6 +146,7 @@ end
 
 function SPowerbank:updateDrain()
     local square = self:getSquare()
+    if not square then return end
     if SandboxVars.ISA.DrainCalc == 1 then
         self.drain = solarscan(square, false, true, false, 0)
     else
@@ -197,7 +208,6 @@ function SPowerbank:degradeBatteries(container)
                 end
                 --breaks in 2 years
             end
-
         end
     end
 end
@@ -340,40 +350,11 @@ end
 function SPowerbank:updateSprite(chargemod)
     local newsprite = self:getSprite(chargemod)
     local gen = self:getSquare():getGenerator()
-    self:noise("updateSprite / "..tostring(newsprite).." / ".. tostring(gen:getSpriteName()))
+    --self:noise("updateSprite / "..tostring(newsprite).." / ".. tostring(gen:getSpriteName()))
     if newsprite ~= gen:getSpriteName() then
         gen:setSprite(newsprite)
         gen:sendObjectChange("sprite")
     end
-end
-
-function SPowerbank:autoConnectToGenerator()
-    local radius = 3
-    local x = self.x
-    local y = self.y
-
-    for ix = x - radius, x + radius do
-        for iy = y - radius, y + radius do
-            local distance = IsoUtils.DistanceToSquared(x,y,ix,iy)
-            if distance <= 10 then
-                local isquare = getSquare(ix, iy, self.z)
-                local generator = isquare and isquare:getGenerator()
-                if generator and generator:isConnected() and not ISAScan.squareHasPowerbank(isquare) then
-                    self.conGenerator = {}
-                    self.conGenerator.x = ix
-                    self.conGenerator.y = iy
-                    self.conGenerator.z = self.z
-                    self.conGenerator.ison = generator:isActivated()
-
-                    local data = generator:getModData()
-                    data["ISA_conGenerator"] = { x = self.x, y = self.y, z = self.z }
-                    generator:transmitModData()
-                    return
-                end
-            end
-        end
-    end
-    self.conGenerator = nil
 end
 
 function SPowerbank:createGenerator()
@@ -461,6 +442,40 @@ function SPowerbank:fixGeneratorNumber()
     if not hasGen then self:createGenerator() end
 end
 
+function SPowerbank:connectGenerator(generator,x,y,z)
+    self.conGenerator = {}
+    self.conGenerator.x = x
+    self.conGenerator.y = y
+    self.conGenerator.z = z
+    self.conGenerator.ison = generator:isActivated()
+    self.lastHour = 0
+
+    local data = generator:getModData()
+    data["ISA_conGenerator"] = { x = self.x, y = self.y, z = self.z }
+    generator:transmitModData()
+end
+
+function SPowerbank:autoConnectToGenerator()
+    local radius = 3
+    local x = self.x
+    local y = self.y
+
+    for ix = x - radius, x + radius do
+        for iy = y - radius, y + radius do
+            local distance = IsoUtils.DistanceToSquared(x,y,ix,iy)
+            if distance <= 10 then
+                local isquare = getSquare(ix, iy, self.z)
+                local generator = isquare and isquare:getGenerator()
+                if generator and generator:isConnected() and not ISAScan.squareHasPowerbank(isquare) then
+                    self:connectGenerator(generator,ix,iy,self.z)
+                    return
+                end
+            end
+        end
+    end
+    self.conGenerator = nil
+end
+
 function SPowerbank:getConGenerator()
     if self.conGenerator then
         local square = getSquare(self.conGenerator.x,self.conGenerator.y,self.conGenerator.z)
@@ -475,25 +490,29 @@ end
 function SPowerbank:updateConGenerator()
     if self.lastHour == math.floor(getGameTime():getWorldAgeHours()) then return end
     local conGenerator,square = self:getConGenerator()
-    if conGenerator and ISAScan.squareHasFailsafe(square) then
+    if square then
+        if conGenerator then
 
-        conGenerator:update()
+            conGenerator:update()
 
-        local minfailsafe = self.drain
-        if self.on then
-            if conGenerator:isActivated() then
-                if self.charge > minfailsafe then conGenerator:setActivated(false);self.conGenerator.ison = false end
-            else
-                if self.charge < minfailsafe and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
+            if self.on and ISAScan.squareHasFailsafe(square) then
+                local minfailsafe = self.drain
+                if conGenerator:isActivated() then
+                    if self.charge > minfailsafe then conGenerator:setActivated(false)end
+                else
+                    if self.charge < minfailsafe and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true) end
+                end
+                --else
+                --    if conGenerator:isActivated() then
+                --        if self.charge == self.maxcapacity then conGenerator:setActivated(false);self.conGenerator.ison = false end --no electricity
+                --    else
+                --        if self.charge < self.maxcapacity and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
+                --    end
             end
-        --else
-        --    if conGenerator:isActivated() then
-        --        if self.charge == self.maxcapacity then conGenerator:setActivated(false);self.conGenerator.ison = false end --no electricity
-        --    else
-        --        if self.charge < self.maxcapacity and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true);self.conGenerator.ison = true end
-        --    end
+            self.lastHour = math.floor(getGameTime():getWorldAgeHours())
+            self.conGenerator.ison = conGenerator:isActivated()
+        else
+            self.conGenerator = nil
         end
-
     end
-    if square then self.lastHour = math.floor(getGameTime():getWorldAgeHours()) end
 end

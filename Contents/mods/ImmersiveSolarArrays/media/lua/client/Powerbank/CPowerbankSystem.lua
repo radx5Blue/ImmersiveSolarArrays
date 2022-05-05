@@ -49,15 +49,23 @@ function CPowerbankSystem.hideGenerator(globalObject)
     end
 end
 
-function CPowerbankSystem.canConnectPanelTo(square)
-    local x = square:getX()
-    local y = square:getY()
-    local z = square:getZ()
+function CPowerbankSystem.canConnectPanelTo(panel)
+    local x = panel:getX()
+    local y = panel:getY()
+    local z = panel:getZ()
     local options = {}
     for i=1, CPowerbankSystem.instance.system:getObjectCount() do
         local pb = CPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
-        if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) <= 3 then
-            table.insert(options, {pb.x-x,pb.y-y, pb})
+        if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) < 3 then
+            local isConnected
+            pb:updateFromIsoObject()
+            for _,ipanel in ipairs(pb.panels) do
+                if x == ipanel.x and y == ipanel.y and z == ipanel.z then
+                    isConnected = true
+                    break
+                end
+            end
+            table.insert(options, {pb, pb.x-x,pb.y-y, isConnected})
         end
     end
     return options
@@ -94,8 +102,6 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
         if isopb then
             local pb = { x = isopb:getX(), y = isopb:getY(), z = isopb:getZ() }
             local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-            gendata["ISA_conGenerator"] = pb
-            generator:transmitModData()
             CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pb, gen = gen, plug = plug })
         end
     else
@@ -174,28 +180,17 @@ function CPowerbankSystem.updateBank()
         local isopb = pb:getIsoObject()
         if isopb then
             pb:fromModData(isopb:getModData())
-            isopb:getContainer():setExplored(false)
-            isopb:getContainer():requestServerItemsForContainer()
+            local delta = pb.charge / pb.maxcapacity
+            local items = isopb:getContainer():getItems()
+            for i=1,items:size() do
+                local item = items:get(i-1)
+                if max[item:getType()] then
+                    item:setUsedDelta(delta)
+                end
+            end
         end
     end
 end
---function CPowerbankSystem.updateBank()
---    local max = ISAPowerbank.maxBatteryCapacity
---    for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
---        local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
---        local isopb = pb:getIsoObject()
---        if isopb then
---            pb:fromModData(isopb:getModData())
---            local items = isopb:getContainer():getItems()
---            for i=1,items:size() do
---                local item = items:get(i-1)
---                if max[item:getType()] then
---                    item:setUsedDelta(pb.charge / pb.maxcapacity)
---                end
---            end
---        end
---    end
---end
 
 --function CPowerbankSystem.onMoveableAction(obj)
 --    CPowerbankSystem.instance:noise("onMoveableAction "..tostring(obj.mode))

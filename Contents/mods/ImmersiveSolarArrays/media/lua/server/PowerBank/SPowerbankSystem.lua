@@ -163,12 +163,13 @@ function SPowerbankSystem.rebootSystem(player,arg)
         newlua:saveData(true)
         HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorGreen())
         newlua:degradeBatteries(isopb:getContainer())
+        isopb:sendObjectChange("containers")
     end
 end
 
-function SPowerbankSystem:EveryDays()
-    for i=1,self.system:getObjectCount() do
-        local pb = self.system:getObjectByIndex(i-1):getModData()
+function SPowerbankSystem.EveryDays()
+    for i=1,SPowerbankSystem.instance.system:getObjectCount() do
+        local pb = SPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
             local prevCap = pb.maxcapacity
@@ -176,23 +177,22 @@ function SPowerbankSystem:EveryDays()
             pb:degradeBatteries(inv) --todo x days passed
             pb:handleBatteries(inv)
             pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
+            isopb:sendObjectChange("containers")
         end
     end
 end
 
-function SPowerbankSystem:updateCharge(chargefreq)
-    self:noise("updateCharge")
+function SPowerbankSystem:updatePowerbanks(chargefreq)
     local solaroutput = self.getModifiedSolarOutput(1)
     for i=1,self.system:getObjectCount() do
         local pb = self.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         local drain
-        if pb.switchchanged then pb.switchchanged = nil elseif not pb.on then drain = 0 end
-        if pb.conGenerator and pb.conGenerator.ison then drain = 0 end
-        --todo sandbox check,electricity on
-        if drain ~= 0 then
-            if isopb then pb:updateDrain() end
+        if pb:shouldDrain(isopb) then
+            pb:updateDrain()
             drain = pb.drain
+        else
+            drain = 0
         end
 
         local dif = solaroutput * pb.npanels - drain
@@ -214,20 +214,19 @@ function SPowerbankSystem:updateCharge(chargefreq)
     end
 end
 
-SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
+function SPowerbankSystem.sandbox()
+    if getDebug() then print("Powerbank sandbox: "..tostring(SandboxVars.ISA.DrainCalc).." / "..tostring(SandboxVars.ISA.ChargeFreq)) end
+    --if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
+    --if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
+    --if not SandboxVars.ISA.solarPanelEfficiency then SandboxVars.ISA.solarPanelEfficiency = 90 end
 
-local function addEvents()
-    if getDebug() then print("Powerbank Loading Events: "..tostring(SandboxVars.ISA.ChargeFreq).." / "..tostring(SandboxVars.ISA.DrainCalc)) end
-    if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
-    if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
-    if not SandboxVars.ISA.solarPanelEfficiency then SandboxVars.ISA.solarPanelEfficiency = 90 end
-
-    Events.EveryDays.Add(function()SPowerbankSystem.instance:EveryDays() end)
+    Events.EveryDays.Add(SPowerbankSystem.EveryDays)
     if SandboxVars.ISA.ChargeFreq == 1 then
-        Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updateCharge(1) end)
+        Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updatePowerbanks(1) end)
     else
-        Events.EveryHours.Add(function()SPowerbankSystem.instance:updateCharge(2) end)
+        Events.EveryHours.Add(function()SPowerbankSystem.instance:updatePowerbanks(2) end)
     end
 end
-addEvents()
---Events.OnGameBoot.Add(addEvents)
+Events.OnInitWorld.Add(SPowerbankSystem.sandbox)
+
+SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
