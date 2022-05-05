@@ -8,7 +8,7 @@ Recipes_EN {
     Recipe_Unwire_75Ah_Battery = "Unwire 75Ah Battery",
     Recipe_Wire_100Ah_Battery = "Wire 100Ah Battery",
     Recipe_Unwire_100Ah_Battery = "Unwire 100Ah Battery",
-    Recipe_Make_Solar_Roof_Tile = "Make Solar Roof Tile",
+    Recipe_Make_Solar_Roof_Tile = "Make Flat Solar Panel",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Make Wall-Mounted Solar Panel",
     Recipe_Make_Floor-Mounted_Solar_Panel = "Make Floor-Mounted Solar Panel",
     Recipe_Create_Battery_Bank = "Create Battery Bank",

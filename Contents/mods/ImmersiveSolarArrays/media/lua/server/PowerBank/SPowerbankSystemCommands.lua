@@ -9,21 +9,21 @@ local function getPowerbank(args)
     return SPowerbankSystem.instance:getLuaObjectAt(args.x, args.y, args.z)
 end
 
-function Commands.removePanel(player,args)
+function Commands.disconnectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         for i,panel in ipairs(pb.panels) do
             if panel.x == args.panel.x and panel.y == args.panel.y and panel.z == args.panel.z then
                 table.remove(pb.panels,i)
                 pb.npanels = pb.npanels - 1
-                return
+                break
             end
         end
         pb:saveData(true)
     end
 end
 
-function Commands.addPanel(player,args)
+function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         table.insert(pb.panels,args.panel)
@@ -55,11 +55,9 @@ function Commands.plugGenerator(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
         if args.plug then
-            pb.conGenerator = {}
-            pb.conGenerator.x = args.gen.x
-            pb.conGenerator.y = args.gen.y
-            pb.conGenerator.z = args.gen.z
-            pb.conGenerator.ison = false
+            local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
+            local generator = square and square:getGenerator()
+            if generator then pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z) end
         else
             if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
                 pb.conGenerator = nil

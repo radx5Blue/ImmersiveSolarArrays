@@ -1,5 +1,15 @@
 ISAScan = {}
 
+ISAScan.Types = {
+    solarmod_tileset_01_0 = "Powerbank",
+    solarmod_tileset_01_6 = "Panel",
+    solarmod_tileset_01_7 = "Panel",
+    solarmod_tileset_01_8 = "Panel",
+    solarmod_tileset_01_9 = "Panel",
+    solarmod_tileset_01_10 = "Panel",
+    solarmod_tileset_01_15 = "Failsafe",
+}
+
 function ISAScan.findPowerbank(square,radius,level,distance)
     local x = square:getX()
     local y = square:getY()
@@ -48,4 +58,32 @@ function ISAScan.squareHasPanel(square)
         end
     end
     return false
+end
+
+function ISAScan.squareHasFailsafe(square)
+    local special = square:getSpecialObjects()
+    for i = 1, special:size() do
+        if special:get(i-1):getTextureName() == "solarmod_tileset_01_15" then
+            return special:get(i-1)
+        end
+    end
+    return false
+end
+
+function ISAScan.findOnSquare(square,sprite)
+    local special = square:getSpecialObjects()
+    for i = 1, special:size() do
+        if special:get(i-1):getTextureName() == sprite then
+            return special:get(i-1)
+        end
+    end
+end
+
+function ISAScan.findTypeOnSquare(square,type)
+    local special = square:getSpecialObjects()
+    for i = 1, special:size() do
+        if ISAScan.Types[special:get(i-1):getTextureName()] == type then
+            return special:get(i-1)
+        end
+    end
 end

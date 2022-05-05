@@ -21,7 +21,8 @@ ContextMenu_EN = {
     ContextMenu_ISA_Batteries_No_Power = "The battery bank has no stored power.",
     ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d%% power.",
     ContextMenu_ISA_SolarPanel = "Solar Panel",
-    ContextMenu_ISA_Connect_Panel = "Connect to Powerbank: ",
+    ContextMenu_ISA_Connect_Panel = "Connect to Powerbank",
     ContextMenu_ISA_Connect_Panel_toolTip = "Powerbank location in relation to the Solar Panel (x:y) ",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solar Panel is connected to this Powerbank",
     ContextMenu_ISA_Connect_Panel_NoPowerbank = "No Powerbank detected",
 }

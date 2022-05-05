@@ -45,20 +45,15 @@ end
 function ISAStatusWindow.OnOpenPanel(fsquare)
 	if ISAStatusWindow.instance == nil then
 		local ui = ISAStatusWindow:new(100, 100, 200, 200)
-
 		ui:initialise()
-		--ui:instantiate()
 		ISAStatusWindow.instance = ui
 	end
-	local ui = ISAStatusWindow.instance
-	ui.fsquare = fsquare;
-
-	-- Current square
-	ui.sqX = fsquare:getX()
-	ui.sqY = fsquare:getY()
-	ui.sqZ = fsquare:getZ()
-
 	ISAStatusWindow.instance:addToUIManager()
+
+	local sumaryView = ISAStatusWindow.instance.sumaryView
+	sumaryView.currentFrame = 0
+	sumaryView.powerbank = CPowerbankSystem.instance:getLuaObjectAt(fsquare:getX(),fsquare:getY(),fsquare:getZ())
+
 end
 
 function ISAStatusWindow:close()

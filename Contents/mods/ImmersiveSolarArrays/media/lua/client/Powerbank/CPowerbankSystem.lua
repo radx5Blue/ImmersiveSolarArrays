@@ -11,32 +11,61 @@ function CPowerbankSystem:isValidIsoObject(isoObject)
 end
 
 function CPowerbankSystem:newLuaObject(globalObject)
-    --mask generator
-    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
-    local generator = square and square:getGenerator()
-    if generator then generator:getCell():addToProcessIsoObjectRemove(generator) end
+    if CPowerbankSystem.instance then
+        CPowerbankSystem.instance.hideGenerator(globalObject)
+    end
 
     return CPowerbank:new(self, globalObject)
 end
 
-function CPowerbankSystem:removeLuaObject(luaObject)
-    --remove on client because of index errors
-    if luaObject and luaObject.luaSystem == self then
-        local gen = luaObject:getSquare():getGenerator()
-        if gen then gen:remove() end
+--function CPowerbankSystem:removeLuaObject(luaObject)
+--
+--    return CGlobalObjectSystem.removeLuaObject(self,luaObject)
+--end
+
+local delayedHide = {}
+local dprTick
+function CPowerbankSystem.delayedPR()
+    for i,square in ipairs(delayedHide) do
+        local gen = square:getGenerator()
+        if gen then
+            gen:getCell():addToProcessIsoObjectRemove(gen)
+            table.remove(delayedHide,i)
+        end
     end
-    CGlobalObjectSystem.removeLuaObject(self,luaObject)
+    dprTick = (dprTick or 0) + 1
+    if #delayedHide == 0 or dprTick > 15 then
+        dprTick = nil
+        Events.OnTick.Remove(CPowerbankSystem.delayedPR)
+    end
 end
 
-function CPowerbankSystem.canConnectPanelTo(square)
-    local x = square:getX()
-    local y = square:getY()
-    local z = square:getZ()
+function CPowerbankSystem.hideGenerator(globalObject)
+    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
+    if square then
+        table.insert(delayedHide, square)
+        if not dprTick then Events.OnTick.Add(CPowerbankSystem.delayedPR) end
+        dprTick = 0
+    end
+end
+
+function CPowerbankSystem.canConnectPanelTo(panel)
+    local x = panel:getX()
+    local y = panel:getY()
+    local z = panel:getZ()
     local options = {}
     for i=1, CPowerbankSystem.instance.system:getObjectCount() do
         local pb = CPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
-        if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) <= 3 then
-            table.insert(options, {pb.x-x,pb.y-y, pb})
+        if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) < 3 then
+            local isConnected
+            pb:updateFromIsoObject()
+            for _,ipanel in ipairs(pb.panels) do
+                if x == ipanel.x and y == ipanel.y and z == ipanel.z then
+                    isConnected = true
+                    break
+                end
+            end
+            table.insert(options, {pb, pb.x-x,pb.y-y, isConnected})
         end
     end
     return options
@@ -53,16 +82,11 @@ function CPowerbankSystem.getMaxSolarOutput(SolarInput)
 end
 
 function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
-    --local myWeather = getClimateManager()
-    --local currentHour = getGameTime():getHour()
-
-    -- print("My weather: ", myWeather)
-    -- print("My time: ", currentHour)
     local cloudiness = getClimateManager():getCloudIntensity()
     local light = getClimateManager():getDayLightStrength()
     local fogginess = getClimateManager():getFogIntensity()
     local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
-    local output = CPowerbankSystem.instance.getMaxSolarOutput(SolarInput)
+    local output = CPowerbankSystem.getMaxSolarOutput(SolarInput)
     local temperature = getClimateManager():getTemperature()
     local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
     output = output * CloudinessFogginessMean
@@ -78,8 +102,6 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
         if isopb then
             local pb = { x = isopb:getX(), y = isopb:getY(), z = isopb:getZ() }
             local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-            gendata["ISA_conGenerator"] = pb
-            generator:transmitModData()
             CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pb, gen = gen, plug = plug })
         end
     else
@@ -108,19 +130,10 @@ function CPowerbankSystem.onActivateGenerator(character,generator,activate)
     end
 end
 
---CPowerbankSystem.maxBatteryCapacity = {
---    ["50AhBattery"] = 50,
---    ["75AhBattery"] = 75,
---    ["100AhBattery"] = 100,
---    ["DeepCycleBattery"] = 200,
---    ["SuperBattery"] = 400,
---    ["DIYBattery"] = (SandboxVars.ISA.DIYBatteryCapacity or 200)
---}
-
 function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
-    local take =  src and src:getTextureName() == "solarmod_tileset_01_0"
-    local put =  dest and dest:getTextureName() == "solarmod_tileset_01_0"
+    local take = src and src:getTextureName() == "solarmod_tileset_01_0"
+    local put = dest and dest:getTextureName() == "solarmod_tileset_01_0"
     if not (take or put) then return end
 
     local type = item:getType()
@@ -160,4 +173,67 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
 end
 
+function CPowerbankSystem.updateBank()
+    local max = ISAPowerbank.maxBatteryCapacity
+    for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
+        local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
+        local isopb = pb:getIsoObject()
+        if isopb then
+            pb:fromModData(isopb:getModData())
+            local delta = pb.charge / pb.maxcapacity
+            local items = isopb:getContainer():getItems()
+            for i=1,items:size() do
+                local item = items:get(i-1)
+                if max[item:getType()] then
+                    item:setUsedDelta(delta)
+                end
+            end
+        end
+    end
+end
+
+--function CPowerbankSystem.onMoveableAction(obj)
+--    CPowerbankSystem.instance:noise("onMoveableAction "..tostring(obj.mode))
+--
+--end
+
+--function CPowerbankSystem:createGenerator(square)
+--    local generator = IsoGenerator.new(nil, square:getCell(), square)
+--    generator:setConnected(true)
+--    generator:setFuel(100)
+--    generator:setCondition(100)
+--    generator:setSprite(nil)
+--    if isClient() then generator:transmitCompleteItemToServer() else triggerEvent("OnObjectAdded", generator) end
+--end
+--Events.OnObjectAdded.Add(CPowerbankSystem.createGenerator)
+
+--function CPowerbankSystem:removeGenerator(square)
+--    local gen = square:getGenerator()
+--    if gen then
+--        gen:setActivated(false)
+--        gen:remove()
+--    end
+--end
+--Events.OnObjectAboutToBeRemoved.Add(CPowerbankSystem.OnObjectAdded)
+--Events.OnDestroyIsoThumpable.Add(CPowerbankSystem.OnObjectAdded)
+
+-- 41.68, doesn't trigger for other clients
+--function CPowerbankSystem:OnObjectAdded(isoObject)
+--    print("isatest OnObjectAdded",isoObject)
+--    if instanceof(isoObject,"IsoGenerator") and ISAScan.squareHasPowerbank(isoObject:getSquare()) then
+--        isoObject:getCell():addToProcessIsoObjectRemove(isoObject)
+--        print("isatest test")
+--    end
+--end
+--Events.OnObjectAdded.Add(CPowerbankSystem.OnObjectAdded)
+
+if isClient() then
+    if SandboxVars.ISA.ChargeFreq == 1 then
+        Events.EveryTenMinutes.Add(CPowerbankSystem.updateBank)
+    else
+        Events.EveryHours.Add(CPowerbankSystem.updateBank)
+    end
+end
+
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
+

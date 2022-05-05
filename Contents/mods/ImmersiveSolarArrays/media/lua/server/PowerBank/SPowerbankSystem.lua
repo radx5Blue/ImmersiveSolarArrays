@@ -40,42 +40,82 @@ function SPowerbankSystem:OnClientCommand(command, playerObj, args)
     SPowerbankSystemCommands[command](playerObj, args)
 end
 
-SPowerbankSystem.maxBatteryCapacity = {
-    ["50AhBattery"] = 50,
-    ["75AhBattery"] = 75,
-    ["100AhBattery"] = 100,
-    ["DeepCycleBattery"] = 200,
-    ["SuperBattery"] = 400,
-    ["DIYBattery"] = (SandboxVars.ISA.DIYBatteryCapacity or 200)
-}
+--function SPowerbankSystem:OnObjectAboutToBeRemoved(isoObject)
+--    if not self:isValidIsoObject(isoObject) then return end
+--
+--    return SGlobalObjectSystem.OnObjectAboutToBeRemoved(self,isoObject)
+--end
 
 function SPowerbankSystem.removePanel(xpanel)
     local data = xpanel:getModData()
-    data.connectDelta = nil
-    if not data["powerbank"] then return end
-    local x = xpanel:getX()
-    local y = xpanel:getY()
-    local z = xpanel:getZ()
-
-    local pb = SPowerbankSystem.instance:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
+    local pb = data["powerbank"] and SPowerbankSystem.instance:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
     if pb then
+        local x = xpanel:getX()
+        local y = xpanel:getY()
+        local z = xpanel:getZ()
         for v,panel in ipairs(pb.panels) do
             if panel.x == x and panel.y == y and panel.z == z then
                 table.remove(pb.panels,v)
                 pb.npanels = pb.npanels - 1
-                data["powerbank"] = nil
-                return
+                break
             end
         end
+        pb:saveData(true)
+    end
+end
+
+--function SPowerbankSystem.fixForGenerators(square, index, bank, first)
+--    if index == nil then index = 1 end
+--    local special = square:getSpecialObjects()
+--    for i = index, special:size() do
+--        local obj = special:get(i-1)
+--        if not bank then
+--            if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then bank = true;
+--            elseif instanceof(obj, "IsoGenerator") then obj:remove();
+--            end
+--        else
+--            if instanceof(obj, "IsoGenerator") then
+--                if first then
+--                    obj:remove()
+--                    return SPowerbankSystem.instance.fixForGenerators(square,i,bank,first)
+--                else
+--                    first = true
+--                end
+--            end
+--        end
+--    end
+--end
+
+local delayedRemove = {}
+local dgrTick
+function SPowerbankSystem.delayedGenRemove()
+    for i,entry in ipairs(delayedRemove) do
+        local generator = entry[1]
+        if entry[2] > generator:getSquare():getObjects():size() then
+            generator:setActivated(false)
+            generator:remove()
+            table.remove(delayedRemove,i)
+        end
+    end
+    dgrTick = dgrTick + 1
+    if #delayedRemove == 0 or dgrTick == 15 then
+        dgrTick = nil
+        Events.OnTick.Remove(SPowerbankSystem.instance.delayedGenRemove)
+    end
+end
+
+--remove generator after powerbank has been removed
+function SPowerbankSystem.genRemove(square)
+    local gen = square:getGenerator()
+    if gen then
+        table.insert(delayedRemove, { gen, square:getObjects():size() })
+        if not dgrTick then Events.OnTick.Add(SPowerbankSystem.instance.delayedGenRemove) end
+        dgrTick = 0
     end
 end
 
 function SPowerbankSystem.getMaxSolarOutput(SolarInput)
     local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
-    if ISASolarEfficiency == nil then
-        ISASolarEfficiency = 90
-    end
-
     local output = SolarInput * (83 * ((ISASolarEfficiency * 1.25) / 100)) --changed to more realistic 1993 levels
     return output
 end
@@ -94,30 +134,65 @@ function SPowerbankSystem.getModifiedSolarOutput(SolarInput)
     return output
 end
 
-function SPowerbankSystem:EveryDays()
-    for i=1,self.system:getObjectCount() do
-        local pb = self.system:getObjectByIndex(i-1):getModData()
+--add debug functions
+function SPowerbankSystem.rebootSystem(player,arg)
+    local square = getSquare(arg.x,arg.y,arg.z)
+    local isopb = ISAScan.squareHasPowerbank(square)
+    local data = isopb and isopb:getModData()
+    local luaObj = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
+    local oldcharge = luaObj and luaObj.charge or data and data.charge or 0
+
+    if luaObj then SPowerbankSystem.instance:removeLuaObject(luaObj) end
+    if isopb then
+        local special = isopb:getSquare():getSpecialObjects()
+        for i = special:size() , 1, -1  do
+            local obj = special:get(i-1)
+            if instanceof(obj, "IsoGenerator") then
+                obj:remove()
+            end
+        end
+    end
+    if data then data.charge = nil end
+    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorRed())
+
+    if isopb then
+        SPowerbankSystem.instance:loadIsoObject(isopb)
+        local newlua = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
+        newlua.charge = oldcharge
+        newlua:handleBatteries(isopb:getContainer())
+        newlua:saveData(true)
+        HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorGreen())
+        newlua:degradeBatteries(isopb:getContainer())
+        isopb:sendObjectChange("containers")
+    end
+end
+
+function SPowerbankSystem.EveryDays()
+    for i=1,SPowerbankSystem.instance.system:getObjectCount() do
+        local pb = SPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
+            local prevCap = pb.maxcapacity
             local inv = isopb:getContainer()
-            pb:degradeBatteries(inv) -- x days passed
+            pb:degradeBatteries(inv) --todo x days passed
             pb:handleBatteries(inv)
+            pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
+            isopb:sendObjectChange("containers")
         end
     end
 end
 
-function SPowerbankSystem:updateCharge(chargefreq)
+function SPowerbankSystem:updatePowerbanks(chargefreq)
     local solaroutput = self.getModifiedSolarOutput(1)
     for i=1,self.system:getObjectCount() do
         local pb = self.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         local drain
-        if pb.switchchanged then pb.switchchanged = nil elseif not pb.on then drain = 0 end
-        if pb.conGenerator and pb.conGenerator.ison then drain = 0 end
-        --sandbox check,electricity on
-        if drain ~= 0 then
-            if isopb then pb:updateDrain() end
+        if pb:shouldDrain(isopb) then
+            pb:updateDrain()
             drain = pb.drain
+        else
+            drain = 0
         end
 
         local dif = solaroutput * pb.npanels - drain
@@ -129,55 +204,29 @@ function SPowerbankSystem:updateCharge(chargefreq)
         if isopb then
             pb:chargeBatteries(isopb:getContainer(),chargemod)
             pb:updateGenerator(dif)
-            pb:updateConGenerator()
             pb:updateSprite(chargemod)
             pb:saveData(true)
         end
+        pb:updateConGenerator()
         if getDebug() then
             print("Isa Log charge: "..i.." / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)).." - "..math.floor(drain))
         end
     end
 end
 
-function SPowerbankSystem.rebootSystem(player,arg)
-    local square = getSquare(arg.x,arg.y,arg.z)
-    local isopb = ISAScan.squareHasPowerbank(square)
-    local data = isopb:getModData()
-    local luaObj = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
-    local oldcharge = data.charge or luaObj.charge or 0
+function SPowerbankSystem.sandbox()
+    if getDebug() then print("Powerbank sandbox: "..tostring(SandboxVars.ISA.DrainCalc).." / "..tostring(SandboxVars.ISA.ChargeFreq)) end
+    --if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
+    --if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
+    --if not SandboxVars.ISA.solarPanelEfficiency then SandboxVars.ISA.solarPanelEfficiency = 90 end
 
-    if luaObj then SPowerbankSystem.instance:removeLuaObject(luaObj) end
-    local special = isopb:getSquare():getSpecialObjects()
-    for i = 1, special:size() do
-        local obj = special:get(i-1)
-        if instanceof(obj, "IsoGenerator") then
-            obj:remove()
-        end
+    Events.EveryDays.Add(SPowerbankSystem.EveryDays)
+    if SandboxVars.ISA.ChargeFreq == 1 then
+        Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updatePowerbanks(1) end)
+    else
+        Events.EveryHours.Add(function()SPowerbankSystem.instance:updatePowerbanks(2) end)
     end
-    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorRed())
-
-    local newlua = SPowerbankSystem.instance:newLuaObjectAt(isopb:getX(),isopb:getY(),isopb:getZ())
-    newlua:initNew()
-    newlua.charge = oldcharge
-    newlua:handleBatteries(isopb:getContainer())
-    newlua:autoConnectToGenerator()
-    newlua:createGenerator()
-    newlua:updateSprite()
-    newlua:saveData(true)
-    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorGreen())
 end
+Events.OnInitWorld.Add(SPowerbankSystem.sandbox)
 
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)
-
-local function addEvents()
-    if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
-    if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
-
-    Events.EveryDays.Add(function()SPowerbankSystem.instance:EveryDays() end)
-    if SandboxVars.ISA.ChargeFreq == 1 then
-        Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updateCharge(1) end)
-    else
-        Events.EveryHours.Add(function()SPowerbankSystem.instance:updateCharge(2) end)
-    end
-end
-Events.OnGameBoot.Add(addEvents)

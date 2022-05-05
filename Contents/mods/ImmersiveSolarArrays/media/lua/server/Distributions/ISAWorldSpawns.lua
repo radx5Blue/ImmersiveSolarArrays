@@ -3,7 +3,6 @@ if isClient() then return end
 require "Distributions/ISAWorldSpawnsMapLocations"
 
 ISAWorldSpawns = {}
-
 local data
 
 local function stringXYZ(iso)
@@ -11,7 +10,7 @@ local function stringXYZ(iso)
 end
 
 function ISAWorldSpawns.Place(square,sprite)
-    if square:isFree(true) or (sprite == "solarmod_tileset_01_06" or sprite == "solarmod_tileset_01_07") and square:isFreeOrMidair(true) then
+    --if square:isFree(true) or (sprite == "solarmod_tileset_01_06" or sprite == "solarmod_tileset_01_07") and square:isFreeOrMidair(true) then
         local isoObject = IsoObject.new(square:getCell(), square, sprite)
         if sprite == "solarmod_tileset_01_36" then
             isoObject:createContainersFromSpriteProperties()
@@ -20,13 +19,12 @@ function ISAWorldSpawns.Place(square,sprite)
         end
         square:getObjects():add(isoObject)
         square:RecalcProperties()
-    end
     --else get another tile
+    --end
 end
 
 function ISAWorldSpawns.Fill(isoObject)
     local container = isoObject:getContainer()
-	--generate numbers:
 	local panelnumber = ZombRand(4, 5) * SandboxVars.ISA.LRMSolarPanels
 	local batterynumber = ZombRand(1, 2) * SandboxVars.ISA.LRMBatteries
 	local miscnumber = 1 * SandboxVars.ISA.LRMMisc
@@ -60,7 +58,6 @@ function ISAWorldSpawns.spawnLocations()
             end
         end
     end
-    print("ISA Spawns Locations: ",#spawnLocations)
     return spawnLocations
 end
 

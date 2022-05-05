@@ -22,3 +22,29 @@ function ISInventoryTransferAction:transferItem(item,...)
 
     return original
 end
+
+local ISMoveablesActionperform = ISMoveablesAction.perform
+function ISMoveablesAction:perform(...)
+    local type = ISAScan.Types[self.origSpriteName]
+    if self.mode == "pickup" then
+        local isoObject = ISAScan.findOnSquare(self.square,self.origSpriteName)
+        if type == "Powerbank" then
+            isoObject:getModData().charge = nil
+        elseif type == "Panel" then
+            local modData = isoObject:getModData()
+            modData.connectDelta = nil
+        end
+    end
+
+    local o = ISMoveablesActionperform(self,...)
+
+    --if self.origSpriteName == "solarmod_tileset_01_0" then
+    --    --CPowerbankSystem.instance.onMoveableAction(self)
+    --    if self.mode == "pickup" then
+    --        CPowerbankSystem.instance:removeGenerator(self.square)
+    --    elseif self.mode == "place" then
+    --        CPowerbankSystem.instance:createGenerator(self.square)
+    --    end
+    --end
+    return o
+end

@@ -107,8 +107,8 @@ function ISAWindowsSumaryTab:initialise()
     self:addChild(self.imageSolarPanelCross);
 
 	-- Fix the daytime/nightime icon
-	local currentHour = getGameTime():getHour();
-	if ISAIsDayTime(currentHour) then
+	local currentTime = getGameTime():getTimeOfDay();
+	if ISAIsDayTime(currentTime) then
 		self.imageSun:setVisible(true)
 		self.imageMoon:setVisible(false)
 		self.night = false
@@ -145,72 +145,70 @@ end
 function ISAWindowsSumaryTab:render()
 	-- Update every 30 frames
 	if ((self.currentFrame % 30) == 0) then
-				local pb = CPowerbankSystem.instance:getLuaObjectAt(self.parent.parent.sqX, self.parent.parent.sqY, self.parent.parent.sqZ)
-		if not pb then return ISAStatusWindow.instance:close() end
-				--pb:updateFromIsoObject() -- getluaobjectat does that
-				self.connectedPanels = pb.npanels
-				self.batteryLevel = pb.charge / pb.maxcapacity
-				self.capacity = pb.maxcapacity
-				self.batteryNumber = pb.batteries
-				self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(self.connectedPanels)
-				self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(self.connectedPanels)
-				self.actualCharge = pb.charge
-				self.drain = pb.drain
-				self.difference = self.panelsInput - self.drain
+		if not (self.powerbank and self.powerbank:getIsoObject()) then return ISAStatusWindow.instance:close() end
+		self.powerbank:updateFromIsoObject()
+		self.connectedPanels = self.powerbank.npanels
+		self.batteryLevel = self.powerbank.charge / self.powerbank.maxcapacity
+		self.capacity = self.powerbank.maxcapacity
+		self.batteryNumber = self.powerbank.batteries
+		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(self.connectedPanels)
+		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(self.connectedPanels)
+		self.actualCharge = self.powerbank.charge
+		self.drain = self.powerbank:shouldDrain() and self.powerbank.drain or 0
+		self.difference = self.panelsInput - self.drain
 
-				local currentHour = getGameTime():getHour();
-				if ISAIsDayTime(currentHour) then
-					if (self.night == true) then
-						self.imageSun:setVisible(true)
-						self.imageMoon:setVisible(false)
-						self.night = false
-					end
-				else
-					if (self.night == false) then
-						self.imageSun:setVisible(false)
-						self.imageMoon:setVisible(true)
-						self.night = true
-					end
-				end
-				
-				if (self.batteryNumber > 0) then
-					if (self.thereAreBatteries == false) then
-						self.imageBatteryCross:setVisible(false)
-						self.thereAreBatteries = true;
-					end
-				else
-					if (self.thereAreBatteries == true) then
-						self.imageBatteryCross:setVisible(true)
-						self.thereAreBatteries = false;
-					end
-				end
+		local currentTime = getGameTime():getTimeOfDay();
+		if ISAIsDayTime(currentTime) then
+			if (self.night == true) then
+				self.imageSun:setVisible(true)
+				self.imageMoon:setVisible(false)
+				self.night = false
+			end
+		else
+			if (self.night == false) then
+				self.imageSun:setVisible(false)
+				self.imageMoon:setVisible(true)
+				self.night = true
+			end
+		end
 
-				if (self.connectedPanels > 0) then
-					if (self.thereArePanels == false) then
-						self.imageSolarPanelCross:setVisible(false)
-						self.thereArePanels = true;
-					end
-				else
-					if (self.thereArePanels == false) then
-						self.imageSolarPanelCross:setVisible(true)
-						self.thereArePanels = false;
-					end
-				end
-				
+		if (self.batteryNumber > 0) then
+			if (self.thereAreBatteries == false) then
+				self.imageBatteryCross:setVisible(false)
+				self.thereAreBatteries = true;
+			end
+		else
+			if (self.thereAreBatteries == true) then
+				self.imageBatteryCross:setVisible(true)
+				self.thereAreBatteries = false;
+			end
+		end
+
+		if (self.connectedPanels > 0) then
+			if (self.thereArePanels == false) then
+				self.imageSolarPanelCross:setVisible(false)
+				self.thereArePanels = true;
+			end
+		else
+			if (self.thereArePanels == false) then
+				self.imageSolarPanelCross:setVisible(true)
+				self.thereArePanels = false;
+			end
+		end
+
+		if self.difference > 0 then
+			if (self.batteryCharging == false) then
+				self.imageSolarPanel:setVisible(true);
+				self.imageSolarPanelNoEnergy:setVisible(false);
+				self.batteryCharging = true;
+			end
+		else
+			if (self.batteryCharging == true) then
+				self.imageSolarPanel:setVisible(false);
+				self.imageSolarPanelNoEnergy:setVisible(true);
 				self.batteryCharging = false;
-				if self.difference > 0 then
-					if (self.batteryCharging == false) then
-						self.imageSolarPanel:setVisible(true);
-						self.imageSolarPanelNoEnergy:setVisible(false);
-						self.batteryCharging = true;
-					end
-				else
-					if (self.batteryCharging == true) then
-						self.imageSolarPanel:setVisible(false);
-						self.imageSolarPanelNoEnergy:setVisible(true);
-						self.batteryCharging = false;
-					end
-				end
+			end
+		end
 		-- Reset the frames count to avoid overflow
 		self.currentFrame = 0;
 	end
@@ -235,8 +233,8 @@ function ISAWindowsSumaryTab:render()
 	-- Solar panels status
 	if (self.drain > self.panelsMaxInput) then
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	elseif (self.drain > self.panelsMaxInput) then
-		self:drawText(getText("IGUI_ISAWindowsSumaryTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+	--elseif (self.drain > self.panelsMaxInput) then
+	--	self:drawText(getText("IGUI_ISAWindowsSumaryTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
 		if (self.drain > self.panelsInput) then
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
@@ -278,7 +276,6 @@ function ISAWindowsSumaryTab:render()
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 	end
-	
 end
 
 function ISAWindowsSumaryTab:new(x, y, width, height)
