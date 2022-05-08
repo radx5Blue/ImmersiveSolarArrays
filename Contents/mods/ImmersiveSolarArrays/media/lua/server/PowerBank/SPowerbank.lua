@@ -117,9 +117,13 @@ end
 function SPowerbank:shouldDrain(isoPb)
     if self.switchchanged then self.switchchanged = nil elseif not self.on then return false end
     if self.conGenerator and self.conGenerator.ison then return false end
-    if getWorld():isHydroPowerOn() then
-        if isoPb and not isoPb:getSquare():isOutside() then return false end
-        if getWorld():getMetaGrid():getRoomAt(self.x,self.y,self.z) then return false end
+    --v.41.69+
+    if getWorld().isHydroPowerOn and getWorld():isHydroPowerOn() then
+        if isoPb then
+            if not isoPb:getSquare():isOutside() then return false end
+        else
+            if getWorld():getMetaGrid():getRoomAt(self.x,self.y,self.z) then return false end
+        end
     end
     return true
 end
@@ -140,7 +144,6 @@ function SPowerbank.getTotalWhenoff(generator)
     local tpu = generator:getTotalPowerUsing()
     generator:setActivated(false)
     if generator:getSquare():getBuilding() ~= nil then generator:getSquare():getBuilding():setToxic(false) end
-    --generator:getCell():addToProcessIsoObjectRemove(generator)
     return tpu
 end
 
@@ -409,7 +412,7 @@ function SPowerbank:loadGenerator()
 
 end
 
---fix prev errors
+--todo remove this, fix prev errors
 function SPowerbank:fixGeneratorNumber()
     local square = self:getSquare()
     local bank,hasGen

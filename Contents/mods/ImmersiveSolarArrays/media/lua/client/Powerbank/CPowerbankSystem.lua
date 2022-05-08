@@ -236,4 +236,3 @@ if isClient() then
 end
 
 CGlobalObjectSystem.RegisterSystemClass(CPowerbankSystem)
-

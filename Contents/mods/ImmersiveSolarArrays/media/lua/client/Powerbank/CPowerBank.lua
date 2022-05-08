@@ -7,11 +7,12 @@ function CPowerbank:new(luaSystem, globalObject)
 end
 
 function CPowerbank:shouldDrain()
-    local isoPb = self:getIsoObject()
-    if not self.switchchanged and not self.on then return false end
+    local square = self:getSquare()
+    if not self.on then return false end
     if self.conGenerator and self.conGenerator.ison then return false end
-    if getWorld():isHydroPowerOn() then
-        if isoPb and not isoPb:getSquare():isOutside() then return false end
+    --41.69+ version
+    if getWorld().isHydroPowerOn and getWorld():isHydroPowerOn() then
+        if square and not square:isOutside() then return false end
     end
     return true
 end
