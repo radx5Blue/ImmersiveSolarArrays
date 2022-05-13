@@ -29,6 +29,6 @@ Sandbox_EN = {
     Sandbox_ISA_ChargeFreq_option1 = "Every 10 Minutes",
     Sandbox_ISA_ChargeFreq_option2 = "Every Hour",
     Sandbox_ISA_ChargeFreq = "Charge Frequency",
-    Sandbox_ISA_ChargeFreq_tooltip = "How often Powerbanks will charge",
+    Sandbox_ISA_ChargeFreq_tooltip = "How often Battery Bank will charge",
 
 }

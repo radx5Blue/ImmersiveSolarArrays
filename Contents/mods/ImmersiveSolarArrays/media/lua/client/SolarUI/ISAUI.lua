@@ -29,12 +29,12 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 	local powerbank = _powerbank
 	local panel
 
-	for _,obj in pairs(worldobjects) do
+	for _,obj in ipairs(worldobjects) do
 		local spritename = obj:getSprite() and obj:getSprite():getName()
-		if spritename == "solarmod_tileset_01_0" then
+		local type = ISAScan.Types[spritename]
+		if type == "Powerbank" then
 			powerbank = obj
-		elseif spritename == "solarmod_tileset_01_6" or spritename == "solarmod_tileset_01_7" or spritename == "solarmod_tileset_01_8" or
-				spritename == "solarmod_tileset_01_9" or spritename == "solarmod_tileset_01_10" then
+		elseif type == "Panel" then
 			panel = obj
 		end
 	end
@@ -66,12 +66,15 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu)
 		local options = CPowerbankSystem.instance.canConnectPanelTo(panel)
-		if #options ~= 0 then
+		if #options > 0 then
 			for i,opt in ipairs(options) do
 				if test then return ISWorldObjectContextMenu.setTest() end
-				local option = ISASubMenu:addOption(i .. ". " .. getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ConnectPanel, player, panel, opt[1])
+				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel") .. getText("ContextMenu_ISA_BatteryBank"), worldobjects, ConnectPanel, player, panel, opt[1])
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
-				tooltip.description = opt[4] and getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or getText("ContextMenu_ISA_Connect_Panel_toolTip").."( "..opt[2].." : "..opt[3].." )"
+				tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
+				local text1 = opt[4] and " <RGB:0,1,0>" .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or " <RGB:1,0,0>" .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+				local text2 = " <RGB:1,1,1>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip")
+				tooltip.description = text1 .. "\n\n" .. text2
 				option.toolTip = tooltip;
 			end
 		else

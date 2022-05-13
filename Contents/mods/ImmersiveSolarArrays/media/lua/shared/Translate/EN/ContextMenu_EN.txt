@@ -3,7 +3,6 @@ ContextMenu_EN = {
     ContextMenu_ISA_BatteryBankStatus = "See the status",
     ContextMenu_ISA_DiagnoseBankIssues = "Reset",
 
-
     ContextMenu_ISA_NoPanels = "There are currently no panels connected.",
     ContextMenu_ISA_CurrentPanels = "There is currently %d solar panel connected.",
     ContextMenu_ISA_CurrentPanels_Plural = "There are currently %d solar panels connected.",
@@ -18,11 +17,12 @@ ContextMenu_EN = {
     ContextMenu_ISA_Power_Discharging_Plural = "Power will remain for about %d hours.",
     ContextMenu_ISA_Power_Discharging_Almost_Empty = "Power will remain for less than an hour.",
     ContextMenu_ISA_Batteries_No_Batteries = "There are no batteries to charge up the battery bank.",
-    ContextMenu_ISA_Batteries_No_Power = "The battery bank has no stored power.",
-    ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d%% power.",
+    ContextMenu_ISA_Batteries_No_Power = "The Battery Bank has no stored power.",
+    ContextMenu_ISA_Batteries_Power_Level = "The Battery Bank is currently at %d%% power.",
     ContextMenu_ISA_SolarPanel = "Solar Panel",
-    ContextMenu_ISA_Connect_Panel = "Connect to Powerbank",
-    ContextMenu_ISA_Connect_Panel_toolTip = "Powerbank location in relation to the Solar Panel (x:y) ",
-    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solar Panel is connected to this Powerbank",
-    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No Powerbank detected",
+    ContextMenu_ISA_Connect_Panel = "Connect to ",
+    ContextMenu_ISA_Connect_Panel_toolTip = "   Battery Bank location in relation to the Solar Panel (x:y) ",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solar Panel is connected to this Battery Bank",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Solar Panel is not connected to this Battery Bank",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No Battery Bank is near this Solar Panel",
 }

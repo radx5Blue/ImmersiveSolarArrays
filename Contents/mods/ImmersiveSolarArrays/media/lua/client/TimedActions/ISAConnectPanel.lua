@@ -43,7 +43,7 @@ function ISAConnectPanel:stop()
     self.character:stopOrTriggerSound(self.sound)
     local delta = math.floor(self:getJobDelta()*100)
     local data = self.panel:getModData()
-    if delta > data.connectDelta then
+    if delta > data.connectDelta and self.panel:getObjectIndex() ~= -1 then
         data.connectDelta = delta
         self.panel:transmitModData()
     end

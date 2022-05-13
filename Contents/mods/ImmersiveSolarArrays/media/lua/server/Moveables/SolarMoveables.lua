@@ -20,7 +20,7 @@ for x = bottom, top do
 					--scan coming from power bank
 					if InitialScan == true and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-						if ISAScan.squareHasPanel(mysquare) then
+						if ISAScan.findTypeOnSquare(mysquare,"Panel") then
 							numberofpanels = numberofpanels + 1
 						end
 					end
@@ -37,7 +37,7 @@ for x = bottom, top do
 				--		end
 				--end
 				if LimitedScan == true and backupgenerator == 0 then
-					if ISAScan.squareHasPanel(mysquare) then
+					if ISAScan.findTypeOnSquare(mysquare,"Panel") then
 						numberofpanels = numberofpanels + 1
 					end
 				end

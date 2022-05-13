@@ -137,7 +137,7 @@ end
 --add debug functions
 function SPowerbankSystem.rebootSystem(player,arg)
     local square = getSquare(arg.x,arg.y,arg.z)
-    local isopb = ISAScan.squareHasPowerbank(square)
+    local isopb = ISAScan.findOnSquare(square,"solarmod_tileset_01_0")
     local data = isopb and isopb:getModData()
     local luaObj = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
     local oldcharge = luaObj and luaObj.charge or data and data.charge or 0

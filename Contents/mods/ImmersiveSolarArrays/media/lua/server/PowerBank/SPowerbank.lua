@@ -469,7 +469,7 @@ function SPowerbank:autoConnectToGenerator()
             if distance <= 10 then
                 local isquare = getSquare(ix, iy, self.z)
                 local generator = isquare and isquare:getGenerator()
-                if generator and generator:isConnected() and not ISAScan.squareHasPowerbank(isquare) then
+                if generator and generator:isConnected() and not ISAScan.findOnSquare(isquare,"solarmod_tileset_01_0") then
                     self:connectGenerator(generator,ix,iy,self.z)
                     return
                 end
@@ -498,7 +498,7 @@ function SPowerbank:updateConGenerator()
 
             conGenerator:update()
 
-            if self.on and ISAScan.squareHasFailsafe(square) then
+            if self.on and ISAScan.findOnSquare(square, "solarmod_tileset_01_15") then
                 local minfailsafe = self.drain
                 if conGenerator:isActivated() then
                     if self.charge > minfailsafe then conGenerator:setActivated(false)end

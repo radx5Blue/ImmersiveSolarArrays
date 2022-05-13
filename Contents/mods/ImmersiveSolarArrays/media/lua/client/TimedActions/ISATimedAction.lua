@@ -26,7 +26,7 @@ end
 local ISMoveablesActionperform = ISMoveablesAction.perform
 function ISMoveablesAction:perform(...)
     local type = ISAScan.Types[self.origSpriteName]
-    if self.mode == "pickup" then
+    if type and self.mode == "pickup" then
         local isoObject = ISAScan.findOnSquare(self.square,self.origSpriteName)
         if type == "Powerbank" then
             isoObject:getModData().charge = nil
@@ -37,6 +37,16 @@ function ISMoveablesAction:perform(...)
     end
 
     local o = ISMoveablesActionperform(self,...)
+
+    --todo fix tiledefinition
+    if self.mode == "scrap" then
+        if self.moveProps.object:getTextureName() == "solarmod_tileset_01_8" then
+            if self.moveProps.object:getObjectIndex() ~= -1 then
+                if isClient() then self.square:transmitRemoveItemFromSquare(self.moveProps.object) end
+                self.square:RemoveTileObject(self.moveProps.object)
+            end
+        end
+    end
 
     --if self.origSpriteName == "solarmod_tileset_01_0" then
     --    --CPowerbankSystem.instance.onMoveableAction(self)
