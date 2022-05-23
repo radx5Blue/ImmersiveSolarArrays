@@ -89,16 +89,19 @@ end
 local delayedRemove = {}
 local dgrTick
 function SPowerbankSystem.delayedGenRemove()
-    for i,entry in ipairs(delayedRemove) do
-        local generator = entry[1]
-        if entry[2] > generator:getSquare():getObjects():size() then
-            generator:setActivated(false)
-            generator:remove()
+    for i = #delayedRemove, 1, -1 do
+        local square = delayedRemove[i][1]
+        if delayedRemove[i][2] > square:getObjects():size() then
+            local generator = square:getGenerator()
+            if generator then
+                generator:setActivated(false)
+                generator:remove()
+            end
             table.remove(delayedRemove,i)
         end
     end
     dgrTick = dgrTick + 1
-    if #delayedRemove == 0 or dgrTick == 15 then
+    if #delayedRemove == 0 or dgrTick > 64 then
         dgrTick = nil
         Events.OnTick.Remove(SPowerbankSystem.instance.delayedGenRemove)
     end
@@ -106,9 +109,8 @@ end
 
 --remove generator after powerbank has been removed
 function SPowerbankSystem.genRemove(square)
-    local gen = square:getGenerator()
-    if gen then
-        table.insert(delayedRemove, { gen, square:getObjects():size() })
+    if square:getGenerator() then
+        table.insert(delayedRemove, { square, square:getObjects():size() })
         if not dgrTick then Events.OnTick.Add(SPowerbankSystem.instance.delayedGenRemove) end
         dgrTick = 0
     end
@@ -178,6 +180,9 @@ function SPowerbankSystem.EveryDays()
             pb:handleBatteries(inv)
             pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
             isopb:sendObjectChange("containers")
+
+            local gen = isopb:getSquare():getGenerator()
+            print("Isatest Gen Condition",gen and gen:getCondition())
         end
     end
 end

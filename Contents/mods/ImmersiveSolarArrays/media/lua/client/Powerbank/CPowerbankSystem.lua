@@ -26,15 +26,15 @@ end
 local delayedHide = {}
 local dprTick
 function CPowerbankSystem.delayedPR()
-    for i,square in ipairs(delayedHide) do
-        local gen = square:getGenerator()
+    for i = #delayedHide, 1 , -1 do
+        local gen = delayedHide[i]:getGenerator()
         if gen then
             gen:getCell():addToProcessIsoObjectRemove(gen)
             table.remove(delayedHide,i)
         end
     end
-    dprTick = (dprTick or 0) + 1
-    if #delayedHide == 0 or dprTick > 15 then
+    dprTick = dprTick + 1
+    if #delayedHide == 0 or dprTick > 64 then
         dprTick = nil
         Events.OnTick.Remove(CPowerbankSystem.delayedPR)
     end
