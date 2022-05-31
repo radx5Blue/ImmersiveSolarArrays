@@ -89,6 +89,5 @@ Maps["challengemaps/Kingsmouth"] = {
 }
 Maps["NewEkron"] = {
     { x = 7385, y = 8299, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Electronics Store
-    { x = 7391, y = 8300, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Electronics Store
 }
 ISAWorldSpawnsMaps = Maps

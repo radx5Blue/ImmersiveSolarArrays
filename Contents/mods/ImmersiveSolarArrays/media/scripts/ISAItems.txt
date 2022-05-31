@@ -132,9 +132,9 @@ module ISA
 
 	item PowerBank
 	{
-	Type = Moveable,
-	WorldObjectSprite = solarmod_tileset_01_0,
-	DisplayName		= Moveable,
+        Type = Moveable,
+        WorldObjectSprite = solarmod_tileset_01_0,
+        DisplayName		= Moveable,
 	}
 
 	item SolarPanelFlat

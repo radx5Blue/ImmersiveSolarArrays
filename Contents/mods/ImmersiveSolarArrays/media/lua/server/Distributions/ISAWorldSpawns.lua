@@ -42,22 +42,20 @@ function ISAWorldSpawns.doRolls()
     local spawnChance = SandboxVars.ISA.solarPanelWorldSpawns
     if spawnChance == 0 then return end
 
-    local maps = {}
+    local loaded = {}
     for _,map in ipairs(getWorld():getMap():split(";")) do
-        local loc = ISAWorldSpawnsMaps[map]
-        maps[map] = loc and loc or {}
-    end
-
-    for map,locations in pairs(maps) do
-        for _,location in ipairs(locations) do
-            local valid = true
-            for _,over in ipairs(location.overwrite) do
-                if maps[over] then valid = false end
-            end
-            if valid and ZombRand(1, 100) <= spawnChance then
-                data[location.x .. "," .. location.y .. "," .. location.z] = location.type
+        if ISAWorldSpawnsMaps[map] then
+            for _,location in ipairs(ISAWorldSpawnsMaps[map]) do
+                local valid = true
+                for _,over in ipairs(location.overwrite) do
+                    if loaded[over] then valid = false end
+                end
+                if valid and ZombRand(1, 100) <= spawnChance then
+                    data[location.x .. "," .. location.y .. "," .. location.z] = location.type
+                end
             end
         end
+        loaded[map] = true
     end
 end
 
@@ -77,7 +75,7 @@ ISAWorldSpawns.OnInitGlobalModData = function(newGame)
         data = ModData.create("ISAWorldSpawns")
         ISAWorldSpawns.doRolls()
     end
-    --if not next(data) == nil then --doesn't seem to work in PZ
+
     for _,_ in pairs(data) do
         Events.LoadGridsquare.Add(LoadGridsquare)
         break

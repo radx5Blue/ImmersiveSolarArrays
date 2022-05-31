@@ -210,9 +210,9 @@ function SPowerbankSystem:updatePowerbanks(chargefreq)
             pb:chargeBatteries(isopb:getContainer(),chargemod)
             pb:updateGenerator(dif)
             pb:updateSprite(chargemod)
-            pb:saveData(true)
         end
         pb:updateConGenerator()
+        pb:saveData(true)
         if getDebug() then
             print("Isa Log charge: "..i.." / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)).." - "..math.floor(drain))
         end
