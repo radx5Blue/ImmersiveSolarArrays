@@ -25,47 +25,53 @@ local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
 -- Solar Mag
 iReg = "ISA.ISAMag1";
 registerAsLoot(iReg, 1.0 * ISAmiscLootMult, "BookstoreBooks");
-registerAsLoot(iReg, 0.5 * ISAmiscLootMult, "PostOfficeBooks");
-registerAsLoot(iReg, 0.7 * ISAmiscLootMult, "PostOfficeMagazines");
+registerAsLoot(iReg, 0.5 * ISAmiscLootMult, "BookstoreMisc");
+registerAsLoot(iReg, 1.0 * ISAmiscLootMult, "CrateMagazines");
+registerAsLoot(iReg, 1.5 * ISAmiscLootMult, "ElectronicStoreMagazines");
+registerAsLoot(iReg, 0.2 * ISAmiscLootMult, "EngineerTools");
 registerAsLoot(iReg, 0.8 * ISAmiscLootMult, "LibraryBooks");
 registerAsLoot(iReg, 1.0 * ISAmiscLootMult, "LivingRoomShelf");
-registerAsLoot(iReg, 1.5 * ISAmiscLootMult, "ElectronicStoreMagazines");
+registerAsLoot(iReg, 1.0 * ISAmiscLootMult, "LivingRoomShelfNoTapes");
 registerAsLoot(iReg, 0.4 * ISAmiscLootMult, "MagazineRackMixed");
+registerAsLoot(iReg, 0.5 * ISAmiscLootMult, "PostOfficeBooks");
+registerAsLoot(iReg, 0.7 * ISAmiscLootMult, "PostOfficeMagazines");
 registerAsLoot(iReg, 0.6 * ISAmiscLootMult, "ShelfGeneric");
 
 
 
 -- Solar panel
 iReg = "ISA.SolarPanel";
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateCamping");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateElectronics");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateMechanics");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreMetalwork");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreTools");
-registerAsLoot(iReg, 0.15 * ISApanelLootMult, "ToolStoreMisc");
-registerAsLoot(iReg, 0.20 * ISApanelLootMult, "StoreShelfElectronics");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "ArmyHangarTools");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ArmyStorageElectronics");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "GigamartHouseElectronics");
-registerAsLoot(iReg, 0.15 * ISApanelLootMult, "ElectronicStoreMisc");
+--registerAsLoot(iReg, 0.05 * ISApanelLootMult, "BedroomDresser");
+--registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CampingStoreGear");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateCarpentry");
+--registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateCamping");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateElectronics");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateFarming");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateMechanics");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateMetalwork");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CratePaint");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateRandomJunk");
 registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateTools");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CampingStoreGear");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "OtherGeneric");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "GarageMechanics");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ElectronicStoreAppliances");
-registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreFarming");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CratePaint");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateFarming");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateMetalwork");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "MechanicShelfMisc");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "MechanicShelfElectric");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "LoggingFactoryTools");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "GigamartFarming");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "GarageTools");
+registerAsLoot(iReg, 0.15 * ISApanelLootMult, "ElectronicStoreMisc");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "EngineerTools");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "GarageMechanics");
 registerAsLoot(iReg, 0.05 * ISApanelLootMult, "GarageMetalwork");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateCarpentry");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "BedroomDresser");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "ArmyHangarTools");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "GarageTools");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "GigamartHouseElectronics");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "GigamartFarming");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "LoggingFactoryTools");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "MechanicShelfElectric");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "MechanicShelfMisc");
+registerAsLoot(iReg, 0.05 * ISApanelLootMult, "MetalShopTools");
+registerAsLoot(iReg, 0.20 * ISApanelLootMult, "StoreShelfElectronics");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreFarming");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreMetalwork");
+registerAsLoot(iReg, 0.15 * ISApanelLootMult, "ToolStoreMisc");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreTools");
+registerAsLoot(iReg, 0.10 * ISApanelLootMult, "OtherGeneric");
 
 
 
@@ -86,9 +92,9 @@ registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "CrateTools");
 registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "OtherGeneric");
 registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "GarageMechanics");
 registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "ToolStoreFarming");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CratePaint");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateFarming");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateMetalwork");
+registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CratePaint");
+registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CrateFarming");
+registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CrateMetalwork");
 
 
 
@@ -109,9 +115,9 @@ registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CrateTools");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "OtherGeneric");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "GarageMechanics");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "ToolStoreFarming");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CratePaint");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateFarming");
-registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateMetalwork");
+registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CratePaint");
+registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CrateFarming");
+registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CrateMetalwork");
 
 
 
@@ -134,6 +140,17 @@ registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "OtherGeneric");
 registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "GarageMechanics");
 registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "ElectronicStoreAppliances");
 registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "ToolStoreFarming");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CratePaint");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateFarming");
-registerAsLoot(iReg, 0.03 * ISApanelLootMult, "CrateMetalwork");
+registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CratePaint");
+registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateFarming");
+registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateMetalwork");
+
+iReg = {
+	"ISA.ISAMag1", 1 * ISAbatteryLootMult,
+	"ISA.ISAInverter", 0.1 * ISAbatteryLootMult,
+	"ISA.SolarPanel", 1 * ISApanelLootMult,
+	"ISA.DeepCycleBattery", 1 * ISAbatteryLootMult,
+	"ISA.SuperBattery", 0.1 * ISAbatteryLootMult,
+}
+for _,i in ipairs(iReg) do
+	table.insert(VehicleDistributions.ElectricianTruckBed.items,i)
+end
