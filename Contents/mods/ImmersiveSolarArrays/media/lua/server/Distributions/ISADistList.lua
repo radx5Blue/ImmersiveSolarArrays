@@ -1,6 +1,9 @@
+--fixme SandboxVars are default value at this stage, MP are loaded already OnPreDistributionMerge, SP are not
+
+require 'Items/Distributions'
 require 'Items/ProceduralDistributions'
 require 'Items/SuburbsDistributions'
-require 'Items/Distributions'
+
 
 function registerAsLoot(item, chance, allocation)
   table.insert(ProceduralDistributions.list[allocation].items, item);
@@ -20,6 +23,7 @@ local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
 	if SandboxVars.ISA.LRMSolarPanels == nil then
 		ISApanelLootMult = 1
 	end
+local addItems
 
 
 -- Solar Mag
@@ -144,13 +148,58 @@ registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CratePaint");
 registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateMetalwork");
 
-iReg = {
+local SolarBox = {
+	rolls = 4,
+	items = {
+		"ISA.SolarPanel", 20,
+		"ISA.DeepCycleBattery", 20,
+		"ISA.SuperBattery", 16,
+	},
+	junk = {
+		rolls = 1,
+		items = {
+			"ISA.ISAMag1", 60,
+			"ISA.ISAInverter", 60,
+			"ElectronicsScrap", 20,
+			"ISA.SolarPanel", 20,
+			"ISA.DeepCycleBattery", 20,
+			"ISA.SuperBattery", 16,
+			"MetalBar", 10,
+			"SmallSheetMetal", 10,
+			"Screws", 5,
+			"Radio.ElectricWire", 20,
+			"RemoteCraftedV3", 0.1,
+		}
+	}
+}
+
+SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99} }}
+--SuburbsDistributions.all.SolarBox = SolarBox
+ProceduralDistributions.list.SolarBox = SolarBox
+
+addItems = {
+	electronicsstorage = {
+		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=10},
+		crate = {name="SolarBox", min=0, max=1, weightChance=20 },
+	},
+	warehouse = {
+		crate = {name="SolarBox", min=0, max=1, weightChance=5}
+	},
+}
+
+for room,containerList in pairs(addItems) do
+	for container,proc in pairs(containerList) do
+		table.insert(SuburbsDistributions[room][container].procList,proc)
+	end
+end
+
+addItems = {
 	"ISA.ISAMag1", 1 * ISAbatteryLootMult,
-	"ISA.ISAInverter", 0.1 * ISAbatteryLootMult,
+	"ISA.ISAInverter", 0.6 * ISAbatteryLootMult,
 	"ISA.SolarPanel", 1 * ISApanelLootMult,
 	"ISA.DeepCycleBattery", 1 * ISAbatteryLootMult,
-	"ISA.SuperBattery", 0.1 * ISAbatteryLootMult,
+	"ISA.SuperBattery", 0.4 * ISAbatteryLootMult,
 }
-for _,i in ipairs(iReg) do
+for _,i in ipairs(addItems) do
 	table.insert(VehicleDistributions.ElectricianTruckBed.items,i)
 end
