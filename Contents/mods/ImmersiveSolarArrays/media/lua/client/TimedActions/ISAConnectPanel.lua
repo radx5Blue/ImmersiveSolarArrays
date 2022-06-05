@@ -3,7 +3,7 @@ require "TimedActions/ISBaseTimedAction"
 ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel");
 
 function ISAConnectPanel:isValid()
-    return self.panel:getObjectIndex() ~= -1
+    return self.panel:getObjectIndex() ~= -1 and self.panel:getSquare():isOutside()
 end
 
 function ISAConnectPanel:start()

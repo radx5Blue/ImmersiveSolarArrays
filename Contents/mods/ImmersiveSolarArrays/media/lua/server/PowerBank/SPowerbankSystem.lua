@@ -184,6 +184,7 @@ function SPowerbankSystem.EveryDays()
             local gen = isopb:getSquare():getGenerator()
             print("Isatest Gen Condition",gen and gen:getCondition())
         end
+        pb:checkPanels()
     end
 end
 
@@ -232,6 +233,6 @@ function SPowerbankSystem.sandbox()
         Events.EveryHours.Add(function()SPowerbankSystem.instance:updatePowerbanks(2) end)
     end
 end
-Events.OnInitWorld.Add(SPowerbankSystem.sandbox)
+Events.OnInitGlobalModData.Add(SPowerbankSystem.sandbox)
 
 SGlobalObjectSystem.RegisterSystemClass(SPowerbankSystem)

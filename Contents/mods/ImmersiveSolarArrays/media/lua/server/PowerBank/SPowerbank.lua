@@ -253,6 +253,16 @@ function SPowerbank:handleBatteries(container)
     return capacity , batteries
 end
 
+function SPowerbank:checkPanels()
+    for i = #self.panels, 1, -1 do
+        local panel = self.panels[i]
+        local square = getSquare(panel.x, panel.y, panel.z)
+        if square and (not square:isOutside() or not ISAScan.findTypeOnSquare(square,"Panel")) then
+            table.remove(self.panels,i)
+        end
+    end
+end
+
 function SPowerbank:getSprite(updatedCH)
     if self.batteries == 0 then return nil end
     --if self.batteries == 0 then return "solarmod_tileset_01_11" end

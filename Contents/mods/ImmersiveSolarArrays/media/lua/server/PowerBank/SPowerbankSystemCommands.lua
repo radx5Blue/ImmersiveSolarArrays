@@ -26,9 +26,12 @@ end
 function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
-        table.insert(pb.panels,args.panel)
-        pb.npanels = pb.npanels + 1
-        pb:saveData(true)
+        local square = getSquare(args.panel.x,args.panel.y,args.panel.z)
+        if square and square:isOutside() then
+            table.insert(pb.panels,args.panel)
+            pb.npanels = pb.npanels + 1
+            pb:saveData(true)
+        end
     end
 end
 
