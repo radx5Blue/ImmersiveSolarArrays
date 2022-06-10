@@ -2,12 +2,16 @@
 
 require 'Items/Distributions'
 require 'Items/ProceduralDistributions'
-require 'Items/SuburbsDistributions'
 
 
-function registerAsLoot(item, chance, allocation)
+local function registerAsLoot(item, chance, allocation)
   table.insert(ProceduralDistributions.list[allocation].items, item);
   table.insert(ProceduralDistributions.list[allocation].items, chance);
+end
+
+local function addItem(item, chance, allocation)
+  table.insert(allocation, item);
+  table.insert(allocation, chance);
 end
 
 local iReg = "";
@@ -23,7 +27,6 @@ local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
 	if SandboxVars.ISA.LRMSolarPanels == nil then
 		ISApanelLootMult = 1
 	end
-local addItems
 
 
 -- Solar Mag
@@ -40,6 +43,7 @@ registerAsLoot(iReg, 0.4 * ISAmiscLootMult, "MagazineRackMixed");
 registerAsLoot(iReg, 0.5 * ISAmiscLootMult, "PostOfficeBooks");
 registerAsLoot(iReg, 0.7 * ISAmiscLootMult, "PostOfficeMagazines");
 registerAsLoot(iReg, 0.6 * ISAmiscLootMult, "ShelfGeneric");
+addItem(iReg, 1, VehicleDistributions.ElectricianTruckBed.items)
 
 
 
@@ -76,6 +80,9 @@ registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreMetalwork");
 registerAsLoot(iReg, 0.15 * ISApanelLootMult, "ToolStoreMisc");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ToolStoreTools");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "OtherGeneric");
+addItem(iReg, 0.002, SuburbsDistributions.all.crate.items)
+addItem(iReg, 0.001, SuburbsDistributions.all.metal_shelves.items)
+addItem(iReg, 1, VehicleDistributions.ElectricianTruckBed.items)
 
 
 
@@ -99,7 +106,9 @@ registerAsLoot(iReg, 0.15 * ISAbatteryLootMult, "ToolStoreFarming");
 registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CratePaint");
 registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.03 * ISAbatteryLootMult, "CrateMetalwork");
-
+addItem(iReg, 0.002, SuburbsDistributions.all.crate.items)
+addItem(iReg, 0.001, SuburbsDistributions.all.metal_shelves.items)
+addItem(iReg, 1, VehicleDistributions.ElectricianTruckBed.items)
 
 
 -- Super battery
@@ -122,6 +131,9 @@ registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "ToolStoreFarming");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CratePaint");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.05 * ISAbatteryLootMult, "CrateMetalwork");
+addItem(iReg, 0.002, SuburbsDistributions.all.crate.items)
+addItem(iReg, 0.001, SuburbsDistributions.all.metal_shelves.items)
+addItem(iReg, 0.4, VehicleDistributions.ElectricianTruckBed.items)
 
 
 
@@ -147,6 +159,11 @@ registerAsLoot(iReg, 0.10 * ISAmiscLootMult, "ToolStoreFarming");
 registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CratePaint");
 registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateFarming");
 registerAsLoot(iReg, 0.03 * ISAmiscLootMult, "CrateMetalwork");
+addItem(iReg, 0.005, SuburbsDistributions.all.crate.items)
+addItem(iReg, 0.005, SuburbsDistributions.all.metal_shelves.items)
+addItem(iReg, 0.6, VehicleDistributions.ElectricianTruckBed.items)
+
+
 
 local SolarBox = {
 	rolls = 4,
@@ -160,10 +177,10 @@ local SolarBox = {
 		items = {
 			"ISA.ISAMag1", 60,
 			"ISA.ISAInverter", 60,
-			"ElectronicsScrap", 20,
 			"ISA.SolarPanel", 20,
 			"ISA.DeepCycleBattery", 20,
 			"ISA.SuperBattery", 16,
+			"ElectronicsScrap", 20,
 			"MetalBar", 10,
 			"SmallSheetMetal", 10,
 			"Screws", 5,
@@ -173,11 +190,10 @@ local SolarBox = {
 	}
 }
 
-SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99} }}
---SuburbsDistributions.all.SolarBox = SolarBox
 ProceduralDistributions.list.SolarBox = SolarBox
+SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99} }}
 
-addItems = {
+local toAdd = {
 	electronicsstorage = {
 		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=10},
 		crate = {name="SolarBox", min=0, max=1, weightChance=20 },
@@ -187,19 +203,8 @@ addItems = {
 	},
 }
 
-for room,containerList in pairs(addItems) do
+for room,containerList in pairs(toAdd) do
 	for container,proc in pairs(containerList) do
 		table.insert(SuburbsDistributions[room][container].procList,proc)
 	end
-end
-
-addItems = {
-	"ISA.ISAMag1", 1 * ISAbatteryLootMult,
-	"ISA.ISAInverter", 0.6 * ISAbatteryLootMult,
-	"ISA.SolarPanel", 1 * ISApanelLootMult,
-	"ISA.DeepCycleBattery", 1 * ISAbatteryLootMult,
-	"ISA.SuperBattery", 0.4 * ISAbatteryLootMult,
-}
-for _,i in ipairs(addItems) do
-	table.insert(VehicleDistributions.ElectricianTruckBed.items,i)
 end
