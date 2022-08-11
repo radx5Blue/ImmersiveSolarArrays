@@ -23,9 +23,9 @@ Sandbox_EN = {
 	Sandbox_ISA_DIYBatteryCapacity_tooltip = "How much energy in Ah a single DIY Battery can store.",
 
     Sandbox_ISA_DrainCalc_option1 = "ISA",
-    Sandbox_ISA_DrainCalc_option2 = "Vanilla",
-    Sandbox_ISA_DrainCalc = "Drain Mode",
-    Sandbox_ISA_DrainCalc_tooltip = "Changes the way drain is calculated, vanilla should have less impact on performance",
+    Sandbox_ISA_DrainCalc_option2 = "Regular Generator",
+    Sandbox_ISA_DrainCalc = "Drain Calculation Method",
+    Sandbox_ISA_DrainCalc_tooltip = "Regular Generator calculation has less performance impact",
     Sandbox_ISA_ChargeFreq_option1 = "Every Ten Minutes",
     Sandbox_ISA_ChargeFreq_option2 = "Every Hour",
     Sandbox_ISA_ChargeFreq = "Charge Frequency",

@@ -1,5 +1,13 @@
-ContextMenu_RU = {		
-	ContextMenu_ISA_BatteryBankStatus = "Проверить",
-	ContextMenu_ISA_DiagnoseBankIssues = "Переподключить",
-	ContextMenu_ISA_NoPanels = "У вас нет подключенных солнечный панелей.",
+ContextMenu_RU = {
+    ContextMenu_ISA_BatteryBank = "Аккумуляторная Батарея",
+    ContextMenu_ISA_BatteryBankStatus = "Проверить статус",
+    ContextMenu_ISA_DiagnoseBankIssues = "Сброс",
+
+    ContextMenu_ISA_SolarPanel = "Солнечная панель",
+    ContextMenu_ISA_Connect_Panel = "Подключить к Аккумуляторной Батареи",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Расположение батареи относительно солнечной панели (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Солнечная панель подключена к этой Аккумуляторной Батареи",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Солнечная панель не подключена к этой Аккумуляторной Батареи",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Солнечная панель должна быть снаружи",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Рядом с этой солнечной панелью нет Аккумуляторной Батареи",
 }

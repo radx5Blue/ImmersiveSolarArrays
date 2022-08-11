@@ -68,12 +68,12 @@ Maps["Muldraugh, KY"] = {
     { x = 5628, y = 5957, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --factory storage
     { x = 5704, y = 5717, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --farm
     { x = 7243, y = 8285, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- farm
-    { x = 7248, y = 8313, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- general store--farming store
-    { x = 7251, y = 8226, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- The mall electronics:
+    { x = 7248, y = 8313, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- 'farming' store
+    { x = 7251, y = 8226, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- The mall electronics
     { x = 7308, y = 8248, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- general store
 }
 Maps.RavenCreek = {
-    { x = 3040, y = 11345, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --army base, sledgehammer required
+    { x = 3042, y = 11350, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --army base, sledgehammer required
     { x = 3617, y = 11312, z = 1, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 4129, y = 11265, z = 6, type = 'solarmod_tileset_01_9', overwrite = {} },
     { x = 3125, y = 11848, z = 6, type = 'solarmod_tileset_01_8', overwrite = {} },

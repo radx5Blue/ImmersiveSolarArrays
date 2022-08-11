@@ -168,17 +168,17 @@ addItem(iReg, 0.6, VehicleDistributions.ElectricianTruckBed.items)
 local SolarBox = {
 	rolls = 4,
 	items = {
-		"ISA.SolarPanel", 20,
-		"ISA.DeepCycleBattery", 20,
+		"ISA.SolarPanel", 24,
+		"ISA.DeepCycleBattery", 24,
 		"ISA.SuperBattery", 16,
 	},
 	junk = {
 		rolls = 1,
 		items = {
-			"ISA.ISAMag1", 60,
-			"ISA.ISAInverter", 60,
-			"ISA.SolarPanel", 20,
-			"ISA.DeepCycleBattery", 20,
+			"ISA.ISAMag1", 64,
+			"ISA.ISAInverter", 64,
+			"ISA.SolarPanel", 16,
+			"ISA.DeepCycleBattery", 16,
 			"ISA.SuperBattery", 16,
 			"ElectronicsScrap", 20,
 			"MetalBar", 10,
