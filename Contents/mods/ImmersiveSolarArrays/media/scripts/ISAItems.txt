@@ -136,7 +136,6 @@ module ISA
         WorldObjectSprite = solarmod_tileset_01_0,
         DisplayName		= Moveable,
 	}
-
 	item SolarPanelFlat
 	{
 	Type = Moveable,
@@ -161,8 +160,5 @@ module ISA
 	WorldObjectSprite = solarmod_tileset_01_15,
 	DisplayName		= Moveable,
 	}
-	
-	
-	
-	
+
 }

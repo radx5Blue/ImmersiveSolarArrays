@@ -1,3 +1,6 @@
+ISA_Recipes = {}
+ISA_Recipes.OnCreate = {}
+
 function SolarModConvertBattery(items, result, player)
 	--this function makes sure charge and condition remain the same when converting a car battery for solar use
 
@@ -36,4 +39,17 @@ function SolarModConvertBatteryDIY(items, result, player)
 	end
 	result:setUsedDelta(addUpDelta / tick)
 	result:setCondition(addUpCond / tick)
+end
+
+function ISA_Recipes.OnCreate.DismantleSolarPanel(items, result, player, selectedItem)
+	local inventory = player:getInventory()
+
+	if items:get(1):getWorldSprite() == "solarmod_tileset_01_8" then
+		inventory:AddItems("Radio.ElectricWire",2)
+	else
+		inventory:AddItems("Radio.ElectricWire",2)
+		inventory:AddItems("Base.MetalBar",3)
+		inventory:AddItem(InventoryItemFactory.CreateItem("Base.Screws"))
+		inventory:AddItem(InventoryItemFactory.CreateItem("Base.Screws"))
+	end
 end

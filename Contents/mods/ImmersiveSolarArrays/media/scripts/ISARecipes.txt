@@ -169,6 +169,45 @@ OnCreate:SolarModConvertBatteryReverse,
         Category:Electrical,
     }
 
+    recipe Dismantle Solar Roof Tile
+    {
+        keep Base.Screwdriver,
+        SolarPanelFlat/Moveables.solarmod_tileset_01_8,
+        CanBeDoneFromFloor:false,
+        Time:120,
+        SkillRequired:Electricity=3,
+        Result: SolarPanel,
+        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
+        NeedToBeLearn:true,
+        Category:Electrical,
+    }
+
+    recipe Dismantle Wall-Mounted Solar Panel
+    {
+        keep Base.Screwdriver,
+        SolarPanelWall/Moveables.solarmod_tileset_01_6/Moveables.solarmod_tileset_01_7,
+        CanBeDoneFromFloor:false,
+        Time:120,
+        SkillRequired:Electricity=3,
+        Result: SolarPanel,
+        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
+        NeedToBeLearn:true,
+        Category:Electrical,
+    }
+
+    recipe Dismantle Floor-Mounted Solar Panel
+    {
+        keep Base.Screwdriver,
+        SolarPanelMounted/Moveables.solarmod_tileset_01_9/Moveables.solarmod_tileset_01_10,
+        CanBeDoneFromFloor:false,
+        Time:120,
+        SkillRequired:Electricity=3,
+        Result: SolarPanel,
+        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
+        NeedToBeLearn:true,
+        Category:Electrical,
+    }
+
     recipe Create Battery Bank
     {
 		keep Base.Screwdriver,

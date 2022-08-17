@@ -11,6 +11,9 @@ Recipes_ES {
     Recipe_Make_Solar_Roof_Tile = "Hacer teja solar",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Hacer panel solar de montaje en pared",
     Recipe_Make_Floor-Mounted_Solar_Panel = "Hacer panel solar de montaje en suelo",
+	Recipe_Dismantle_Solar_Roof_Tile = "Desmontar teja solar",
+	Recipe_Dismantle-Wall_Mounted_Solar_Panel = "Desmontar panel solar de montaje en pared",
+	Recipe_Dismantle_Floor-Mounted_Solar_Panel = "Desmontar panel solar de montaje en suelo",
     Recipe_Create_Battery_Bank = "Crear banco de baterías",
     Recipe_Create_Solar_Failsafe = "Crear anti-fallo solar"
 }
