@@ -55,34 +55,31 @@ function Commands.Battery(player,args)
 end
 
 function Commands.plugGenerator(player,args)
-    local pb = getPowerbank(args.pb)
-    if pb then
-        if args.plug then
-            local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
-            local generator = square and square:getGenerator()
-            if generator then pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z) end
-        else
-            if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
-                pb.conGenerator = nil
+    local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
+    local generator = square and square:getGenerator()
+    if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(square,"Powerbank") then
+        local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
+        for _,pb in ipairs(powerbanks) do
+            if args.plug then
+                pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z)
+            else
+                if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
+                    pb.conGenerator = nil
+                end
             end
+            pb:saveData(true)
         end
-        --pb:saveData(true)
     end
 end
 
 function Commands.activateGenerator(player,args)
-    local pb = getPowerbank(args.pb)
-    if pb and pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
-        pb.conGenerator.ison = args.activate
-        --pb:saveData(true)
-    else
-        local square = getSquare(args.gen.x, args.gen.y, args.gen.z)
-        local generator = square and square:getGenerator()
-        if generator then
-            local data = generator:getModData()["ISA_conGenerator"]
-            data = nil
-            generator:transmitModData()
+    local square = getSquare(args.gen.x, args.gen.y, args.gen.z)
+    local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
+    for _,pb in ipairs(powerbanks) do
+        if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
+            pb.conGenerator.ison = args.activate
         end
+        pb:saveData(true)
     end
 end
 

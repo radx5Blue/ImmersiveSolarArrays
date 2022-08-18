@@ -6,14 +6,21 @@ local _powerbank
 local function ConnectPanel(worldobjects,player,panel,powerbank)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, panel:getSquare(), true) then
-		ISTimedActionQueue.add(ISAConnectPanel:new(character, panel, powerbank));
+		ISTimedActionQueue.add(ISAConnectPanel:new(character, panel, powerbank))
 	end
 end
 
 local function ActivatePowerbank (worlobjects,player,powerbank,activate)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, powerbank:getSquare(), true) then
-		ISTimedActionQueue.add(ISAActivatePowerbank:new(character, powerbank, activate));
+		ISTimedActionQueue.add(ISAActivatePowerbank:new(character, powerbank, activate))
+	end
+end
+
+local function DiagnosticInfo(worlobjects,player,powerbank)
+	local character = getSpecificPlayer(player)
+	if luautils.walkAdj(character, powerbank:getSquare(), true) then
+		--open diagnostic tab, ui
 	end
 end
 
@@ -54,6 +61,11 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(textOn, worldobjects, ActivatePowerbank, player, powerbank, not isOn)
 
+		if test then return ISWorldObjectContextMenu.setTest() end
+		local optDiagnostics = ISASubMenu:addOption(getText("ContextMenu_ISA_Diagnostics"), worldobjects, DiagnosticInfo, player, powerbank)
+		local tooltip = CPowerbankSystem.instance.getDiagnosticTooltip(powerbank, player)
+		optDiagnostics.toolTip = tooltip
+
 		if getDebug() then
 			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)
@@ -81,7 +93,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 			if test then return ISWorldObjectContextMenu.setTest() end
 			local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
 			local tooltip = ISWorldObjectContextMenu.addToolTip()
-			tooltip.description = "<RGB:1,0,0>" .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. "<BR>>" or "")
+			tooltip.description = "<RGB:1,0,0>" .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
 			tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
 
 			option.notAvailable = true;

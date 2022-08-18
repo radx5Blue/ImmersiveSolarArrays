@@ -198,6 +198,13 @@ local toAdd = {
 		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=10},
 		crate = {name="SolarBox", min=0, max=1, weightChance=20 },
 	},
+	garagestorage = {
+		crate = {name="SolarBox", min=0, max=1, weightChance=3}
+	},
+	storageunit = {
+		crate = {name="SolarBox", min=0, max=1, weightChance=5},
+		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=3}
+	},
 	warehouse = {
 		crate = {name="SolarBox", min=0, max=1, weightChance=5}
 	},

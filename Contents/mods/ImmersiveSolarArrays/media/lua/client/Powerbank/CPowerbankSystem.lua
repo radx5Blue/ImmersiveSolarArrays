@@ -71,6 +71,61 @@ function CPowerbankSystem.canConnectPanelTo(panel)
     return options
 end
 
+function CPowerbankSystem.getGeneratorAreaInfo(square,radius,level,distance)
+    local inrange, outofrange = 0, 0
+
+    local x = square:getX()
+    local y = square:getY()
+    local z = square:getZ()
+    for ix = x - radius, x + radius do
+        for iy = y - radius, y + radius do
+            for iz = z - level, z+level do
+                local isquare = getSquare(ix, iy, iz)
+                local generator = isquare and isquare:getGenerator()
+                if generator and not ISAScan.findOnSquare(isquare,"solarmod_tileset_01_0") then
+                    if IsoUtils.DistanceToSquared(x,y,z,ix,iy,iz) <= distance then
+                        inrange = inrange + 1
+                    else
+                        outofrange = outofrange + 1
+                    end
+                end
+            end
+        end
+    end
+    return inrange, outofrange
+end
+
+function CPowerbankSystem.getDiagnosticTooltip(isopb,player)
+    local tooltip = ISWorldObjectContextMenu.addToolTip()
+    tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
+    --tooltip:setTexture(isopb:getTextureName())
+    if getSpecificPlayer(player):DistToSquared(isopb:getX() + 0.5, isopb:getY() + 0.5) < 2 * 2 then
+        local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
+        if luapb then
+            if luapb.conGenerator then
+                tooltip.description = getText("ContextMenu_ISA_Diagnostics_conGenerator")
+                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Failsafe") .. (ISAScan.findOnSquare(isopb:getSquare(), "solarmod_tileset_01_15") and "yes" or "no")
+            else
+                local inrange, outofrange = CPowerbankSystem.instance.getGeneratorAreaInfo(isopb:getSquare(),5,1,10)
+                tooltip.description = getText("ContextMenu_ISA_Diagnostics_GenInRange") .. inrange .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_GenOutOfRange") .. outofrange
+            end
+            tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_ShouldDrain") .. (luapb:shouldDrain() and "yes" or "no")
+            if luapb.drain > 0 then
+                local autonomy =  luapb.charge / luapb.drain
+                local days = math.floor(autonomy / 24)
+                local hours = math.floor(autonomy % 24)
+                local minutes = math.floor((autonomy - math.floor(autonomy)) * 60)
+                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Autonomy") .. " <BR>" .. days .. " days, ".. hours .. " hours, ".. minutes .. " minutes "
+            end
+        else
+            tooltip.description = "<RGB:1,0,0>" .. "No Lua Object"
+        end
+    else
+        tooltip.description = "<RGB:1,0,0>" .. getText("ContextMenu_ISA_Diagnostics_Far")
+    end
+    return tooltip
+end
+
 function CPowerbankSystem.getMaxSolarOutput(SolarInput)
     local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
     if ISASolarEfficiency == nil then
@@ -96,37 +151,17 @@ function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
 end
 
 function CPowerbankSystem.onPlugGenerator(character,generator,plug)
-    local gendata = generator:getModData()
-    if plug then
-        local isopb = ISAScan.findPowerbank(generator:getSquare(),3,0,10)
-        if isopb then
-            local pb = { x = isopb:getX(), y = isopb:getY(), z = isopb:getZ() }
-            local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-            CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pb, gen = gen, plug = plug })
-        end
-    else
-        if gendata["ISA_conGenerator"] then
-            local pbdata = gendata["ISA_conGenerator"]
-            if CPowerbankSystem.instance:getLuaObjectAt(pbdata.x,pbdata.y,pbdata.z) then
-                local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-                CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ pb = pbdata, gen = gen, plug = plug })
-            end
-            gendata["ISA_conGenerator"] = nil
-            generator:transmitModData()
-        end
+    local powerbanks = ISAScan.findPowerbanks(generator:getSquare(),3,0,10)
+    if #powerbanks > 0 then
+        local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
+        CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ gen = gen, plug = plug })
     end
 end
 
 function CPowerbankSystem.onActivateGenerator(character,generator,activate)
-    local pbdata = generator:getModData()["ISA_conGenerator"]
-    if pbdata then
-        if CPowerbankSystem.instance:getLuaObjectAt(pbdata.x,pbdata.y,pbdata.z) then
-            local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-            CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { pb = pbdata, gen = gen , activate = activate })
-        else
-            pbdata = nil
-            generator:transmitModData()
-        end
+    if not isClient() or #ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0 then
+        local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
+        CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { gen = gen , activate = activate })
     end
 end
 
@@ -138,7 +173,7 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
     local type = item:getType()
     if not ( type == "50AhBattery" or type == "75AhBattery" or type == "100AhBattery" or type == "DeepCycleBattery" or type == "SuperBattery" or
-        type == "DIYBattery") or item:getCondition() == 0 then
+            type == "DIYBattery") or item:getCondition() == 0 then
         if put then character:Say(getText("IGUI_ISAContainerNotBattery")..item:getDisplayName()) end
         return
     end

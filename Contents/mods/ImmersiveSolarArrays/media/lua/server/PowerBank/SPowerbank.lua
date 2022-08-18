@@ -462,27 +462,21 @@ function SPowerbank:connectGenerator(generator,x,y,z)
     self.conGenerator.z = z
     self.conGenerator.ison = generator:isActivated()
     self.lastHour = 0
-
-    local data = generator:getModData()
-    data["ISA_conGenerator"] = { x = self.x, y = self.y, z = self.z }
-    generator:transmitModData()
 end
 
 function SPowerbank:autoConnectToGenerator()
     local radius = 3
+    local distance = 10
     local x = self.x
     local y = self.y
 
     for ix = x - radius, x + radius do
         for iy = y - radius, y + radius do
-            local distance = IsoUtils.DistanceToSquared(x,y,ix,iy)
-            if distance <= 10 then
-                local isquare = getSquare(ix, iy, self.z)
-                local generator = isquare and isquare:getGenerator()
-                if generator and generator:isConnected() and not ISAScan.findOnSquare(isquare,"solarmod_tileset_01_0") then
-                    self:connectGenerator(generator,ix,iy,self.z)
-                    return
-                end
+            local isquare = IsoUtils.DistanceToSquared(x,y,ix,iy) <= distance and getSquare(ix, iy, self.z)
+            local generator = isquare and isquare:getGenerator()
+            if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
+                self:connectGenerator(generator,ix,iy,self.z)
+                return
             end
         end
     end
