@@ -22,3 +22,38 @@ Sandbox_RU = {
 	Sandbox_ISA_DIYBatteryCapacity = "Ёмкость аккумулятоной батареи (Ач)",
 	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Сколько заряда в Ач аккумуляторная батарея сможет хранить.",
 }
+
+Sandbox_RU = {
+	Sandbox_ISA = "Иммерсивные солнечные батареи",
+
+	Sandbox_ISA_solarPanelEfficiency = "Эффективность солнечной панели (0-100)",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "12% реалистично для 1993 года, 25% современная эффективность, 90% нереалистично",
+
+	Sandbox_ISA_batteryDegradeChance = "Вероятность износа батарей (0-100)",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Вероятность износа батарей каждый день. Уменьшение этого значения значительно увеличит срок службы батареи",
+
+	Sandbox_ISA_solarPanelWorldSpawns = "Вероятность появления объектов (0-100)",
+	Sandbox_ISA_solarPanelWorldSpawns = "Вероятность появления солнечных панелей и ящиков в предварительно выбраных локациях.",
+
+	Sandbox_ISA_LRMSolarPanels = "Редкость Лута: Солнечные Панели",
+	Sandbox_ISA_LRMSolarPanels_tooltip = "Солнечные панели появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
+
+	Sandbox_ISA_LRMBatteries = "Редкость Лута: Батареи",
+	Sandbox_ISA_LRMBatteries_tooltip = "Батарейки появляются в случайных контейнерах, множитель в предварительно размещенных ящиках",
+
+	Sandbox_ISA_LRMMisc = "Редкость Лута: Прочее",
+	Sandbox_ISA_LRMMisc_tooltip = "Магазин и инвертор появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
+
+	Sandbox_ISA_DIYBatteryCapacity = "Емкость самодельной батареи (Ач)",
+	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Сколько энергии в Ач может хранить одна самодельная батарея.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Обычный генератор",
+    Sandbox_ISA_DrainCalc = "Метод вычисления разрядки",
+    Sandbox_ISA_DrainCalc_tooltip = "Обычный расчет генератора оказывает меньшее влияние на производительность",
+    Sandbox_ISA_ChargeFreq_option1 = "Каждые десять минут",
+    Sandbox_ISA_ChargeFreq_option2 = "Каждый час",
+    Sandbox_ISA_ChargeFreq = "Частота зарядки",
+    Sandbox_ISA_ChargeFreq_tooltip = "Как часто будет заряжаться Аккумуляторная Батарея",
+
+}

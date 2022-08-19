@@ -7,7 +7,7 @@
         Type	=	Literature,
         DisplayName	=	New Advancements: Energy From The Sun,
         Icon	=	ISAMag1,
-        TeachedRecipes  =   Wire 50Ah Battery; Wire 75Ah Battery; Wire 100Ah Battery; Unwire 50Ah Battery; Unwire 75Ah Battery; Unwire 100Ah Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Make DIY Battery from 100Ah; Make DIY Battery from 75Ah; Make DIY Battery from 50Ah; Create Solar Failsafe; Create Battery Bank,
+        TeachedRecipes  =   Wire 50Ah Battery; Wire 75Ah Battery; Wire 100Ah Battery; Unwire 50Ah Battery; Unwire 75Ah Battery; Unwire 100Ah Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Dismantle Solar Roof Tile; Dismantle Wall-Mounted Solar Panel; Dismantle Floor-Mounted Solar Panel; Make DIY Battery from 100Ah; Make DIY Battery from 75Ah; Make DIY Battery from 50Ah; Create Solar Failsafe; Create Battery Bank,
         ReplaceOnUse    =   ISAMag1,
         WorldStaticModel = ISA.SolarMagModel,
     }

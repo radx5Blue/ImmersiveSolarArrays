@@ -6,5 +6,5 @@ ISAPowerbank.maxBatteryCapacity = {
     ["100AhBattery"] = 100,
     ["DeepCycleBattery"] = 200,
     ["SuperBattery"] = 400,
-    ["DIYBattery"] = (SandboxVars.ISA.DIYBatteryCapacity or 200)
+    ["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
 }

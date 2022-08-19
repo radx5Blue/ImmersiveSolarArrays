@@ -15,7 +15,6 @@ function ISAWorldSpawns.Place(square,sprite)
         if sprite == "solarmod_tileset_01_36" then
             isoObject:createContainersFromSpriteProperties()
             ISAWorldSpawns.Fill(isoObject)
-            isoObject:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
         end
         square:getObjects():add(isoObject)
         square:RecalcProperties()
@@ -25,49 +24,38 @@ end
 
 function ISAWorldSpawns.Fill(isoObject)
     local container = isoObject:getContainer()
-	local panelnumber = ZombRand(4, 5) * SandboxVars.ISA.LRMSolarPanels
+    local panelnumber = ZombRand(3, 5) * SandboxVars.ISA.LRMSolarPanels
 	local batterynumber = ZombRand(1, 2) * SandboxVars.ISA.LRMBatteries
-	local miscnumber = 1 * SandboxVars.ISA.LRMMisc
-    for i=1,panelnumber do
-        container:AddItem("ISA.SolarPanel")
-        container:AddItem("Radio.ElectricWire")
-        container:AddItem("Radio.ElectricWire")
-        container:AddItem("Radio.ElectricWire")
-        container:AddItem("Base.MetalBar")
-        container:AddItem("Base.MetalBar")
-    end
-    for i=1,batterynumber do
-        container:AddItem("ISA.DeepCycleBattery")
-    end
-    for i=1,miscnumber do
-        container:AddItem("ISA.ISAInverter")
-        container:AddItem("ISA.ISAMag1")
-    end
+    panelnumber = panelnumber < 8 and panelnumber or 7
+    batterynumber = batterynumber < 4 and batterynumber or 3
+    container:AddItems("ISA.SolarPanel",panelnumber)
+    container:AddItems("Radio.ElectricWire",panelnumber*3)
+    container:AddItems("Base.MetalBar",panelnumber*2)
+    container:AddItems("ISA.DeepCycleBattery",batterynumber)
+    container:AddItem("ISA.ISAInverter")
+    container:AddItem("ISA.ISAMag1")
+    container:setExplored(true)
+    isoObject:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
 end
 
-function ISAWorldSpawns.spawnLocations()
-    local maps = ISAWorldSpawnsMaps
-    local gamemap = getWorld():getMap():split(";")
-    local spawnLocations = {}
+function ISAWorldSpawns.doRolls()
+    local spawnChance = SandboxVars.ISA.solarPanelWorldSpawns
+    if spawnChance == 0 then return end
 
-    for _,map in ipairs(gamemap) do
-        local maplocations = maps[map]
-        if maplocations then
-            for _,location in ipairs(maplocations) do
-                table.insert(spawnLocations,location)
+    local loaded = {}
+    for _,map in ipairs(getWorld():getMap():split(";")) do
+        if ISAWorldSpawnsMaps[map] then
+            for _,location in ipairs(ISAWorldSpawnsMaps[map]) do
+                local valid = true
+                for _,over in ipairs(location.overwrite) do
+                    if loaded[over] then valid = false end
+                end
+                if valid and ZombRand(1, 100) <= spawnChance then
+                    data[location.x .. "," .. location.y .. "," .. location.z] = location.type
+                end
             end
         end
-    end
-    return spawnLocations
-end
-
-function ISAWorldSpawns.Rolls()
-    local spawnLocations = ISAWorldSpawns.spawnLocations()
-    local spawnChance = SandboxVars.ISA.solarPanelWorldSpawns
-    for _,spawn in ipairs(spawnLocations) do
-        if ZombRand(1, 100) <= spawnChance then
-            data[spawn.x .. "," .. spawn.y .. "," .. spawn.z] = spawn.type
-        end
+        loaded[map] = true
     end
 end
 
@@ -80,17 +68,17 @@ local LoadGridsquare = function(square)
     end
 end
 
-local OnInitGlobalModData = function(newGame)
+ISAWorldSpawns.OnInitGlobalModData = function(newGame)
     if ModData.exists("ISAWorldSpawns") then
         data = ModData.get("ISAWorldSpawns")
     else
         data = ModData.create("ISAWorldSpawns")
-        ISAWorldSpawns.Rolls()
+        ISAWorldSpawns.doRolls()
     end
-    --if not next(data) == nil then --doesn't seem to work in PZ
+
     for _,_ in pairs(data) do
         Events.LoadGridsquare.Add(LoadGridsquare)
         break
     end
 end
-Events.OnInitGlobalModData.Add(OnInitGlobalModData)
+Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)

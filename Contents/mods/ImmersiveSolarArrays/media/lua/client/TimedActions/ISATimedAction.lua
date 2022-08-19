@@ -38,16 +38,6 @@ function ISMoveablesAction:perform(...)
 
     local o = ISMoveablesActionperform(self,...)
 
-    --todo fix tiledefinition
-    if self.mode == "scrap" then
-        if self.moveProps.object:getTextureName() == "solarmod_tileset_01_8" then
-            if self.moveProps.object:getObjectIndex() ~= -1 then
-                if isClient() then self.square:transmitRemoveItemFromSquare(self.moveProps.object) end
-                self.square:RemoveTileObject(self.moveProps.object)
-            end
-        end
-    end
-
     --if self.origSpriteName == "solarmod_tileset_01_0" then
     --    --CPowerbankSystem.instance.onMoveableAction(self)
     --    if self.mode == "pickup" then

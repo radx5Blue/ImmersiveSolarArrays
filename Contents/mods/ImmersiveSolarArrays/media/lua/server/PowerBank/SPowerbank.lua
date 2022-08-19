@@ -13,7 +13,7 @@ function SPowerbank:initNew()
     self.npanels = 0
     self.drain = 0
     self.lastHour = 0
-    self.conGenerator = nil
+    self.conGenerator = false
 end
 
 function SPowerbank:new(luaSystem, globalObject)
@@ -253,6 +253,16 @@ function SPowerbank:handleBatteries(container)
     return capacity , batteries
 end
 
+function SPowerbank:checkPanels()
+    for i = #self.panels, 1, -1 do
+        local panel = self.panels[i]
+        local square = getSquare(panel.x, panel.y, panel.z)
+        if square and (not square:isOutside() or not ISAScan.findTypeOnSquare(square,"Panel")) then
+            table.remove(self.panels,i)
+        end
+    end
+end
+
 function SPowerbank:getSprite(updatedCH)
     if self.batteries == 0 then return nil end
     --if self.batteries == 0 then return "solarmod_tileset_01_11" end
@@ -452,31 +462,25 @@ function SPowerbank:connectGenerator(generator,x,y,z)
     self.conGenerator.z = z
     self.conGenerator.ison = generator:isActivated()
     self.lastHour = 0
-
-    local data = generator:getModData()
-    data["ISA_conGenerator"] = { x = self.x, y = self.y, z = self.z }
-    generator:transmitModData()
 end
 
 function SPowerbank:autoConnectToGenerator()
     local radius = 3
+    local distance = 10
     local x = self.x
     local y = self.y
 
     for ix = x - radius, x + radius do
         for iy = y - radius, y + radius do
-            local distance = IsoUtils.DistanceToSquared(x,y,ix,iy)
-            if distance <= 10 then
-                local isquare = getSquare(ix, iy, self.z)
-                local generator = isquare and isquare:getGenerator()
-                if generator and generator:isConnected() and not ISAScan.findOnSquare(isquare,"solarmod_tileset_01_0") then
-                    self:connectGenerator(generator,ix,iy,self.z)
-                    return
-                end
+            local isquare = IsoUtils.DistanceToSquared(x,y,ix,iy) <= distance and getSquare(ix, iy, self.z)
+            local generator = isquare and isquare:getGenerator()
+            if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
+                self:connectGenerator(generator,ix,iy,self.z)
+                return
             end
         end
     end
-    self.conGenerator = nil
+    self.conGenerator = false
 end
 
 function SPowerbank:getConGenerator()
@@ -515,7 +519,7 @@ function SPowerbank:updateConGenerator()
             self.lastHour = math.floor(getGameTime():getWorldAgeHours())
             self.conGenerator.ison = conGenerator:isActivated()
         else
-            self.conGenerator = nil
+            self.conGenerator = false
         end
     end
 end

@@ -2,6 +2,14 @@ ContextMenu_ES = {
     ContextMenu_ISA_BatteryBank = "Banco de Baterías",
     ContextMenu_ISA_BatteryBankStatus = "Ver Estado",
     ContextMenu_ISA_DiagnoseBankIssues = "Resetear",
+	ContextMenu_ISA_Diagnostics = "Diagnóstico",
+	ContextMenu_ISA_Diagnostics_conGenerator = "El generador de respaldo está conectado al banco de baterías",
+	ContextMenu_ISA_Diagnostics_Failsafe = "El generador de copias de seguridad tiene protección contra fallas: ",
+	ContextMenu_ISA_Diagnostics_GenInRange = "Generadores en rango: ",
+	ContextMenu_ISA_Diagnostics_GenOutOfRange = "Generadores ligeramente fuera de rango: ",
+	ContextMenu_ISA_Diagnostics_ShouldDrain = "El banco de baterías está consumiendo reservas: ",
+	ContextMenu_ISA_Diagnostics_Autonomy = "Battery Bank puede alimentar dispositivos sin sol para: ",
+	ContextMenu_ISA_Diagnostics_Far = "El banco de baterías está demasiado lejos",
 
 
     ContextMenu_ISA_NoPanels = "Actualmente no hay paneles conectados.",
