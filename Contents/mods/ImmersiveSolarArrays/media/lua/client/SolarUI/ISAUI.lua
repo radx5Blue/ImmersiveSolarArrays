@@ -66,6 +66,8 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local tooltip = CPowerbankSystem.instance.getDiagnosticTooltip(powerbank, player)
 		optDiagnostics.toolTip = tooltip
 
+		ISASubMenu:addOption("Force Battery Update", worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"countBatteries", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)
+
 		if getDebug() then
 			if test then return ISWorldObjectContextMenu.setTest() end
 			ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)

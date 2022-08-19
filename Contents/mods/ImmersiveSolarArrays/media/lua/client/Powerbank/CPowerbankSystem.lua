@@ -102,9 +102,10 @@ function CPowerbankSystem.getDiagnosticTooltip(isopb,player)
     if getSpecificPlayer(player):DistToSquared(isopb:getX() + 0.5, isopb:getY() + 0.5) < 2 * 2 then
         local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
         if luapb then
+            luapb:updateFromIsoObject()
             if luapb.conGenerator then
                 tooltip.description = getText("ContextMenu_ISA_Diagnostics_conGenerator")
-                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Failsafe") .. (ISAScan.findOnSquare(isopb:getSquare(), "solarmod_tileset_01_15") and "yes" or "no")
+                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Failsafe") .. (ISAScan.findOnSquare(getSquare(luapb.conGenerator.x,luapb.conGenerator.y,luapb.conGenerator.z), "solarmod_tileset_01_15") and "yes" or "no")
             else
                 local inrange, outofrange = CPowerbankSystem.instance.getGeneratorAreaInfo(isopb:getSquare(),5,1,10)
                 tooltip.description = getText("ContextMenu_ISA_Diagnostics_GenInRange") .. inrange .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_GenOutOfRange") .. outofrange
@@ -151,8 +152,8 @@ function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
 end
 
 function CPowerbankSystem.onPlugGenerator(character,generator,plug)
-    local powerbanks = ISAScan.findPowerbanks(generator:getSquare(),3,0,10)
-    if #powerbanks > 0 then
+    if not isClient() or #ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0 then
+        print("test ",#ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0)
         local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
         CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ gen = gen, plug = plug })
     end

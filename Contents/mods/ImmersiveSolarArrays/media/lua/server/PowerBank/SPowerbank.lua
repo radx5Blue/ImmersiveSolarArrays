@@ -13,7 +13,7 @@ function SPowerbank:initNew()
     self.npanels = 0
     self.drain = 0
     self.lastHour = 0
-    self.conGenerator = nil
+    self.conGenerator = false
 end
 
 function SPowerbank:new(luaSystem, globalObject)
@@ -480,7 +480,7 @@ function SPowerbank:autoConnectToGenerator()
             end
         end
     end
-    self.conGenerator = nil
+    self.conGenerator = false
 end
 
 function SPowerbank:getConGenerator()
@@ -519,7 +519,7 @@ function SPowerbank:updateConGenerator()
             self.lastHour = math.floor(getGameTime():getWorldAgeHours())
             self.conGenerator.ison = conGenerator:isActivated()
         else
-            self.conGenerator = nil
+            self.conGenerator = false
         end
     end
 end

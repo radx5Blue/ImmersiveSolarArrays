@@ -56,26 +56,31 @@ end
 
 function Commands.plugGenerator(player,args)
     local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
+
     local generator = square and square:getGenerator()
-    if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(square,"Powerbank") then
-        local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
-        for _,pb in ipairs(powerbanks) do
-            if args.plug then
-                pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z)
-            else
-                if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
-                    pb.conGenerator = nil
-                end
+    if not generator or ISAScan.findTypeOnSquare(square,"Powerbank") then print("ISA error: plug generator"); return end
+
+    local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
+    for _,isopb in ipairs(powerbanks) do
+        local pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
+        if not pb then print("ISA error: no Lua Object on square - plug generator"); return end
+        if args.plug then
+            pb:connectGenerator(generator,args.gen.x,args.gen.y,args.gen.z)
+        else
+            if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
+                pb.conGenerator = false
             end
-            pb:saveData(true)
         end
+        pb:saveData(true)
     end
 end
 
 function Commands.activateGenerator(player,args)
     local square = getSquare(args.gen.x, args.gen.y, args.gen.z)
     local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
-    for _,pb in ipairs(powerbanks) do
+    for _,isopb in ipairs(powerbanks) do
+        local pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
+        if not pb then print("ISA error: no Lua Object on square - activate generator"); return end
         if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
             pb.conGenerator.ison = args.activate
         end
@@ -90,6 +95,18 @@ function Commands.activatePowerbank(player,args)
         pb.switchchanged = true
         pb:updateDrain()
         pb:updateGenerator()
+        pb:saveData(true)
+    end
+end
+
+--temp fix, no charge change
+function Commands.countBatteries(player,args)
+    local pb = getPowerbank(args)
+    local isopb = pb and pb:getIsoObject()
+    if isopb then
+        local inv = isopb:getContainer()
+        pb:handleBatteries(inv)
+        isopb:sendObjectChange("containers")
         pb:saveData(true)
     end
 end
