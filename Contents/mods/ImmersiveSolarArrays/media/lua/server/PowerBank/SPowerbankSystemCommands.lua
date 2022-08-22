@@ -106,7 +106,7 @@ function Commands.countBatteries(player,args)
     if isopb then
         local inv = isopb:getContainer()
         pb:handleBatteries(inv)
-        isopb:sendObjectChange("containers")
+        pb:updateSprite()
         pb:saveData(true)
     end
 end

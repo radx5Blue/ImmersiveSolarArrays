@@ -99,7 +99,7 @@ function CPowerbankSystem.getDiagnosticTooltip(isopb,player)
     local tooltip = ISWorldObjectContextMenu.addToolTip()
     tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
     --tooltip:setTexture(isopb:getTextureName())
-    if getSpecificPlayer(player):DistToSquared(isopb:getX() + 0.5, isopb:getY() + 0.5) < 2 * 2 then
+    if getSpecificPlayer(player):DistToSquared(isopb:getX() + 0.5, isopb:getY() + 0.5) < 10 then
         local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
         if luapb then
             luapb:updateFromIsoObject()
