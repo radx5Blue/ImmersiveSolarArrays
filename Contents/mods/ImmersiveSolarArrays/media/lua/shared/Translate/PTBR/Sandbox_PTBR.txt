@@ -29,6 +29,6 @@ Sandbox_PTBR = {
     Sandbox_ISA_ChargeFreq_option1 = "A cada 10 minutos",
     Sandbox_ISA_ChargeFreq_option2 = "A cada hora",
     Sandbox_ISA_ChargeFreq = "Periodicidade de Carregamento",
-    Sandbox_ISA_ChargeFreq_tooltip = "Qual frequentemente o Banco de Baterias carregará",
+    Sandbox_ISA_ChargeFreq_tooltip = "Quão frequentemente o Banco de Baterias carregará",
 
 }
