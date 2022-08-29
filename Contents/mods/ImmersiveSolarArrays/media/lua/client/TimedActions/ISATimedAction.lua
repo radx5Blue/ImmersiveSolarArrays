@@ -28,11 +28,12 @@ function ISMoveablesAction:perform(...)
     local type = ISAScan.Types[self.origSpriteName]
     if type and self.mode == "pickup" then
         local isoObject = ISAScan.findOnSquare(self.square,self.origSpriteName)
-        if type == "Powerbank" then
-            isoObject:getModData().charge = nil
-        elseif type == "Panel" then
-            local modData = isoObject:getModData()
-            modData.connectDelta = nil
+        if isoObject then
+            if type == "Powerbank" then
+                isoObject:getModData().charge = nil
+            elseif type == "Panel" then
+                isoObject:getModData().connectDelta = nil
+            end
         end
     end
 
