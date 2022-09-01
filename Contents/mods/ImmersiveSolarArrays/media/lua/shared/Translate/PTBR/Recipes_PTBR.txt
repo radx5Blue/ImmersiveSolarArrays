@@ -1,0 +1,19 @@
+Recipes_PTBR {
+    Recipe_Make_DIY_Battery_from_50Ah = "Fazer Bateria Improvisada de 50Ah",
+    Recipe_Make_DIY_Battery_from_75Ah = "Fazer Bateria Improvisada de 75Ah",
+    Recipe_Make_DIY_Battery_from_100Ah = "Fazer Bateria Improvisada de 100Ah",
+    Recipe_Wire_50Ah_Battery = "Conectar Bateria de 50Ah",
+    Recipe_Unwire_50Ah_Battery = "Desconectar Bateria de 50Ah",
+    Recipe_Wire_75Ah_Battery = "Conectar Bateria de 75Ah",
+    Recipe_Unwire_75Ah_Battery = "Desconectar Bateria de 75Ah",
+    Recipe_Wire_100Ah_Battery = "Conectar Bateria de 100Ah",
+    Recipe_Unwire_100Ah_Battery = "Desconectar Bateria de 100Ah",
+    Recipe_Make_Solar_Roof_Tile = "Fazer Painel Solar de Teto",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Fazer Painel Solar de Parede",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Fazer Painel Solar de Chão",
+    Recipe_Dismantle_Solar_Roof_Tile = "Desfazer Painel Solar de Teto",
+    Recipe_Dismantle_Wall-Mounted_Solar_Panel = "Desfazer Painel Solar de Parede",
+    Recipe_Dismantle_Floor-Mounted_Solar_Panel = "Desfazer Painel Solar de Chão",
+    Recipe_Create_Battery_Bank = "Criar Banco de Baterias",
+    Recipe_Create_Solar_Failsafe = "Criar Mecanismo de Segurança"
+}
