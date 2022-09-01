@@ -470,6 +470,7 @@ function SPowerbank:autoConnectToGenerator()
     local x = self.x
     local y = self.y
 
+    self.conGenerator = false
     for ix = x - radius, x + radius do
         for iy = y - radius, y + radius do
             local isquare = IsoUtils.DistanceToSquared(x,y,ix,iy) <= distance and getSquare(ix, iy, self.z)
@@ -480,7 +481,6 @@ function SPowerbank:autoConnectToGenerator()
             end
         end
     end
-    self.conGenerator = false
 end
 
 function SPowerbank:getConGenerator()

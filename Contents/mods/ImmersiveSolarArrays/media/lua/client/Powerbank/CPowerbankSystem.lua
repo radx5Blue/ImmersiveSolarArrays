@@ -103,12 +103,13 @@ function CPowerbankSystem.getDiagnosticTooltip(isopb,player)
         local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
         if luapb then
             luapb:updateFromIsoObject()
+
+            tooltip.description = getText("ContextMenu_ISA_Diagnostics_conGenerator") .. (luapb.conGenerator and "yes" or "no")
             if luapb.conGenerator then
-                tooltip.description = getText("ContextMenu_ISA_Diagnostics_conGenerator")
-                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Failsafe") .. (ISAScan.findOnSquare(getSquare(luapb.conGenerator.x,luapb.conGenerator.y,luapb.conGenerator.z), "solarmod_tileset_01_15") and "yes" or "no")
+                tooltip.description = tooltip.description .. " \n" .. getText("ContextMenu_ISA_Diagnostics_Failsafe") .. (ISAScan.findOnSquare(getSquare(luapb.conGenerator.x,luapb.conGenerator.y,luapb.conGenerator.z), "solarmod_tileset_01_15") and "yes" or "no")
             else
                 local inrange, outofrange = CPowerbankSystem.instance.getGeneratorAreaInfo(isopb:getSquare(),5,1,10)
-                tooltip.description = getText("ContextMenu_ISA_Diagnostics_GenInRange") .. inrange .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_GenOutOfRange") .. outofrange
+                tooltip.description = tooltip.description .. " \n" .. getText("ContextMenu_ISA_Diagnostics_GenInRange") .. inrange .. " \n" .. getText("ContextMenu_ISA_Diagnostics_GenOutOfRange") .. outofrange
             end
             tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_ShouldDrain") .. (luapb:shouldDrain() and "yes" or "no")
             if luapb.drain > 0 then
@@ -116,7 +117,7 @@ function CPowerbankSystem.getDiagnosticTooltip(isopb,player)
                 local days = math.floor(autonomy / 24)
                 local hours = math.floor(autonomy % 24)
                 local minutes = math.floor((autonomy - math.floor(autonomy)) * 60)
-                tooltip.description = tooltip.description .. " <BR>" .. getText("ContextMenu_ISA_Diagnostics_Autonomy") .. " <BR>" .. days .. " days, ".. hours .. " hours, ".. minutes .. " minutes "
+                tooltip.description = tooltip.description .. " \n" .. getText("ContextMenu_ISA_Diagnostics_Autonomy") .. days .. " days, ".. hours .. " hours, ".. minutes .. " minutes "
             end
         else
             tooltip.description = "<RGB:1,0,0>" .. "No Lua Object"

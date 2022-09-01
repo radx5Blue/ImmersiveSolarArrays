@@ -2,8 +2,9 @@ ContextMenu_EN = {
     ContextMenu_ISA_BatteryBank = "Battery Bank",
     ContextMenu_ISA_BatteryBankStatus = "See the status",
     ContextMenu_ISA_DiagnoseBankIssues = "Reset",
+
     ContextMenu_ISA_Diagnostics = "Diagnostics",
-    ContextMenu_ISA_Diagnostics_conGenerator = "Backup generator is connected to Battery Bank",
+    ContextMenu_ISA_Diagnostics_conGenerator = "Backup generator is connected: ",
     ContextMenu_ISA_Diagnostics_Failsafe = "Backup generator has failsafe: ",
     ContextMenu_ISA_Diagnostics_GenInRange = "Generators in range: ",
     ContextMenu_ISA_Diagnostics_GenOutOfRange = "Generators slightly out of range: ",

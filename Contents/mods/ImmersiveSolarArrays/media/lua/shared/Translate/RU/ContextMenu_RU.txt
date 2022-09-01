@@ -2,8 +2,9 @@ ContextMenu_RU = {
     ContextMenu_ISA_BatteryBank = "Аккумуляторная Батарея",
     ContextMenu_ISA_BatteryBankStatus = "Проверить статус",
     ContextMenu_ISA_DiagnoseBankIssues = "Сброс",
+	
 	ContextMenu_ISA_Diagnostics = "Диагностика",
-	ContextMenu_ISA_Diagnostics_conGenerator = "Резервный генератор подключен к Аккумуляторной Батареи",
+	ContextMenu_ISA_Diagnostics_conGenerator = "Резервный генератор подключен: ",
 	ContextMenu_ISA_Diagnostics_Failsafe = "Резервный генератор имеет отказоустойчивость: ",
 	ContextMenu_ISA_Diagnostics_GenInRange = "Генераторы в диапазоне: ",
 	ContextMenu_ISA_Diagnostics_GenOutOfRange = "Генераторы немного вне диапазона: ",
