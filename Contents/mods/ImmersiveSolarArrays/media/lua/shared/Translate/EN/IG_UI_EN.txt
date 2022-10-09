@@ -3,7 +3,7 @@ IGUI_EN = {
 
     IGUI_ISAWindowsStatus_Title = "Battery Bank Status",
 
-    IGUI_ISAWindowsSumaryTab_InfoText = "Powerbank solar panels and batteries summary.\n\nIt contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
+    IGUI_ISAWindowsSumaryTab_InfoText = "Powerbank solar panels and batteries summary.\n\n It contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Summary",
     IGUI_ISAWindowsSumaryTab_ConnectedPanels = "Connected Panels",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Panels Status",
@@ -19,5 +19,17 @@ IGUI_EN = {
     IGUI_ISAWindowsSumaryTab_DischargedIn = "Discharged in:\n  %d days\n  %d hours\n  %d minutes",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Not Charging",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries",
+
+    IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank"
+    IGUI_ISAWindow_Details_TabTitle = "Details"
+    IGUI_ISAWindow_Details_conGenerator = "Backup generator is connected: ",
+    IGUI_ISAWindow_Details_Failsafe = "Backup generator has failsafe: ",
+    IGUI_ISAWindow_Details_GenInRange = "Generators in range: ",
+    IGUI_ISAWindow_Details_GenOutOfRange = "Generators slightly out of range: ",
+    IGUI_ISAWindow_Details_ShouldDrain = "Battery Bank is consuming reserves: ",
+    IGUI_ISAWindow_Details_MaxCapacity = "Maximum Capacity: "
+    IGUI_ISAWindow_Details_Autonomy = "Battery Bank can power devices without sun for: ",
+    IGUI_ISAWindow_Details_Far = "Battery Bank is too far",
+
     IGUI_ISAContainerNotBattery = "This seems like a good place to store my ",
 }

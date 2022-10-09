@@ -1,7 +1,7 @@
 local Maps = {}
 --main map, mp and challenges list this map
 Maps["Muldraugh, KY"] = {
-    { x = 4722, y = 7997, z = 0, type = 'solarmod_tileset_01_07', overwrite = {} },
+    { x = 4722, y = 7997, z = 0, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 4743, y = 7848, z = 0, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 9656, y = 10156, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
     { x = 10254, y = 8762, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
@@ -16,7 +16,7 @@ Maps["Muldraugh, KY"] = {
     { x = 7460, y = 7968, z = 0, type = 'solarmod_tileset_01_6', overwrite = {} },
     { x = 11612, y = 9295, z = 1, type = 'solarmod_tileset_01_10', overwrite = {} },
     { x = 11588, y = 9292, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
-    { x = 10379, y = 10098, z = 1, type = 'solarmod_tileset_01_9', overwrite = {} },
+    { x = 10390, y = 10060, z = 1, type = 'solarmod_tileset_01_9', overwrite = {} },
     { x = 10182, y = 6761, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
     { x = 10745, y = 9843, z = 1, type = 'solarmod_tileset_01_10', overwrite = {} },
     { x = 8540, y = 9037, z = 0, type = 'solarmod_tileset_01_6', overwrite = {} },

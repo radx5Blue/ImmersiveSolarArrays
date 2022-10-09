@@ -37,7 +37,6 @@ function ISAActivatePowerbank:perform()
         self.character:playSound("GeneratorStarting")
     elseif self.activate then
         self.character:playSound("GeneratorFailedToStart")
-        ISAStatusWindow.OnOpenPanel(self.isopb:getSquare())
     else
         self.character:playSound("GeneratorStopping")
     end
