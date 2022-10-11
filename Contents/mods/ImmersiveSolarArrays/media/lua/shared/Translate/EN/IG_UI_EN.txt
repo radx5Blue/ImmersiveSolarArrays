@@ -20,8 +20,8 @@ IGUI_EN = {
     IGUI_ISAWindowsSumaryTab_NotCharging = "Not Charging",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries",
 
-    IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank"
-    IGUI_ISAWindow_Details_TabTitle = "Details"
+    IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank",
+    IGUI_ISAWindow_Details_TabTitle = "Details",
     IGUI_ISAWindow_Details_conGenerator = "Backup generator is connected: ",
     IGUI_ISAWindow_Details_Failsafe = "Backup generator has failsafe: ",
     IGUI_ISAWindow_Details_GenInRange = "Generators in range: ",

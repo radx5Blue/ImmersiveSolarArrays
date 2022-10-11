@@ -2,16 +2,7 @@ ContextMenu_RU = {
     ContextMenu_ISA_BatteryBank = "Аккумуляторная Батарея",
     ContextMenu_ISA_BatteryBankStatus = "Проверить статус",
     ContextMenu_ISA_DiagnoseBankIssues = "Сброс",
-	
-	ContextMenu_ISA_Diagnostics = "Диагностика",
-	ContextMenu_ISA_Diagnostics_conGenerator = "Резервный генератор подключен: ",
-	ContextMenu_ISA_Diagnostics_Failsafe = "Резервный генератор имеет отказоустойчивость: ",
-	ContextMenu_ISA_Diagnostics_GenInRange = "Генераторы в диапазоне: ",
-	ContextMenu_ISA_Diagnostics_GenOutOfRange = "Генераторы немного вне диапазона: ",
-	ContextMenu_ISA_Diagnostics_ShouldDrain = "Аккумуляторная Батарея расходует резервы: ",
-	ContextMenu_ISA_Diagnostics_Autonomy = "Аккумуляторная Батарея может питать устройства без солнца: ",
-	ContextMenu_ISA_Diagnostics_Far = "Аккумуляторная Батарея слишком далеко",
-	 
+		 
     ContextMenu_ISA_SolarPanel = "Солнечная панель",
     ContextMenu_ISA_Connect_Panel = "Подключить к Аккумуляторной Батареи",
     ContextMenu_ISA_Connect_Panel_toolTip = "Расположение батареи относительно солнечной панели (x:y)",

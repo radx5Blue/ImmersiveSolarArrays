@@ -1,8 +1,8 @@
 require "ISUI/ISPanelJoypad"
 
-ISAWindowsDetails = ISPanelJoypad:derive("ISAWindowsDetails")
+ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
 
-function ISAWindowsDetails:render()
+function ISAWindowDetails:render()
     local medFont = getTextManager():getFontHeight(UIFont.Medium)
     local textX = 10
     local textXb = self.len1
@@ -33,7 +33,7 @@ function ISAWindowsDetails:render()
             self:drawText((pb:shouldDrain() and getText("UI_Yes") or getText("UI_No")), textXb, textY, 1, 1, 1, 1, UIFont.Medium)
             textY = textY + medFont
             self:drawText(getText("IGUI_ISAWindow_Details_MaxCapacity"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
-            self:drawText(tostring(pb.maxcapacity), textXb, textY, 1, 1, 1, 1, UIFont.Medium)
+            self:drawText(tostring(math.floor(pb.maxcapacity) .. "Ah"), textXb, textY, 1, 1, 1, 1, UIFont.Medium)
             textY = textY + medFont
             if pb.drain > 0 then
                 local autonomy =  pb.charge / pb.drain
@@ -45,7 +45,6 @@ function ISAWindowsDetails:render()
                 textY = textY + medFont
             end
         else
-            print("Error: Powerbank has  no Lua Object")
             ISAStatusWindow.instance:close()
         end
     else
@@ -53,7 +52,7 @@ function ISAWindowsDetails:render()
     end
 end
 
-function ISAWindowsDetails:new(x, y, width, height)
+function ISAWindowDetails:new(x, y, width, height)
     local o = {}
     o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
@@ -63,6 +62,6 @@ function ISAWindowsDetails:new(x, y, width, height)
     local len = getTextManager():MeasureStringX(UIFont.Medium, getText("IGUI_ISAWindow_Details_Autonomy")) + 20
     o.len1 = len > 300 and len or 300
 
-    ISAWindowsDetails.instance = o
+    ISAWindowDetails.instance = o
     return o
 end

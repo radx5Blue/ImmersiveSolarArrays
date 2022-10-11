@@ -19,5 +19,16 @@ IGUI_RU = {
     IGUI_ISAWindowsSumaryTab_DischargedIn = "Разрядиться через:\n %d дней\n %d часов\n %d минут",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Не заряжается",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Нет батарей",
+	
+	IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank",
+    IGUI_ISAWindow_Details_TabTitle = "Details",
+	IGUI_ISAWindow_Details_conGenerator = "Резервный генератор подключен: ",
+	IGUI_ISAWindow_Details_Failsafe = "Резервный генератор имеет отказоустойчивость: ",
+	IGUI_ISAWindow_Details_GenInRange = "Генераторы в диапазоне: ",
+	IGUI_ISAWindow_Details_GenOutOfRange = "Генераторы немного вне диапазона: ",
+	IGUI_ISAWindow_Details_ShouldDrain = "Аккумуляторная Батарея расходует резервы: ",
+	IGUI_ISAWindow_Details_Autonomy = "Аккумуляторная Батарея может питать устройства без солнца: ",
+	IGUI_ISAWindow_Details_Far = "Аккумуляторная Батарея слишком далеко",
+
     IGUI_ISAContainerNotBattery = "Кажется, это хорошее место для хранения ",
 }

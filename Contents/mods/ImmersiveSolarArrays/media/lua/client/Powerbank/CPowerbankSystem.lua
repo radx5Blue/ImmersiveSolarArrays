@@ -122,7 +122,6 @@ end
 
 function CPowerbankSystem.onPlugGenerator(character,generator,plug)
     if not isClient() or #ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0 then
-        print("test ",#ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0)
         local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
         CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ gen = gen, plug = plug })
     end

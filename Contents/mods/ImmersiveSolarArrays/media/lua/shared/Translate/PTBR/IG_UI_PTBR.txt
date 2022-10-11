@@ -20,4 +20,16 @@ IGUI_PTBR = {
     IGUI_ISAWindowsSumaryTab_NotCharging = "Não está carregando",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Sem Baterias",
     IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar ",
+	
+	IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank",
+    IGUI_ISAWindow_Details_TabTitle = "Details",
+    IGUI_ISAWindow_Details_conGenerator = "O Gerador Backup está conectado: ",
+    IGUI_ISAWindow_Details_Failsafe = "O Gerador Backup tem Mecanismo de Segurança: ",
+    IGUI_ISAWindow_Details_GenInRange = "Geradores no alcance: ",
+    IGUI_ISAWindow_Details_GenOutOfRange = "Geradores ligeiramente fora do alcance: ",
+    IGUI_ISAWindow_Details_ShouldDrain = "O Banco de Baterias está consumindo reservas: ",
+    IGUI_ISAWindow_Details_Autonomy = "O Banco de Baterias pode ligar dispositivos sem sol por: ",
+    IGUI_ISAWindow_Details_Far = "O Banco de Baterias está muito longe",
+
+
 }
