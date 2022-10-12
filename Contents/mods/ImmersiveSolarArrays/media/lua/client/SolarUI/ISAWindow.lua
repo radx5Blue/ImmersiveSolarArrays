@@ -28,11 +28,6 @@ function ISAStatusWindow:createChildren()
 	self.detailsView.infoText = getText("IGUI_ISAWindow_Details_InfoText")
 	self.panel:addView(getText("IGUI_ISAWindow_Details_TabTitle"), self.detailsView)
 
-	self.devicesView = ISAWindowDevices:new(0, 8, self.width, self.height-8)
-	self.devicesView:initialise()
-	self.devicesView.infoText = getText("IGUI_ISAWindow_Devices_InfoText")
-	self.panel:addView(getText("IGUI_ISAWindow_Devices_TabTitle"), self.devicesView)
-
 	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
 	--self:setWidth(self.charScreen.width)
 	--self:setHeight(self.charScreen.height);
