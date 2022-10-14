@@ -47,19 +47,12 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square) end);
+		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square,player) end)
 
 		local isOn = powerbank:getModData()["on"]
 		local textOn = isOn and getText("ContextMenu_Turn_Off") or getText("ContextMenu_Turn_On")
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(textOn, worldobjects, ActivatePowerbank, player, powerbank, not isOn)
-
-		ISASubMenu:addOption("Force Battery Update", worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"countBatteries", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)
-
-		--if getDebug() then
-		--	if test then return ISWorldObjectContextMenu.setTest() end
-		--	ISASubMenu:addOption(getText("ContextMenu_ISA_DiagnoseBankIssues"), worldobjects, function() CPowerbankSystem.instance:sendCommand(getSpecificPlayer(player),"reboot", { x = powerbank:getX(), y = powerbank:getY(), z = powerbank:getZ() }) end)
-		--end
 	end
 
 	if panel then

@@ -127,14 +127,17 @@ end
 function ISAWindowsSumaryTab:setVisible(visible)
     self.javaObject:setVisible(visible);
 	if visible then
-		local th = self.parent.parent:titleBarHeight()
+		--local th = self.parent.parent:titleBarHeight()
 		-- Set the Window size
-		self.parent.parent:setWidth(580);
-		self.parent.parent:setHeight(410 + th);
+		--self.parent.parent:setWidth(580);
+		--self.parent.parent:setHeight(410 + th);
 
 		-- Set the Panel size
-		self.parent:setWidth(580);
-		self.parent:setHeight(410 + th);
+		--self.parent:setWidth(580);
+		--self.parent:setHeight(410 + th);
+		self:setWidthAndParentWidth(580)
+		self:setHeightAndParentHeight(390)
+
 	end
 end
 
@@ -217,18 +220,17 @@ function ISAWindowsSumaryTab:render()
 
 	-- Sumary box
 	--self:drawRect(310, 25, 250, 125, 1.0, 1.0, 1.0, 1.0);
-	self:drawRectBorder(310, 25, 250, 125, 1.0, 1.0, 1.0, 1.0);
+	self:drawRectBorder(self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125, 1.0, 1.0, 1.0, 1.0)
 
 	-- Sumary text
-	local text_x = 435;
+	local text_x = self.width - self.textWidth - 60
 	local text_y = 30;
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
+	--self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 
 	-- Connected panels
-	self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
+	--self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
 	if (self.drain > self.panelsMaxInput) then
@@ -243,34 +245,43 @@ function ISAWindowsSumaryTab:render()
 		end
 	end
 
-	if (self.batteryNumber > 0) then
-		self:drawText(string.format("%d%%", (self.batteryLevel or 0) * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+	if (self.capacity > 0) then
+		self:drawText(string.format("%d%%", self.batteryLevel * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 
 		if (self.difference > 0) then
-			local ctime = ((self.capacity - self.actualCharge) / self.difference);
-
-			if (ctime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			if self.capacity == self.actualCharge then
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local days = math.floor(ctime / 24);
-				local hours = math.floor(ctime % 24);
-				local minutes = (ctime - math.floor(ctime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_ChargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				local ctime = ((self.capacity - self.actualCharge) / self.difference)
+				local days = math.floor(ctime / 24)
+				local hours = math.floor(ctime % 24)
+				local minutes = math.floor((ctime - math.floor(ctime)) * 60)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ChargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			end
-
 		elseif (self.difference < 0) then
-			local dtime = math.abs(self.actualCharge / self.difference);
-
-			if (dtime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			if (self.actualCharge == 0) then
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local days = math.floor(dtime / 24);
-				local hours = math.floor(dtime % 24);
-				local minutes = (dtime - math.floor(dtime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_DischargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				local dtime = math.abs(self.actualCharge / self.difference)
+				local days = math.floor(dtime / 24)
+				local hours = math.floor(dtime % 24)
+				local minutes = math.floor((dtime - math.floor(dtime)) * 60)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_DischargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			end
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+		end
+		if self.actualCharge > 0 and self.powerbank.drain > 0 then
+			local dtime = self.actualCharge / self.powerbank.drain
+			local days = math.floor(dtime / 24)
+			local hours = math.floor(dtime % 24)
+			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
+			self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryRemaining"), text_x, text_y + 60, 0, 1, 0, 1, UIFont.Small)
+			self:drawText(days .. " " .. getText("IGUI_Gametime_days") .. "\n" .. hours .. " " .. getText("IGUI_Gametime_hours") .. "\n" .. minutes .. " " .. getText("IGUI_Gametime_minutes"), text_x + 15, text_y + 60, 0, 1, 0, 1, UIFont.Small)
 		end
 	else
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
@@ -313,6 +324,7 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	self.actualCharge = 0;
 	self.difference = 0;
 	self.night = false;
+	self.textWidth = self.measureTexts()
    return o;
 end
 
@@ -338,4 +350,41 @@ function ISAWindowsSumaryTab:close()
 	self:removeChild(self.imageSolarPanelCross);
 
 	self:removeFromUIManager()
+end
+
+function ISAWindowsSumaryTab.measureTexts()
+	local textTable = {
+		left = {
+			"IGUI_ISAWindowsSumaryTab_PanelsStatus",
+			"IGUI_ISAWindowsSumaryTab_BatteryLevel",
+			"IGUI_ISAWindowsSumaryTab_BatteryStatus",
+			"IGUI_ISAWindowsSumaryTab_ChargedIn",
+			"IGUI_ISAWindowsSumaryTab_DischargedIn",
+			"IGUI_ISAWindowsSumaryTab_BatteryRemaining",
+		},
+		right = {
+			"IGUI_ISAWindowsSumaryTab_NoEnoughPanels",
+			"IGUI_ISAWindowsSumaryTab_NoEnoughSun",
+			"IGUI_ISAWindowsSumaryTab_FullyCharged",
+			"IGUI_ISAWindowsSumaryTab_FullyDischarged",
+			"IGUI_ISAWindowsSumaryTab_NotCharging",
+			"IGUI_ISAWindowsSumaryTab_NoBatteries",
+		}
+	}
+
+	local max = 0
+	for type,texts in pairs(textTable) do
+		--local max =0
+		for _,text in ipairs(texts) do
+			local width = getTextManager():MeasureStringX(UIFont.Small, getText(text))
+			max = math.max(max, width)
+		end
+		--textTable[type].max = max
+	end
+
+	--local combined = textTable.left.max + textTable.right.max
+	--if combined > 235 then combined = 235 end
+	--local midX = (235 - combined)/2 + textTable.left.max
+
+	return max
 end

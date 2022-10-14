@@ -28,6 +28,11 @@ function ISAStatusWindow:createChildren()
 	self.detailsView.infoText = getText("IGUI_ISAWindow_Details_InfoText")
 	self.panel:addView(getText("IGUI_ISAWindow_Details_TabTitle"), self.detailsView)
 
+	self.debugView = ISAWindowDebug:new(0, 8, 200, 25)
+	self.debugView:initialise()
+	self.debugView.infoText = "Debug"
+	self.panel:addView("Debug", self.debugView)
+
 	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
 	--self:setWidth(self.charScreen.width)
 	--self:setHeight(self.charScreen.height);
@@ -48,17 +53,21 @@ function ISAStatusWindow:new(x, y, width, height)
 	return o;
 end
 
-function ISAStatusWindow.OnOpenPanel(fsquare)
+function ISAStatusWindow.OnOpenPanel(fsquare,player)
 	if ISAStatusWindow.instance == nil then
 		local ui = ISAStatusWindow:new(100, 100, 200, 200)
 		ui:initialise()
 		ISAStatusWindow.instance = ui
 	end
-	ISAStatusWindow.instance:addToUIManager()
+	local instance = ISAStatusWindow.instance
+	instance:addToUIManager()
 
-	ISAStatusWindow.instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(fsquare:getX(),fsquare:getY(),fsquare:getZ())
-	ISAStatusWindow.instance.sumaryView.powerbank = ISAStatusWindow.instance.luaPB
-	ISAStatusWindow.instance.sumaryView.currentFrame = 0
+	instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(fsquare:getX(),fsquare:getY(),fsquare:getZ())
+	instance.player = player
+	instance.sumaryView.powerbank = ISAStatusWindow.instance.luaPB
+	instance.sumaryView.currentFrame = 0
+
+	--instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
 end
 
 function ISAStatusWindow:close()
