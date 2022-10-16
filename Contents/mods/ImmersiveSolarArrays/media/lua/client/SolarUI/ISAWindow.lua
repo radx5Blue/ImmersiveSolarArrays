@@ -37,37 +37,35 @@ function ISAStatusWindow:createChildren()
 	--self:setWidth(self.charScreen.width)
 	--self:setHeight(self.charScreen.height);
 	--ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
-    self.visibleOnStartup = self:getIsVisible() -- hack, see ISPlayerDataObject.lua
 end
 
 function ISAStatusWindow:new(x, y, width, height)
-	local o = {};
-	o = ISCollapsableWindow:new(x, y, width, height);
-	setmetatable(o, self);
-	self.__index = self;
---	o:noBackground();
+	local o = {}
+	o = ISCollapsableWindow:new(x, y, width, height)
+	setmetatable(o, self)
+	self.__index = self
 	o:setResizable(false)
-	o.visibleOnStartup = false
 
-	--ISCharacterInfoWindow.instance = o;
-	return o;
+	ISAStatusWindow.instance = o
+	return o
 end
 
-function ISAStatusWindow.OnOpenPanel(fsquare,player)
+function ISAStatusWindow.OnOpenPanel(worldobjects,square,player)
 	if ISAStatusWindow.instance == nil then
-		local ui = ISAStatusWindow:new(100, 100, 200, 200)
+		local ui = ISAStatusWindow:new(590, 100, 200, 200)
 		ui:initialise()
-		ISAStatusWindow.instance = ui
 	end
 	local instance = ISAStatusWindow.instance
 	instance:addToUIManager()
 
-	instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(fsquare:getX(),fsquare:getY(),fsquare:getZ())
-	instance.player = player
+	instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
+	instance.player = getSpecificPlayer(player)
 	instance.sumaryView.powerbank = ISAStatusWindow.instance.luaPB
 	instance.sumaryView.currentFrame = 0
-
-	--instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
+	if instance.panel.activeView and instance.panel:getActiveViewIndex() ~= 1 then
+		--instance.panel.activeView.view:setVisible(false)
+		instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
+	end
 end
 
 function ISAStatusWindow:close()

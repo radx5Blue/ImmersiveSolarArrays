@@ -14,8 +14,9 @@ function ISAWindowDetails:new(x, y, width, height)
 end
 
 function ISAWindowDetails:createChildren()
+    local y = getTextManager():getFontHeight(UIFont.Medium) + getTextManager():getFontHeight(UIFont.Small) * 4 + 15
     local width = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_ISA_Update")) + 10
-    self.devButton = ISButton:new(self.width-width-10, 10, width, getTextManager():getFontHeight(UIFont.Medium), getText("IGUI_ISA_Update"), self, self.updateDevices)
+    self.devButton = ISButton:new(self.width-width-10, y, width, getTextManager():getFontHeight(UIFont.Medium), getText("IGUI_ISA_Update"), self, self.updateDevices)
     self:addChild(self.devButton)
 
     --self:setScrollChildren(true)
@@ -30,6 +31,9 @@ function ISAWindowDetails:setVisible(visible)
 end
 
 function ISAWindowDetails:render()
+    local pb = self.parent.parent.luaPB
+    if not (pb and pb:getIsoObject()) then print("ISA no Lua Obj"); return ISAStatusWindow.instance:close() end
+
     local textX = 10
     local textXr = self.width -10
     local textY = 10
@@ -37,10 +41,8 @@ function ISAWindowDetails:render()
     local fontHeightSm = getTextManager():getFontHeight(UIFont.Small)
     local fontHeightMed = getTextManager():getFontHeight(UIFont.Medium)
 
-    local pb = self.parent.parent.luaPB
-    if not (pb and pb:getIsoObject()) then print("ISA no Lua Obj"); return ISAStatusWindow.instance:close() end
 
-    if getPlayer():DistToSquared(pb.x + 0.5, pb.y + 0.5) <= 10 then
+    if self.parent.parent.player:DistToSquared(pb.x + 0.5, pb.y + 0.5) <= 10 then
         pb:updateFromIsoObject()
         local devices = pb:getSquare():getGenerator():getItemsPowered()
 
@@ -56,23 +58,11 @@ function ISAWindowDetails:render()
         self:drawText(getText("IGUI_ISAWindow_Details_MaxPanelOutput"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(string.format("%.1f",CPowerbankSystem.getMaxSolarOutput(pb.npanels)) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
-        --if pb.drain > 0 then
-        --    local autonomy =  pb.charge / pb.drain
-        --    local days = math.floor(autonomy / 24)
-        --    local hours = math.floor(autonomy % 24)
-        --    local minutes = math.floor((autonomy - math.floor(autonomy)) * 60)
-        --    self:drawText("Current Charge: ", textX, textY, 1, 1, 1, 1, UIFont.Small)
-        --    self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), textXb, textY, 1, 1, 1, 1, UIFont.Small)
-        --    --self:drawText(getText("IGUI_ISAWindow_Details_Autonomy"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        --    --self:drawText(days .. " " .. getText("IGUI_Gametime_days") .. ", " .. hours .. " " .. getText("IGUI_Gametime_hours") .. ", " .. minutes .. " " .. getText("IGUI_Gametime_minutes"), textXb, textY, 1, 1, 1, 1, UIFont.Small)
-        --    textY = textY + fontHeightSm
-        --end
         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
         textY = textY + fontHeightSm
-        --self:drawText("Electrical Devices - Update", textX, textY, 1, 1, 1, 1, UIFont.Medium)
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricalDevices"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
-        self.devButton:setY(textY)
+        --self.devButton:setY(textY)
         self.devButton:setVisible(true)
         textY = textY + fontHeightMed + 5
         borderY = textY-3
@@ -86,9 +76,7 @@ function ISAWindowDetails:render()
         end
         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
-
         textY = textY + fontHeightSm
-        --self:drawRect(5, textY-1, self.width-10, fontHeightMed+2, 0.3, 1, 1, 1)
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
         textY = textY + fontHeightMed + 5
         borderY = textY-3
@@ -108,28 +96,25 @@ function ISAWindowDetails:render()
             self:drawTextRight(tostring(outofrange), textXr, textY, 1, 1, 1, 1, UIFont.Small)
             textY = textY + fontHeightSm
         end
-        if getWorld().isHydroPowerOn then
-            self:drawText(getText("IGUI_ISAWindow_Details_GlobalGrid"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-            self:drawTextRight(getWorld():isHydroPowerOn() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-            textY = textY + fontHeightSm
-        end
-        --self:drawText(getText("IGUI_ISAWindow_Details_ShouldDrain"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        --self:drawTextRight((pb:shouldDrain() and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-        --textY = textY + fontHeightSm
-
+        --if getWorld().isHydroPowerOn then
+        --    self:drawText(getText("IGUI_ISAWindow_Details_GlobalGrid"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --    self:drawTextRight(getWorld():isHydroPowerOn() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        --    textY = textY + fontHeightSm
+        --end
         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
-        --self:setScrollHeight(textY+10)
-        self:setHeightAndParentHeight(textY+10)
     else
         self.devButton:setVisible(false)
         self:drawText(getText("IGUI_ISAWindow_Details_Far"), textX, textY, 1, 0, 0, 1, UIFont.Medium)
+        textY = textY + fontHeightMed
     end
+    --self:setScrollHeight(textY+10)
+    self:setHeightAndParentHeight(textY+10)
 end
 
 function ISAWindowDetails:updateDevices()
     local luapb = self.parent.parent.luaPB
-    CPowerbankSystem.instance:sendCommand(getPlayer(),"activatePowerbank", { pb = { x = luapb.x, y = luapb.y, z = luapb.z }, activate = luapb.on })
+    CPowerbankSystem.instance:sendCommand(self.parent.parent.player,"activatePowerbank", { pb = { x = luapb.x, y = luapb.y, z = luapb.z }, activate = luapb.on })
 end
 
 local function maxWidthOfTexts(texts)
@@ -154,7 +139,6 @@ function ISAWindowDetails.measureWidth()
         "IGUI_ISAWindow_Details_GenInRange",
         "IGUI_ISAWindow_Details_GenOutOfRange",
         "IGUI_ISAWindow_Details_GlobalGrid",
-        --"IGUI_ISAWindow_Details_ShouldDrain",
     }) + maxWidthOfTexts({"UI_Yes","UI_No"})
     local lenButton = getTextManager():MeasureStringX(UIFont.Medium, getText("IGUI_ISAWindow_Details_ElectricalDevices")) + getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_ISA_Update")) + 40
     return math.max(math.max(len1,lenTPU, len2) + 20, lenButton)

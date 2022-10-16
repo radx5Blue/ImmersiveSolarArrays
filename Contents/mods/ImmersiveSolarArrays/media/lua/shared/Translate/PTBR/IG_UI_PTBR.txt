@@ -5,7 +5,6 @@ IGUI_PTBR = {
 
     IGUI_ISAWindowsSumaryTab_InfoText = "Resumo do Banco de Energia, Painéis Solares e Baterias.\n\nContém toda a informação básica sobre o Banco de Energia, as Baterias contidas nele e os Painéis Solares conectados.",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Resumo",
-    IGUI_ISAWindowsSumaryTab_ConnectedPanels = "Painéis Conectados",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Status dos Painéis",
     IGUI_ISAWindowsSumaryTab_BatteryLevel = "Nível das Baterias",
     IGUI_ISAWindowsSumaryTab_BatteryStatus = "Status das Baterias",
@@ -21,15 +20,19 @@ IGUI_PTBR = {
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Sem Baterias",
     IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar ",
 	
-	IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank",
-    IGUI_ISAWindow_Details_TabTitle = "Details",
-    IGUI_ISAWindow_Details_conGenerator = "O Gerador Backup está conectado: ",
-    IGUI_ISAWindow_Details_Failsafe = "O Gerador Backup tem Mecanismo de Segurança: ",
-    IGUI_ISAWindow_Details_GenInRange = "Geradores no alcance: ",
-    IGUI_ISAWindow_Details_GenOutOfRange = "Geradores ligeiramente fora do alcance: ",
-    IGUI_ISAWindow_Details_ShouldDrain = "O Banco de Baterias está consumindo reservas: ",
-    IGUI_ISAWindow_Details_Autonomy = "O Banco de Baterias pode ligar dispositivos sem sol por: ",
-    IGUI_ISAWindow_Details_Far = "O Banco de Baterias está muito longe",
-
+	IGUI_ISAWindow_Details_InfoText = "Detalhes e informações relacionadas ao Banco de Baterias",
+    IGUI_ISAWindow_Details_TabTitle = "Detalhes",
+    IGUI_ISAWindow_Details_MaxCapacity = "Capacidade máxima: ",
+    IGUI_ISAWindow_Details_ConnectedPanels = "Painéis Conectados",
+    IGUI_ISAWindow_Details_MaxPanelOutput = "Saída máxima do painel: ",
+    IGUI_ISAWindow_Details_ElectricalDevices = "Dispositivos Elétricos",
+    IGUI_ISAWindow_Details_conGenerator = "O Gerador de Backup está conectado: ",
+    IGUI_ISAWindow_Details_Failsafe = "O Gerador de Backup tem proteção contra falhas: ",
+    IGUI_ISAWindow_Details_GenInRange = "Geradores no intervalo: ",
+    IGUI_ISAWindow_Details_GenOutOfRange = "Geradores fora do intervalo: ",
+    IGUI_ISAWindow_Details_ElectricityExternal = "Fontes externas",
+    IGUI_ISAWindow_Details_Far = "Battery Bank está muito longe",
+	
+	IGUI_ISA_Update = "Atualizar",
 
 }

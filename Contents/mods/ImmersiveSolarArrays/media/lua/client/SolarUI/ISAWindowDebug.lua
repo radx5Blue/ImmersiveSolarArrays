@@ -7,7 +7,6 @@ function ISAWindowDebug:new(x, y, width, height)
     o = ISPanelJoypad:new(x, y, width, height)
     setmetatable(o, self)
     self.__index = self
-    o:noBackground()
 
     ISAWindowDebug.instance = o
     return o
@@ -16,7 +15,8 @@ end
 function ISAWindowDebug:createChildren()
     --local buttons
     local height = 25
-    self.containerButton = ISButton:new(0, 0, 200, height, "Check Container Items", self, self.checkContainer)
+
+    self.containerButton = ISButton:new(0, 0, 200, height, "Update Container Items", self, self.checkContainer)
     self.containerButton:setBackgroundRGBA(0.23,0,0,1)
     self:addChild(self.containerButton)
 
@@ -38,5 +38,5 @@ end
 
 function ISAWindowDebug:checkContainer()
     local luapb = self.parent.parent.luaPB
-    CPowerbankSystem.instance:sendCommand(getSpecificPlayer(self.parent.parent.player),"countBatteries", { x = luapb.x, y = luapb.y, z = luapb.z })
+    CPowerbankSystem.instance:sendCommand(self.parent.parent.player,"countBatteries", { x = luapb.x, y = luapb.y, z = luapb.z })
 end

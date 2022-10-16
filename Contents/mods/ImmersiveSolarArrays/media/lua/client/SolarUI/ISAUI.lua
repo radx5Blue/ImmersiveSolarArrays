@@ -47,7 +47,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
 		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, function() ISAStatusWindow.OnOpenPanel(square,player) end)
+		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, ISAStatusWindow.OnOpenPanel, square, player)
 
 		local isOn = powerbank:getModData()["on"]
 		local textOn = isOn and getText("ContextMenu_Turn_Off") or getText("ContextMenu_Turn_On")

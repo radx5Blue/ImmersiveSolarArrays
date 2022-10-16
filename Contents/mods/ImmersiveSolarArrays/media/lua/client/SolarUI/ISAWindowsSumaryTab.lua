@@ -127,17 +127,8 @@ end
 function ISAWindowsSumaryTab:setVisible(visible)
     self.javaObject:setVisible(visible);
 	if visible then
-		--local th = self.parent.parent:titleBarHeight()
-		-- Set the Window size
-		--self.parent.parent:setWidth(580);
-		--self.parent.parent:setHeight(410 + th);
-
-		-- Set the Panel size
-		--self.parent:setWidth(580);
-		--self.parent:setHeight(410 + th);
 		self:setWidthAndParentWidth(580)
 		self:setHeightAndParentHeight(390)
-
 	end
 end
 
@@ -157,8 +148,8 @@ function ISAWindowsSumaryTab:render()
 		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(self.connectedPanels)
 		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(self.connectedPanels)
 		self.actualCharge = self.powerbank.charge
-		self.drain = self.powerbank:shouldDrain() and self.powerbank.drain or 0
-		self.difference = self.panelsInput - self.drain
+		self.drain = self.powerbank.drain
+		self.difference = self.panelsInput - (self.powerbank:shouldDrain() and self.drain or 0)
 
 		local currentTime = getGameTime():getTimeOfDay();
 		if ISAIsDayTime(currentTime) then
@@ -219,24 +210,19 @@ function ISAWindowsSumaryTab:render()
 	self.currentFrame = self.currentFrame + 1;
 
 	-- Sumary box
-	--self:drawRect(310, 25, 250, 125, 1.0, 1.0, 1.0, 1.0);
-	self:drawRectBorder(self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125, 1.0, 1.0, 1.0, 1.0)
+	local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125
+	self:drawRect(rectX, rectY, rectW, rectH, 0.5, 0.16, 0.16, 0.16)
+	self:drawRectBorder(rectX, rectY, rectW, rectH, 1, 1, 1, 1)
 
 	-- Sumary text
 	local text_x = self.width - self.textWidth - 60
 	local text_y = 30;
-	--self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-
-	-- Connected panels
-	--self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
 	if (self.drain > self.panelsMaxInput) then
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	--elseif (self.drain > self.panelsMaxInput) then
-	--	self:drawText(getText("IGUI_ISAWindowsSumaryTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
 		if (self.drain > self.panelsInput) then
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
@@ -275,8 +261,8 @@ function ISAWindowsSumaryTab:render()
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 		end
-		if self.actualCharge > 0 and self.powerbank.drain > 0 then
-			local dtime = self.actualCharge / self.powerbank.drain
+		if self.actualCharge > 0 and self.drain > 0 then
+			local dtime = self.actualCharge / self.drain
 			local days = math.floor(dtime / 24)
 			local hours = math.floor(dtime % 24)
 			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
@@ -295,7 +281,6 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	setmetatable(o, self);
     self.__index = self;
 	o:noBackground();
-	o.txtLen = 0;
 
 	-- Textures
 	o.textureBattery = getTexture("media/ui/isa_battery.png");
@@ -325,32 +310,32 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	self.difference = 0;
 	self.night = false;
 	self.textWidth = self.measureTexts()
-   return o;
+   return o
 end
 
-function ISAWindowsSumaryTab:close()
-	ISPanelJoypad.close();
-
-	-- Reset the currentFrame
-	self.currentFrame = 0;
-
-	-- Battery
-	self:removeChild(self.imageBatteryCross);
-
-	-- Sun and radiation
-	self:removeChild(self.imageSun);
-	self:removeChild(self.imageSolarRadiation1);
-	self:removeChild(self.imageSolarRadiation2);
-	self:removeChild(self.imageSolarRadiation3);
-	self:removeChild(self.imageSolarRadiationCross);
-
-	-- Solar Panel (two modes)
-	self:removeChild(self.imageSolarPanel);
-	self:removeChild(self.imageSolarPanelNoEnergy);
-	self:removeChild(self.imageSolarPanelCross);
-
-	self:removeFromUIManager()
-end
+--function ISAWindowsSumaryTab:close()
+--	ISPanelJoypad.close();
+--
+--	-- Reset the currentFrame
+--	self.currentFrame = 0;
+--
+--	-- Battery
+--	self:removeChild(self.imageBatteryCross);
+--
+--	-- Sun and radiation
+--	self:removeChild(self.imageSun);
+--	self:removeChild(self.imageSolarRadiation1);
+--	self:removeChild(self.imageSolarRadiation2);
+--	self:removeChild(self.imageSolarRadiation3);
+--	self:removeChild(self.imageSolarRadiationCross);
+--
+--	-- Solar Panel (two modes)
+--	self:removeChild(self.imageSolarPanel);
+--	self:removeChild(self.imageSolarPanelNoEnergy);
+--	self:removeChild(self.imageSolarPanelCross);
+--
+--	self:removeFromUIManager()
+--end
 
 function ISAWindowsSumaryTab.measureTexts()
 	local textTable = {
@@ -374,17 +359,11 @@ function ISAWindowsSumaryTab.measureTexts()
 
 	local max = 0
 	for type,texts in pairs(textTable) do
-		--local max =0
 		for _,text in ipairs(texts) do
 			local width = getTextManager():MeasureStringX(UIFont.Small, getText(text))
 			max = math.max(max, width)
 		end
-		--textTable[type].max = max
 	end
-
-	--local combined = textTable.left.max + textTable.right.max
-	--if combined > 235 then combined = 235 end
-	--local midX = (235 - combined)/2 + textTable.left.max
 
 	return max
 end
