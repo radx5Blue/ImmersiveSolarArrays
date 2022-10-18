@@ -129,27 +129,22 @@ function ISAWindowsSumaryTab:setVisible(visible)
 	if visible then
 		self:setWidthAndParentWidth(580)
 		self:setHeightAndParentHeight(390)
+		self.currentFrame = 0
 	end
 end
 
 function ISAWindowsSumaryTab:prerender()
-	ISPanelJoypad.prerender(self);
-end
+	ISPanelJoypad.prerender(self)
 
-function ISAWindowsSumaryTab:render()
+	local pb = self.parent.parent.luaPB
+	if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
 	-- Update every 30 frames
-	if ((self.currentFrame % 30) == 0) then
-		if not (self.powerbank and self.powerbank:getIsoObject()) then return ISAStatusWindow.instance:close() end
-		self.powerbank:updateFromIsoObject()
-		self.connectedPanels = self.powerbank.npanels
-		self.batteryLevel = self.powerbank.charge / self.powerbank.maxcapacity
-		self.capacity = self.powerbank.maxcapacity
-		self.batteryNumber = self.powerbank.batteries
-		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(self.connectedPanels)
-		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(self.connectedPanels)
-		self.actualCharge = self.powerbank.charge
-		self.drain = self.powerbank.drain
-		self.difference = self.panelsInput - (self.powerbank:shouldDrain() and self.drain or 0)
+	if (self.currentFrame%30 == 0) then
+		pb:updateFromIsoObject()
+		self.batteryLevel = pb.charge / pb.maxcapacity
+		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(pb.npanels)
+		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(pb.npanels)
+		self.difference = self.panelsInput - (pb:shouldDrain() and pb.drain or 0)
 
 		local currentTime = getGameTime():getTimeOfDay();
 		if ISAIsDayTime(currentTime) then
@@ -166,7 +161,7 @@ function ISAWindowsSumaryTab:render()
 			end
 		end
 
-		if (self.batteryNumber > 0) then
+		if (pb.batteries > 0) then
 			if (self.thereAreBatteries == false) then
 				self.imageBatteryCross:setVisible(false)
 				self.thereAreBatteries = true;
@@ -178,7 +173,7 @@ function ISAWindowsSumaryTab:render()
 			end
 		end
 
-		if (self.connectedPanels > 0) then
+		if (pb.npanels > 0) then
 			if (self.thereArePanels == false) then
 				self.imageSolarPanelCross:setVisible(false)
 				self.thereArePanels = true;
@@ -204,10 +199,13 @@ function ISAWindowsSumaryTab:render()
 			end
 		end
 		-- Reset the frames count to avoid overflow
-		self.currentFrame = 0;
+		self.currentFrame = 0
 	end
+	self.currentFrame = self.currentFrame +1
+end
 
-	self.currentFrame = self.currentFrame + 1;
+function ISAWindowsSumaryTab:render()
+	local pb = self.parent.parent.luaPB
 
 	-- Sumary box
 	local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125
@@ -221,25 +219,25 @@ function ISAWindowsSumaryTab:render()
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
-	if (self.drain > self.panelsMaxInput) then
+	if (pb.drain > self.panelsMaxInput) then
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
-		if (self.drain > self.panelsInput) then
+		if (pb.drain > self.panelsInput) then
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		end
 	end
 
-	if (self.capacity > 0) then
+	if (pb.maxcapacity > 0) then
 		self:drawText(string.format("%d%%", self.batteryLevel * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 
 		if (self.difference > 0) then
-			if self.capacity == self.actualCharge then
+			if pb.maxcapacity == pb.charge then
 				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local ctime = ((self.capacity - self.actualCharge) / self.difference)
+				local ctime = ((pb.maxcapacity - pb.charge) / self.difference)
 				local days = math.floor(ctime / 24)
 				local hours = math.floor(ctime % 24)
 				local minutes = math.floor((ctime - math.floor(ctime)) * 60)
@@ -247,11 +245,11 @@ function ISAWindowsSumaryTab:render()
 				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			end
 		elseif (self.difference < 0) then
-			if (self.actualCharge == 0) then
+			if (pb.charge == 0) then
 				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local dtime = math.abs(self.actualCharge / self.difference)
+				local dtime = math.abs(pb.charge / self.difference)
 				local days = math.floor(dtime / 24)
 				local hours = math.floor(dtime % 24)
 				local minutes = math.floor((dtime - math.floor(dtime)) * 60)
@@ -261,8 +259,8 @@ function ISAWindowsSumaryTab:render()
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 		end
-		if self.actualCharge > 0 and self.drain > 0 then
-			local dtime = self.actualCharge / self.drain
+		if pb.charge > 0 and pb.drain > 0 then
+			local dtime = pb.charge / pb.drain
 			local days = math.floor(dtime / 24)
 			local hours = math.floor(dtime % 24)
 			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
@@ -292,6 +290,7 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	o.textureSolarRadiation = getTexture("media/ui/isa_solar_radiation.png");
 	o.textureSun = getTexture("media/ui/isa_sun.png");
 	o.textureMoon = getTexture("media/ui/isa_moon.png");
+	o.textWidth = self.measureTexts()
 
     ISAWindowsSumaryTab.instance = o;
 
@@ -299,17 +298,12 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	self.currentFrame = 0;
 	self.thereAreBatteries = false;
 	self.thereArePanels = false;
-	self.connectedPanels = 0;
 	self.panelsMaxInput = 0;
 	self.panelsInput = 0;
-	self.batteryNumber = 0;
 	self.batteryLevel = 0;
 	self.batteryCharging = false;
-	self.capacity = 0;
-	self.actualCharge = 0;
 	self.difference = 0;
 	self.night = false;
-	self.textWidth = self.measureTexts()
    return o
 end
 

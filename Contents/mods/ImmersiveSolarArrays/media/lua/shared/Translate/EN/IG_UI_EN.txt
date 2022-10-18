@@ -4,8 +4,7 @@ IGUI_EN = {
     IGUI_ContainerTitle_SolarBox = "Solar Box",
 
     IGUI_ISAWindowsStatus_Title = "Battery Bank Status",
-
-    IGUI_ISAWindowsSumaryTab_InfoText = "Powerbank solar panels and batteries summary.\n\n It contains all the basic information about the power bank, the batteries it contains and the solar panels connected to this power bank.",
+    IGUI_ISAWindowsSumaryTab_InfoText = " <CENTRE> <SIZE:medium> Battery Bank Panel <LINE> <LINE> <LEFT> Summary Tab <LINE> <SIZE:small> Displays a visual summary of the Battery Bank, Solar Panels and Battery Status. <LINE> <SIZE:medium> Details Tab <LINE> <SIZE:small> Displays technical information about the Battery Bank and it's status. <LINE> <SIZE:medium> Debug Tab <LINE> <SIZE:small> Adds buttons for troubleshooting the Battery Bank. ",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Summary",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Panels Status",
     IGUI_ISAWindowsSumaryTab_BatteryLevel = "Battery Level",
@@ -20,28 +19,17 @@ IGUI_EN = {
     IGUI_ISAWindowsSumaryTab_BatteryRemaining = "Battery Reserves:",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Not Charging",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "No Batteries",
-
-    IGUI_ISAWindow_Details_InfoText = "Details and information related to the Battery Bank",
     IGUI_ISAWindow_Details_TabTitle = "Details",
     IGUI_ISAWindow_Details_MaxCapacity = "Maximum Capacity: ",
-    IGUI_ISAWindow_Details_ConnectedPanels = "Connected Panels",
+    IGUI_ISAWindow_Details_ConnectedPanels = "Connected Panels: ",
     IGUI_ISAWindow_Details_MaxPanelOutput = "Maximum Panel Output: ",
     IGUI_ISAWindow_Details_ElectricalDevices = "Electrical Devices",
     IGUI_ISAWindow_Details_conGenerator = "Backup Generator is connected: ",
     IGUI_ISAWindow_Details_Failsafe = "Backup Generator has failsafe: ",
     IGUI_ISAWindow_Details_GenInRange = "Generators in range: ",
-    IGUI_ISAWindow_Details_GenOutOfRange = "Generators out of range: ",
     IGUI_ISAWindow_Details_ElectricityExternal = "External Sources",
-    IGUI_ISAWindow_Details_Far = "Battery Bank is too far",
-	
+    IGUI_ISAWindow_Details_Far = "Can not see Battery Bank",
     IGUI_ISA_Update = "Update",
 
-    IGUI_ISAContainerNotBattery = "This seems like a good place to store my ",
-	
-	/* Not Used
-    IGUI_ISAWindowsSumaryTab_WillNotCharge = "Will not charge",
-    IGUI_ISAWindow_Details_ShouldDrain = "Consuming reserves: ",
-    IGUI_ISAWindow_Details_Autonomy = "Battery Bank can power devices without sun for: ",
-    IGUI_ISAWindow_Details_GlobalGrid = "Global Power Grid is on: ",
-	*/
+    IGUI_ISAContainerNotBattery = "This seems like a good place to store my %1",
 }

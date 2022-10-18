@@ -41,9 +41,12 @@ function ISAWindowDetails:render()
     local fontHeightSm = getTextManager():getFontHeight(UIFont.Small)
     local fontHeightMed = getTextManager():getFontHeight(UIFont.Medium)
 
-
-    if self.parent.parent.player:DistToSquared(pb.x + 0.5, pb.y + 0.5) <= 10 then
-        pb:updateFromIsoObject()
+    pb:updateFromIsoObject()
+    local player = self.parent.parent.player
+    local canSee = self.parent.parent.square:getCanSee(self.parent.parent.playerNum)
+    local area = ISAScan.getValidBackupArea(player)
+    local validArea = IsoUtils.DistanceToSquared(player:getX(),player:getY(),player:getZ(),pb.x+0.5,pb.y+0.5,pb.z) <= area.distance and math.abs(player:getZ()-pb.z) <= area.levels
+    if canSee and validArea then
         local devices = pb:getSquare():getGenerator():getItemsPowered()
 
         self:drawText(getText("ContextMenu_ISA_BatteryBank"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
@@ -76,38 +79,58 @@ function ISAWindowDetails:render()
         end
         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
-        textY = textY + fontHeightSm
-        self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
-        textY = textY + fontHeightMed + 5
-        borderY = textY-3
-        self:drawText(getText("IGUI_ISAWindow_Details_conGenerator"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight((pb.conGenerator and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-        textY = textY + fontHeightSm
-        if pb.conGenerator then
-            self:drawText(getText("IGUI_ISAWindow_Details_Failsafe"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-            self:drawTextRight((ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15") and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-            textY = textY + fontHeightSm
-        else
-            local inrange, outofrange = pb:getGeneratorsInAreaInfo()
-            self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-            self:drawTextRight(tostring(inrange), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-            textY = textY + fontHeightSm
-            self:drawText(getText("IGUI_ISAWindow_Details_GenOutOfRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-            self:drawTextRight(tostring(outofrange), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-            textY = textY + fontHeightSm
-        end
+
         --if getWorld().isHydroPowerOn then
         --    self:drawText(getText("IGUI_ISAWindow_Details_GlobalGrid"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         --    self:drawTextRight(getWorld():isHydroPowerOn() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         --    textY = textY + fontHeightSm
         --end
-        self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
     else
         self.devButton:setVisible(false)
         self:drawText(getText("IGUI_ISAWindow_Details_Far"), textX, textY, 1, 0, 0, 1, UIFont.Medium)
         textY = textY + fontHeightMed
     end
+
+    textY = textY + fontHeightSm
+    self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
+    textY = textY + fontHeightMed + 5
+    borderY = textY-3
+    self:drawText(getText("IGUI_ISAWindow_Details_conGenerator"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+    self:drawTextRight((pb.conGenerator and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+    textY = textY + fontHeightSm
+    if pb.conGenerator then
+        self:drawText(getText("IGUI_ISAWindow_Details_Failsafe"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight((ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15") and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
+    else
+        local generators = CPowerbankSystem.getGeneratorsInAreaInfo(pb,area)
+        self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight(tostring(generators), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
+
+        self:drawText("Player is inside valid area for backup: ", textX, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight(validArea and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
+
+
+
+        --self:drawText(getText("IGUI_ISAWindow_Details_ValidRadius"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawTextRight(tostring(info.radius), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        --textY = textY + fontHeightSm
+        --self:drawText(getText("IGUI_ISAWindow_Details_ValidLevels"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawTextRight(tostring(info.levels), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        --textY = textY + fontHeightSm
+        --self:drawText(getText("IGUI_ISAWindow_Details_GenOutOfRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawTextRight(tostring(outofrange), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        --textY = textY + fontHeightSm
+    end
+    self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
+
+    --self:drawText("Should Drain: ", textX, textY, 1, 1, 1, 1, UIFont.Small)
+    --self:drawTextRight(pb:shouldDrain() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+    --textY = textY + fontHeightSm
+
     --self:setScrollHeight(textY+10)
     self:setHeightAndParentHeight(textY+10)
 end

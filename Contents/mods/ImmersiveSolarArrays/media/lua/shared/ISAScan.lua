@@ -10,6 +10,11 @@ ISAScan.Types = {
     solarmod_tileset_01_15 = "Failsafe",
 }
 
+function ISAScan.getValidBackupArea(isoPlayer)
+    local skillLevel = isoPlayer and isoPlayer:getPerkLevel(Perks.Electricity) or 3
+    return { radius = skillLevel, levels = skillLevel > 5 and 1 or 0, distance = math.pow(skillLevel, 2) * 1.25 }
+end
+
 function ISAScan.findPowerbanks(square,radius,level,distance)
     local banks = {}
     local x = square:getX()

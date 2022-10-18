@@ -1,7 +1,6 @@
 ContextMenu_RU = {
     ContextMenu_ISA_BatteryBank = "Аккумуляторная Батарея",
     ContextMenu_ISA_BatteryBankStatus = "Проверить статус",
-    ContextMenu_ISA_DiagnoseBankIssues = "Сброс",
 		 
     ContextMenu_ISA_SolarPanel = "Солнечная панель",
     ContextMenu_ISA_Connect_Panel = "Подключить к Аккумуляторной Батареи",

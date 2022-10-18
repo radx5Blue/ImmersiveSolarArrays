@@ -41,7 +41,9 @@ function SPowerbank:stateFromIsoObject(isoObject)
     end
 
     self:autoConnectToGenerator()
+    --createGenerator
     self:loadGenerator()
+    self:updateDrain()
     self:updateSprite()
     self:toModData(isoObject:getModData())
     isoObject:transmitModData()
@@ -422,7 +424,7 @@ function SPowerbank:loadGenerator()
 
 end
 
---todo remove this, fix prev errors
+--todo remove this fix for prev errors
 function SPowerbank:fixGeneratorNumber()
     local square = self:getSquare()
     local bank,hasGen
@@ -455,33 +457,63 @@ function SPowerbank:fixGeneratorNumber()
     if not hasGen then self:createGenerator() end
 end
 
-function SPowerbank:connectGenerator(generator,x,y,z)
+function SPowerbank:connectBackupGenerator(generator)
     self.conGenerator = {}
-    self.conGenerator.x = x
-    self.conGenerator.y = y
-    self.conGenerator.z = z
+    self.conGenerator.x = generator:getX()
+    self.conGenerator.y = generator:getY()
+    self.conGenerator.z = generator:getZ()
     self.conGenerator.ison = generator:isActivated()
     self.lastHour = 0
 end
 
+--function SPowerbank:connectGenerator(generator,x,y,z)
+--    self.conGenerator = {}
+--    self.conGenerator.x = x
+--    self.conGenerator.y = y
+--    self.conGenerator.z = z
+--    self.conGenerator.ison = generator:isActivated()
+--    self.lastHour = 0
+--end
+
 function SPowerbank:autoConnectToGenerator()
-    local radius = 3
-    local distance = 10
-    local x = self.x
-    local y = self.y
+    local area = ISAScan.getValidBackupArea(nil)
 
     self.conGenerator = false
-    for ix = x - radius, x + radius do
-        for iy = y - radius, y + radius do
-            local isquare = IsoUtils.DistanceToSquared(x,y,ix,iy) <= distance and getSquare(ix, iy, self.z)
-            local generator = isquare and isquare:getGenerator()
-            if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
-                self:connectGenerator(generator,ix,iy,self.z)
-                return
+    for ix = self.x - area.radius, self.x + area.radius do
+        for iy = self.y - area.radius, self.y + area.radius do
+            for iz = self.z - area.levels, self.z + area.levels do
+                if ix >= 0 and iy >= 0 and iz >= 0 then
+                    local isquare = IsoUtils.DistanceToSquared(self.x,self.y,self.z,ix,iy,iz) <= area.distance and getSquare(ix, iy, iz)
+                    local generator = isquare and isquare:getGenerator()
+                    if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
+                        self:connectBackupGenerator(generator)
+                        return
+                    end
+                end
             end
         end
     end
 end
+
+--function SPowerbank:autoConnectToGenerator()
+--    local radius = 3
+--    local distance = 10
+--    local x = self.x
+--    local y = self.y
+--
+--    self.conGenerator = false
+--    for ix = x - radius, x + radius do
+--        for iy = y - radius, y + radius do
+--            local isquare = IsoUtils.DistanceToSquared(x,y,ix,iy) <= distance and getSquare(ix, iy, self.z)
+--            local generator = isquare and isquare:getGenerator()
+--            if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
+--                self:connectGenerator(generator,ix,iy,self.z)
+--                return
+--            end
+--        end
+--    end
+--end
+
 
 function SPowerbank:getConGenerator()
     if self.conGenerator then

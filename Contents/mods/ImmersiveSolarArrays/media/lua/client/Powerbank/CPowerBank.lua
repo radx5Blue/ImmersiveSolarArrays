@@ -16,7 +16,7 @@ function CPowerbank:shouldDrain()
     end
     return true
 end
-
-function CPowerbank:getGeneratorsInAreaInfo()
-    return CPowerbankSystem.instance.getGeneratorsInAreaInfo(self:getSquare())
-end
+--
+--function CPowerbank:getGeneratorsInAreaInfo()
+--    return CPowerbankSystem.instance.getGeneratorsInAreaInfo(self:getSquare())
+--end

@@ -64,28 +64,6 @@ function SPowerbankSystem.removePanel(xpanel)
     end
 end
 
---function SPowerbankSystem.fixForGenerators(square, index, bank, first)
---    if index == nil then index = 1 end
---    local special = square:getSpecialObjects()
---    for i = index, special:size() do
---        local obj = special:get(i-1)
---        if not bank then
---            if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then bank = true;
---            elseif instanceof(obj, "IsoGenerator") then obj:remove();
---            end
---        else
---            if instanceof(obj, "IsoGenerator") then
---                if first then
---                    obj:remove()
---                    return SPowerbankSystem.instance.fixForGenerators(square,i,bank,first)
---                else
---                    first = true
---                end
---            end
---        end
---    end
---end
-
 local delayedRemove = {}
 local dgrTick
 function SPowerbankSystem.delayedGenRemove()
@@ -136,39 +114,6 @@ function SPowerbankSystem.getModifiedSolarOutput(SolarInput)
     return output
 end
 
---add debug functions
-function SPowerbankSystem.rebootSystem(player,arg)
-    local square = getSquare(arg.x,arg.y,arg.z)
-    local isopb = ISAScan.findOnSquare(square,"solarmod_tileset_01_0")
-    local data = isopb and isopb:getModData()
-    local luaObj = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
-    local oldcharge = luaObj and luaObj.charge or data and data.charge or 0
-
-    if luaObj then SPowerbankSystem.instance:removeLuaObject(luaObj) end
-    if isopb then
-        local special = isopb:getSquare():getSpecialObjects()
-        for i = special:size() , 1, -1  do
-            local obj = special:get(i-1)
-            if instanceof(obj, "IsoGenerator") then
-                obj:remove()
-            end
-        end
-    end
-    if data then data.charge = nil end
-    HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorRed())
-
-    if isopb then
-        SPowerbankSystem.instance:loadIsoObject(isopb)
-        local newlua = SPowerbankSystem.instance:getLuaObjectOnSquare(square)
-        newlua.charge = oldcharge
-        newlua:handleBatteries(isopb:getContainer())
-        newlua:saveData(true)
-        HaloTextHelper.addText(player,"powerbank", HaloTextHelper.getColorGreen())
-        newlua:degradeBatteries(isopb:getContainer())
-        isopb:sendObjectChange("containers")
-    end
-end
-
 function SPowerbankSystem.EveryDays()
     for i=1,SPowerbankSystem.instance.system:getObjectCount() do
         local pb = SPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
@@ -215,7 +160,7 @@ function SPowerbankSystem:updatePowerbanks(chargefreq)
         pb:updateConGenerator()
         pb:saveData(true)
         if getDebug() then
-            print("Isa Log charge: " .. i .. " / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)).." - "..math.floor(drain))
+            print("Isa Log charge: " .. i .. " / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)) .. " - " .. math.floor(drain))
         end
     end
 end

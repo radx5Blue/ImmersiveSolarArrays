@@ -78,7 +78,7 @@ function ISAConnectPanel:new(character, panel, powerbank)
     o.stopOnWalk = true;
     o.stopOnRun = true;
     o.stopOnAim = false
-    o.maxTime = 150 --todo (240 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay()
+    o.maxTime = (24 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay() --todo (240 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay()
     if o.character:isTimedActionInstant() then
         o.maxTime = 1
     end
