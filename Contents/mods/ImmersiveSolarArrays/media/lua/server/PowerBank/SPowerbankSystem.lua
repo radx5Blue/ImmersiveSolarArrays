@@ -53,9 +53,10 @@ function SPowerbankSystem.removePanel(xpanel)
         local x = xpanel:getX()
         local y = xpanel:getY()
         local z = xpanel:getZ()
-        for v,panel in ipairs(pb.panels) do
+        for i = #pb.panels, 1, -1 do
+            local panel = pb.panels[i]
             if panel.x == x and panel.y == y and panel.z == z then
-                table.remove(pb.panels,v)
+                table.remove(pb.panels,i)
                 pb.npanels = pb.npanels - 1
                 break
             end

@@ -46,7 +46,7 @@ function ISAWindowDetails:render()
     local canSee = self.parent.parent.square:getCanSee(self.parent.parent.playerNum)
     local area = ISAScan.getValidBackupArea(player)
     local validArea = IsoUtils.DistanceToSquared(player:getX(),player:getY(),player:getZ(),pb.x+0.5,pb.y+0.5,pb.z) <= area.distance and math.abs(player:getZ()-pb.z) <= area.levels
-    if canSee and validArea then
+    if canSee and validArea or self.showBank then
         local devices = pb:getSquare():getGenerator():getItemsPowered()
 
         self:drawText(getText("ContextMenu_ISA_BatteryBank"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
@@ -79,12 +79,28 @@ function ISAWindowDetails:render()
         end
         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
+        textY = textY + fontHeightSm
+        self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
+        textY = textY + fontHeightMed + 5
+        borderY = textY-3
+        --self:drawText(getText("IGUI_ISAWindow_Details_conGenerator"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawTextRight((pb.conGenerator and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawLineB(pb.conGenerator,"IGUI_ISAWindow_Details_conGenerator",textY)
+
+        textY = textY + fontHeightSm
+        if pb.conGenerator then
+            --self:drawText(getText("IGUI_ISAWindow_Details_Failsafe"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+            --self:drawTextRight((ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15") and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+            self:drawLineB(ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15"),"IGUI_ISAWindow_Details_Failsafe",textY)
+            textY = textY + fontHeightSm
+        end
 
         --if getWorld().isHydroPowerOn then
         --    self:drawText(getText("IGUI_ISAWindow_Details_GlobalGrid"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         --    self:drawTextRight(getWorld():isHydroPowerOn() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         --    textY = textY + fontHeightSm
         --end
+            self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
     else
         self.devButton:setVisible(false)
@@ -92,26 +108,20 @@ function ISAWindowDetails:render()
         textY = textY + fontHeightMed
     end
 
-    textY = textY + fontHeightSm
-    self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
-    textY = textY + fontHeightMed + 5
-    borderY = textY-3
-    self:drawText(getText("IGUI_ISAWindow_Details_conGenerator"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-    self:drawTextRight((pb.conGenerator and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-    textY = textY + fontHeightSm
-    if pb.conGenerator then
-        self:drawText(getText("IGUI_ISAWindow_Details_Failsafe"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight((ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15") and getText("UI_Yes") or getText("UI_No")), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-        textY = textY + fontHeightSm
-    else
+    if self.showBackupDetails then
+        borderY = textY + 2
+        textY = textY + 5
         local generators = CPowerbankSystem.getGeneratorsInAreaInfo(pb,area)
         self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(tostring(generators), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
-
-        self:drawText("Player is inside valid area for backup: ", textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight(validArea and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawText(getText("IGUI_ISAWindow_Details_ValidAreaPlayer"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        --self:drawTextRight(validArea and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + 3
+        self:drawLineB(validArea,"IGUI_ISAWindow_Details_ValidAreaPlayer",textY)
         textY = textY + fontHeightSm
+        self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
+
 
 
 
@@ -125,7 +135,6 @@ function ISAWindowDetails:render()
         --self:drawTextRight(tostring(outofrange), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         --textY = textY + fontHeightSm
     end
-    self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
     --self:drawText("Should Drain: ", textX, textY, 1, 1, 1, 1, UIFont.Small)
     --self:drawTextRight(pb:shouldDrain() and getText("UI_Yes") or getText("UI_No"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
@@ -133,6 +142,16 @@ function ISAWindowDetails:render()
 
     --self:setScrollHeight(textY+10)
     self:setHeightAndParentHeight(textY+10)
+end
+
+function ISAWindowDetails:drawLineB(isTrue,igui,y)
+    if isTrue then
+        self:drawText(getText(igui), 10, y, 0, 1, 0, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_Yes"), self.width-10, y, 0, 1, 0, 1, UIFont.Small)
+    else
+        self:drawText(getText(igui), 10, y, 1, 0, 0, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_No"), self.width-10, y, 1, 0, 0, 1, UIFont.Small)
+    end
 end
 
 function ISAWindowDetails:updateDevices()
@@ -149,20 +168,33 @@ local function maxWidthOfTexts(texts)
     return max
 end
 
+local function maxWidthOfVarTexts(varTexts)
+    local max = 0
+    for _,textVars in ipairs(varTexts) do
+        local len = getTextManager():MeasureStringX(UIFont.Small, string.format(textVars[1],getText(textVars[2]),textVars[3] and getText(textVars[3])))
+        max = math.max(max,len)
+    end
+    return max
+end
+
 function ISAWindowDetails.measureWidth()
-    local len1 = maxWidthOfTexts({
-        "IGUI_ISAWindow_Details_MaxCapacity",
-        "IGUI_ISAWindow_Details_MaxPanelOutput",
-        --"IGUI_ISAWindow_Details_ConnectedPanels",
-    }) + getTextManager():MeasureStringX(UIFont.Small, "100000 Ah")
-    local lenTPU = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_Total") .. " " .. getText("IGUI_PowerConsumption") .. ": 99999.9 Ah")
-    local len2 = maxWidthOfTexts({
+    local varTexts = {
+        {"%s 100.000 Ah","IGUI_ISAWindow_Details_MaxCapacity"},
+        {"%s 999","IGUI_ISAWindow_Details_ConnectedPanels"},
+        {"%s 10.000.0 Ah","IGUI_ISAWindow_Details_MaxPanelOutput"},
+        {"%s %s: 10.000.0 Ah","IGUI_Total","IGUI_PowerConsumption"},
+    }
+    local bTexts = {
         "IGUI_ISAWindow_Details_conGenerator",
         "IGUI_ISAWindow_Details_Failsafe",
         "IGUI_ISAWindow_Details_GenInRange",
-        "IGUI_ISAWindow_Details_GenOutOfRange",
-        "IGUI_ISAWindow_Details_GlobalGrid",
-    }) + maxWidthOfTexts({"UI_Yes","UI_No"})
-    local lenButton = getTextManager():MeasureStringX(UIFont.Medium, getText("IGUI_ISAWindow_Details_ElectricalDevices")) + getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_ISA_Update")) + 40
-    return math.max(math.max(len1,lenTPU, len2) + 20, lenButton)
+        --"IGUI_ISAWindow_Details_GenOutOfRange",
+        --"IGUI_ISAWindow_Details_GlobalGrid",
+        "IGUI_ISAWindow_Details_ValidAreaPlayer",
+    }
+    local max = maxWidthOfVarTexts(varTexts)
+    max = math.max(max,maxWidthOfTexts(bTexts) + maxWidthOfTexts({"UI_Yes","UI_No"}))
+    max = math.max(max + 20, getTextManager():MeasureStringX(UIFont.Medium, getText("IGUI_ISAWindow_Details_ElectricalDevices")) + getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_ISA_Update")) + 40)
+
+    return max
 end
