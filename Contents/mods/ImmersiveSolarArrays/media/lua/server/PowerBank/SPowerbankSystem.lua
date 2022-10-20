@@ -40,12 +40,6 @@ function SPowerbankSystem:OnClientCommand(command, playerObj, args)
     SPowerbankSystemCommands[command](playerObj, args)
 end
 
---function SPowerbankSystem:OnObjectAboutToBeRemoved(isoObject)
---    if not self:isValidIsoObject(isoObject) then return end
---
---    return SGlobalObjectSystem.OnObjectAboutToBeRemoved(self,isoObject)
---end
-
 function SPowerbankSystem.removePanel(xpanel)
     local data = xpanel:getModData()
     local pb = data["powerbank"] and SPowerbankSystem.instance:getLuaObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z)
@@ -126,9 +120,6 @@ function SPowerbankSystem.EveryDays()
             pb:handleBatteries(inv)
             pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
             isopb:sendObjectChange("containers")
-
-            local gen = isopb:getSquare():getGenerator()
-            print("Isatest Gen Condition",gen and gen:getCondition())
         end
         pb:checkPanels()
     end
@@ -160,18 +151,12 @@ function SPowerbankSystem:updatePowerbanks(chargefreq)
         end
         pb:updateConGenerator()
         pb:saveData(true)
-        if getDebug() then
-            print("Isa Log charge: " .. i .. " / "..tostring(math.floor(chargemod*100)).."%".." / "..math.floor(dif).." / "..math.floor(self.getModifiedSolarOutput(pb.npanels)) .. " - " .. math.floor(drain))
-        end
+
+        self:noise(string.format("/charge: (%d) Battery at: %d %%, charge dif: %1f, output: %1f, drain: %1f",i,chargemod*100,dif,pb.npanels*solaroutput,drain))
     end
 end
 
 function SPowerbankSystem.sandbox()
-    if getDebug() then print("Powerbank sandbox: "..tostring(SandboxVars.ISA.DrainCalc).." / "..tostring(SandboxVars.ISA.ChargeFreq)) end
-    --if not SandboxVars.ISA.ChargeFreq then SandboxVars.ISA.ChargeFreq = 1 end
-    --if not SandboxVars.ISA.DrainCalc then SandboxVars.ISA.DrainCalc = 1 end
-    --if not SandboxVars.ISA.solarPanelEfficiency then SandboxVars.ISA.solarPanelEfficiency = 90 end
-
     Events.EveryDays.Add(SPowerbankSystem.EveryDays)
     if SandboxVars.ISA.ChargeFreq == 1 then
         Events.EveryTenMinutes.Add(function()SPowerbankSystem.instance:updatePowerbanks(1) end)

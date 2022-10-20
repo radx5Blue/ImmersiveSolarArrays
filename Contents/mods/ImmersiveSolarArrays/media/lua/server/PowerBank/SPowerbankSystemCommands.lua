@@ -57,45 +57,28 @@ end
 function Commands.plugGenerator(player,args)
     local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
     local generator = square and square:getGenerator()
-    if not generator or ISAScan.findTypeOnSquare(square,"Powerbank") then print("ISA error: plug generator, no generator"); return end
     for _,i in ipairs(args.pbList) do
         local pb = getPowerbank(i)
         if pb then
-            if args.plug then
+            if args.plug and generator and not ISAScan.findTypeOnSquare(square,"Powerbank") then
+                noise("adding backup")
                 pb:connectBackupGenerator(generator)
             else
                 if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
+                    noise("removing backup")
                     pb.conGenerator = false
                 end
             end
             pb:saveData(true)
-        else
-            print("ISA error: plug generator, no Lua Object")
         end
     end
-
-
-    --local skill = player:getPerkLevel(Perks.Electricity)
-    --local radius, level, distance = skill, skill > 5 and 1 or 0, math.pow(skill, 2)
-    --local powerbanks = ISAScan.findPowerbanks(square, radius, level, distance)
-    --for _,isopb in ipairs(powerbanks) do
-    --    local pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
-    --end
 end
 
 function Commands.activateGenerator(player,args)
     local pb = getPowerbank(args.pb)
     if pb and pb.conGenerator then
-        --local square = getSquare(args.gen.x, args.gen.y, args.gen.z)
-        --local powerbanks = ISAScan.findPowerbanks(square,3,0,10)
-        --for _,isopb in ipairs(powerbanks) do
-        --    local pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isopb:getSquare())
-        --    if not pb then print("ISA error: no Lua Object on square - activate generator"); return end
-        --    if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
-                pb.conGenerator.ison = args.activate
-        --    end
-            pb:saveData(true)
-        --end
+        pb.conGenerator.ison = args.activate
+        pb:saveData(true)
     end
 end
 

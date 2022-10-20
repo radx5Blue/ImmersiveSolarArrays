@@ -3,11 +3,6 @@ require "ISUI/ISLayoutManager"
 
 ISAStatusWindow = ISCollapsableWindow:derive("ISAStatusWindow")
 
-function ISAStatusWindow:initialise()
-	ISCollapsableWindow.initialise(self)
-	self.title = getText("IGUI_ISAWindowsStatus_Title")
-end
-
 function ISAStatusWindow:createChildren()
 	ISCollapsableWindow.createChildren(self);
 	local th = self:titleBarHeight()
@@ -32,11 +27,7 @@ function ISAStatusWindow:createChildren()
 	self.debugView:initialise()
 	self.panel:addView("Debug", self.debugView)
 
-
-	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
-	--self:setWidth(self.charScreen.width)
-	--self:setHeight(self.charScreen.height);
-	--ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
+	ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
 end
 
 function ISAStatusWindow:new(x, y, width, height)
@@ -45,31 +36,25 @@ function ISAStatusWindow:new(x, y, width, height)
 	setmetatable(o, self)
 	self.__index = self
 	o:setResizable(false)
+	o.title = getText("IGUI_ISAWindowsStatus_Title")
 
 	ISAStatusWindow.instance = o
 	return o
 end
 
 function ISAStatusWindow.OnOpenPanel(worldobjects,square,player)
-	local instance = ISAStatusWindow.instance
-	if instance == nil then
-		instance = ISAStatusWindow:new(590, 100, 200, 200)
-		instance:initialise()
-	end
+	local instance = ISAStatusWindow.instance or ISAStatusWindow:new(100, 100, 580, 400)
 	instance:addToUIManager()
 
 	instance.square = square
 	instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
 	instance.playerNum = player
 	instance.player = getSpecificPlayer(player)
-	--if not instance.panel.activeView then
-	--	self:setInfo(getText("IGUI_ISAWindowsSumaryTab_InfoText"))
-	--end
-	--print("! ",instance.panel.activeView)
+
 	if instance.panel.activeView and instance.panel:getActiveViewIndex() ~= 1 then
-		--instance.panel.activeView.view:setVisible(false)
 		instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
 	end
+	instance.sumaryView.currentFrame = 0
 end
 
 function ISAStatusWindow:close()

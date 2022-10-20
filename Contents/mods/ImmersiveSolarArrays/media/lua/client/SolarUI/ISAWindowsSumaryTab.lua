@@ -307,30 +307,6 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
    return o
 end
 
---function ISAWindowsSumaryTab:close()
---	ISPanelJoypad.close();
---
---	-- Reset the currentFrame
---	self.currentFrame = 0;
---
---	-- Battery
---	self:removeChild(self.imageBatteryCross);
---
---	-- Sun and radiation
---	self:removeChild(self.imageSun);
---	self:removeChild(self.imageSolarRadiation1);
---	self:removeChild(self.imageSolarRadiation2);
---	self:removeChild(self.imageSolarRadiation3);
---	self:removeChild(self.imageSolarRadiationCross);
---
---	-- Solar Panel (two modes)
---	self:removeChild(self.imageSolarPanel);
---	self:removeChild(self.imageSolarPanelNoEnergy);
---	self:removeChild(self.imageSolarPanelCross);
---
---	self:removeFromUIManager()
---end
-
 function ISAWindowsSumaryTab.measureTexts()
 	local textTable = {
 		left = {

@@ -86,36 +86,6 @@ function CPowerbankSystem.getGeneratorsInAreaInfo(luaPb,area)
     end
     return generators
 end
---
---function CPowerbankSystem.getGeneratorsInAreaInfo(square)
---    local radius,level,distance = 5,1,10
---    local inrange, outofrange = 0, 0
---
---    local x = square:getX()
---    local y = square:getY()
---    local z = square:getZ()
---    for ix = x - radius, x + radius do
---        for iy = y - radius, y + radius do
---            for iz = z - level, z+level do
---                local isquare = getSquare(ix, iy, iz)
---                local generator = isquare and isquare:getGenerator()
---                if generator and not ISAScan.findOnSquare(isquare,"solarmod_tileset_01_0") then
---                    if IsoUtils.DistanceToSquared(x,y,z,ix,iy,iz) <= distance then
---                        inrange = inrange + 1
---                    else
---                        outofrange = outofrange + 1
---                    end
---                end
---            end
---        end
---    end
---    return inrange, outofrange
---end
-
-function CPowerbankSystem.getPowerbanksInArea(square,isoPlayer)
-    local area = ISAScan.getValidBackupArea(isoPlayer)
-    return ISAScan.findPowerbanks(square,area.radius, area.levels, area.distance)
-end
 
 function CPowerbankSystem.getMaxSolarOutput(SolarInput)
     local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
@@ -141,13 +111,8 @@ function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
 end
 
 function CPowerbankSystem.onPlugGenerator(character,generator,plug)
-    --local skill = character:getPerkLevel(Perks.Electricity)
-    --local radius, level, distance = skill, skill > 5 and 1 or 0, math.pow(skill, 2)
-    --if not isClient() or #ISAScan.findPowerbanks(generator:getSquare(),radius, level, distance) > 0 then
-    --    local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-    --    CPowerbankSystem.instance:sendCommand(character,"plugGenerator",{ gen = gen, plug = plug })
-    --end
-    local isoPowerbanks = CPowerbankSystem.getPowerbanksInArea(generator:getSquare(),character)
+    local area = ISAScan.getValidBackupArea(plug and character,10)
+    local isoPowerbanks = ISAScan.findPowerbanks(generator:getSquare(),area.radius, area.levels, area.distance)
     if #isoPowerbanks > 0 then
         local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
         for _,isoPb in ipairs(isoPowerbanks) do
@@ -157,19 +122,24 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
     end
 end
 
+--function CPowerbankSystem.onPlugGenerator(character,generator,plug)
+--    local isoPowerbanks = CPowerbankSystem.getPowerbanksInArea(generator:getSquare(),plug,character)
+--    if #isoPowerbanks > 0 then
+--        local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
+--        for _,isoPb in ipairs(isoPowerbanks) do
+--            table.insert(args.pbList,{ x = isoPb:getX(), y = isoPb:getY(), z = isoPb:getZ()})
+--        end
+--        CPowerbankSystem.instance:sendCommand(character,"plugGenerator",args)
+--    end
+--end
+
 function CPowerbankSystem.onActivateGenerator(character,generator,activate)
-    --if not isClient() or #ISAScan.findPowerbanks(generator:getSquare(),3,0,10) > 0 then
-    --    local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
-    --    CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { gen = gen , activate = activate })
-    --end
-    --local gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }
     local x, y, z = generator:getX(), generator:getY(), generator:getZ()
     for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
         local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
         pb:updateFromIsoObject()
         if pb.conGenerator and pb.conGenerator.x == x and pb.conGenerator.y == y and pb.conGenerator.z == z then
             CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { pb = { x = pb.x, y = pb.y, z = pb.z }, activate = activate })
-            --CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { pb = { x = pb.x, y = pb.y, z = pb.z }, gen = { x = x, y = y, z = z }, activate = activate })
         end
     end
 end
@@ -226,8 +196,8 @@ function CPowerbankSystem.updateBank()
             pb:fromModData(isopb:getModData())
             local delta = pb.charge / pb.maxcapacity
             local items = isopb:getContainer():getItems()
-            for i=1,items:size() do
-                local item = items:get(i-1)
+            for v=1,items:size() do
+                local item = items:get(v-1)
                 if max[item:getType()] then
                     item:setUsedDelta(delta)
                 end

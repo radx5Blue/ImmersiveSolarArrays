@@ -35,7 +35,7 @@ function ISAWorldSpawns.Fill(isoObject)
     container:AddItem("ISA.ISAInverter")
     container:AddItem("ISA.ISAMag1")
     container:setExplored(true)
-    isoObject:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
+    isoObject:setOverlaySprite("solarmod_tileset_01_38")
 end
 
 function ISAWorldSpawns.doRolls()
@@ -82,4 +82,3 @@ ISAWorldSpawns.OnInitGlobalModData = function(newGame)
     end
 end
 Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)
-ISAWorldSpawns.OnInitGlobalModData()

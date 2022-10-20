@@ -2,8 +2,6 @@ require "ISUI/ISPanelJoypad"
 
 ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")
 
-local rgb = { bad = { r = 1, g = 0, b = 0, a = 1 }, good = { r = 0, g = 1, b = 0, a = 1 } }
-
 function ISAWindowDebug:new(x, y, width, height)
     local o = {}
     o = ISPanelJoypad:new(x, y, width, height)
@@ -41,7 +39,7 @@ function ISAWindowDebug:setVisible(visible)
         if getDebug() then
             self.plugBackupButton:setY(self.buttonHeight*buttons)
             self.plugBackupButton:setVisible(true)
-            buttons = 2
+            buttons = buttons + 1
         else
             self.plugBackupButton:setVisible(false)
         end
@@ -51,6 +49,10 @@ function ISAWindowDebug:setVisible(visible)
 end
 
 function ISAWindowDebug:prerender()
+    if self.containerButton.disableFrame then
+        self.containerButton.disableFrame = self.containerButton.disableFrame -1
+        if self.containerButton.disableFrame <= 0 then self.containerButton.enable = true; self.containerButton.disableFrame = nil end
+    end
     if self.plugBackupButton:isVisible() then
         local square = self.parent.parent.player:getSquare()
         local generator = square and square:getGenerator()
@@ -67,18 +69,16 @@ function ISAWindowDebug:prerender()
 end
 
 function ISAWindowDebug:showBackupDetails()
-    if ISAWindowDetails.instance.showBackupDetails then
-        ISAWindowDetails.instance.showBackupDetails = nil
-        self.showBackupDetailsButton.title = getText("IGUI_ISAWindow_Debug_ShowBackup")
-    else
-        ISAWindowDetails.instance.showBackupDetails = true
-        self.showBackupDetailsButton.title = getText("IGUI_ISAWindow_Debug_HideBackup")
-    end
+    local show = not ISAWindowDetails.instance.showBackupDetails
+    ISAWindowDetails.instance.showBackupDetails = show
+    self.showBackupDetailsButton.title = show and getText("IGUI_ISAWindow_Debug_HideBackup") or getText("IGUI_ISAWindow_Debug_ShowBackup")
 end
 
 function ISAWindowDebug:checkContainer()
     local luapb = self.parent.parent.luaPB
     CPowerbankSystem.instance:sendCommand(self.parent.parent.player,"countBatteries", { x = luapb.x, y = luapb.y, z = luapb.z })
+    self.containerButton.enable = false
+    self.containerButton.disableFrame = 3 * getPerformance():getUIRenderFPS()
 end
 
 function ISAWindowDebug:plugBackup()
