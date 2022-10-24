@@ -39,8 +39,7 @@ function SPowerbank:stateFromIsoObject(isoObject)
     self:loadGenerator()
     self:updateDrain()
     self:updateSprite()
-    self:toModData(isoObject:getModData())
-    isoObject:transmitModData()
+    self:saveData(true)
 end
 
 function SPowerbank:stateToIsoObject(isoObject)
@@ -415,8 +414,8 @@ function SPowerbank:fixGeneratorNumber()
         i = i +1
     end
     if self.conGenerator then
-        local conGenerator,square = self:getConGenerator()
-        if square and (not conGenerator or ISAScan.findTypeOnSquare(square,"Powerbank")) then
+        local conGenerator,conSquare = self:getConGenerator()
+        if conSquare and (not conGenerator or ISAScan.findTypeOnSquare(conSquare,"Powerbank")) then
             self:autoConnectToGenerator()
         end
     end

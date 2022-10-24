@@ -1,5 +1,8 @@
 require "ISUI/ISPanelJoypad"
 
+require "ISUI/ISAUI"
+local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
+
 ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")
 
 function ISAWindowDebug:new(x, y, width, height)
@@ -49,6 +52,9 @@ function ISAWindowDebug:setVisible(visible)
 end
 
 function ISAWindowDebug:prerender()
+    local pb = self.parent.parent.luaPB
+    if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
+
     if self.containerButton.disableFrame then
         self.containerButton.disableFrame = self.containerButton.disableFrame -1
         if self.containerButton.disableFrame <= 0 then self.containerButton.enable = true; self.containerButton.disableFrame = nil end
@@ -58,9 +64,9 @@ function ISAWindowDebug:prerender()
         local generator = square and square:getGenerator()
         self.plugBackupButton.generator = generator
         self.plugBackupButton.enable = false
-        if not generator then self.plugBackupButton.tooltip = " <RGB:1,0,0>No generator on player's square"
-        elseif not generator:isConnected() then self.plugBackupButton.tooltip = " <RGB:1,0,0>Generator is not connected"
-        elseif ISAScan.findTypeOnSquare(square,"Powerbank") then self.plugBackupButton.tooltip = " <RGB:1,0,0>This is a Powerbank"
+        if not generator then self.plugBackupButton.tooltip = richBad .. "No generator on player's square"
+        elseif not generator:isConnected() then self.plugBackupButton.tooltip = richBad .. "Generator is not connected"
+        elseif ISAScan.findTypeOnSquare(square,"Powerbank") then self.plugBackupButton.tooltip = richBad .. "This is a Powerbank"
         else
             self.plugBackupButton.enable = true
             self.plugBackupButton.tooltip = "Warning: No area check"

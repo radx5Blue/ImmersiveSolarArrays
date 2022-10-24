@@ -152,7 +152,7 @@ function SPowerbankSystem:updatePowerbanks(chargefreq)
         pb:updateConGenerator()
         pb:saveData(true)
 
-        self:noise(string.format("/charge: (%d) Battery at: %d %%, charge dif: %1f, output: %1f, drain: %1f",i,chargemod*100,dif,pb.npanels*solaroutput,drain))
+        self:noise(string.format("/charge: (%d) Battery at: %d %%, charge dif: %.1f, output: %.1f, drain: %.1f",i,chargemod*100,dif,pb.npanels*solaroutput,drain))
     end
 end
 

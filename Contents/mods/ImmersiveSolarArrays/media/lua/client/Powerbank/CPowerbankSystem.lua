@@ -122,17 +122,6 @@ function CPowerbankSystem.onPlugGenerator(character,generator,plug)
     end
 end
 
---function CPowerbankSystem.onPlugGenerator(character,generator,plug)
---    local isoPowerbanks = CPowerbankSystem.getPowerbanksInArea(generator:getSquare(),plug,character)
---    if #isoPowerbanks > 0 then
---        local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
---        for _,isoPb in ipairs(isoPowerbanks) do
---            table.insert(args.pbList,{ x = isoPb:getX(), y = isoPb:getY(), z = isoPb:getZ()})
---        end
---        CPowerbankSystem.instance:sendCommand(character,"plugGenerator",args)
---    end
---end
-
 function CPowerbankSystem.onActivateGenerator(character,generator,activate)
     local x, y, z = generator:getX(), generator:getY(), generator:getZ()
     for i=1,CPowerbankSystem.instance:getLuaObjectCount() do

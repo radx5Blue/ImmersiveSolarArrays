@@ -1,5 +1,7 @@
 require "ISUI/ISPanelJoypad"
 
+local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
+
 ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
 
 function ISAWindowDetails:new(x, y, width, height)
@@ -37,7 +39,7 @@ function ISAWindowDetails:render()
     local textX = 10
     local textXr = self.width -10
     local textY = 10
-    local borderY
+    local borderX, borderY, borderW, borderH = 5,0,self.width-10,0
     local fontHeightSm = getTextManager():getFontHeight(UIFont.Small)
     local fontHeightMed = getTextManager():getFontHeight(UIFont.Medium)
 
@@ -51,7 +53,9 @@ function ISAWindowDetails:render()
 
         self:drawText(getText("ContextMenu_ISA_BatteryBank"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
         textY = textY + fontHeightMed + 5
-        borderY = textY-3
+        borderY, borderH = textY-3, fontHeightSm * 3 + 6
+        self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
+        self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
         self:drawText(getText("IGUI_ISAWindow_Details_MaxCapacity"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(tostring(math.floor(pb.maxcapacity) .. " Ah"), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
@@ -61,14 +65,15 @@ function ISAWindowDetails:render()
         self:drawText(getText("IGUI_ISAWindow_Details_MaxPanelOutput"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(string.format("%.1f",CPowerbankSystem.getMaxSolarOutput(pb.npanels)) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
-        self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
+        --self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
         textY = textY + fontHeightSm
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricalDevices"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
-        --self.devButton:setY(textY)
         self.devButton:setVisible(true)
         textY = textY + fontHeightMed + 5
-        borderY = textY-3
+        borderY, borderH = textY-3, fontHeightSm * (devices:size() + 1) + 6
+        self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
+        self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
         self:drawText(getText("IGUI_Total") .. " " .. getText("IGUI_PowerConsumption") .. ": ", textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(string.format("%.1f",pb.drain) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
@@ -77,36 +82,36 @@ function ISAWindowDetails:render()
             self:drawText(itext, textX, textY, 1, 1, 1, 1, UIFont.Small)
             textY = textY + fontHeightSm
         end
-        self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
         textY = textY + fontHeightSm
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricityExternal"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
         textY = textY + fontHeightMed + 5
-        borderY = textY-3
+        borderY, borderH = textY-3, fontHeightSm * 2 + 6
+        self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
+        self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
+
         self:drawLineB(pb.conGenerator,"IGUI_ISAWindow_Details_conGenerator",textY)
 
         textY = textY + fontHeightSm
-        if pb.conGenerator then
-            self:drawLineB(ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15"),"IGUI_ISAWindow_Details_Failsafe",textY)
-            textY = textY + fontHeightSm
-        end
-         self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
+        self:drawLineB(pb.conGenerator and ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15"),"IGUI_ISAWindow_Details_Failsafe",textY)
+        textY = textY + fontHeightSm
     else
         self.devButton:setVisible(false)
-        self:drawText(getText("IGUI_ISAWindow_Details_HideDetails"), textX, textY, 1, 0, 0, 1, UIFont.Small)
+        self:drawText(getText("IGUI_ISAWindow_Details_CantSee"), textX, textY, rBad, gBad, bBad, 1, UIFont.Medium)
         textY = textY + fontHeightMed
     end
 
     if self.showBackupDetails then
-        borderY = textY + 2
         textY = textY + 5
+        borderY, borderH = textY-3, fontHeightSm * 2 + 6
+        self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
+        self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
         local generators = CPowerbankSystem.getGeneratorsInAreaInfo(pb,area)
         self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(tostring(generators), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
         self:drawLineB(validArea,"IGUI_ISAWindow_Details_ValidAreaPlayer",textY)
         textY = textY + fontHeightSm
-        self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
     end
 
     --self:setScrollHeight(textY+10)
@@ -115,11 +120,11 @@ end
 
 function ISAWindowDetails:drawLineB(isTrue,igui,y)
     if isTrue then
-        self:drawText(getText(igui), 10, y, 0, 1, 0, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_Yes"), self.width-10, y, 0, 1, 0, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rGood, gGood, bGood, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_Yes"), self.width-10, y, rGood, gGood, bGood, 1, UIFont.Small)
     else
-        self:drawText(getText(igui), 10, y, 1, 0, 0, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_No"), self.width-10, y, 1, 0, 0, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rBad, gBad, bBad, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_No"), self.width-10, y, rBad, gBad, bBad, 1, UIFont.Small)
     end
 end
 
@@ -152,7 +157,6 @@ function ISAWindowDetails.measureWidth()
         {"%s 999","IGUI_ISAWindow_Details_ConnectedPanels"},
         {"%s 10.000.0 Ah","IGUI_ISAWindow_Details_MaxPanelOutput"},
         {"%s %s: 10.000.0 Ah","IGUI_Total","IGUI_PowerConsumption"},
-        {"%s","IGUI_ISAWindow_Details_HideDetails"},
     }
     local bTexts = {
         "IGUI_ISAWindow_Details_conGenerator",

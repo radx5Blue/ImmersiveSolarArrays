@@ -29,10 +29,15 @@ IGUI_PTBR = {
     IGUI_ISAWindow_Details_GenInRange = "Geradores no intervalo: ",
     IGUI_ISAWindow_Details_GenOutOfRange = "Geradores fora do intervalo: ",
     IGUI_ISAWindow_Details_ElectricityExternal = "Fontes externas",
-    IGUI_ISAWindow_Details_Far = "Battery Bank está muito longe",
+    IGUI_ISAWindow_Details_CantSee = "Battery Bank está muito longe",
+	IGUI_ISAWindow_Debug_ShowBackup = "Mostrar de backup detalhes",
+    IGUI_ISAWindow_Debug_HideBackup = "Ocultar de backup detalhes",
 	IGUI_ISA_Update = "Atualizar",
 	
     IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar %1",
+	
 	/*need update
-	/IGUI_ISAWindowsSumaryTab_InfoText
+	-IGUI_ISAWindowsSumaryTab_InfoText
+    -IGUI_ISAWindow_Details_CantSee
+
 }

@@ -4,7 +4,6 @@ IGUI_RU = {
     IGUI_ContainerTitle_SolarBox = "Solar Box",
 
     IGUI_ISAWindowsStatus_Title = "Статус Аккумуляторной Батареи",
-    IGUI_ISAWindowsSumaryTab_InfoText = "Инфо о солнечной панели и Аккумуляторной Батареи.\n\nОна содержит всю основную информацию о Аккумуляторной Батареи, содержащихся в нем батареях и солнечных панелях, подключенных к этой Аккумуляторной Батареи.",
     IGUI_ISAWindowsSumaryTab_InfoText = " <CENTRE> <SIZE:medium> Панель Аккумуляторной Батареи <LINE> <LINE> <LEFT> Сводка <LINE> <SIZE:small> Отображает визуальную сводку Аккумуляторной Батареи, солнечных панелей и состояния батареи. <LINE> <SIZE:medium> Подробности <LINE> <SIZE:small> Отображает техническую информацию о Аккумуляторной Батареи и её состояния. <LINE> <SIZE:medium> Debug Tab <LINE> <SIZE:small> Добавляет кнопки для устранения неполадок Аккумуляторной Батареи. ",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Сводка",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Статус панелей",
@@ -30,7 +29,9 @@ IGUI_RU = {
     IGUI_ISAWindow_Details_GenInRange = "Генераторы в диапазоне: ",
     IGUI_ISAWindow_Details_GenOutOfRange = "Генераторы вне диапазона: ",
     IGUI_ISAWindow_Details_ElectricityExternal = "Внешние источники",
-	IGUI_ISAWindow_Details_Far = "Аккумуляторная Батарея слишком далеко",
+	IGUI_ISAWindow_Details_CantSee = "Аккумуляторная Батарея слишком далеко",
+    IGUI_ISAWindow_Debug_ShowBackup = "Показать Подробности",
+    IGUI_ISAWindow_Debug_HideBackup = "Скрыть Подробности",
     IGUI_ISA_Update = "Обновить",
 	
     IGUI_ISAContainerNotBattery = "Кажется, это хорошее место для хранения %1",

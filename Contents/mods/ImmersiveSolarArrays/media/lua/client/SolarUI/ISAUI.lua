@@ -3,6 +3,17 @@ ISAMenu._index = ISAMenu
 
 local _powerbank
 
+local rGood, gGood, bGood = 0,1,0
+local rBad, gBad, bBad = 0,1,0
+local richGood, richBad, richNeutral = " <RGB:0,1,0> ", " <RGB:1,0,0> ", " <RGB:1,1,1> "
+--ver41.78+
+if getCore().getGoodHighlitedColor then
+	local good = getCore():getGoodHighlitedColor()
+	local bad = getCore():getBadHighlitedColor()
+	rGood, gGood, bGood, rBad, gBad, bBad = good:getR(), good:getG(), good:getB(), bad:getR(), bad:getG(), bad:getB()
+	richGood, richBad = string.format(" <RGB:%.2f,%.2f,%.2f> ",rGood, gGood, bGood), string.format(" <RGB:%.2f,%.2f,%.2f> ",rBad, gBad, bBad)
+end
+
 local function ConnectPanel(worldobjects,player,panel,powerbank)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, panel:getSquare(), true) then
@@ -68,15 +79,15 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ConnectPanel, player, panel, opt[1])
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
 				tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
-				tooltip.description = opt[4] and " <RGB:0,1,0>" .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or " <RGB:1,0,0>" .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
-				tooltip.description = tooltip.description .. (" <RGB:1,1,1><BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
+				tooltip.description = opt[4] and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+				tooltip.description = tooltip.description .. (richNeutral .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
 				option.toolTip = tooltip;
 			end
 		else
 			if test then return ISWorldObjectContextMenu.setTest() end
 			local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
 			local tooltip = ISWorldObjectContextMenu.addToolTip()
-			tooltip.description = " <RGB:1,0,0>" .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
+			tooltip.description = richBad .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
 			tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
 
 			option.notAvailable = true;
@@ -84,6 +95,14 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 			option.toolTip = tooltip;
 		end
 	end
+end
+
+function ISAMenu.getRGB()
+	return rGood, gGood, bGood, rBad, gBad, bBad
+end
+
+function ISAMenu.getRGBRich()
+	return richGood, richBad, richNeutral
 end
 
 ISAIsDayTime = function(currentTime)
