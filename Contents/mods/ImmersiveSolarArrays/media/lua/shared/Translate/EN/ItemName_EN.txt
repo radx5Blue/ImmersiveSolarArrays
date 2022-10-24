@@ -10,9 +10,9 @@ ItemName_EN = {
     ItemName_ISA.DIYBattery = "DIY Battery",
     ItemName_ISA.50AhBattery = "50Ah Car Battery",
     ItemName_ISA.75AhBattery = "75Ah Car Battery",
-    ItemName_ISA.100AhBattery = "100Ah Car Battery"
+    ItemName_ISA.100AhBattery = "100Ah Car Battery",
 
-    ItemName_ISA.SolarPanelFlat = "Flat Solar Panel"
+    ItemName_ISA.SolarPanelFlat = "Flat Solar Panel",
     ItemName_ISA.SolarPanelWall = "Wall-Mounted Solar Panel",
     ItemName_ISA.SolarPanelMounted = "Floor-Mounted Solar Panel",
 

@@ -39,13 +39,5 @@ function ISMoveablesAction:perform(...)
 
     local o = ISMoveablesActionperform(self,...)
 
-    --if self.origSpriteName == "solarmod_tileset_01_0" then
-    --    --CPowerbankSystem.instance.onMoveableAction(self)
-    --    if self.mode == "pickup" then
-    --        CPowerbankSystem.instance:removeGenerator(self.square)
-    --    elseif self.mode == "place" then
-    --        CPowerbankSystem.instance:createGenerator(self.square)
-    --    end
-    --end
     return o
 end

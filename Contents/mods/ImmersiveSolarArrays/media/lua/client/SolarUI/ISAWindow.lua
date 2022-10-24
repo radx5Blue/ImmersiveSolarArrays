@@ -3,11 +3,6 @@ require "ISUI/ISLayoutManager"
 
 ISAStatusWindow = ISCollapsableWindow:derive("ISAStatusWindow")
 
-function ISAStatusWindow:initialise()
-	ISCollapsableWindow.initialise(self)
-	self.title = getText("IGUI_ISAWindowsStatus_Title")
-end
-
 function ISAStatusWindow:createChildren()
 	ISCollapsableWindow.createChildren(self);
 	local th = self:titleBarHeight()
@@ -18,42 +13,48 @@ function ISAStatusWindow:createChildren()
 	self:addChild(self.panel);
 	--self.panel:setOnTabTornOff(self, ISAStatusWindow.onTabTornOff)
 
-	self.sumaryView = ISAWindowsSumaryTab:new(0, 8, self.width, self.height-8);
+	self.sumaryView = ISAWindowsSumaryTab:new(0, 8, self.width, self.height-8)
 	self.sumaryView:initialise()
-    self.sumaryView.infoText = getText("IGUI_ISAWindowsSumaryTab_InfoText");
+    self.sumaryView.infoText = getText("IGUI_ISAWindowsSumaryTab_InfoText")
 	self.panel:addView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"), self.sumaryView)
+	self:setInfo(self.sumaryView.infoText) --need first time we open window
 
-	-- Set the correct size before restoring the layout.  Currently, ISCharacterScreen:render sets the height/width.
-	--self:setWidth(self.charScreen.width)
-	--self:setHeight(self.charScreen.height);
-	--ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
-    self.visibleOnStartup = self:getIsVisible() -- hack, see ISPlayerDataObject.lua
+	self.detailsView = ISAWindowDetails:new(0, 8, self.width, self.height-8)
+	self.detailsView:initialise()
+	self.panel:addView(getText("IGUI_ISAWindow_Details_TabTitle"), self.detailsView)
+
+	self.debugView = ISAWindowDebug:new(0, 8, 200, 25)
+	self.debugView:initialise()
+	self.panel:addView("Debug", self.debugView)
+
+	ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
 end
 
 function ISAStatusWindow:new(x, y, width, height)
-	local o = {};
-	o = ISCollapsableWindow:new(x, y, width, height);
-	setmetatable(o, self);
-	self.__index = self;
---	o:noBackground();
+	local o = {}
+	o = ISCollapsableWindow:new(x, y, width, height)
+	setmetatable(o, self)
+	self.__index = self
 	o:setResizable(false)
-	o.visibleOnStartup = false
-	ISCharacterInfoWindow.instance = o;
-	return o;
+	o.title = getText("IGUI_ISAWindowsStatus_Title")
+
+	ISAStatusWindow.instance = o
+	return o
 end
 
-function ISAStatusWindow.OnOpenPanel(fsquare)
-	if ISAStatusWindow.instance == nil then
-		local ui = ISAStatusWindow:new(100, 100, 200, 200)
-		ui:initialise()
-		ISAStatusWindow.instance = ui
+function ISAStatusWindow.OnOpenPanel(worldobjects,square,player)
+	local instance = ISAStatusWindow.instance or ISAStatusWindow:new(100, 100, 580, 400)
+	instance:addToUIManager()
+
+	instance.square = square
+	instance.luaPB = CPowerbankSystem.instance:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
+	instance.playerNum = player
+	instance.player = getSpecificPlayer(player)
+
+	if instance.panel.activeView and instance.panel:getActiveViewIndex() ~= 1 then
+		instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
 	end
-	ISAStatusWindow.instance:addToUIManager()
-
-	local sumaryView = ISAStatusWindow.instance.sumaryView
-	sumaryView.currentFrame = 0
-	sumaryView.powerbank = CPowerbankSystem.instance:getLuaObjectAt(fsquare:getX(),fsquare:getY(),fsquare:getZ())
-
+	instance.sumaryView.currentFrame = 0
 end
 
 function ISAStatusWindow:close()

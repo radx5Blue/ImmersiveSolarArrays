@@ -26,8 +26,8 @@ function ISAConnectPanel:start()
             CPowerbankSystem.instance:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
         end
         data["powerbank"] = nil
-        self.panel:transmitModData()
     end
+    self.panel:transmitModData()
 end
 
 function ISAConnectPanel:waitToStart()
@@ -54,16 +54,16 @@ end
 function ISAConnectPanel:perform()
     self.character:stopOrTriggerSound(self.sound)
 
+    local data = self.panel:getModData()
+    data.connectDelta = 100
     local isopb = self.powerbank:getIsoObject()
     if isopb then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
         local panel = { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }
         CPowerbankSystem.instance:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
-        local data = self.panel:getModData()
-        data.connectDelta = 100
         data.powerbank = pb
-        self.panel:transmitModData()
     end
+    self.panel:transmitModData()
 
     ISBaseTimedAction.perform(self);
 end
@@ -78,7 +78,7 @@ function ISAConnectPanel:new(character, panel, powerbank)
     o.stopOnWalk = true;
     o.stopOnRun = true;
     o.stopOnAim = false
-    o.maxTime = 150 --todo (240 - (character:getPerkLevel(Perks.Electricity) - 3) * 20) * getGameTime():getMinutesPerDay()
+    o.maxTime = (120 - (character:getPerkLevel(Perks.Electricity) - 3) * 10) * 2 * getGameTime():getMinutesPerDay() / 10 --2 hours at level 3, ~half at level 10 --- temp /10
     if o.character:isTimedActionInstant() then
         o.maxTime = 1
     end

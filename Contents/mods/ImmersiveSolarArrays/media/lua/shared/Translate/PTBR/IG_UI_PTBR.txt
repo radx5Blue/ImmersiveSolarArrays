@@ -1,23 +1,43 @@
 IGUI_PTBR = {
     IGUI_VehicleType_9384579 = "Ciclo Profundo",
+    IGUI_ContainerTitle_BatteryBank = "Banco de Baterias",
+    IGUI_ContainerTitle_SolarBox = "Caixa Solar",
 
     IGUI_ISAWindowsStatus_Title = "Status do Banco de Baterias",
-
     IGUI_ISAWindowsSumaryTab_InfoText = "Resumo do Banco de Energia, Painéis Solares e Baterias.\n\nContém toda a informação básica sobre o Banco de Energia, as Baterias contidas nele e os Painéis Solares conectados.",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Resumo",
-    IGUI_ISAWindowsSumaryTab_ConnectedPanels = "Painéis Conectados",
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Status dos Painéis",
     IGUI_ISAWindowsSumaryTab_BatteryLevel = "Nível das Baterias",
     IGUI_ISAWindowsSumaryTab_BatteryStatus = "Status das Baterias",
     IGUI_ISAWindowsSumaryTab_NoEnoughPanels = "Painéis insuficientes",
-    IGUI_ISAWindowsSumaryTab_WillNotCharge = "Não carregará",
     IGUI_ISAWindowsSumaryTab_NoEnoughSun = "Luz solar insuficiente",
     IGUI_ISAWindowsSumaryTab_Working = "Funcionando corretamente",
     IGUI_ISAWindowsSumaryTab_FullyCharged = "Completamente carregado",
     IGUI_ISAWindowsSumaryTab_FullyDischarged = "Completamente descarregado",
-    IGUI_ISAWindowsSumaryTab_ChargedIn = "Carregado em:\n  %d dias\n  %d horas\n  %d minutos",
-    IGUI_ISAWindowsSumaryTab_DischargedIn = "Descarregado em:\n  %d dias\n  %d horas\n  %d minutos",
+    IGUI_ISAWindowsSumaryTab_ChargedIn = "Carregado em:",
+    IGUI_ISAWindowsSumaryTab_DischargedIn = "Descarregado em:",
+	IGUI_ISAWindowsSumaryTab_BatteryRemaining = "Battery Reserves:",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Não está carregando",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Sem Baterias",
-    IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar ",
+    IGUI_ISAWindow_Details_TabTitle = "Detalhes",
+    IGUI_ISAWindow_Details_MaxCapacity = "Capacidade máxima: ",
+    IGUI_ISAWindow_Details_ConnectedPanels = "Painéis Conectados",
+    IGUI_ISAWindow_Details_MaxPanelOutput = "Saída máxima do painel: ",
+    IGUI_ISAWindow_Details_ElectricalDevices = "Dispositivos Elétricos",
+    IGUI_ISAWindow_Details_conGenerator = "O Gerador de Backup está conectado: ",
+    IGUI_ISAWindow_Details_Failsafe = "O Gerador de Backup tem proteção contra falhas: ",
+    IGUI_ISAWindow_Details_GenInRange = "Geradores no intervalo: ",
+    IGUI_ISAWindow_Details_GenOutOfRange = "Geradores fora do intervalo: ",
+    IGUI_ISAWindow_Details_ElectricityExternal = "Fontes externas",
+    IGUI_ISAWindow_Details_CantSee = "Battery Bank está muito longe",
+	IGUI_ISAWindow_Debug_ShowBackup = "Mostrar de backup detalhes",
+    IGUI_ISAWindow_Debug_HideBackup = "Ocultar de backup detalhes",
+	IGUI_ISA_Update = "Atualizar",
+	
+    IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar %1",
+	
+	/*need update
+	-IGUI_ISAWindowsSumaryTab_InfoText
+    -IGUI_ISAWindow_Details_CantSee
+
 }

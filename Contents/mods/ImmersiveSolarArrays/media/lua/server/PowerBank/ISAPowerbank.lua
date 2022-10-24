@@ -8,3 +8,8 @@ ISAPowerbank.maxBatteryCapacity = {
     ["SuperBattery"] = 400,
     ["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
 }
+
+--function ISAPowerbank.AcceptItemFunction(container,item)
+--    if ISAPowerbank.maxBatteryCapacity[item:getType()] then return true end
+--    return false
+--end

@@ -25,7 +25,6 @@ end
 
 function ISAActivatePowerbank:perform()
     local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(self.isopb:getSquare())
-    --luapb:updateFromIsoObject() --getluaobject does that
     if self.activate then
         local level = self.character:getPerkLevel(Perks.Electricity)
         if level < 3 and ZombRand(6-2*level) ~= 0 then
@@ -37,12 +36,10 @@ function ISAActivatePowerbank:perform()
         self.character:playSound("GeneratorStarting")
     elseif self.activate then
         self.character:playSound("GeneratorFailedToStart")
-        ISAStatusWindow.OnOpenPanel(self.isopb:getSquare())
     else
         self.character:playSound("GeneratorStopping")
     end
 
-    --luapb.on = self.activate
     local pb =  { x = luapb.x, y = luapb.y, z = luapb.z }
     CPowerbankSystem.instance:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
 

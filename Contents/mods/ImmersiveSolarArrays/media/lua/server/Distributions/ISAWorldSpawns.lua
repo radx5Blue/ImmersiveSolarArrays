@@ -10,7 +10,7 @@ local function stringXYZ(iso)
 end
 
 function ISAWorldSpawns.Place(square,sprite)
-    --if square:isFree(true) or (sprite == "solarmod_tileset_01_06" or sprite == "solarmod_tileset_01_07") and square:isFreeOrMidair(true) then
+    --if square:isFree(true) or (sprite == "solarmod_tileset_01_6" or sprite == "solarmod_tileset_01_7") and square:isFreeOrMidair(true) then
         local isoObject = IsoObject.new(square:getCell(), square, sprite)
         if sprite == "solarmod_tileset_01_36" then
             isoObject:createContainersFromSpriteProperties()
@@ -35,7 +35,7 @@ function ISAWorldSpawns.Fill(isoObject)
     container:AddItem("ISA.ISAInverter")
     container:AddItem("ISA.ISAMag1")
     container:setExplored(true)
-    isoObject:setOverlaySprite("solarmod_tileset_01_38") --set this because it don't autorefresh
+    isoObject:setOverlaySprite("solarmod_tileset_01_38")
 end
 
 function ISAWorldSpawns.doRolls()
