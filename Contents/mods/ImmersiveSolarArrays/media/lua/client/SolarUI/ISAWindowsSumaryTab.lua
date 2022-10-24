@@ -266,7 +266,6 @@ function ISAWindowsSumaryTab:render()
 			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
 			self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryRemaining"), text_x, text_y + 60, 0, 1, 0, 1, UIFont.Small)
 			self:drawText(string.format("%d %s\n%d %s\n%d %s",days,getText("IGUI_Gametime_days"),hours,getText("IGUI_Gametime_hours"),minutes,getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 60, 0, 1, 0, 1, UIFont.Small)
-			--self:drawText(days .. " " .. getText("IGUI_Gametime_days") .. "\n" .. hours .. " " .. getText("IGUI_Gametime_hours") .. "\n" .. minutes .. " " .. getText("IGUI_Gametime_minutes"), text_x + 15, text_y + 60, 0, 1, 0, 1, UIFont.Small)
 		end
 	else
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
