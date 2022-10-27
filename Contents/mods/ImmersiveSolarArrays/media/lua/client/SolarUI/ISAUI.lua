@@ -14,7 +14,7 @@ if getCore().getGoodHighlitedColor then
 	richGood, richBad = string.format(" <RGB:%.2f,%.2f,%.2f> ",rGood, gGood, bGood), string.format(" <RGB:%.2f,%.2f,%.2f> ",rBad, gBad, bBad)
 end
 
-local function ConnectPanel(worldobjects,player,panel,powerbank)
+function ISAMenu.onConnectPanel(worldobjects,player,panel,powerbank)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, panel:getSquare(), true) then
 		ISTimedActionQueue.add(ISAConnectPanel:new(character, panel, powerbank))
@@ -64,6 +64,29 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local textOn = isOn and getText("ContextMenu_Turn_Off") or getText("ContextMenu_Turn_On")
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(textOn, worldobjects, ActivatePowerbank, player, powerbank, not isOn)
+
+		local function ConnectPanelCursor(worldobjects,player,powerbank)
+			--if JoypadState.players[player+1] then
+			--	local bo = ISFarmingCursor:new(getSpecificPlayer(player))
+			--	getCell():setDrag(bo, bo.player)
+			--	bo.xJoypad = square:getX()
+			--	bo.yJoypad = square:getY()
+			--	bo.zJoypad = square:getZ()
+			--end
+
+			--if getSpecificPlayer(player):getJoypadBind() ~= -1 then
+			--	ISFarmingMenu.cursor = ISFarmingCursorMouse:new(playerObj, ISFarmingMenu.onHarvestSquareSelected, ISFarmingMenu.isHarvestValid)
+			--	getCell():setDrag(ISFarmingMenu.cursor, playerObj:getPlayerNum())
+			--end
+			ISACursor.cursor = ISAConnectPanelCursor:new(player,powerbank)
+			getCell():setDrag(ISACursor.cursor, player)
+		end
+		--fixme new
+		if test then return ISWorldObjectContextMenu.setTest() end
+		ISASubMenu:addOption("Connect Panels", worldobjects, ConnectPanelCursor, player, powerbank)
+
+
+
 	end
 
 	if panel then
@@ -76,7 +99,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if #options > 0 and isOutside then
 			for i,opt in ipairs(options) do
 				if test then return ISWorldObjectContextMenu.setTest() end
-				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ConnectPanel, player, panel, opt[1])
+				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ISAMenu.onConnectPanel, player, panel, opt[1])
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
 				tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
 				tooltip.description = opt[4] and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
