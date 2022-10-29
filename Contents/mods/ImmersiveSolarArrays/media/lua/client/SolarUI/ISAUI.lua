@@ -65,23 +65,35 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(textOn, worldobjects, ActivatePowerbank, player, powerbank, not isOn)
 
-		local function ConnectPanelCursor(worldobjects,player,powerbank)
-			--if JoypadState.players[player+1] then
-			--	local bo = ISFarmingCursor:new(getSpecificPlayer(player))
-			--	getCell():setDrag(bo, bo.player)
-			--	bo.xJoypad = square:getX()
-			--	bo.yJoypad = square:getY()
-			--	bo.zJoypad = square:getZ()
-			--end
 
-			--if getSpecificPlayer(player):getJoypadBind() ~= -1 then
-			--	ISFarmingMenu.cursor = ISFarmingCursorMouse:new(playerObj, ISFarmingMenu.onHarvestSquareSelected, ISFarmingMenu.isHarvestValid)
-			--	getCell():setDrag(ISFarmingMenu.cursor, playerObj:getPlayerNum())
-			--end
+
+		local function ConnectPanelCursor1(worldobjects,player,powerbank)
+			if JoypadState.players[player+1] then
+				local cursor = ISAConnectPanelCursor1:new(player,powerbank)
+				getCell():setDrag(cursor, player)
+				cursor.xJoypad = square:getX()
+				cursor.yJoypad = square:getY()
+				cursor.zJoypad = square:getZ()
+
+				ISACursor1.cursor = cursor
+			end
+			if getSpecificPlayer(player):getJoypadBind() ~= -1 then
+				ISACursor1.cursor = ISAConnectPanelCursor1:new(player,powerbank)
+				getCell():setDrag(ISACursor1.cursor, player)
+			end
+		end
+		local function ConnectPanelCursor(worldobjects,player,powerbank)
 			ISACursor.cursor = ISAConnectPanelCursor:new(player,powerbank)
 			getCell():setDrag(ISACursor.cursor, player)
+			if JoypadState.players[player+1] then
+				ISACursor.cursor.xJoypad = square:getX()
+				ISACursor.cursor.yJoypad = square:getY()
+				ISACursor.cursor.zJoypad = square:getZ()
+			end
 		end
-		--fixme new
+		if test then return ISWorldObjectContextMenu.setTest() end
+		ISASubMenu:addOption("Connect Panels1", worldobjects, ConnectPanelCursor1, player, powerbank)
+
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption("Connect Panels", worldobjects, ConnectPanelCursor, player, powerbank)
 

@@ -1,6 +1,6 @@
 require "ISUI/ISPanelJoypad"
 
-require "ISUI/ISAUI"
+require "SolarUI/ISAUI"
 local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
 
 ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")

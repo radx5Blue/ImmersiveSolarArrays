@@ -6,29 +6,29 @@ local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
 --    return iso:getX() .. "," .. iso:getY() .. "," .. iso:getZ()
 --end
 
-ISACursor = ISBuildingObject:derive("ISACursor");
+ISACursor1 = ISBuildingObject:derive("ISACursor1");
 
-function ISACursor:new()
+function ISACursor1:new()
     local o = {}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
-function ISACursor:deactivate()
+function ISACursor1:deactivate()
     self:hideTooltip();
 end
 
-function ISACursor:close()
+function ISACursor1:close()
     getCell():setDrag(nil,self.player)
 end
 
---function ISACursor:isVisible()
+--function ISACursor1:isVisible()
 --    print()
---    return ISACursor.cursor and getCell():getDrag(self.player) == ISACursor.cursor
+--    return ISACursor1.cursor and getCell():getDrag(self.player) == ISACursor1.cursor
 --end
 
-function ISACursor:hideTooltip()
+function ISACursor1:hideTooltip()
     if self.tooltip then
         self.tooltip:removeFromUIManager()
         self.tooltip:setVisible(false)
@@ -36,9 +36,9 @@ function ISACursor:hideTooltip()
     end
 end
 
-ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
+ISAConnectPanelCursor1 = ISACursor1:derive("ISAConnectPanelCursor1")
 
-function ISAConnectPanelCursor:new(player,powerbank)
+function ISAConnectPanelCursor1:new(player,powerbank)
     local o = {}
     setmetatable(o, self)
     self.__index = self
@@ -55,14 +55,14 @@ function ISAConnectPanelCursor:new(player,powerbank)
     return o
 end
 
---function ISAConnectPanelCursor:makePanelTable()
+--function ISAConnectPanelCursor1:makePanelTable()
 --    self.panels = {}
 --    for _,ipanel in ipairs(self.luaPb.panels) do
 --        self.panels[string.format("%d,%d,%d",ipanel.x,ipanel.y,ipanel.z)] = true
 --    end
 --end
 
-function ISAConnectPanelCursor:isValid(square,...)
+function ISAConnectPanelCursor1:isValid(square,...)
     if self.sq ~= square then
         if not (self.luaPb and self.luaPb:getIsoObject()) then self:close() end
         self.sq = square
@@ -80,7 +80,7 @@ function ISAConnectPanelCursor:isValid(square,...)
     return self.validPanel
 end
 
-function ISAConnectPanelCursor:render(x,y,z,square,...)
+function ISAConnectPanelCursor1:render(x,y,z,square,...)
     if not self.floorSprite then
         self.floorSprite = IsoSprite.new()
         self.floorSprite:LoadFramesNoDirPageSimple('media/ui/FloorTileCursor.png')
@@ -95,7 +95,7 @@ function ISAConnectPanelCursor:render(x,y,z,square,...)
     self:renderTooltip()
 end
 
-function ISAConnectPanelCursor:renderTooltip()
+function ISAConnectPanelCursor1:renderTooltip()
     local tooltip = self.tooltip
     if not tooltip then
         tooltip = ISWorldObjectContextMenu.addToolTip()
@@ -114,7 +114,7 @@ function ISAConnectPanelCursor:renderTooltip()
     end
 end
 
-function ISAConnectPanelCursor:tryBuild(x,y,z)
+function ISAConnectPanelCursor1:tryBuild(x,y,z)
     return ISAMenu.onConnectPanel(nil,self.player,self.panel,self.luaPb)
 end
 

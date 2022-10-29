@@ -17,6 +17,7 @@ function ISAWorldSpawns.Place(square,sprite)
             ISAWorldSpawns.Fill(isoObject)
         end
         square:getObjects():add(isoObject)
+        square:addSpecialObject(isoObject)
         square:RecalcProperties()
     --else get another tile
     --end

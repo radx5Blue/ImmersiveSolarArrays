@@ -1,5 +1,6 @@
 require "ISUI/ISPanelJoypad"
 
+require "SolarUI/ISAUI"
 local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
 
 ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
