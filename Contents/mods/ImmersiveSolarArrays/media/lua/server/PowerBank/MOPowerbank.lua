@@ -14,7 +14,9 @@ MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
 -- in case map has our objects
 if not isClient() then
     local function addSpecialObject(object)
-        object:getSquare():addSpecialObject(object)
+        --fixme getSpecial:add()
+        --object:getSquare():getSpecialObjects():add(object)
+        --object:getSquare():addSpecialObject(object)
     end
     for sprite,type in pairs(ISAScan.Types) do
         if type == "Powerbank" or type == "Panel" then

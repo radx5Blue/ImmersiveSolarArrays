@@ -4,7 +4,7 @@ local function wrap(class,method,before,after)
         if before then before(...) end
         local result = original(...)
         if after then after(...) end
-        --if after then result = after(...,result) end
+        --if after then result = after(result,...) end
         return result
     end
 end

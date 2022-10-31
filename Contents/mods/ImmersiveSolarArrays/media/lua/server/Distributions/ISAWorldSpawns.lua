@@ -16,9 +16,9 @@ function ISAWorldSpawns.Place(square,sprite)
             isoObject:createContainersFromSpriteProperties()
             ISAWorldSpawns.Fill(isoObject)
         end
-        square:getObjects():add(isoObject)
+        --square:getObjects():add(isoObject)
+        --square:RecalcProperties()
         square:addSpecialObject(isoObject)
-        square:RecalcProperties()
     --else get another tile
     --end
 end
@@ -36,7 +36,7 @@ function ISAWorldSpawns.Fill(isoObject)
     container:AddItem("ISA.ISAInverter")
     container:AddItem("ISA.ISAMag1")
     container:setExplored(true)
-    isoObject:setOverlaySprite("solarmod_tileset_01_38")
+    --isoObject:setOverlaySprite("solarmod_tileset_01_38")
 end
 
 function ISAWorldSpawns.doRolls()

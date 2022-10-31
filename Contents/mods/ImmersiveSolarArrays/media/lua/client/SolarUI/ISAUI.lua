@@ -67,69 +67,65 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 
 
 
-		local function ConnectPanelCursor1(worldobjects,player,powerbank)
-			if JoypadState.players[player+1] then
-				local cursor = ISAConnectPanelCursor1:new(player,powerbank)
-				getCell():setDrag(cursor, player)
-				cursor.xJoypad = square:getX()
-				cursor.yJoypad = square:getY()
-				cursor.zJoypad = square:getZ()
-
-				ISACursor1.cursor = cursor
-			end
-			if getSpecificPlayer(player):getJoypadBind() ~= -1 then
-				ISACursor1.cursor = ISAConnectPanelCursor1:new(player,powerbank)
-				getCell():setDrag(ISACursor1.cursor, player)
-			end
+		--local function ConnectPanelCursor1(worldobjects,player,powerbank)
+		--	if JoypadState.players[player+1] then
+		--		local cursor = ISAConnectPanelCursor1:new(player,powerbank)
+		--		getCell():setDrag(cursor, player)
+		--		cursor.xJoypad = square:getX()
+		--		cursor.yJoypad = square:getY()
+		--		cursor.zJoypad = square:getZ()
+		--
+		--		ISACursor1.cursor = cursor
+		--	end
+		--	if getSpecificPlayer(player):getJoypadBind() ~= -1 then
+		--		ISACursor1.cursor = ISAConnectPanelCursor1:new(player,powerbank)
+		--		getCell():setDrag(ISACursor1.cursor, player)
+		--	end
+		--end
+		local function ConnectPanelCursor(worldobjects,player, square, powerbank)
+			ISACursor.cursor = ISAConnectPanelCursor:new(player, square, powerbank) --todo reuse?
 		end
-		local function ConnectPanelCursor(worldobjects,player,powerbank)
-			ISACursor.cursor = ISAConnectPanelCursor:new(player,powerbank)
-			getCell():setDrag(ISACursor.cursor, player)
-			if JoypadState.players[player+1] then
-				ISACursor.cursor.xJoypad = square:getX()
-				ISACursor.cursor.yJoypad = square:getY()
-				ISACursor.cursor.zJoypad = square:getZ()
-			end
-		end
-		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption("Connect Panels1", worldobjects, ConnectPanelCursor1, player, powerbank)
+		--if test then return ISWorldObjectContextMenu.setTest() end
+		--ISASubMenu:addOption("Connect Panels1", worldobjects, ConnectPanelCursor1, player, powerbank)
 
 		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption("Connect Panels", worldobjects, ConnectPanelCursor, player, powerbank)
+		ISASubMenu:addOption("Connect Panels", worldobjects, ConnectPanelCursor, player, square, powerbank)
 
 
 
 	end
 
-	if panel then
-		if test then return ISWorldObjectContextMenu.setTest() end
-		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
-		local ISASubMenu = ISContextMenu:getNew(context);
-		context:addSubMenu(ISABBMenu, ISASubMenu)
-		local isOutside = panel:getSquare():isOutside()
-		local options = CPowerbankSystem.instance.canConnectPanelTo(panel)
-		if #options > 0 and isOutside then
-			for i,opt in ipairs(options) do
+	--for _,panel in ipairs(panels) do
+		if panel then
+			if test then return ISWorldObjectContextMenu.setTest() end
+			local ISABBMenu = context:addOption(getText("ContextMenu_ISA_SolarPanel"), worldobjects);
+			local ISASubMenu = ISContextMenu:getNew(context);
+			context:addSubMenu(ISABBMenu, ISASubMenu)
+			local isOutside = panel:getSquare():isOutside()
+			local options = CPowerbankSystem.instance.canConnectPanelTo(panel)
+			if #options > 0 and isOutside then
+				for i,opt in ipairs(options) do
+					if test then return ISWorldObjectContextMenu.setTest() end
+					local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ISAMenu.onConnectPanel, player, panel, opt[1])
+					local tooltip = ISWorldObjectContextMenu.addToolTip()
+					tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
+					tooltip.description = opt[4] and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+					tooltip.description = tooltip.description .. (richNeutral .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
+					option.toolTip = tooltip;
+				end
+			else
 				if test then return ISWorldObjectContextMenu.setTest() end
-				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects, ISAMenu.onConnectPanel, player, panel, opt[1])
+				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
-				tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
-				tooltip.description = opt[4] and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
-				tooltip.description = tooltip.description .. (richNeutral .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
+				tooltip.description = richBad .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
+				tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
+
+				option.notAvailable = true;
+				option.onSelect = nil;
 				option.toolTip = tooltip;
 			end
-		else
-			if test then return ISWorldObjectContextMenu.setTest() end
-			local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
-			local tooltip = ISWorldObjectContextMenu.addToolTip()
-			tooltip.description = richBad .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
-			tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
-
-			option.notAvailable = true;
-			option.onSelect = nil;
-			option.toolTip = tooltip;
 		end
-	end
+	--end
 end
 
 function ISAMenu.getRGB()
