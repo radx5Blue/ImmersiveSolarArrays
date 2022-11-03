@@ -12,7 +12,7 @@ module ISA
 	{
 		mesh = WorldItems/Magazine,
 		texture = WorldItems/ISAMag1,
-		scale =  0.4,
+		scale =  0.5,
 	}
 
 

@@ -1,3 +1,6 @@
+if isClient() then return end
+require "Distributions/ISAWorldSpawns"
+
 local Maps = {}
 --main map, mp and challenges list this map
 Maps["Muldraugh, KY"] = {
@@ -90,4 +93,4 @@ Maps["challengemaps/Kingsmouth"] = {
 Maps["NewEkron"] = {
     { x = 7385, y = 8299, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Electronics Store
 }
-ISAWorldSpawnsMaps = Maps
+ISAWorldSpawns.defs.mapLocations = Maps

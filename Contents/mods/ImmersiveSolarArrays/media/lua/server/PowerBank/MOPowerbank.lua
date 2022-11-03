@@ -8,19 +8,14 @@ local function LoadPowerbank(isoObject)
         SPowerbankSystem.instance:loadIsoObject(isoObject)
     end
 end
-
 MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
 
--- in case map has our objects
-if not isClient() then
-    local function addSpecialObject(object)
-        --fixme getSpecial:add()
-        --object:getSquare():getSpecialObjects():add(object)
-        --object:getSquare():addSpecialObject(object)
-    end
-    for sprite,type in pairs(ISAScan.Types) do
-        if type == "Powerbank" or type == "Panel" then
-            MapObjects.OnNewWithSprite(sprite, addSpecialObject, 5)
-        end
-    end
-end
+-- if a map had our objects, to skip pick up - place
+--if not isClient() then
+--    local function OnNewWithSprite(object)
+--        object:getSquare():getSpecialObjects():add(object)
+--    end
+--    for sprite,type in pairs(ISAScan.Types) do
+--        MapObjects.OnNewWithSprite(sprite, OnNewWithSprite, 5)
+--    end
+--end

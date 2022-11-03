@@ -17,6 +17,11 @@ function CPowerbankSystem:newLuaObject(globalObject)
 
     return CPowerbank:new(self, globalObject)
 end
+function CGlobalObjectSystem:newLuaObjectAt(x, y, z)
+    self:noise("adding luaObject "..x..','..y..','..z)
+    local globalObject = self.system:newObject(x, y, z)
+    return self:newLuaObject(globalObject)
+end
 
 local delayedHide = {}
 local dprTick
@@ -125,11 +130,12 @@ end
 function CPowerbankSystem.postPlugGenerator(o)
     local character,generator,plug = o.character,o.generator,o.plug
     local area = ISAScan.getValidBackupArea(plug and character,10)
-    local isoPowerbanks = ISAScan.findPowerbanks(generator:getSquare(),area.radius, area.levels, area.distance)
-    if #isoPowerbanks > 0 then
+    local luaPowerbanks = ISAScan.findPowerbanks(generator:getSquare(),area.radius, area.levels, area.distance)
+    if #luaPowerbanks > 0 then
         local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
-        for _,isoPb in ipairs(isoPowerbanks) do
-            table.insert(args.pbList,{ x = isoPb:getX(), y = isoPb:getY(), z = isoPb:getZ()})
+        for i,luaPb in ipairs(luaPowerbanks) do
+            --table.insert(args.pbList,{ x = luaPb.x, y = luaPb.y, z = luaPb.z})
+            args.pbList[i] = { x = luaPb.x, y = luaPb.y, z = luaPb.z }
         end
         CPowerbankSystem.instance:sendCommand(character,"plugGenerator",args)
     end
@@ -158,7 +164,6 @@ end
 --end
 
 function CPowerbankSystem.postInventoryTransferAction(o,item)
-    print("isatest: ",o,item)
     local src, dest, character = o.srcContainer:getParent(), o.destContainer:getParent(), o.character
     local take = src and src:getTextureName() == "solarmod_tileset_01_0"
     local put = dest and dest:getTextureName() == "solarmod_tileset_01_0"
@@ -244,7 +249,8 @@ end
 --
 --end
 
-function CPowerbank.onMoveablesAction(o)
+function CPowerbankSystem.onMoveablesAction(o)
+    print("debug, onMoveablesAction")
     local type = ISAScan.Types[o.origSpriteName]
     if type and o.mode == "pickup" then
         local isoObjectSpecial = ISAScan.findOnSquare(o.square,o.origSpriteName)
@@ -253,6 +259,7 @@ function CPowerbank.onMoveablesAction(o)
                 isoObjectSpecial:getModData().charge = nil
             elseif type == "Panel" then
                 isoObjectSpecial:getModData().connectDelta = nil
+                isoObjectSpecial:getModData().powerbank = nil
             end
         end
     end

@@ -3,135 +3,133 @@ module ISA
     imports
     {
         Base
-	Radio
+        Radio
+    }
+    recipe Make DIY Battery from 50Ah
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 50AhBattery = 4,
+        SkillRequired:Electricity=5,
+        Result: DIYBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryDIY,
     }
 
+    recipe Make DIY Battery from 75Ah
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 75AhBattery = 3,
+        SkillRequired:Electricity=5,
+        Result: DIYBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryDIY,
+    }
 
-recipe Make DIY Battery from 50Ah
-{
-keep Base.Screwdriver,
-destroy 50AhBattery = 4,
-SkillRequired:Electricity=5,
-Result: DIYBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryDIY,
-}
+    recipe Make DIY Battery from 100Ah
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 100AhBattery = 2,
+        SkillRequired:Electricity=5,
+        Result: DIYBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryDIY,
+    }
 
-recipe Make DIY Battery from 75Ah
-{
-keep Base.Screwdriver,
-destroy 75AhBattery = 3,
-SkillRequired:Electricity=5,
-Result: DIYBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryDIY,
-}
+    recipe Wire 50Ah Battery
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        Radio.ElectricWire,
+        destroy Base.CarBattery1,
+        SkillRequired:Electricity=3,
+        Result: 50AhBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBattery,
+    }
 
-recipe Make DIY Battery from 100Ah
-{
-keep Base.Screwdriver,
-destroy 100AhBattery = 2,
-SkillRequired:Electricity=5,
-Result: DIYBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryDIY,
-}
+    recipe Unwire 50Ah Battery
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 50AhBattery,
+        SkillRequired:Electricity=3,
+        Result: Base.CarBattery1,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryReverse,
+    }
 
-recipe Wire 50Ah Battery
-{
-keep Base.Screwdriver,
-Radio.ElectricWire,
-destroy Base.CarBattery1,
-SkillRequired:Electricity=3,
-Result: 50AhBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBattery,
-}
+    recipe Wire 75Ah Battery
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        Radio.ElectricWire,
+        destroy Base.CarBattery3,
+        SkillRequired:Electricity=3,
+        Result: 75AhBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBattery,
+    }
 
-recipe Unwire 50Ah Battery
-{
-keep Base.Screwdriver,
-destroy 50AhBattery,
-SkillRequired:Electricity=3,
-Result: Base.CarBattery1,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryReverse,
-}
+    recipe Unwire 75Ah Battery
+    {
+		keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 75AhBattery,
+        SkillRequired:Electricity=3,
+        Result: Base.CarBattery3,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryReverse,
+    }
 
-recipe Wire 75Ah Battery
-{
-keep Base.Screwdriver,
-Radio.ElectricWire,
-destroy Base.CarBattery3,
-SkillRequired:Electricity=3,
-Result: 75AhBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBattery,
-}
+    recipe Wire 100Ah Battery
+    {
+		keep [Recipe.GetItemTypes.Screwdriver],
+        Radio.ElectricWire,
+        destroy Base.CarBattery2,
+        SkillRequired:Electricity=3,
+        Result: 100AhBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBattery,
+    }
 
-recipe Unwire 75Ah Battery
-{
-keep Base.Screwdriver,
-destroy 75AhBattery,
-SkillRequired:Electricity=3,
-Result: Base.CarBattery3,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryReverse,
-}
-
-recipe Wire 100Ah Battery
-{
-keep Base.Screwdriver,
-Radio.ElectricWire,
-destroy Base.CarBattery2,
-SkillRequired:Electricity=3,
-Result: 100AhBattery,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBattery,
-}
-
-recipe Unwire 100Ah Battery
-{
-keep Base.Screwdriver,
-destroy 100AhBattery,
-SkillRequired:Electricity=3,
-Result: Base.CarBattery2,
-Time:30,
-CanBeDoneFromFloor:true,
-NeedToBeLearn:true,
-Category:Electrical,
-OnCreate:SolarModConvertBatteryReverse,
-}
+    recipe Unwire 100Ah Battery
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        destroy 100AhBattery,
+        SkillRequired:Electricity=3,
+        Result: Base.CarBattery2,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:SolarModConvertBatteryReverse,
+    }
 
     recipe Make Solar Roof Tile
     {
-		keep Base.Screwdriver,
+		keep [Recipe.GetItemTypes.Screwdriver],
 		SolarPanel,
-		Radio.ElectricWire = 3,		
+		Radio.ElectricWire = 3,
 		CanBeDoneFromFloor:false,
         Time:120,
 		SkillRequired:Electricity=3,
@@ -139,27 +137,13 @@ OnCreate:SolarModConvertBatteryReverse,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
-
-    recipe Dismantle Solar Roof Tile
-    {
-        keep Base.Screwdriver,
-        Moveables.solarmod_tileset_01_8,
-        CanBeDoneFromFloor:false,
-        Time:120,
-        SkillRequired:Electricity=3,
-        Result: SolarPanel,
-        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
-        NeedToBeLearn:true,
-        Category:Electrical,
-    }
-
     recipe Make Wall-Mounted Solar Panel
     {
-		keep Base.Screwdriver,
+		keep [Recipe.GetItemTypes.Screwdriver],
 		SolarPanel,
 		Radio.ElectricWire = 3,
-		Base.MetalBar = 4,	
-		Base.Screws = 4,		
+		Base.MetalBar = 4,
+		Base.Screws = 4,
 		CanBeDoneFromFloor:false,
         Time:120,
 		SkillRequired:Electricity=3,
@@ -167,27 +151,13 @@ OnCreate:SolarModConvertBatteryReverse,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
-
-    recipe Dismantle Wall-Mounted Solar Panel
-    {
-        keep Base.Screwdriver,
-        Moveables.solarmod_tileset_01_6/Moveables.solarmod_tileset_01_7,
-        CanBeDoneFromFloor:false,
-        Time:120,
-        SkillRequired:Electricity=3,
-        Result: SolarPanel,
-        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
-        NeedToBeLearn:true,
-        Category:Electrical,
-    }
-
     recipe Make Floor-Mounted Solar Panel
     {
-		keep Base.Screwdriver,
+		keep [Recipe.GetItemTypes.Screwdriver],
 		SolarPanel,
 		Radio.ElectricWire = 3,
 		Base.Screws = 4,
-		Base.MetalBar = 4,		
+		Base.MetalBar = 4,
 		CanBeDoneFromFloor:false,
         Time:120,
 		SkillRequired:Electricity=3,
@@ -195,39 +165,37 @@ OnCreate:SolarModConvertBatteryReverse,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
-
-    recipe Dismantle Floor-Mounted Solar Panel
+    recipe Reverse Solar Panel
     {
-        keep Base.Screwdriver,
-        Moveables.solarmod_tileset_01_9/Moveables.solarmod_tileset_01_10,
-        CanBeDoneFromFloor:false,
+		keep [Recipe.GetItemTypes.Screwdriver],
+        Moveables.solarmod_tileset_01_6/Moveables.solarmod_tileset_01_7/Moveables.solarmod_tileset_01_8/Moveables.solarmod_tileset_01_9/Moveables.solarmod_tileset_01_10,
+        CanBeDoneFromFloor:true,
         Time:120,
         SkillRequired:Electricity=3,
         Result: SolarPanel,
-        OnCreate:ISA_Recipes.OnCreate.DismantleSolarPanel,
+        OnCreate:ISARecipe.OnCreate.ReverseSolarPanel,
         NeedToBeLearn:true,
         Category:Electrical,
     }
-
     recipe Create Battery Bank
     {
-		keep Base.Screwdriver,
+		keep [Recipe.GetItemTypes.Screwdriver],
+		ISAInverter = 1,
 		Radio.ElectricWire = 3,
 		Base.SmallSheetMetal = 5,
 		Base.ElectronicsScrap = 6,
 		Base.MetalBar = 4,
-		ISAInverter = 1,
 		CanBeDoneFromFloor:false,
-        Time:250,
-		SkillRequired:Electricity=3,
-		Result: PowerBank,
+        Time:400,
+        OnGiveXP:ISARecipe.OnGiveXP.CreateBatteryBank,
+		SkillRequired:Electricity=4;MetalWelding=2,
+		Result: Moveables.solarmod_tileset_01_0,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
-
     recipe Create Solar Failsafe
     {
-		keep Base.Screwdriver,
+		keep [Recipe.GetItemTypes.Screwdriver],
 		Radio.ElectricWire = 2,
 		Base.RemoteCraftedV3 = 1,
 		destroy ISA.50AhBattery,
@@ -238,5 +206,4 @@ OnCreate:SolarModConvertBatteryReverse,
 		NeedToBeLearn:true,
         Category:Electrical,
     }
-
 }

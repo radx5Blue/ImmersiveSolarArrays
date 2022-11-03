@@ -30,5 +30,10 @@ Sandbox_EN = {
     Sandbox_ISA_ChargeFreq_option2 = "Every Hour",
     Sandbox_ISA_ChargeFreq = "Charge Frequency",
     Sandbox_ISA_ChargeFreq_tooltip = "How often Battery Bank will charge",
-
+    Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rarity of Battery Bank spawning on the map.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "None",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Very Rare",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rare",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Uncommon",
 }

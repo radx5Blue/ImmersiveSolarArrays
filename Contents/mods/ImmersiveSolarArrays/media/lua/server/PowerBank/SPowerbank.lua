@@ -21,9 +21,9 @@ function SPowerbank:new(luaSystem, globalObject)
     return o
 end
 
-function SPowerbank:aboutToRemoveFromSystem()
-    SPowerbankSystem.genRemove(self:getSquare())
-end
+--function SPowerbank:aboutToRemoveFromSystem()
+--    SPowerbankSystem.genRemove(self:getSquare())
+--end
 
 --when you load isoobject without luaobject, place object
 function SPowerbank:stateFromIsoObject(isoObject)
@@ -34,6 +34,7 @@ function SPowerbank:stateFromIsoObject(isoObject)
         self:fromModData(isoObject:getModData())
     end
 
+    self:handleBatteries(isoObject:getContainer())
     self:autoConnectToGenerator()
     --createGenerator
     self:loadGenerator()
@@ -184,41 +185,53 @@ function SPowerbank:degradeBatteries(container)
 end
 
 function SPowerbank:handleBatteries(container)
-    local capacity = 0
     local batteries = 0
+    local capacity = 0
+    local charge = 0
+    local maxCap = ISAPowerbank.maxBatteryCapacity
     for i=1,container:getItems():size() do
         local item = container:getItems():get(i-1)
-        local cond = 1 - (item:getCondition()/100)
-        local condition = 1 - math.pow(cond,6)
-        local type = item:getType()
-        if type == "50AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 50 * condition
+        --local type = item:getType()
+        local maxCapType = maxCap[item:getType()]
+        if maxCapType and not item:isBroken() then
             batteries = batteries + 1
-        end
-        if type == "75AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 75 * condition
-            batteries = batteries + 1
-        end
-        if type == "100AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 100 * condition
-            batteries = batteries + 1
-        end
-        if type == "DeepCycleBattery" and item:getCondition() > 0 then
-            capacity = capacity + 200 * condition
-            batteries = batteries + 1
-        end
-        if type == "SuperBattery" and item:getCondition() > 0 then
-            capacity = capacity + 400 * condition
-            batteries = batteries + 1
-        end
-        if type == "DIYBattery" and item:getCondition() > 0 then
-            capacity = capacity + (SandboxVars.ISA.DIYBatteryCapacity or 200) * condition
-            batteries = batteries + 1
+            local cap = maxCapType * (1 - math.pow((1 - (item:getCondition()/100)),6))
+            capacity = capacity + cap
+            charge = charge + cap * item:getUsedDelta()
+
+            --local batterypower = item:getUsedDelta()
+            --local con = 1 - (item:getCondition()/100)
+            --local condition = 1 - math.pow(con,6)
+            --if type == "50AhBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + 50 * condition
+            --    batteries = batteries + 1
+            --end
+            --if type == "75AhBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + 75 * condition
+            --    batteries = batteries + 1
+            --end
+            --if type == "100AhBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + 100 * condition
+            --    batteries = batteries + 1
+            --end
+            --if type == "DeepCycleBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + 200 * condition
+            --    batteries = batteries + 1
+            --end
+            --if type == "SuperBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + 400 * condition
+            --    batteries = batteries + 1
+            --end
+            --if type == "DIYBattery" and item:getCondition() > 0 then
+            --    capacity = capacity + (SandboxVars.ISA.DIYBatteryCapacity or 200) * condition
+            --    batteries = batteries + 1
+            --end
         end
     end
-    self.maxcapacity = capacity
     self.batteries = batteries
-    return capacity , batteries
+    self.maxcapacity = capacity
+    self.charge = charge
+    --return capacity , batteries
 end
 
 function SPowerbank:checkPanels()
@@ -235,7 +248,7 @@ function SPowerbank:getSprite(updatedCH)
     if self.batteries == 0 then return nil end
     --if self.batteries == 0 then return "solarmod_tileset_01_11" end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
-    if updatedCH < 0.25 then
+    if updatedCH < 0.1 then
         --show 0 charge
         if self.batteries < 5 then
             --show bottom shelf
@@ -253,7 +266,7 @@ function SPowerbank:getSprite(updatedCH)
             --show five shelves
             return "solarmod_tileset_01_5"
         end
-    elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+    elseif updatedCH < 0.35 then
         --show 25 charge
         if self.batteries < 5 then
             --show bottom shelf
@@ -271,7 +284,7 @@ function SPowerbank:getSprite(updatedCH)
             --show five shelves
             return "solarmod_tileset_01_32"
         end
-    elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+    elseif updatedCH < 0.65 then
         -- show 50 charge
         if self.batteries < 5 then
             --show bottom shelf
@@ -289,7 +302,7 @@ function SPowerbank:getSprite(updatedCH)
             --show five shelves
             return "solarmod_tileset_01_33"
         end
-    elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+    elseif updatedCH < 0.95 then
         -- show 75 charge
         if self.batteries < 5 then
             --show bottom shelf

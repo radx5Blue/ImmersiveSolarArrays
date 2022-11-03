@@ -187,9 +187,9 @@ function ISAConnectPanelCursor:renderTooltip()
         self.tooltip = tooltip
     end
     if not self.panel then
-        tooltip.description = richBad .. "No Panel"
+        tooltip.description = richBad .. "No Panel" --text
     else
-        tooltip.description = self.connected and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+        tooltip.description = self.connected and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richNeutral .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
         if not self.valid then tooltip.description = string.format("%s\n%s%s",tooltip.description,richBad,getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")) end
     end
 end
@@ -206,6 +206,7 @@ function ISAConnectPanelCursor:isConnected()
     local dataPb, luaPb = self.panel:getModData().powerbank, self.luaPb
     if dataPb and dataPb.x == luaPb.x and dataPb.y == luaPb.y and dataPb.z == luaPb.z then
         local x,y,z = self.panel:getX(), self.panel:getY(), self.panel:getZ()
+        self.luaPb:updateFromIsoObject()
         for _,panel in ipairs(self.luaPb.panels) do
             if x == panel.x and y == panel.y and z == panel.z then return true end
         end

@@ -23,31 +23,37 @@ function ISAWindowDebug:createChildren()
     self.showBackupDetailsButton:setBorderRGBA(0.2,0.2,0.2,1)
     self:addChild(self.showBackupDetailsButton)
 
-    self.containerButton = ISButton:new(0, self.buttonHeight, 200, self.buttonHeight, "Update Container Items", self, self.checkContainer)
-    self.containerButton:setBackgroundRGBA(0.3,0.12,0.12,1)
-    self.containerButton:setBorderRGBA(0.3,0.12,0.12,1)
-    self.containerButton.tooltip = "Use if Battery Bank doesn't update after Inventory Transfer Action"
-    self:addChild(self.containerButton)
+    if getDebug() then
+        self.containerButton = ISButton:new(0, self.buttonHeight, 200, self.buttonHeight, "Update Container Items", self, self.checkContainer)
+        self.containerButton:setBackgroundRGBA(0.3,0.12,0.12,1)
+        self.containerButton:setBorderRGBA(0.3,0.12,0.12,1)
+        self.containerButton.tooltip = "Use if Battery Bank doesn't update after Inventory Transfer Action"
+        self:addChild(self.containerButton)
 
-    self.plugBackupButton = ISButton:new(0, self.buttonHeight*2, 200, self.buttonHeight, "Connect Backup Generator", self, self.plugBackup)
-    self.plugBackupButton:setBackgroundRGBA(0.3,0.12,0.12,1)
-    self.plugBackupButton:setBorderRGBA(0.3,0.12,0.12,1)
-    self:addChild(self.plugBackupButton)
+        self.plugBackupButton = ISButton:new(0, self.buttonHeight*2, 200, self.buttonHeight, "Connect Backup Generator", self, self.plugBackup)
+        self.plugBackupButton:setBackgroundRGBA(0.3,0.12,0.12,1)
+        self.plugBackupButton:setBorderRGBA(0.3,0.12,0.12,1)
+        self:addChild(self.plugBackupButton)
+
+        self:setHeight(self.buttonHeight * 3)
+    else
+        --self:setHeight(self.buttonHeight * 1)
+    end
 end
 
 function ISAWindowDebug:setVisible(visible)
     ISPanelJoypad.setVisible(self,visible)
     if visible then
-        local buttons = 2
-        if getDebug() then
-            self.plugBackupButton:setY(self.buttonHeight*buttons)
-            self.plugBackupButton:setVisible(true)
-            buttons = buttons + 1
-        else
-            self.plugBackupButton:setVisible(false)
-        end
+        --local buttons = 1
+        --if getDebug() then
+        --    self.plugBackupButton:setY(self.buttonHeight*buttons)
+        --    self.plugBackupButton:setVisible(true)
+        --    buttons = buttons + 2
+        --else
+        --    self.plugBackupButton:setVisible(false)
+        --end
         self:setWidthAndParentWidth(self.width)
-        self:setHeightAndParentHeight(self.buttonHeight*buttons)
+        self:setHeightAndParentHeight(self.height)
     end
 end
 

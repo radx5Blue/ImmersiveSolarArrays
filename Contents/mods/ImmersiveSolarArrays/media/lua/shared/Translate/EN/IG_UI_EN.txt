@@ -1,5 +1,4 @@
 IGUI_EN = {
-    IGUI_VehicleType_9384579 = "Deep Cycle",
     IGUI_ContainerTitle_BatteryBank = "Battery Bank",
     IGUI_ContainerTitle_SolarBox = "Solar Box",
 
