@@ -65,6 +65,8 @@ Maps["Muldraugh, KY"] = {
     { x = 12148, y = 7099, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 12148, y = 7074, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --storage
     { x = 11835, y = 6916, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --hardware store
+    { x = 11946, y = 6891, z = 1, type = 'solarmod_tileset_01_7', overwrite = {} }, --WP Town Hall
+    { x = 11953, y = 6891, z = 1, type = 'solarmod_tileset_01_7', overwrite = {} }, --WP Town Hall
     { x = 9204, y = 11823, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, -- warehouse
     { x = 5541, y = 6068, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --self storage
     { x = 5577, y = 5875, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, -- factory

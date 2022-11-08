@@ -1,5 +1,4 @@
 IGUI_FR = {
-    IGUI_VehicleType_9384579 = "Charge profonde",
     IGUI_ContainerTitle_BatteryBank = "Batterie d'accumulateurs",
     IGUI_ContainerTitle_SolarBox = "Boîtier solaire",
 

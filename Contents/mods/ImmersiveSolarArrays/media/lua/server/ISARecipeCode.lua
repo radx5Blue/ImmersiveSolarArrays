@@ -43,19 +43,6 @@ function SolarModConvertBatteryDIY(items, result, player)
 	result:setCondition(addUpCond / tick)
 end
 
---function ISARecipe.OnCreate.DismantleSolarPanel(items, result, player)
---	local inventory = player:getInventory()
---
---	if items:get(1):getWorldSprite() == "solarmod_tileset_01_8" then
---		inventory:AddItems("Radio.ElectricWire",2)
---	else
---		inventory:AddItems("Radio.ElectricWire",2)
---		inventory:AddItems("Base.MetalBar",3)
---		inventory:AddItem(InventoryItemFactory.CreateItem("Base.Screws"))
---		inventory:AddItem(InventoryItemFactory.CreateItem("Base.Screws"))
---	end
---end
-
 function ISARecipe.OnCreate.ReverseSolarPanel(items, result, player)
 	local inventory = player:getInventory()
 
@@ -68,23 +55,9 @@ function ISARecipe.OnCreate.ReverseSolarPanel(items, result, player)
 		inventory:AddItem(InventoryItemFactory.CreateItem("Base.Screws"))
 	end
 end
---function ISARecipe.OnTest.DismantleBatteryBank(sourceItem,result)
---	print("ISAtest ontest")
---	return true
---end
---function ISARecipe.OnCreate.DismantleBatteryBank(items, result, player)
---	print("ISAtest oncreate")
---
---	local success = 50 + (player:getPerkLevel(Perks.Electricity)*5);
---	if ZombRand(0,100)<success then
---		player:getInventory():AddItem("Radio.RadioTransmitter");
---	end
---	if ZombRand(0,100)<success then
---		player:getInventory():AddItem("Base.LightBulbGreen");
---	end
---	DismantleRadio_OnCreate(items, result, player, selectedItem);
---end
+
 function ISARecipe.OnGiveXP.CreateBatteryBank(recipe, ingredients, result, player)
 	player:getXp():AddXP(Perks.Electricity, 8)
+	player:getXp():AddXP(Perks.MetalWelding, 2)
 end
 

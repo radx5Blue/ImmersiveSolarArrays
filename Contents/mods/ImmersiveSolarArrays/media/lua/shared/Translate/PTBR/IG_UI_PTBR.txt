@@ -1,5 +1,4 @@
 IGUI_PTBR = {
-    IGUI_VehicleType_9384579 = "Ciclo Profundo",
     IGUI_ContainerTitle_BatteryBank = "Banco de Baterias",
     IGUI_ContainerTitle_SolarBox = "Caixa Solar",
 

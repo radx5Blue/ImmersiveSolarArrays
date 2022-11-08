@@ -11,9 +11,7 @@ Recipes_FR {
     Recipe_Make_Solar_Roof_Tile = "Fabriquer un panneau photovoltaïque plat",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Fabriquer un panneau photovoltaïque mural",
     Recipe_Make_Floor-Mounted_Solar_Panel = "Fabriquer un panneau photovoltaïque fixable au sol",
-    Recipe_Dismantle_Solar_Roof_Tile = "Désassembler un panneau photovoltaïque plat",
-    Recipe_Dismantle_Wall-Mounted_Solar_Panel = "Désassembler un panneau photovoltaïque mural",
-    Recipe_Dismantle_Floor-Mounted_Solar_Panel = "Désassembler un panneau photovoltaïque fixable au sol",
+    Recipe_Reverse_Solar_Panel = "Diviser le panneau photovoltaïque en plusieurs parties",
     Recipe_Create_Battery_Bank = "Créer une batterie d'accumulateurs",
     Recipe_Create_Solar_Failsafe = "Créer une sécurité solaire"
 }

@@ -30,5 +30,10 @@ Sandbox_FR = {
     Sandbox_ISA_ChargeFreq_option2 = "Chaque heure",
     Sandbox_ISA_ChargeFreq = "Fréquence de charge",
     Sandbox_ISA_ChargeFreq_tooltip = "À quelle fréquence la batterie d'accumulateurs va se charger",
-
+	Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+	Sandbox_ISA_BatteryBankSpawn_tooltip = "Rareté des batteries apparaissant sur la carte.",
+	Sandbox_ISA_BatteryBankSpawn_option1 = "Aucun",
+	Sandbox_ISA_BatteryBankSpawn_option2 = "Très rare",
+	Sandbox_ISA_BatteryBankSpawn_option3 = "Rare",
+	Sandbox_ISA_BatteryBankSpawn_option4 = "Peu fréquent",
 }

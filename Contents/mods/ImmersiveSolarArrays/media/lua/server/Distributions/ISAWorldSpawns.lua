@@ -1,7 +1,5 @@
 if isClient() then return end
 
---require "Distributions/ISAWorldSpawnsMapLocations"
-
 ISAWorldSpawns = {}
 local data
 
@@ -18,13 +16,10 @@ function ISAWorldSpawns.addToWorld(square, sprite)
     else
         isoObject = IsoObject.new(square:getCell(), square, sprite)
     end
-    ISAWorldSpawns.addContainer(isoObject,sprite)
+    isoObject:createContainersFromSpriteProperties()
+    ISAWorldSpawns.fill(isoObject,sprite)
 
-    --square:getObjects():add(isoObject)
-    --square:getSpecialObjects():add(isoObject)
-    --square:RecalcProperties()
     square:AddSpecialObject(isoObject)
-
     if isServer() then
         isoObject:transmitCompleteItemToClients()
     end
@@ -33,21 +28,14 @@ function ISAWorldSpawns.addToWorld(square, sprite)
     --end
 end
 
-function ISAWorldSpawns.addContainer(isoObject,sprite)
-    local fillType, updateOverlay
-    if sprite == "solarmod_tileset_01_36" then fillType = "SolarBox"; updateOverlay = true
-    elseif sprite == "solarmod_tileset_01_0" then fillType = "BatteryBank"
-    else return
-    end
-    isoObject:createContainersFromSpriteProperties()
+function ISAWorldSpawns.fill(isoObject,sprite)
     local container = isoObject:getContainer()
-    if fillType == "proc" then
-        ItemPicker.fillContainer(container,getPlayer())
-    elseif fillType == "BatteryBank" then
-        for i = 1, SandboxVars.ISA.LRMBatteries>=2 or 1 do --fixme sanboxvars
-            ItemPicker.fillContainer(container,getPlayer())
-        end
-    elseif fillType == "SolarBox" then
+    if not container then return end
+    local fillType, overlayType
+    if sprite == "solarmod_tileset_01_36" then fillType = "SolarBox"; overlayType = "solarmod_tileset_01_38"
+    --elseif sprite == "solarmod_tileset_01_0" then overlayType = false
+    end
+    if fillType == "SolarBox" then
         local panelnumber = ZombRand(3, 5) * SandboxVars.ISA.LRMSolarPanels
         local batterynumber = ZombRand(1, 2) * SandboxVars.ISA.LRMBatteries
         panelnumber = panelnumber < 8 and panelnumber or 7
@@ -58,20 +46,13 @@ function ISAWorldSpawns.addContainer(isoObject,sprite)
         container:AddItems("ISA.DeepCycleBattery",batterynumber)
         container:AddItem("ISA.ISAInverter")
         container:AddItem("ISA.ISAMag1")
-    --elseif fillType == "batteries" then
-    --    local batteryNumber1 = ZombRand(2*SandboxVars.ISA.LRMBatteries)
-    --    local batteryNumber2 = ZombRand(2*SandboxVars.ISA.LRMBatteries)
-    --    --local batteryNumber3 = ZombRand(SandboxVars.ISA.LRMBatteries)
-    --    local maxBatteries = 100
-    --    batteryNumber1 = batteryNumber1 <= maxBatteries and batteryNumber1 or maxBatteries
-    --    container:AddItems("ISA.DeepCycleBattery",batteryNumber1)
-    --    maxBatteries = maxBatteries - batteryNumber1
-    --    batteryNumber2 = batteryNumber2 <= maxBatteries and batteryNumber2 or maxBatteries
-    --    container:AddItems("ISA.DIYBattery",batteryNumber2)
+    else
+        ItemPicker.fillContainer(container,getPlayer())
     end
-    if updateOverlay then
-        isoObject:setOverlaySprite("solarmod_tileset_01_38")
-        --getContainerOverlays():updateContainerOverlaySprite(isoObject)
+    if overlayType then
+        isoObject:setOverlaySprite(overlayType)
+    --elseif overlayType == nil then
+    --    getContainerOverlays():updateContainerOverlaySprite(isoObject)
     end
     container:setExplored(true)
 end
@@ -98,8 +79,8 @@ function ISAWorldSpawns.doRolls()
     end
 end
 
-local spawnBatteryBankRooms = { shed = 10, garagestorage = 10, storageunit = 10, electronicsstorage = 3 }
-local spawnBatteryBankChance = { 0, 10, 3, 1 }
+local spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
+local spawnBatteryBankChance = { 9999, 10, 3, 1 }
 function ISAWorldSpawns.OnSeeNewRoom(room)
     local name = room:getName()
     local chance = spawnBatteryBankRooms[name]
@@ -142,7 +123,3 @@ ISAWorldSpawns.defs = { spawnBatteryBankRooms = spawnBatteryBankRooms, spawnBatt
 
 --debug
 if not SandboxVars.ISA.BatteryBankSpawn then print("ISA Warning: Missing BatteryBankSpawn"); SandboxVars.ISA.BatteryBankSpawn = 1 end
-
---if getPlayer() or isServer() and true then ISAWorldSpawns.OnInitGlobalModData() end
---ISAWorldSpawns.OnInitGlobalModData()
-spawnBatteryBankRooms.garage = 0

@@ -30,5 +30,10 @@ Sandbox_PTBR = {
     Sandbox_ISA_ChargeFreq_option2 = "A cada hora",
     Sandbox_ISA_ChargeFreq = "Periodicidade de Carregamento",
     Sandbox_ISA_ChargeFreq_tooltip = "Quão frequentemente o Banco de Baterias carregará",
-
+	Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+	Sandbox_ISA_BatteryBankSpawn_tooltip = "Raridade do Banco de Baterias aparecendo no mapa.",
+	Sandbox_ISA_BatteryBankSpawn_option1 = "Nenhum",
+	Sandbox_ISA_BatteryBankSpawn_option2 = "Muito Raro",
+	Sandbox_ISA_BatteryBankSpawn_option3 = "Raro",
+	Sandbox_ISA_BatteryBankSpawn_option4 = "Incomum",
 }

@@ -65,54 +65,22 @@ function SPowerbankSystem.removePanel(xpanel)
     end
 end
 
---local delayedRemove = {}
---local dgrTick
---function SPowerbankSystem.delayedGenRemove()
---    for i = #delayedRemove, 1, -1 do
---        local square = delayedRemove[i][1]
---        print("delayed, ",delayedRemove[i][2], square:getObjects():size())
---        if delayedRemove[i][2] > square:getObjects():size() then
---            local generator = square:getGenerator()
---            if generator then
---                generator:setActivated(false)
---                generator:remove()
---            end
---            table.remove(delayedRemove,i)
---        end
---    end
---    dgrTick = dgrTick + 1
---    if #delayedRemove == 0 or dgrTick > 255 then
---        dgrTick = nil
---        Events.OnTick.Remove(SPowerbankSystem.instance.delayedGenRemove)
---    end
---end
-
---remove generator after powerbank has been removed
---function SPowerbankSystem.genRemove(square)
---    if square:getGenerator() then
---        table.insert(delayedRemove, { square, square:getObjects():size() })
---        if not dgrTick then Events.OnTick.Add(SPowerbankSystem.instance.delayedGenRemove) end
---        dgrTick = 0
---    end
---end
-
-local waitTillRemoved = {}
+local checkoutObjects = {}
 local dgrTick
 local function delayedGenRemove()
-    for i = #waitTillRemoved, 1, -1 do
-        --print("delayed, index: ",waitTillRemoved[i][1]:getObjectIndex())
-        if waitTillRemoved[i][1]:getObjectIndex() == -1 then
-            local square = waitTillRemoved[i][2]
-            --if delayedRemove[i][2] > square:getObjects():size() then
+    for i = #checkoutObjects, 1, -1 do
+        --print("delayed, index: ",checkoutObjects[i].obj:getObjectIndex())
+        if checkoutObjects[i].obj:getObjectIndex() == -1 then
+            local square = checkoutObjects[i].sq
             local generator = square and square:getGenerator()
             if generator then
                 generator:setActivated(false)
                 generator:remove()
             end
-            table.remove(waitTillRemoved,i)
+            table.remove(checkoutObjects,i)
         end
     end
-    if #waitTillRemoved == 0 or dgrTick > 255 then
+    if #checkoutObjects == 0 or dgrTick > 255 then
         dgrTick = nil
         return Events.OnTick.Remove(delayedGenRemove)
     end
@@ -120,7 +88,7 @@ local function delayedGenRemove()
 end
 
 function SPowerbankSystem:addToRemoveGenerators(isoObject)
-    table.insert(waitTillRemoved, { isoObject, isoObject:getSquare() })
+    table.insert(checkoutObjects, { obj = isoObject, sq = isoObject:getSquare() })
     if not dgrTick then Events.OnTick.Add(delayedGenRemove) end
     dgrTick = 0
 end
@@ -150,14 +118,12 @@ function SPowerbankSystem.EveryDays()
         local pb = SPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
-            local prevCap = pb.maxcapacity
             local inv = isopb:getContainer()
             pb:degradeBatteries(inv) --todo x days passed
             pb:handleBatteries(inv)
-            --pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
             isopb:sendObjectChange("containers")
         end
-        --pb:checkPanels()
+        pb:checkPanels() -- bugfix
     end
 end
 

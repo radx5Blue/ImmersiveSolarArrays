@@ -2,7 +2,7 @@ module ISA
 {
     imports
     {
-        Base
+        Base,
         Radio
     }
     recipe Make DIY Battery from 50Ah
@@ -182,9 +182,9 @@ module ISA
 		keep [Recipe.GetItemTypes.Screwdriver],
 		ISAInverter = 1,
 		Radio.ElectricWire = 3,
-		Base.SmallSheetMetal = 5,
 		Base.ElectronicsScrap = 6,
 		Base.MetalBar = 4,
+		Base.SmallSheetMetal = 5,
 		CanBeDoneFromFloor:false,
         Time:400,
         OnGiveXP:ISARecipe.OnGiveXP.CreateBatteryBank,

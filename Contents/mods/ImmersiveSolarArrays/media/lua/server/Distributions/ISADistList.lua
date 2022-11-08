@@ -217,29 +217,6 @@ SuburbsDistributions.all.BatteryBank = { procedural = true, procList = { {name="
 ProceduralDistributions.list.SolarBox = SolarBox
 ProceduralDistributions.list.ISABatteries = ISABatteries
 
---local toAdd = {
---	electronicsstorage = {
---		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=10},
---		crate = {name="SolarBox", min=0, max=1, weightChance=20 },
---	},
---	garagestorage = {
---		crate = {name="SolarBox", min=0, max=1, weightChance=3}
---	},
---	storageunit = {
---		crate = {name="SolarBox", min=0, max=1, weightChance=5},
---		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=3}
---	},
---	warehouse = {
---		crate = {name="SolarBox", min=0, max=1, weightChance=5}
---	},
---}
-
---for room,containerList in pairs(toAdd) do
---	for container,proc in pairs(containerList) do
---		table.insert(SuburbsDistributions[room][container].procList,proc)
---	end
---end
-
 mergeProcLists({
 	electronicsstorage = {
 		metal_shelves = { { name = "SolarBox", min = 0, max = 1, weightChance = 10 } },

@@ -28,6 +28,10 @@ local function ActivatePowerbank (worlobjects,player,powerbank,activate)
 	end
 end
 
+local function ConnectPanelCursor(worldobjects,player, square, powerbank)
+	ISACursor.cursor = ISAConnectPanelCursor:new(player, square, powerbank)
+end
+
 local OnPreFillWorldObjectContextMenu = function(player, context, worldobjects, test)
 	if generator then
 		_powerbank = ISAScan.findTypeOnSquare(generator:getSquare(),"Powerbank")
@@ -39,6 +43,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 	if test and ISWorldObjectContextMenu.Test then return true end
 	local powerbank = _powerbank
 	local panel
+	--local panels = {}
 
 	for _,obj in ipairs(worldobjects) do
 		local spritename = obj:getSprite() and obj:getSprite():getName()
@@ -47,6 +52,7 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 			powerbank = obj
 		elseif type == "Panel" then
 			panel = obj
+			--table.insert(panels,obj)
 		end
 	end
 
@@ -57,42 +63,15 @@ ISAMenu.createMenuEntries = function(player, context, worldobjects, test)
 		local ISABBMenu = context:addOption(getText("ContextMenu_ISA_BatteryBank"), worldobjects);
 		local ISASubMenu = ISContextMenu:getNew(context);
 		context:addSubMenu(ISABBMenu, ISASubMenu);
+
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), worldobjects, ISAStatusWindow.OnOpenPanel, square, player)
-
 		local isOn = powerbank:getModData()["on"]
 		local textOn = isOn and getText("ContextMenu_Turn_Off") or getText("ContextMenu_Turn_On")
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(textOn, worldobjects, ActivatePowerbank, player, powerbank, not isOn)
-
-
-
-		--local function ConnectPanelCursor1(worldobjects,player,powerbank)
-		--	if JoypadState.players[player+1] then
-		--		local cursor = ISAConnectPanelCursor1:new(player,powerbank)
-		--		getCell():setDrag(cursor, player)
-		--		cursor.xJoypad = square:getX()
-		--		cursor.yJoypad = square:getY()
-		--		cursor.zJoypad = square:getZ()
-		--
-		--		ISACursor1.cursor = cursor
-		--	end
-		--	if getSpecificPlayer(player):getJoypadBind() ~= -1 then
-		--		ISACursor1.cursor = ISAConnectPanelCursor1:new(player,powerbank)
-		--		getCell():setDrag(ISACursor1.cursor, player)
-		--	end
-		--end
-		local function ConnectPanelCursor(worldobjects,player, square, powerbank)
-			ISACursor.cursor = ISAConnectPanelCursor:new(player, square, powerbank) --todo reuse?
-		end
-		--if test then return ISWorldObjectContextMenu.setTest() end
-		--ISASubMenu:addOption("Connect Panels1", worldobjects, ConnectPanelCursor1, player, powerbank)
-
 		if test then return ISWorldObjectContextMenu.setTest() end
-		ISASubMenu:addOption("Connect Panels", worldobjects, ConnectPanelCursor, player, square, powerbank)
-
-
-
+		ISASubMenu:addOption(getText("ContextMenu_ISA_ConnectPanels"), worldobjects, ConnectPanelCursor, player, square, powerbank)
 	end
 
 	--for _,panel in ipairs(panels) do

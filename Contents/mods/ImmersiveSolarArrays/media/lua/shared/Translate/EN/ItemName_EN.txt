@@ -11,9 +11,4 @@ ItemName_EN = {
     ItemName_ISA.50AhBattery = "50Ah Wired Car Battery",
     ItemName_ISA.75AhBattery = "75Ah Wired Car Battery",
     ItemName_ISA.100AhBattery = "100Ah Wired Car Battery",
-
-    ItemName_ISA.SolarPanelFlat = "Flat Solar Panel",
-    ItemName_ISA.SolarPanelWall = "Wall-Mounted Solar Panel",
-    ItemName_ISA.SolarPanelMounted = "Floor-Mounted Solar Panel",
-
 }

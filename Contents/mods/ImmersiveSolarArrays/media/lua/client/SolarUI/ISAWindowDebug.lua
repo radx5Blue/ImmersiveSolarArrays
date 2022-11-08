@@ -36,7 +36,7 @@ function ISAWindowDebug:createChildren()
         self:addChild(self.plugBackupButton)
 
         self:setHeight(self.buttonHeight * 3)
-    else
+    --else
         --self:setHeight(self.buttonHeight * 1)
     end
 end
@@ -45,7 +45,7 @@ function ISAWindowDebug:setVisible(visible)
     ISPanelJoypad.setVisible(self,visible)
     if visible then
         --local buttons = 1
-        --if getDebug() then
+        --if getDebug() or false then
         --    self.plugBackupButton:setY(self.buttonHeight*buttons)
         --    self.plugBackupButton:setVisible(true)
         --    buttons = buttons + 2

@@ -196,7 +196,6 @@ function ISAWindowsSumaryTab:render()
 				self.batteryCharging = false;
 			end
 		end
-		-- Reset the frames count to avoid overflow
 		self.currentFrame = 0
 	end
 	self.currentFrame = self.currentFrame +1

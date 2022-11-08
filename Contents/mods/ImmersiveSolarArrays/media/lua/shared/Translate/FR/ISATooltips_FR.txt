@@ -1,4 +1,0 @@
-Tooltip_FR = {
-    Tooltip_Recipe_ElectricalIntermediate = "Requiert le niv. 3 Électricité",
-    Tooltip_Recipe_ElectricalAdvanced = "Requiert le niv. 5 Électricité",
-}

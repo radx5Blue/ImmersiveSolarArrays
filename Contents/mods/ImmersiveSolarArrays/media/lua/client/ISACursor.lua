@@ -1,12 +1,7 @@
---require "BuildingObjects/ISBuildingObject"
 require "SolarUI/ISAUI"
 local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
 local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
---local function stringXYZ(iso)
---    return iso:getX() .. "," .. iso:getY() .. "," .. iso:getZ()
---end
 
---ISACursor = ISBuildingObject:derive("ISACursor");
 ISACursor = {}
 ISACursor.Type = "ISACursor"
 
@@ -20,18 +15,10 @@ function ISACursor:new(player,square)
     o.xJoypad = -1
     o.xJoy = square:getX()
     o.yJoy = square:getY()
-
-    --o.joyfocus = not wasMouseActiveMoreRecentlyThanJoypad() and JoypadState.players[player+1] --fixme debug
-    o.joyfocus = (getDebug() or not wasMouseActiveMoreRecentlyThanJoypad() ) and JoypadState.players[player+1]
-
+    o.joyfocus = not wasMouseActiveMoreRecentlyThanJoypad() and JoypadState.players[player+1]
     if o.joyfocus then
         setJoypadFocus(player, o)
-        updateJoypadFocus(JoypadState.joypads[player+1])
-        --local square = o.playerObj:getSquare()
-        --o.x = square:getX()
-        --o.y = square:getY()
-        --o.z = square:getZ()
-    else --test
+    else
         getCell():setDrag(o, player)
     end
     return o
@@ -45,10 +32,6 @@ function ISACursor:derive(type)
     return o
 end
 
---function ISACursor:initialise()
---    --print("test: init")
---end
-
 function ISACursor:rotateMouse(x,y) end
 function ISACursor:rotateKey(key) end
 function ISACursor:getSprite() end
@@ -56,10 +39,7 @@ function ISACursor:isValid(square,north) end
 function ISACursor:render(x,y,z,square) end
 function ISACursor:tryBuild(x,y,z) end
 function ISACursor:reinit() end
-function ISACursor:onLoseJoypadFocus(joypadData)
-    self.joyfocus = nil
-    getCell():setDrag(nil,self.player)
-end
+function ISACursor:onLoseJoypadFocus(joypadData) self:close() end
 function ISACursor:onGainJoypadFocus(joypadData)
     self.joyfocus = joypadData
     getCell():setDrag(self,self.player)
@@ -96,7 +76,7 @@ end
 
 function ISACursor:deactivate()
     self:hideTooltip()
-    if self.joypadfocus then setPrevFocusForPlayer(self.player); updateJoypadFocus(JoypadState.joypads[self.player+1]) end
+    if self.joyfocus then setPrevFocusForPlayer(self.player) end
 end
 
 function ISACursor:close()
@@ -105,52 +85,25 @@ end
 
 function ISACursor:isVisible()
     return getCell():getDrag(self.player) == ISACursor.cursor
-    --return ISACursor.cursor and getCell():getDrag(self.player) == ISACursor.cursor
 end
 
 ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 
 function ISAConnectPanelCursor:new(player,square, powerbank)
-    --local o = {}
-    --setmetatable(o, self)
-    --self.__index = self
-    ----o:init()
-    --
-    --o.player = player
-    --o.playerObj = getSpecificPlayer(player)
-    --o.luaPb = CPowerbankSystem.instance:getLuaObjectOnSquare(powerbank:getSquare())
-    ----o:makePanelTable()
-    --return o
     local o = ISACursor.new(self,player, square)
     --o.isoPb = powerbank
     o.luaPb = CPowerbankSystem.instance:getLuaObjectOnSquare(powerbank:getSquare())
-
     return o
 end
 
---function ISAConnectPanelCursor:initialise()
---    --print("isatest: init")
---    ISACursor.initialise(self)
---end
-
---function ISAConnectPanelCursor:makePanelTable()
---    self.panels = {}
---    for _,ipanel in ipairs(self.luaPb.panels) do
---        self.panels[string.format("%d,%d,%d",ipanel.x,ipanel.y,ipanel.z)] = true
---    end
---end
-
 function ISAConnectPanelCursor:isValid(square,...)
-    --print("isatest",getSquare(self.x,self.y,self.playerObj:getZ()))
     square = self.joyfocus and getSquare(self.xJoy,self.yJoy,self.playerObj:getZ()) or square
     if self.sq ~= square then
-        if not (self.luaPb and self.luaPb:getIsoObject()) then self:close() end
         self.sq = square
         local panel = ISAScan.findTypeOnSquare(square,"Panel")
         self.panel = panel
         if not panel then
             self.valid = false
-            --self.connected = false
         else
             self.valid = panel:getSquare():isOutside()
             self.connected = self:isConnected()
@@ -160,6 +113,7 @@ function ISAConnectPanelCursor:isValid(square,...)
 end
 
 function ISAConnectPanelCursor:render(x,y,z,...)
+    if not (self.luaPb and self.luaPb:getIsoObject()) then return self:close() end
     if self.joyfocus then x,y = self.xJoy,self.yJoy end
     if not self.floorSprite then
         self.floorSprite = IsoSprite.new()
@@ -181,13 +135,12 @@ function ISAConnectPanelCursor:renderTooltip()
         tooltip = ISWorldObjectContextMenu.addToolTip()
         tooltip:setVisible(true)
         tooltip:addToUIManager()
-        --tooltip.followMouse = not self.joyfocus --todo set this, check updatejoypadfocus
         tooltip.maxLineWidth = 1000
-        --tooltip:setName(getText("ContextMenu_ISA_SolarPanel"))
+        if self.joyfocus then tooltip.followMouse = false; tooltip.contextMenu = self end
         self.tooltip = tooltip
     end
     if not self.panel then
-        tooltip.description = richBad .. "No Panel" --text
+        tooltip.description = richBad .. getText("Tooltip_ISA_NoPanels")
     else
         tooltip.description = self.connected and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richNeutral .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
         if not self.valid then tooltip.description = string.format("%s\n%s%s",tooltip.description,richBad,getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")) end
@@ -199,7 +152,7 @@ function ISAConnectPanelCursor:tryBuild()
 end
 
 function ISAConnectPanelCursor:getAPrompt()
-    if self.valid then return "Connect Panel" end --gettext
+    if self.valid then return getText("ContextMenu_ISA_Connect_Panel") end
 end
 
 function ISAConnectPanelCursor:isConnected()

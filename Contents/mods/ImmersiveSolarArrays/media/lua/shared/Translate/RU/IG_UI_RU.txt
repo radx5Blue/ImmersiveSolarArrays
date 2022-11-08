@@ -1,5 +1,4 @@
 IGUI_RU = {
-    IGUI_VehicleType_9384579 = "Глубокого разряда",
     IGUI_ContainerTitle_BatteryBank = "Аккумуляторная Батарея",
     IGUI_ContainerTitle_SolarBox = "Solar Box",
 

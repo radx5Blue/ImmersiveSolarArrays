@@ -1,7 +1,7 @@
 ContextMenu_FR = {
     ContextMenu_ISA_BatteryBank = "Batterie d'accumulateurs",
     ContextMenu_ISA_BatteryBankStatus = "Ouvrir la fenêtre de statut",
-
+    ContextMenu_ISA_ConnectPanels = "Connecter panneau photovoltaïque",
     ContextMenu_ISA_SolarPanel = "Panneau photovoltaïque",
     ContextMenu_ISA_Connect_Panel = "Connecter à la batterie d'accumulateurs",
     ContextMenu_ISA_Connect_Panel_toolTip = "   Emplacement de la batterie d'accumulateurs en lien avec le panneau photovoltaïque (x:y) ",

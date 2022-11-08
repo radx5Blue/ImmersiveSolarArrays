@@ -11,9 +11,7 @@ Recipes_RU = {
 	Recipe_Make_Solar_Roof_Tile = "Сделать солнечную панель (крыша)",
 	Recipe_Make_Wall-Mounted_Solar_Panel = "Сделать солнечную панель (стена)",
 	Recipe_Make_Floor-Mounted_Solar_Panel = "Сделать солнечную панель (пол)",
-	Recipe_Dismantle_Solar_Roof_Tile = "Разобрать солнечную панель (крыша)",
-	Recipe_Dismantle_Wall-Mounted_Solar_Panel = "Разобрать солнечную панель (стена)",
-	Recipe_Dismantle_Floor-Mounted_Solar_Panel = "Разобрать солнечную панель (пол)",
+	Recipe_Reverse_Solar_Panel = "Разделить солнечную панель на части",
 	Recipe_Create_Battery_Bank = "Сделать Аккумуляторную Батарею",
 	Recipe_Create_Solar_Failsafe = "Создать Отказоустойчивый Механизм",
 }
