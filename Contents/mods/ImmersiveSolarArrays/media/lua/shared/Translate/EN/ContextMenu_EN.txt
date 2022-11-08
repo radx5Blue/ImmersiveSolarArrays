@@ -1,7 +1,7 @@
 ContextMenu_EN = {
     ContextMenu_ISA_BatteryBank = "Battery Bank",
     ContextMenu_ISA_BatteryBankStatus = "Open Status Window",
-
+    ContextMenu_ISA_ConnectPanels = "Connect Panels",
     ContextMenu_ISA_SolarPanel = "Solar Panel",
     ContextMenu_ISA_Connect_Panel = "Connect to Battery Bank",
     ContextMenu_ISA_Connect_Panel_toolTip = "   Battery Bank location in relation to the Solar Panel (x:y) ",

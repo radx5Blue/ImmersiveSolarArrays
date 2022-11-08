@@ -1,7 +1,7 @@
 ContextMenu_PTBR = {
     ContextMenu_ISA_BatteryBank = "Banco de Baterias",
     ContextMenu_ISA_BatteryBankStatus = "Verificar o status",
-	
+    ContextMenu_ISA_ConnectPanels = "Conectado Painel Solar",
     ContextMenu_ISA_SolarPanel = "Painel Solar",
     ContextMenu_ISA_Connect_Panel = "Conectado ao Banco de Baterias",
     ContextMenu_ISA_Connect_Panel_toolTip = "   Local do Banco de Baterias em relação ao Painel Solar (x:y) ",

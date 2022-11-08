@@ -15,7 +15,7 @@ function ISAScan.getValidBackupArea(isoPlayer,level)
     return { radius = skillLevel, levels = skillLevel > 5 and 1 or 0, distance = math.pow(skillLevel, 2) * 1.25 }
 end
 
-function ISAScan.findPowerbanks(square,radius,level,distance)
+function ISAScan.getLuaObjects(square,radius,level,distance)
     local banks = {}
     local x = square:getX()
     local y = square:getY()
@@ -24,7 +24,14 @@ function ISAScan.findPowerbanks(square,radius,level,distance)
         for iy = y - radius, y + radius do
             for iz = z - level, z+level do
                 local isquare = IsoUtils.DistanceToSquared(x,y,z,ix,iy,iz) <= distance and getSquare(ix, iy, iz)
-                local pb = isquare and ISAScan.findTypeOnSquare(isquare,"Powerbank")
+                local pb
+                if isquare then
+                    if not isServer() then
+                        pb = CPowerbankSystem.instance:getLuaObjectOnSquare(isquare)
+                    else
+                        pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isquare)
+                    end
+                end
                 if pb then
                     table.insert(banks,pb)
                 end

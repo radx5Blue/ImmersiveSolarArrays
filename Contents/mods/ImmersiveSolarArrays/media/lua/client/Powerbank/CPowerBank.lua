@@ -6,6 +6,18 @@ function CPowerbank:new(luaSystem, globalObject)
     return CGlobalObject.new(self, luaSystem, globalObject)
 end
 
+function CPowerbank:fromModData(modData)
+    self.on = modData["on"]
+    self.batteries = modData["batteries"]
+    self.charge = modData["charge"]
+    self.maxcapacity = modData["maxcapacity"]
+    self.drain = modData["drain"]
+    self.npanels = modData["npanels"]
+    self.panels = modData["panels"]
+    --self.lastHour = modData["lastHour"]
+    self.conGenerator = modData["conGenerator"]
+end
+
 function CPowerbank:shouldDrain()
     local square = self:getSquare()
     if not self.on then return false end

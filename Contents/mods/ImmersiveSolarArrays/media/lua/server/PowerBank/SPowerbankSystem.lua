@@ -25,15 +25,21 @@ function SPowerbankSystem.isValidModData(modData)
 end
 
 function SPowerbankSystem:getIsoObjectOnSquare(square)
-    if square then
-        for i=1,square:getSpecialObjects():size() do
-            local isoObject = square:getSpecialObjects():get(i-1)
-            if self:isValidIsoObject(isoObject) then
-                return isoObject
-            end
+    if not square then return end
+    for i=1,square:getSpecialObjects():size() do
+        local isoObject = square:getSpecialObjects():get(i-1)
+        if self:isValidIsoObject(isoObject) then
+            return isoObject
         end
     end
-    return nil
+end
+
+function SPowerbankSystem:OnObjectAboutToBeRemoved(isoObject)
+    if not self:isValidIsoObject(isoObject) then return end
+    local luaObject = self:getLuaObjectOnSquare(isoObject:getSquare())
+    if not luaObject then return end
+    self:removeLuaObject(luaObject)
+    self:addToRemoveGenerators(isoObject)
 end
 
 function SPowerbankSystem:OnClientCommand(command, playerObj, args)
@@ -59,34 +65,32 @@ function SPowerbankSystem.removePanel(xpanel)
     end
 end
 
-local delayedRemove = {}
+local checkoutObjects = {}
 local dgrTick
-function SPowerbankSystem.delayedGenRemove()
-    for i = #delayedRemove, 1, -1 do
-        local square = delayedRemove[i][1]
-        if delayedRemove[i][2] > square:getObjects():size() then
-            local generator = square:getGenerator()
+local function delayedGenRemove()
+    for i = #checkoutObjects, 1, -1 do
+        --print("delayed, index: ",checkoutObjects[i].obj:getObjectIndex())
+        if checkoutObjects[i].obj:getObjectIndex() == -1 then
+            local square = checkoutObjects[i].sq
+            local generator = square and square:getGenerator()
             if generator then
                 generator:setActivated(false)
                 generator:remove()
             end
-            table.remove(delayedRemove,i)
+            table.remove(checkoutObjects,i)
         end
     end
-    dgrTick = dgrTick + 1
-    if #delayedRemove == 0 or dgrTick > 64 then
+    if #checkoutObjects == 0 or dgrTick > 255 then
         dgrTick = nil
-        Events.OnTick.Remove(SPowerbankSystem.instance.delayedGenRemove)
+        return Events.OnTick.Remove(delayedGenRemove)
     end
+    dgrTick = dgrTick + 1
 end
 
---remove generator after powerbank has been removed
-function SPowerbankSystem.genRemove(square)
-    if square:getGenerator() then
-        table.insert(delayedRemove, { square, square:getObjects():size() })
-        if not dgrTick then Events.OnTick.Add(SPowerbankSystem.instance.delayedGenRemove) end
-        dgrTick = 0
-    end
+function SPowerbankSystem:addToRemoveGenerators(isoObject)
+    table.insert(checkoutObjects, { obj = isoObject, sq = isoObject:getSquare() })
+    if not dgrTick then Events.OnTick.Add(delayedGenRemove) end
+    dgrTick = 0
 end
 
 function SPowerbankSystem.getMaxSolarOutput(SolarInput)
@@ -114,14 +118,12 @@ function SPowerbankSystem.EveryDays()
         local pb = SPowerbankSystem.instance.system:getObjectByIndex(i-1):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
-            local prevCap = pb.maxcapacity
             local inv = isopb:getContainer()
             pb:degradeBatteries(inv) --todo x days passed
             pb:handleBatteries(inv)
-            pb.charge = prevCap > 0 and pb.charge * pb.maxcapacity / prevCap or 0
             isopb:sendObjectChange("containers")
         end
-        pb:checkPanels()
+        pb:checkPanels() -- bugfix
     end
 end
 

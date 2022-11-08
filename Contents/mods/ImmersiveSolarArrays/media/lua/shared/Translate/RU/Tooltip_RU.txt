@@ -1,0 +1,2 @@
+Tooltip_RU
+Tooltip_ISA_NoPanels = "Нет панели"

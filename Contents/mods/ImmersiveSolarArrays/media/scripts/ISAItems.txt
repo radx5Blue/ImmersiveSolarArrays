@@ -5,7 +5,6 @@ module ISA
         Base
 
     }
-
 	    item SolarPanel
     {
         Weight	=	5,
@@ -16,7 +15,6 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = ISA.SolarPanelModel,
     }
-
 	    item ISAInverter
     {
         Weight	=	5,
@@ -27,7 +25,6 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = CarBatteryCharger,
     }
-
 	    item DeepCycleBattery
     {
         Weight	=	6,
@@ -38,13 +35,11 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-	VehicleType =   9384579,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	    item SuperBattery
     {
         Weight	=	8,
@@ -55,13 +50,11 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-	VehicleType =   9384579,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	    item DIYBattery
     {
         Weight	=	7,
@@ -72,13 +65,11 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-	VehicleType =   9384579,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	    item 50AhBattery
     {
         Weight	=	5,
@@ -89,13 +80,11 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-        VehicleType =   1,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	    item 75AhBattery
     {
         Weight	=	5,
@@ -106,13 +95,11 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-        VehicleType =   1,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	    item 100AhBattery
     {
         Weight	=	5,
@@ -123,42 +110,45 @@ module ISA
         Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
-        VehicleType =   1,
         ConditionMax = 100,
         ChanceToSpawnDamaged = 0,
         MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
     }
-
 	item PowerBank
 	{
         Type = Moveable,
-        WorldObjectSprite = solarmod_tileset_01_0,
+        Icon			= default,
         DisplayName		= Moveable,
+		DisplayCategory = Electronics,
+        WorldObjectSprite = solarmod_tileset_01_0,
 	}
 	item SolarPanelFlat
 	{
-	Type = Moveable,
-	WorldObjectSprite = solarmod_tileset_01_8,
-	DisplayName		= Moveable,
+        Type = Moveable,
+        DisplayName		= Moveable,
+		DisplayCategory = Electronics,
+        WorldObjectSprite = solarmod_tileset_01_8,
 	}
 	item SolarPanelWall
 	{
-	Type = Moveable,
-	WorldObjectSprite = solarmod_tileset_01_6,
-	DisplayName		= Moveable,
+        Type = Moveable,
+        DisplayName		= Moveable,
+		DisplayCategory = Electronics,
+        WorldObjectSprite = solarmod_tileset_01_6,
 	}
 	item SolarPanelMounted
 	{
-	Type = Moveable,
-	WorldObjectSprite = solarmod_tileset_01_9,
-	DisplayName		= Moveable,
+        Type = Moveable,
+        DisplayName		= Moveable,
+		DisplayCategory = Electronics,
+        WorldObjectSprite = solarmod_tileset_01_9,
 	}
 	item SolarFailsafe
 	{
-	Type = Moveable,
-	WorldObjectSprite = solarmod_tileset_01_15,
-	DisplayName		= Moveable,
+        Type = Moveable,
+        DisplayName		= Moveable,
+		DisplayCategory = Electronics,
+        WorldObjectSprite = solarmod_tileset_01_15,
 	}
-
 }

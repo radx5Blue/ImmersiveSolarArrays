@@ -2,10 +2,10 @@ Sandbox_EN = {
 	Sandbox_ISA = "Immersive Solar Arrays",
 
 	Sandbox_ISA_solarPanelEfficiency = "Solar Panel Efficiency (0-100)",
-	Sandbox_ISA_solarPanelEfficiency_tooltip = "Solar panel power efficiency. 12% is realistic for 1993, 25% is modern solar, default is unrealistic",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "Solar panel power efficiency<br>12% is realistic for 1993<br>25% is modern solar<br>default is unrealistic",
 
 	Sandbox_ISA_batteryDegradeChance = "Battery Degrade Chance (0-100)",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "Chance of batteries degrading each day. Decreasing this will dramatically increase battery life",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Chance of batteries degrading each day.\nDecreasing this will dramatically increase battery life.",
 
 	Sandbox_ISA_solarPanelWorldSpawns = "Solar Panel / Crate World Spawns (0-100)",
 	Sandbox_ISA_solarPanelWorldSpawns = "How likely pre-placed solar panels and crates are to spawn at a given spawn location",
@@ -30,5 +30,10 @@ Sandbox_EN = {
     Sandbox_ISA_ChargeFreq_option2 = "Every Hour",
     Sandbox_ISA_ChargeFreq = "Charge Frequency",
     Sandbox_ISA_ChargeFreq_tooltip = "How often Battery Bank will charge",
-
+    Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rarity of Battery Bank spawning on the map.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "None",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Very Rare",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rare",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Uncommon",
 }

@@ -14,6 +14,16 @@ local function addItem(item, chance, allocation)
   table.insert(allocation, chance);
 end
 
+local function mergeProcLists(procTable)
+	for room,containerTable in pairs(procTable) do
+		for container,procs in pairs(containerTable) do
+			for _,proc in ipairs(procs) do
+				table.insert(SuburbsDistributions[room][container].procList,proc)
+			end
+		end
+	end
+end
+
 local iReg = "";
 local ISAmiscLootMult = SandboxVars.ISA.LRMMisc;
 	if SandboxVars.ISA.LRMMisc == nil then
@@ -190,28 +200,36 @@ local SolarBox = {
 	}
 }
 
-ProceduralDistributions.list.SolarBox = SolarBox
-SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99} }}
-
-local toAdd = {
-	electronicsstorage = {
-		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=10},
-		crate = {name="SolarBox", min=0, max=1, weightChance=20 },
-	},
-	garagestorage = {
-		crate = {name="SolarBox", min=0, max=1, weightChance=3}
-	},
-	storageunit = {
-		crate = {name="SolarBox", min=0, max=1, weightChance=5},
-		metal_shelves = {name="SolarBox", min=0, max=1, weightChance=3}
-	},
-	warehouse = {
-		crate = {name="SolarBox", min=0, max=1, weightChance=5}
-	},
+local ISABatteries = {
+	rolls = 4,
+	items = {
+		"ISA.DeepCycleBattery", 36,
+		"ISA.SuperBattery", 8,
+		"ISA.DIYBattery", 8,
+		"ISA.50AhBattery", 8,
+		"ISA.75AhBattery", 8,
+		"ISA.100AhBattery", 8,
+	}
 }
 
-for room,containerList in pairs(toAdd) do
-	for container,proc in pairs(containerList) do
-		table.insert(SuburbsDistributions[room][container].procList,proc)
-	end
-end
+SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99, weightChance=80}, {name="ISABatteries", min=0, max=99, weightChance=20} }}
+SuburbsDistributions.all.BatteryBank = { procedural = true, procList = { {name="ISABatteries", min=0, max=99} }}
+ProceduralDistributions.list.SolarBox = SolarBox
+ProceduralDistributions.list.ISABatteries = ISABatteries
+
+mergeProcLists({
+	electronicsstorage = {
+		metal_shelves = { { name = "SolarBox", min = 0, max = 1, weightChance = 10 } },
+		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 20 }, { name = "ISABatteries", min = 0, max = 1, weightChance = 5 } },
+	},
+	garagestorage = {
+		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 3 } }
+	},
+	storageunit = {
+		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 5 } },
+		metal_shelves = { { name = "SolarBox", min = 0, max = 1, weightChance = 3 } }
+	},
+	warehouse = {
+		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 5 }, { name = "ISABatteries", min = 0, max = 1, weightChance = 5 } }
+	},
+})

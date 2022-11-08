@@ -17,6 +17,11 @@ function CPowerbankSystem:newLuaObject(globalObject)
 
     return CPowerbank:new(self, globalObject)
 end
+function CGlobalObjectSystem:newLuaObjectAt(x, y, z)
+    self:noise("adding luaObject "..x..','..y..','..z)
+    local globalObject = self.system:newObject(x, y, z)
+    return self:newLuaObject(globalObject)
+end
 
 local delayedHide = {}
 local dprTick
@@ -110,31 +115,33 @@ function CPowerbankSystem.getModifiedSolarOutput(SolarInput)
     return output
 end
 
-function CPowerbankSystem.onPlugGenerator(character,generator,plug)
+function CPowerbankSystem.postPlugGenerator(o)
+    local character,generator,plug = o.character,o.generator,o.plug
     local area = ISAScan.getValidBackupArea(plug and character,10)
-    local isoPowerbanks = ISAScan.findPowerbanks(generator:getSquare(),area.radius, area.levels, area.distance)
-    if #isoPowerbanks > 0 then
+    local luaPowerbanks = ISAScan.getLuaObjects(generator:getSquare(),area.radius, area.levels, area.distance)
+    if #luaPowerbanks > 0 then
         local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
-        for _,isoPb in ipairs(isoPowerbanks) do
-            table.insert(args.pbList,{ x = isoPb:getX(), y = isoPb:getY(), z = isoPb:getZ()})
+        for i,luaPb in ipairs(luaPowerbanks) do
+            --table.insert(args.pbList,{ x = luaPb.x, y = luaPb.y, z = luaPb.z})
+            args.pbList[i] = { x = luaPb.x, y = luaPb.y, z = luaPb.z }
         end
         CPowerbankSystem.instance:sendCommand(character,"plugGenerator",args)
     end
 end
 
-function CPowerbankSystem.onActivateGenerator(character,generator,activate)
-    local x, y, z = generator:getX(), generator:getY(), generator:getZ()
+function CPowerbankSystem.postActivateGenerator(o)
+    local x, y, z = o.generator:getX(), o.generator:getY(), o.generator:getZ()
     for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
         local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
         pb:updateFromIsoObject()
         if pb.conGenerator and pb.conGenerator.x == x and pb.conGenerator.y == y and pb.conGenerator.z == z then
-            CPowerbankSystem.instance:sendCommand(character,"activateGenerator", { pb = { x = pb.x, y = pb.y, z = pb.z }, activate = activate })
+            CPowerbankSystem.instance:sendCommand(o.character,"activateGenerator", { pb = { x = pb.x, y = pb.y, z = pb.z }, activate = o.activate })
         end
     end
 end
 
-function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
-
+function CPowerbankSystem.postInventoryTransferAction(o,item)
+    local src, dest, character = o.srcContainer:getParent(), o.destContainer:getParent(), o.character
     local take = src and src:getTextureName() == "solarmod_tileset_01_0"
     local put = dest and dest:getTextureName() == "solarmod_tileset_01_0"
     if not (take or put) then return end
@@ -174,6 +181,22 @@ function CPowerbankSystem.onInventoryTransfer(src, dest, item, character)
 
     if take and put then HaloTextHelper.addText(character,"bzzz ... BZZZZZ ... bzzz") end
 
+end
+
+function CPowerbankSystem.onMoveablesAction(o)
+    print("debug, onMoveablesAction")
+    local type = ISAScan.Types[o.origSpriteName]
+    if type and o.mode == "pickup" then
+        local isoObjectSpecial = ISAScan.findOnSquare(o.square,o.origSpriteName)
+        if isoObjectSpecial then
+            if type == "Powerbank" then
+                isoObjectSpecial:getModData().charge = nil
+            elseif type == "Panel" then
+                isoObjectSpecial:getModData().connectDelta = nil
+                isoObjectSpecial:getModData().powerbank = nil
+            end
+        end
+    end
 end
 
 function CPowerbankSystem.updateBank()

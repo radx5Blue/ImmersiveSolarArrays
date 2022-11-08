@@ -11,9 +11,7 @@ Recipes_EN {
     Recipe_Make_Solar_Roof_Tile = "Make Flat Solar Panel",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Make Wall-Mounted Solar Panel",
     Recipe_Make_Floor-Mounted_Solar_Panel = "Make Floor-Mounted Solar Panel",
-    Recipe_Dismantle_Solar_Roof_Tile = "Dismantle Flat Solar Panel",
-    Recipe_Dismantle_Wall-Mounted_Solar_Panel = "Dismantle Wall-Mounted Solar Panel",
-    Recipe_Dismantle_Floor-Mounted_Solar_Panel = "Dismantle Floor-Mounted Solar Panel",
+    Recipe_Reverse_Solar_Panel = "Split Solar Panel to parts",
     Recipe_Create_Battery_Bank = "Create Battery Bank",
-    Recipe_Create_Solar_Failsafe = "Create Solar Failsafe"
+    Recipe_Create_Solar_Failsafe = "Create Solar Failsafe",
 }

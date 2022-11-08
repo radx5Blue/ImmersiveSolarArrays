@@ -133,9 +133,7 @@ function ISAWindowsSumaryTab:setVisible(visible)
 	end
 end
 
-function ISAWindowsSumaryTab:prerender()
-	ISPanelJoypad.prerender(self)
-
+function ISAWindowsSumaryTab:render()
 	local pb = self.parent.parent.luaPB
 	if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
 	-- Update every 30 frames
@@ -198,14 +196,9 @@ function ISAWindowsSumaryTab:prerender()
 				self.batteryCharging = false;
 			end
 		end
-		-- Reset the frames count to avoid overflow
 		self.currentFrame = 0
 	end
 	self.currentFrame = self.currentFrame +1
-end
-
-function ISAWindowsSumaryTab:render()
-	local pb = self.parent.parent.luaPB
 
 	-- Sumary box
 	local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125

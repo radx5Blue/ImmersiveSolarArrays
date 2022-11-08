@@ -93,13 +93,11 @@ function Commands.activatePowerbank(player,args)
     end
 end
 
---temp fix, no charge change
 function Commands.countBatteries(player,args)
     local pb = getPowerbank(args)
     local isopb = pb and pb:getIsoObject()
     if isopb then
-        local inv = isopb:getContainer()
-        pb:handleBatteries(inv)
+        pb:handleBatteries(isopb:getContainer())
         pb:updateSprite()
         pb:saveData(true)
     end

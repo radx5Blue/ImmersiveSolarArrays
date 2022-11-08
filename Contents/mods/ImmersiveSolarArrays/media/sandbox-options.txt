@@ -1,5 +1,4 @@
 VERSION = 1,
-
 option ISA.solarPanelEfficiency
 {
 	type = integer,
@@ -10,7 +9,6 @@ option ISA.solarPanelEfficiency
 	page = ISA,
 	translation = ISA_solarPanelEfficiency,
 }
-
 option ISA.batteryDegradeChance
 {
 	type = integer,
@@ -21,7 +19,6 @@ option ISA.batteryDegradeChance
 	page = ISA,
 	translation = ISA_batteryDegradeChance,
 }
-
 option ISA.solarPanelWorldSpawns 
 {
 	type = integer,
@@ -32,7 +29,6 @@ option ISA.solarPanelWorldSpawns
 	page = ISA,
 	translation = ISA_solarPanelWorldSpawns,
 }
-
 option ISA.LRMSolarPanels
 {
 	type = double,
@@ -44,7 +40,6 @@ option ISA.LRMSolarPanels
 	translation = ISA_LRMSolarPanels,
 	valueTranslation = ISA_LRMSolarPanels,
 }
-
 option ISA.LRMBatteries
 {
 	type = double,
@@ -56,7 +51,6 @@ option ISA.LRMBatteries
 	translation = ISA_LRMBatteries,
 	valueTranslation = ISA_LRMBatteries,
 }
-
 option ISA.LRMMisc
 {
 	type = double,
@@ -68,8 +62,6 @@ option ISA.LRMMisc
 	translation = ISA_LRMMisc,
 	valueTranslation = ISA_LRMMisc,
 }
-
-
 option ISA.DIYBatteryCapacity
 {
 	type = integer,
@@ -80,17 +72,15 @@ option ISA.DIYBatteryCapacity
 	page = ISA,
 	translation = ISA_DIYBatteryCapacity,
 }
-
 option ISA.DrainCalc
 {
 	type = enum,
 	numValues = 2,
-	default = 1,
+	default = 2,
 	page = ISA,
 	translation = ISA_DrainCalc,
 	valueTranslation = ISA_DrainCalc,
 }
-
 option ISA.ChargeFreq
 {
 	type = enum,
@@ -99,4 +89,12 @@ option ISA.ChargeFreq
 	page = ISA,
 	translation = ISA_ChargeFreq,
 	valueTranslation = ISA_ChargeFreq,
+}
+option ISA.BatteryBankSpawn
+{
+	type = enum,
+	numValues = 4,
+	default = 3,
+	page = ISA,
+	translation = ISA_BatteryBankSpawn,
 }

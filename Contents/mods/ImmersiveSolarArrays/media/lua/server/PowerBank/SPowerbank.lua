@@ -21,10 +21,6 @@ function SPowerbank:new(luaSystem, globalObject)
     return o
 end
 
-function SPowerbank:aboutToRemoveFromSystem()
-    SPowerbankSystem.genRemove(self:getSquare())
-end
-
 --when you load isoobject without luaobject, place object
 function SPowerbank:stateFromIsoObject(isoObject)
     self:initNew()
@@ -34,6 +30,7 @@ function SPowerbank:stateFromIsoObject(isoObject)
         self:fromModData(isoObject:getModData())
     end
 
+    self:handleBatteries(isoObject:getContainer())
     self:autoConnectToGenerator()
     --createGenerator
     self:loadGenerator()
@@ -184,41 +181,24 @@ function SPowerbank:degradeBatteries(container)
 end
 
 function SPowerbank:handleBatteries(container)
-    local capacity = 0
     local batteries = 0
+    local capacity = 0
+    local charge = 0
+    local maxCap = ISAPowerbank.maxBatteryCapacity
     for i=1,container:getItems():size() do
         local item = container:getItems():get(i-1)
-        local cond = 1 - (item:getCondition()/100)
-        local condition = 1 - math.pow(cond,6)
-        local type = item:getType()
-        if type == "50AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 50 * condition
+        --local type = item:getType()
+        local maxCapType = maxCap[item:getType()]
+        if maxCapType and not item:isBroken() then
             batteries = batteries + 1
-        end
-        if type == "75AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 75 * condition
-            batteries = batteries + 1
-        end
-        if type == "100AhBattery" and item:getCondition() > 0 then
-            capacity = capacity + 100 * condition
-            batteries = batteries + 1
-        end
-        if type == "DeepCycleBattery" and item:getCondition() > 0 then
-            capacity = capacity + 200 * condition
-            batteries = batteries + 1
-        end
-        if type == "SuperBattery" and item:getCondition() > 0 then
-            capacity = capacity + 400 * condition
-            batteries = batteries + 1
-        end
-        if type == "DIYBattery" and item:getCondition() > 0 then
-            capacity = capacity + (SandboxVars.ISA.DIYBatteryCapacity or 200) * condition
-            batteries = batteries + 1
+            local cap = maxCapType * (1 - math.pow((1 - (item:getCondition()/100)),6))
+            capacity = capacity + cap
+            charge = charge + cap * item:getUsedDelta()
         end
     end
-    self.maxcapacity = capacity
     self.batteries = batteries
-    return capacity , batteries
+    self.maxcapacity = capacity
+    self.charge = charge
 end
 
 function SPowerbank:checkPanels()
@@ -233,95 +213,94 @@ end
 
 function SPowerbank:getSprite(updatedCH)
     if self.batteries == 0 then return nil end
-    --if self.batteries == 0 then return "solarmod_tileset_01_11" end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
-    if updatedCH < 0.25 then
+    if updatedCH < 0.10 then
         --show 0 charge
         if self.batteries < 5 then
             --show bottom shelf
             return "solarmod_tileset_01_1"
-        elseif self.batteries >= 5 and self.batteries < 9 then
+        elseif self.batteries < 9 then
             --show two shelves
             return "solarmod_tileset_01_2"
-        elseif self.batteries >= 9 and self.batteries < 13 then
+        elseif self.batteries < 13 then
             --show three shelves
             return "solarmod_tileset_01_3"
-        elseif self.batteries >= 13 and self.batteries < 17 then
+        elseif self.batteries < 17 then
             --show four shelves
             return "solarmod_tileset_01_4"
-        elseif self.batteries >= 17 then
+        else
             --show five shelves
             return "solarmod_tileset_01_5"
         end
-    elseif updatedCH >= 0.25 and updatedCH < 0.50 then
+    elseif updatedCH < 0.35 then
         --show 25 charge
         if self.batteries < 5 then
             --show bottom shelf
             return "solarmod_tileset_01_16"
-        elseif self.batteries >= 5 and self.batteries < 9 then
+        elseif self.batteries < 9 then
             --show two shelves
             return "solarmod_tileset_01_20"
-        elseif self.batteries >= 9 and self.batteries < 13 then
+        elseif self.batteries < 13 then
             --show three shelves
             return "solarmod_tileset_01_24"
-        elseif self.batteries >= 13 and self.batteries < 17 then
+        elseif self.batteries < 17 then
             --show four shelves
             return "solarmod_tileset_01_28"
-        elseif self.batteries >= 17 then
+        else
             --show five shelves
             return "solarmod_tileset_01_32"
         end
-    elseif updatedCH >= 0.50 and updatedCH < 0.75 then
+    elseif updatedCH < 0.65 then
         -- show 50 charge
         if self.batteries < 5 then
             --show bottom shelf
             return "solarmod_tileset_01_17"
-        elseif self.batteries >= 5 and self.batteries < 9 then
+        elseif self.batteries < 9 then
             --show two shelves
             return "solarmod_tileset_01_21"
-        elseif self.batteries >= 9 and self.batteries < 13 then
+        elseif self.batteries < 13 then
             --show three shelves
             return "solarmod_tileset_01_25"
-        elseif self.batteries >= 13 and self.batteries < 17 then
+        elseif self.batteries < 17 then
             --show four shelves
             return "solarmod_tileset_01_29"
-        elseif self.batteries >= 17 then
+        else
             --show five shelves
             return "solarmod_tileset_01_33"
         end
-    elseif updatedCH >= 0.75 and updatedCH < 0.95 then
+    elseif updatedCH < 0.95 then
         -- show 75 charge
         if self.batteries < 5 then
             --show bottom shelf
             return "solarmod_tileset_01_18"
-        elseif self.batteries >= 5 and self.batteries < 9 then
+        elseif self.batteries < 9 then
             --show two shelves
             return "solarmod_tileset_01_22"
-        elseif self.batteries >= 9 and self.batteries < 13 then
+        elseif self.batteries < 13 then
             --show three shelves
             return "solarmod_tileset_01_26"
-        elseif self.batteries >= 13 and self.batteries < 17 then
+        elseif self.batteries < 17 then
             --show four shelves
             return "solarmod_tileset_01_30"
-        elseif self.batteries >= 17 then
+        else
             --show five shelves
             return "solarmod_tileset_01_34"
         end
-    elseif updatedCH >= 0.95 then
+    else
         --show 100 charge
         if self.batteries < 5 then
             --show bottom shelf
             return "solarmod_tileset_01_19"
-        elseif self.batteries >= 5 and self.batteries < 9 then
+        elseif self.batteries < 9 then
             --show two shelves
             return "solarmod_tileset_01_23"
-        elseif self.batteries >= 9 and self.batteries < 13 then
+        elseif self.batteries < 13 then
             --show three shelves
             return "solarmod_tileset_01_27"
-        elseif self.batteries >= 13 and self.batteries < 17 then
+        elseif self.batteries < 17 then
             --show four shelves
             return "solarmod_tileset_01_31"
-        elseif self.batteries >= 17 then
+        else
             --show five shelves
             return "solarmod_tileset_01_35"
         end
