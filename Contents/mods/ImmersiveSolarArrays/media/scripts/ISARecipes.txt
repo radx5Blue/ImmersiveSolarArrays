@@ -124,7 +124,6 @@ module ISA
         Category:Electrical,
         OnCreate:SolarModConvertBatteryReverse,
     }
-
     recipe Make Solar Roof Tile
     {
 		keep [Recipe.GetItemTypes.Screwdriver],

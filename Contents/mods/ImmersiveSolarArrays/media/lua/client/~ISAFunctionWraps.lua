@@ -1,3 +1,5 @@
+local util = require "ISAUtilities"
+
 local function wrap(class,method,before,after)
     local original = class[method]
     class[method] = function(...)
@@ -8,6 +10,15 @@ local function wrap(class,method,before,after)
         return result
     end
 end
+
+local function patch(class,method,newFn)
+    class[method] = newFn(class[method])
+end
+
+util.patchClassMetaMethod(zombie.inventory.types.DrainableComboItem.class,"DoTooltip",ISAMenu.DoTooltip_patch)
+
+require "ISUI/ISInventoryPane"
+patch(ISInventoryPane,"drawItemDetails",ISAMenu.ISInventoryPane_drawItemDetails_patch)
 
 require "TimedActions/ISActivateGenerator"
 wrap(ISActivateGenerator,"perform",nil,CPowerbankSystem.postActivateGenerator)

@@ -200,7 +200,7 @@ function CPowerbankSystem.onMoveablesAction(o)
 end
 
 function CPowerbankSystem.updateBank()
-    local max = ISAPowerbank.maxBatteryCapacity
+    local max = ISASharedUtil.maxBatteryCapacity
     for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
         local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
         local isopb = pb:getIsoObject()
