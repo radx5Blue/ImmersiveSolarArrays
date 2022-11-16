@@ -123,7 +123,7 @@ function SPowerbank:updateDrain()
 end
 
 function SPowerbank:chargeBatteries(container,charge)
-    local max = ISAPowerbank.maxBatteryCapacity
+    local max = ISAUtilities.maxBatteryCapacity
     local items = container:getItems()
     for i=1,items:size() do
         local item = items:get(i-1)
@@ -133,15 +133,14 @@ function SPowerbank:chargeBatteries(container,charge)
     end
 end
 
+-- could be better to have a standard value * sandbox for lost condition, rather than random
 function SPowerbank:degradeBatteries(container)
     local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
-    if SandboxVars.ISA.batteryDegradeChance == nil then
-        ISABatteryDegradeChance = 100
-    end
+    if ISABatteryDegradeChance == 0 then return end
     local items = container:getItems()
-    for i=1,items:size() do
+    for i=0,items:size()-1 do
         if ZombRand(100) < ISABatteryDegradeChance then
-            local item = items:get(i-1)
+            local item = items:get(i)
             local type = item:getType()
             if type == "50AhBattery" then
                 item:setCondition(item:getCondition() - ZombRand(1, 10))
@@ -184,9 +183,9 @@ function SPowerbank:handleBatteries(container)
     local batteries = 0
     local capacity = 0
     local charge = 0
-    local maxCap = ISAPowerbank.maxBatteryCapacity
-    for i=1,container:getItems():size() do
-        local item = container:getItems():get(i-1)
+    local maxCap = ISAUtilities.maxBatteryCapacity
+    for i=0,container:getItems():size()-1 do
+        local item = container:getItems():get(i)
         --local type = item:getType()
         local maxCapType = maxCap[item:getType()]
         if maxCapType and not item:isBroken() then

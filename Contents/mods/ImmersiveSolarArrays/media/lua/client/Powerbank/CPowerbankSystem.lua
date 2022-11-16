@@ -10,43 +10,54 @@ function CPowerbankSystem:isValidIsoObject(isoObject)
     return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
 end
 
-function CPowerbankSystem:newLuaObject(globalObject)
-    if CPowerbankSystem.instance then
-        CPowerbankSystem.instance.hideGenerator(globalObject)
+function CPowerbankSystem:getIsoObjectOnSquare(square)
+    if not square then return end
+    for i=0,square:getSpecialObjects():size()-1 do
+        local isoObject = square:getSpecialObjects():get(i)
+        if self:isValidIsoObject(isoObject) then
+            return isoObject
+        end
     end
+end
 
+function CPowerbankSystem:newLuaObject(globalObject)
     return CPowerbank:new(self, globalObject)
 end
-function CGlobalObjectSystem:newLuaObjectAt(x, y, z)
+
+--called by java receiveNewLuaObjectAt
+function CPowerbankSystem:newLuaObjectAt(x, y, z)
     self:noise("adding luaObject "..x..','..y..','..z)
     local globalObject = self.system:newObject(x, y, z)
+    CPowerbankSystem.delayedNewLua(x,y,z)
     return self:newLuaObject(globalObject)
 end
 
-local delayedHide = {}
-local dprTick
-function CPowerbankSystem.delayedPR()
-    for i = #delayedHide, 1 , -1 do
-        local gen = delayedHide[i]:getGenerator()
+local newLuaSquares = {}
+local prTick
+function CPowerbankSystem.processNewLua()
+    for i = #newLuaSquares, 1 , -1 do
+        local gen = newLuaSquares[i]:getGenerator()
         if gen then
-            gen:getCell():addToProcessIsoObjectRemove(gen)
-            table.remove(delayedHide,i)
+            local isoPb = CPowerbankSystem.instance:getIsoObjectOnSquare(newLuaSquares[i])
+            if isoPb then
+                --isoPb:getContainer():setAcceptItemFunction("ISAUtilities.AcceptItemFunction")
+                gen:getCell():addToProcessIsoObjectRemove(gen)
+            end
+            table.remove(newLuaSquares,i)
         end
     end
-    dprTick = dprTick + 1
-    if #delayedHide == 0 or dprTick > 64 then
-        dprTick = nil
-        Events.OnTick.Remove(CPowerbankSystem.delayedPR)
+    if #newLuaSquares == 0 or prTick > 255 then
+        prTick = nil
+        return Events.OnTick.Remove(CPowerbankSystem.processNewLua)
     end
+    prTick = prTick + 1
 end
 
-function CPowerbankSystem.hideGenerator(globalObject)
-    local square = getSquare(globalObject:getX(), globalObject:getY(), globalObject:getZ())
-    if square then
-        table.insert(delayedHide, square)
-        if not dprTick then Events.OnTick.Add(CPowerbankSystem.delayedPR) end
-        dprTick = 0
-    end
+function CPowerbankSystem.delayedNewLua(x,y,z)
+    local square = getSquare(x,y,z)
+    table.insert(newLuaSquares, square)
+    if not prTick then Events.OnTick.Add(CPowerbankSystem.processNewLua) end
+    prTick = 0
 end
 
 function CPowerbankSystem.canConnectPanelTo(panel)
@@ -184,7 +195,6 @@ function CPowerbankSystem.postInventoryTransferAction(o,item)
 end
 
 function CPowerbankSystem.onMoveablesAction(o)
-    print("debug, onMoveablesAction")
     local type = ISAScan.Types[o.origSpriteName]
     if type and o.mode == "pickup" then
         local isoObjectSpecial = ISAScan.findOnSquare(o.square,o.origSpriteName)
@@ -200,7 +210,7 @@ function CPowerbankSystem.onMoveablesAction(o)
 end
 
 function CPowerbankSystem.updateBank()
-    local max = ISAPowerbank.maxBatteryCapacity
+    local max = ISAUtilities.maxBatteryCapacity
     for i=1,CPowerbankSystem.instance:getLuaObjectCount() do
         local pb = CPowerbankSystem.instance:getLuaObjectByIndex(i)
         local isopb = pb:getIsoObject()
