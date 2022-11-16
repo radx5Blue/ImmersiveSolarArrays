@@ -1,5 +1,3 @@
-local util = require "ISAUtilities"
-
 local function wrap(class,method,before,after)
     local original = class[method]
     class[method] = function(...)
@@ -11,11 +9,11 @@ local function wrap(class,method,before,after)
     end
 end
 
-local function patch(class,method,newFn)
-    class[method] = newFn(class[method])
+local function patch(class,method,patchFn)
+    class[method] = patchFn(class[method])
 end
 
-util.patchClassMetaMethod(zombie.inventory.types.DrainableComboItem.class,"DoTooltip",ISAMenu.DoTooltip_patch)
+ISAUtilities.patchClassMetaMethod(zombie.inventory.types.DrainableComboItem.class,"DoTooltip",ISAMenu.DoTooltip_patch)
 
 require "ISUI/ISInventoryPane"
 patch(ISInventoryPane,"drawItemDetails",ISAMenu.ISInventoryPane_drawItemDetails_patch)

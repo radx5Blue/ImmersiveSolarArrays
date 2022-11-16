@@ -6,8 +6,12 @@ util.maxBatteryCapacity = {
     ["100AhBattery"] = 100,
     ["DeepCycleBattery"] = 200,
     ["SuperBattery"] = 400,
-    ["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
+    ["DIYBattery"] = 200,
 }
+Events.OnInitGlobalModData.Add(function()
+    --if not SandboxVars.ISA.DIYBatteryCapacity then SandboxVars.ISA.DIYBatteryCapacity = 200 end
+    util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
+end)
 --Events.OnInitGlobalModData.Add(function()
 --    local manager = getScriptManager()
 --    for i,v in pairs(util.maxBatteryCapacity) do
@@ -29,20 +33,13 @@ util.patchClassMetaMethod = function(class, methodName, createPatch)
     metatable__index[methodName] = createPatch(originalMethod)
 end
 
-Events.OnInitGlobalModData.Add(function()
-    if not SandboxVars.ISA.DIYBatteryCapacity then SandboxVars.ISA.DIYBatteryCapacity = 200 end
-    util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
-end)
-
-function util.AcceptItemFunction(container,item)
-    if util.maxBatteryCapacity[item:getType()] then return true end
-    return false
-end
-
+--function util.AcceptItemFunction(container,item)
+--    if util.maxBatteryCapacity[item:getType()] then return true end
+--    return false
+--end
 
 --debug
-ISASharedUtil = util
 --if not SandboxVars.ISA.BatteryCapacity then SandboxVars.ISA.BatteryCapacity = 1 end
 --ISADebug_onGameBoot = OnGameBoot
 --SandboxVars.ISA.BatteryCapacity = 2
-return util
+ISAUtilities = util

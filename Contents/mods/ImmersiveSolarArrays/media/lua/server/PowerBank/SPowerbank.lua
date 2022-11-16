@@ -123,7 +123,7 @@ function SPowerbank:updateDrain()
 end
 
 function SPowerbank:chargeBatteries(container,charge)
-    local max = ISASharedUtil.maxBatteryCapacity
+    local max = ISAUtilities.maxBatteryCapacity
     local items = container:getItems()
     for i=1,items:size() do
         local item = items:get(i-1)
@@ -183,7 +183,7 @@ function SPowerbank:handleBatteries(container)
     local batteries = 0
     local capacity = 0
     local charge = 0
-    local maxCap = ISASharedUtil.maxBatteryCapacity
+    local maxCap = ISAUtilities.maxBatteryCapacity
     for i=0,container:getItems():size()-1 do
         local item = container:getItems():get(i)
         --local type = item:getType()

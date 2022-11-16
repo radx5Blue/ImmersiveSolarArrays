@@ -60,4 +60,3 @@ function ISARecipe.OnGiveXP.CreateBatteryBank(recipe, ingredients, result, playe
 	player:getXp():AddXP(Perks.Electricity, 8)
 	player:getXp():AddXP(Perks.MetalWelding, 2)
 end
-

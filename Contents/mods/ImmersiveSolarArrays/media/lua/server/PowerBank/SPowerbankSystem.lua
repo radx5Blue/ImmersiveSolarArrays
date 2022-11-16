@@ -26,8 +26,8 @@ end
 
 function SPowerbankSystem:getIsoObjectOnSquare(square)
     if not square then return end
-    for i=1,square:getSpecialObjects():size() do
-        local isoObject = square:getSpecialObjects():get(i-1)
+    for i=0,square:getSpecialObjects():size()-1 do
+        local isoObject = square:getSpecialObjects():get(i)
         if self:isValidIsoObject(isoObject) then
             return isoObject
         end
