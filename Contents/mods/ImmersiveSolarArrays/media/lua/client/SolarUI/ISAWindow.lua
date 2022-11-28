@@ -27,7 +27,6 @@ function ISAStatusWindow:createChildren()
 	self.debugView:initialise()
 	self.panel:addView("Debug", self.debugView)
 
-	ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, self)
 end
 
 function ISAStatusWindow:new(x, y, width, height)
@@ -43,7 +42,15 @@ function ISAStatusWindow:new(x, y, width, height)
 end
 
 function ISAStatusWindow.OnOpenPanel(worldobjects,square,player)
-	local instance = ISAStatusWindow.instance or ISAStatusWindow:new(100, 100, 580, 400)
+	local instance = ISAStatusWindow.instance
+	if not instance then
+		instance = ISAStatusWindow:new(100, 100, 580, 400)
+		ISLayoutManager.RegisterWindow('isastatuswindow', ISAStatusWindow, instance)
+	else
+		if instance.panel.activeView and instance.panel:getActiveViewIndex() ~= 1 then
+			instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
+		end
+	end
 	instance:addToUIManager()
 
 	instance.square = square
@@ -51,9 +58,6 @@ function ISAStatusWindow.OnOpenPanel(worldobjects,square,player)
 	instance.playerNum = player
 	instance.player = getSpecificPlayer(player)
 
-	if instance.panel.activeView and instance.panel:getActiveViewIndex() ~= 1 then
-		instance.panel:activateView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"))
-	end
 	instance.sumaryView.currentFrame = 0
 end
 

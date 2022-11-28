@@ -9,8 +9,7 @@ util.maxBatteryCapacity = {
     ["DIYBattery"] = 200,
 }
 Events.OnInitGlobalModData.Add(function()
-    --if not SandboxVars.ISA.DIYBatteryCapacity then SandboxVars.ISA.DIYBatteryCapacity = 200 end
-    util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity
+    util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity or 200
 end)
 --Events.OnInitGlobalModData.Add(function()
 --    local manager = getScriptManager()
@@ -33,10 +32,10 @@ util.patchClassMetaMethod = function(class, methodName, createPatch)
     metatable__index[methodName] = createPatch(originalMethod)
 end
 
---function util.AcceptItemFunction(container,item)
---    if util.maxBatteryCapacity[item:getType()] then return true end
---    return false
---end
+function util.AcceptItemFunction(container,item)
+    if item:hasModData() and item:getModData().ISAMaxCapacityAh or util.maxBatteryCapacity[item:getType()] then return true end
+    return false
+end
 
 --debug
 --if not SandboxVars.ISA.BatteryCapacity then SandboxVars.ISA.BatteryCapacity = 1 end

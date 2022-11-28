@@ -139,10 +139,10 @@ ISAFixedGetText = function(getTextString)
 end
 
 function ISAMenu.ISInventoryPane_drawItemDetails_patch(drawItemDetails)
-	return function(self,item, y, xoff, yoff, red)
+	return function(self,item, y, xoff, yoff, red,...)
 		if not item then return end
-		if not maxCapacityTable[item:getType()] then
-			return drawItemDetails(self,item, y, xoff, yoff, red)
+		if not (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()]) then
+			return drawItemDetails(self,item, y, xoff, yoff, red,...)
 		else
 			local hdrHgt = self.headerHgt
 			local top = hdrHgt + y * self.itemHgt + yoff
@@ -161,7 +161,7 @@ end
 
 function ISAMenu.DoTooltip_patch(DoTooltip)
 	return function(item,tooltip)
-		if not maxCapacityTable[item:getType()] then
+		if not (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()]) then
 			return DoTooltip(item,tooltip)
 		else
 			local lineHeight = tooltip:getLineSpacing()
@@ -194,12 +194,12 @@ function ISAMenu.DoTooltip_patch(DoTooltip)
 				option:setValue(string.format("%d%%",item:getCondition()),1,1,0.8,1)
 				option = layout:addItem()
 				option:setLabel(getText("Tooltip_container_Capacity")..":",1,1,0.8,1)
-				local max = maxCapacityTable[item:getType()]
+				local max = (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()])
 				option:setValue(string.format("%d / %d",max * (1 - math.pow((1 - (item:getCondition()/100)),6)),max),1,1,0.8,1)
 			end
 			y = layout:render(5,y,tooltip)
 			tooltip:endLayout(layout)
-			--tooltip:setWidth(tooltip:getWidth())
+			--if width < 150 -- tooltip:setWidth(tooltip:getWidth())
 			tooltip:setHeight(y+5)
 		end
 	end

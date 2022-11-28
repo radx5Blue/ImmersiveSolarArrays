@@ -1,7 +1,7 @@
 require "Powerbank/SPowerbankSystem"
 
 local function LoadPowerbank(isoObject)
-    --isoObject:getContainer():setAcceptItemFunction("ISAUtilities.AcceptItemFunction")
+    isoObject:getContainer():setAcceptItemFunction("ISAUtilities.AcceptItemFunction")
     if isClient() then
         local gen = isoObject:getSquare():getGenerator()
         if gen then gen:getCell():addToProcessIsoObjectRemove(gen) end

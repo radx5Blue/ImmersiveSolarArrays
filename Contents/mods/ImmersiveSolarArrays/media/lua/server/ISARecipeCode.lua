@@ -1,7 +1,20 @@
 ISARecipe = {}
+ISARecipe.GetItemTypes = {}
 ISARecipe.OnTest = {}
 ISARecipe.OnCreate = {}
 ISARecipe.OnGiveXP = {}
+
+local function addOrDrop(character, item)
+	local inv = character:getInventory()
+	if inv:getCapacityWeight() + item:getWeight() < inv:getEffectiveCapacity(character) then
+		inv:AddItem(item)
+	else
+		character:getCurrentSquare():AddWorldInventoryItem(item,
+			character:getX() - math.floor(character:getX()),
+			character:getY() - math.floor(character:getY()),
+			character:getZ() - math.floor(character:getZ()))
+	end
+end
 
 function SolarModConvertBattery(items, result, player)
 	--this function makes sure charge and condition remain the same when converting a car battery for solar use
@@ -41,6 +54,44 @@ function SolarModConvertBatteryDIY(items, result, player)
 	end
 	result:setUsedDelta(addUpDelta / tick)
 	result:setCondition(addUpCond / tick)
+end
+
+--ISARecipe.convertBatteries = { ["Base.CarBattery1"] = "50AhBattery", ["Base.CarBattery2"] = "100AhBattery", ["Base.CarBattery3"] = "75AhBattery" }
+ISARecipe.carBatteries = { ["Base.CarBattery1"] = 50, ["Base.CarBattery2"] = 100, ["Base.CarBattery3"] = 75 }
+function ISARecipe.GetItemTypes.wireCarBattery(scriptItems)
+	for type,_ in pairs(ISARecipe.carBatteries) do
+		scriptItems:add(getScriptManager():getItem(type))
+	end
+end
+
+function ISARecipe.wireCarBattery(items, result, player)
+	local carBattery = items:get(2)
+	local type = carBattery:getFullType()
+	local resultData = result:getModData()
+	resultData.ISAMaxCapacityAh = ISARecipe.carBatteries[type]
+	resultData.unwiredType = type
+	if carBattery:hasModData() then
+		resultData.unwiredData = carBattery:getModData()
+	end
+	--result:setName(getText("ItemName_ISA.DIYBattery"))
+	result:setUsedDelta(carBattery:getUsedDelta())
+	result:setCondition(carBattery:getCondition()-ZombRand((11-player:getPerkLevel(Perks.Electricity))/2))
+end
+
+function ISARecipe.unwireCarBattery(items, result, player)
+	local wiredBattery = items:get(1)
+	local oldData = wiredBattery:getModData()
+	local type = oldData.unwiredType or "CarBattery1"
+	local item = InventoryItemFactory.CreateItem(type)
+	item:setUsedDelta(items:get(1):getUsedDelta())
+	item:setCondition(items:get(1):getCondition()-ZombRand(11-player:getPerkLevel(Perks.Electricity)))
+	if oldData.unwiredData then
+		local itemData = item:getModData()
+		for i,v in pairs(oldData.unwiredData) do
+			itemData[i] = v
+		end
+	end
+	addOrDrop(player,item)
 end
 
 function ISARecipe.OnCreate.ReverseSolarPanel(items, result, player)

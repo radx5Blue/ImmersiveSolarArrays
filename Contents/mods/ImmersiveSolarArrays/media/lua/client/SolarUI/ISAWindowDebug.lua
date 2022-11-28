@@ -6,17 +6,13 @@ local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
 ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")
 
 function ISAWindowDebug:new(x, y, width, height)
-    local o = {}
-    o = ISPanelJoypad:new(x, y, width, height)
-    setmetatable(o, self)
-    self.__index = self
-
-    ISAWindowDebug.instance = o
+    local o = ISPanelJoypad.new(self, x, y, width, height)
+    --ISAWindowDebug.instance = o
     return o
 end
 
 function ISAWindowDebug:createChildren()
-    self.buttonHeight = 25
+    self.buttonHeight = getTextManager():getFontHeight(UIFont.Small)
 
     self.showBackupDetailsButton = ISButton:new(0, 0, 200, self.buttonHeight, getText("IGUI_ISAWindow_Debug_ShowBackup"), self, self.showBackupDetails)
     self.showBackupDetailsButton:setBackgroundRGBA(0.2,0.2,0.2,1)
@@ -37,8 +33,13 @@ function ISAWindowDebug:createChildren()
 
         self:setHeight(self.buttonHeight * 3)
     --else
-        --self:setHeight(self.buttonHeight * 1)
     end
+
+    local maxWidth = getTextManager():MeasureStringX(UIFont.Small, getText("IGUI_ISAWindow_Debug_ShowBackup"))
+    if maxWidth > 200 then
+        self:setWidth(maxWidth+10)
+    end
+    self:setHeight(self.buttonHeight * 1)
 end
 
 function ISAWindowDebug:setVisible(visible)
@@ -82,9 +83,11 @@ function ISAWindowDebug:prerender()
     end
 end
 
-function ISAWindowDebug:showBackupDetails()
-    local show = not ISAWindowDetails.instance.showBackupDetails
-    ISAWindowDetails.instance.showBackupDetails = show
+function ISAWindowDebug:showBackupDetails() --fixme no instance
+    local show = not self.parent.parent.detailsView.showBackupDetails
+    self.parent.parent.detailsView.showBackupDetails = show
+    --local show = not ISAWindowDetails.instance.showBackupDetails
+    --ISAWindowDetails.instance.showBackupDetails = show
     self.showBackupDetailsButton.title = show and getText("IGUI_ISAWindow_Debug_HideBackup") or getText("IGUI_ISAWindow_Debug_ShowBackup")
 end
 

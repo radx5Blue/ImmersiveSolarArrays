@@ -6,13 +6,9 @@ local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
 ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
 
 function ISAWindowDetails:new(x, y, width, height)
-    local o = {}
-    o = ISPanelJoypad:new(x, y, ISAWindowDetails.measureWidth(), height)
-    setmetatable(o, self)
-    self.__index = self
+    local o = ISPanelJoypad.new(self, x, y, ISAWindowDetails.measureWidth(), height)
     o:noBackground()
-
-    ISAWindowDetails.instance = o
+    --ISAWindowDetails.instance = o
     return o
 end
 
@@ -66,7 +62,6 @@ function ISAWindowDetails:render()
         self:drawText(getText("IGUI_ISAWindow_Details_MaxPanelOutput"), textX, textY, 1, 1, 1, 1, UIFont.Small)
         self:drawTextRight(string.format("%.1f",CPowerbankSystem.getMaxSolarOutput(pb.npanels)) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
-        --self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
         textY = textY + fontHeightSm
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricalDevices"), textX, textY, 1, 1, 1, 1, UIFont.Medium)

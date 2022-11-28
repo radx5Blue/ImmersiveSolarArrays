@@ -1,4 +1,4 @@
---fixme SandboxVars are default value at this stage, MP are loaded already OnPreDistributionMerge, SP are not
+--fixme SandboxVars are default value at this stage, MP are loaded already OnPreDistributionMerge???, SP are not
 
 require 'Items/Distributions'
 require 'Items/ProceduralDistributions'
@@ -206,9 +206,7 @@ local ISABatteries = {
 		"ISA.DeepCycleBattery", 36,
 		"ISA.SuperBattery", 8,
 		"ISA.DIYBattery", 8,
-		"ISA.50AhBattery", 8,
-		"ISA.75AhBattery", 8,
-		"ISA.100AhBattery", 8,
+		"ISA.WiredCarBattery", 8,
 	}
 }
 

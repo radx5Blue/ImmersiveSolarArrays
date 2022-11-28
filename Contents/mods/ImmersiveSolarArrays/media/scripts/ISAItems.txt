@@ -36,9 +36,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 200,
     }
 	    item SuperBattery
     {
@@ -51,9 +50,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 400,
     }
 	    item DIYBattery
     {
@@ -66,9 +64,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 200,
     }
 	    item 50AhBattery
     {
@@ -81,9 +78,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 50,
     }
 	    item 75AhBattery
     {
@@ -96,9 +92,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 75,
     }
 	    item 100AhBattery
     {
@@ -111,9 +106,22 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 100,
+    }
+    item WiredCarBattery
+    {
+        Weight	=	5,
+        Type	=	Drainable,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        DisplayName	=	WiredCarBattery,
+        Icon	=	CarBattery,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        ConditionMax = 100,
+        WorldStaticModel = CarBattery,
+        ISAMaxCapacityAh = 50,
     }
 	item PowerBank
 	{

@@ -43,86 +43,31 @@ module ISA
         Category:Electrical,
         OnCreate:SolarModConvertBatteryDIY,
     }
-
-    recipe Wire 50Ah Battery
+    recipe WireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
         Radio.ElectricWire,
-        destroy Base.CarBattery1,
+        destroy [ISARecipe.GetItemTypes.wireCarBattery],
         SkillRequired:Electricity=3,
-        Result: 50AhBattery,
+        Result: WiredCarBattery,
         Time:30,
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
-        OnCreate:SolarModConvertBattery,
+        OnCreate:ISARecipe.wireCarBattery,
     }
-
-    recipe Unwire 50Ah Battery
+    recipe UnwireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 50AhBattery,
+        destroy WiredCarBattery,
         SkillRequired:Electricity=3,
-        Result: Base.CarBattery1,
+        Result:WiredCarBattery,
+        RemoveResultItem:true,
         Time:30,
         CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
+        NoBrokenItems:false,
         Category:Electrical,
-        OnCreate:SolarModConvertBatteryReverse,
-    }
-
-    recipe Wire 75Ah Battery
-    {
-        keep [Recipe.GetItemTypes.Screwdriver],
-        Radio.ElectricWire,
-        destroy Base.CarBattery3,
-        SkillRequired:Electricity=3,
-        Result: 75AhBattery,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:SolarModConvertBattery,
-    }
-
-    recipe Unwire 75Ah Battery
-    {
-		keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 75AhBattery,
-        SkillRequired:Electricity=3,
-        Result: Base.CarBattery3,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:SolarModConvertBatteryReverse,
-    }
-
-    recipe Wire 100Ah Battery
-    {
-		keep [Recipe.GetItemTypes.Screwdriver],
-        Radio.ElectricWire,
-        destroy Base.CarBattery2,
-        SkillRequired:Electricity=3,
-        Result: 100AhBattery,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:SolarModConvertBattery,
-    }
-
-    recipe Unwire 100Ah Battery
-    {
-        keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 100AhBattery,
-        SkillRequired:Electricity=3,
-        Result: Base.CarBattery2,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:SolarModConvertBatteryReverse,
+        OnCreate:ISARecipe.unwireCarBattery,
     }
     recipe Make Solar Roof Tile
     {

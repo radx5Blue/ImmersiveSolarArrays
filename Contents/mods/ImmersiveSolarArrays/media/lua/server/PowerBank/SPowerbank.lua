@@ -123,59 +123,69 @@ function SPowerbank:updateDrain()
 end
 
 function SPowerbank:chargeBatteries(container,charge)
-    local max = ISAUtilities.maxBatteryCapacity
+    --local max = ISAUtilities.maxBatteryCapacity
     local items = container:getItems()
     for i=1,items:size() do
         local item = items:get(i-1)
-        if max[item:getType()] then
+        --if max[item:getType()] then
             item:setUsedDelta(charge)
-        end
+        --end
     end
 end
 
 -- could be better to have a standard value * sandbox for lost condition, rather than random
+local degradeOpt = 1
 function SPowerbank:degradeBatteries(container)
     local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
+    degradeOpt = ISABatteryDegradeChance / 100
     if ISABatteryDegradeChance == 0 then return end
     local items = container:getItems()
     for i=0,items:size()-1 do
-        if ZombRand(100) < ISABatteryDegradeChance then
-            local item = items:get(i)
+        local item = items:get(i)
+        --local condition = item:getCondition()
+        --if condition > 0 then
             local type = item:getType()
-            if type == "50AhBattery" then
-                item:setCondition(item:getCondition() - ZombRand(1, 10))
-                --breaks in 20 days
-            end
-            if type == "75AhBattery" then
-                item:setCondition(item:getCondition() - ZombRand(1, 8))
-                --breaks in 25 days
-            end
-            if type == "100AhBattery" then
-                item:setCondition(item:getCondition() - ZombRand(2, 6))
-                --breaks in 33 days
-            end
-            if type == "DeepCycleBattery" then
-                local chance = ZombRand(1, 33)
-                if chance == 1 then
-                    item:setCondition(item:getCondition() - 1)
+            if type ~= "WiredCarBattery" then
+                if ZombRand(100) < ISABatteryDegradeChance then
+                    if type == "50AhBattery" then
+                        item:setCondition(item:getCondition() - ZombRand(1, 10))
+                        --breaks in 20 days
+                    end
+                    if type == "75AhBattery" then
+                        item:setCondition(item:getCondition() - ZombRand(1, 8))
+                        --breaks in 25 days
+                    end
+                    if type == "100AhBattery" then
+                        item:setCondition(item:getCondition() - ZombRand(2, 6))
+                        --breaks in 33 days
+                    end
+                    if type == "DeepCycleBattery" then
+                        local chance = ZombRand(1, 33)
+                        if chance == 1 then
+                            item:setCondition(item:getCondition() - 1)
+                        end
+                        --breaks in 9+ years
+                    end
+                    if type == "SuperBattery" then
+                        local chance = ZombRand(1, 33)
+                        if chance == 1 then
+                            item:setCondition(item:getCondition() - 1)
+                        end
+                        --breaks in 9+ years
+                    end
+                    if type == "DIYBattery" then
+                        local chance = ZombRand(1, 8)
+                        if chance == 1 then
+                            item:setCondition(item:getCondition() - 1)
+                        end
+                        --breaks in 2 years
+                    end
                 end
-                --breaks in 9+ years
+            else
+                local degrade = 3.333
+                item:setCondition(item:getCondition() - degrade * degradeOpt * ZombRand(8,12)/10)
             end
-            if type == "SuperBattery" then
-                local chance = ZombRand(1, 33)
-                if chance == 1 then
-                    item:setCondition(item:getCondition() - 1)
-                end
-                --breaks in 9+ years
-            end
-            if type == "DIYBattery" then
-                local chance = ZombRand(1, 8)
-                if chance == 1 then
-                    item:setCondition(item:getCondition() - 1)
-                end
-                --breaks in 2 years
-            end
-        end
+        --end
     end
 end
 
@@ -187,7 +197,7 @@ function SPowerbank:handleBatteries(container)
     for i=0,container:getItems():size()-1 do
         local item = container:getItems():get(i)
         --local type = item:getType()
-        local maxCapType = maxCap[item:getType()]
+        local maxCapType = (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCap[item:getType()])
         if maxCapType and not item:isBroken() then
             batteries = batteries + 1
             local cap = maxCapType * (1 - math.pow((1 - (item:getCondition()/100)),6))
