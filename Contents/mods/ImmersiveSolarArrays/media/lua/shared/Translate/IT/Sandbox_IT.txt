@@ -1,0 +1,43 @@
+
+
+Sandbox_IT = {
+	Sandbox_ISA = "Sistema solare immersivo (ISA)",
+
+	Sandbox_ISA_solarPanelEfficiency = "Efficenza del pannello solare (0-100)",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "Efficenza del pannello solare. Il 12% è realistico per il 1993, 25% ai giorni nostri, l'impostazione predefinita non è realistica",
+
+	Sandbox_ISA_batteryDegradeChance = "Probabilità di deterioramento della batteria (0-100)",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Probabilità che le batterie si deteriorino ogni giorno. Diminuendo questo valore aumenterà notevolmente la durata della batteria",
+
+	Sandbox_ISA_solarPanelWorldSpawns = "Spawn pannelli solari / caldaie solari (0-100)",
+	Sandbox_ISA_solarPanelWorldSpawns = "Quanto è probabile che appaiano pannelli solari e caldaie solari nei luoghi opportuni",
+
+	Sandbox_ISA_LRMSolarPanels = "Moltiplicatore di rarità del loot - Pannelli solari",
+	Sandbox_ISA_LRMSolarPanels_tooltip = "Moltiplicatore di probabilità per la comparsa di pannelli solari in contenitori casuali e scatole preconfigurate",
+
+	Sandbox_ISA_LRMBatteries = "Moltiplicatore di rarità del loot - Batterie",
+	Sandbox_ISA_LRMBatteries_tooltip = "Moltiplicatore di probabilità per la comparsa di batterie in contenitori casuali e scatole preconfigurate",
+
+	Sandbox_ISA_LRMMisc = "Multiplicador de Raridade de Loot - Altri",
+	Sandbox_ISA_LRMMisc_tooltip = "Moltiplicatore di probabilità per la comparsa di riviste ed inverter in contenitori casuali e scatole preconfigurate",
+
+	Sandbox_ISA_DIYBatteryCapacity = "Capacità della batteria improvvisata (Ah)",
+	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Quanta energia in Ah può immagazzinare una singola batteria improvvisata.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Generatore regolare",
+    Sandbox_ISA_DrainCalc = "Metodo di calcolo del drenaggio",
+    Sandbox_ISA_DrainCalc_tooltip = "Il calcolo dei generatori regolari ha un impatto minore sulle prestazioni",
+    Sandbox_ISA_ChargeFreq_option1 = "Ogni 10 minuti",
+    Sandbox_ISA_ChargeFreq_option2 = "Ogni ora",
+    Sandbox_ISA_ChargeFreq = "Frequenza di carica",
+    Sandbox_ISA_ChargeFreq_tooltip = "Quanto spesso si ricarica il Banco batterie",
+	
+	Sandbox_ISA_BatteryBankSpawn = "Spawn banco batterie",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rarità dello spawn del banco batterie nella mappa.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Nessuno",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Molto Raro",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Raro",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Non comune",
+
+}
