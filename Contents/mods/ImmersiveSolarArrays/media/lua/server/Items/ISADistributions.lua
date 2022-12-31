@@ -1,43 +1,74 @@
 --fixme SandboxVars are default value at this stage, MP are loaded already OnPreDistributionMerge???, SP are not
 
+local require, pairs, ipairs, table, type = require, pairs, ipairs, table, type --I mean why not
+
 require 'Items/Distributions'
 require 'Items/ProceduralDistributions'
+local util = require "ISAUtilities"
 
+local copyTable = copyTable
+local SuburbsDistributions = SuburbsDistributions
+local ProceduralDistributions = ProceduralDistributions
+local VehicleDistributions = VehicleDistributions
 
 local function registerAsLoot(item, chance, allocation)
-  table.insert(ProceduralDistributions.list[allocation].items, item);
-  table.insert(ProceduralDistributions.list[allocation].items, chance);
+	local insertTo = ProceduralDistributions.list[allocation].items
+	table.insert(insertTo, item)
+	table.insert(insertTo, chance)
 end
 
 local function addItem(item, chance, allocation)
-  table.insert(allocation, item);
-  table.insert(allocation, chance);
+  table.insert(allocation, item)
+  table.insert(allocation, chance)
 end
 
-local function mergeProcLists(procTable)
-	for room,containerTable in pairs(procTable) do
-		for container,procs in pairs(containerTable) do
-			for _,proc in ipairs(procs) do
-				table.insert(SuburbsDistributions[room][container].procList,proc)
+local function insertSimilarItems(base,targets,items)
+	for _,t in ipairs(targets) do
+		local insertTo = base[t] and base[t].items
+		if insertTo then
+			for _,i in ipairs(items) do
+				table.insert(insertTo,i)
 			end
 		end
 	end
 end
 
-local iReg = "";
-local ISAmiscLootMult = SandboxVars.ISA.LRMMisc;
-	if SandboxVars.ISA.LRMMisc == nil then
-		ISAmiscLootMult = 1
+local function insertRecursive(insertKey,insertInto,insertFrom,default)
+	for key,value in pairs(insertFrom) do
+		local _insertInto = insertInto[key]
+		if not _insertInto and default then
+			_insertInto = copyTable(default)
+			insertInto[key] = _insertInto
+		end
+		if type(_insertInto) == "table" then
+			if key == insertKey then
+				for _,i in ipairs(value) do
+					table.insert(_insertInto,i)
+				end
+			else
+				insertRecursive(insertKey,_insertInto,value,default)
+			end
+		end
 	end
-local ISAbatteryLootMult = SandboxVars.ISA.LRMBatteries;
-	if SandboxVars.ISA.LRMBatteries == nil then
-		ISAbatteryLootMult = 1
-	end
-local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels;
-	if SandboxVars.ISA.LRMSolarPanels == nil then
-		ISApanelLootMult = 1
-	end
+end
 
+local function insertInto(targetKey,distName,modDist,default,doParse)
+	local dist = {
+		suburbs = SuburbsDistributions,
+		procedural = ProceduralDistributions,
+		vehicle = VehicleDistributions,
+	}
+	util.distributions.doParse = doParse or util.distributions.doParse
+	return insertRecursive(targetKey,dist[distName],modDist,default)
+end
+
+
+---edit tables for container loot types / item rolls
+
+local iReg = ""
+local ISAmiscLootMult = SandboxVars.ISA.LRMMisc or 1
+local ISAbatteryLootMult = SandboxVars.ISA.LRMBatteries or 1
+local ISApanelLootMult = SandboxVars.ISA.LRMSolarPanels or 1
 
 -- Solar Mag
 iReg = "ISA.ISAMag1";
@@ -61,7 +92,6 @@ addItem(iReg, 1, VehicleDistributions.ElectricianTruckBed.items)
 iReg = "ISA.SolarPanel";
 registerAsLoot(iReg, 0.05 * ISApanelLootMult, "ArmyHangarTools");
 registerAsLoot(iReg, 0.10 * ISApanelLootMult, "ArmyStorageElectronics");
---registerAsLoot(iReg, 0.05 * ISApanelLootMult, "BedroomDresser");
 --registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CampingStoreGear");
 registerAsLoot(iReg, 0.05 * ISApanelLootMult, "CrateCarpentry");
 --registerAsLoot(iReg, 0.10 * ISApanelLootMult, "CrateCamping");
@@ -178,7 +208,7 @@ addItem(iReg, 0.6, VehicleDistributions.ElectricianTruckBed.items)
 local SolarBox = {
 	rolls = 4,
 	items = {
-		"ISA.SolarPanel", 24,
+		"ISA.SolarPanel", 32,
 		"ISA.DeepCycleBattery", 24,
 		"ISA.SuperBattery", 16,
 	},
@@ -200,7 +230,7 @@ local SolarBox = {
 	}
 }
 
-local ISABatteries = {
+local Batteries = {
 	rolls = 4,
 	items = {
 		"ISA.DeepCycleBattery", 36,
@@ -210,24 +240,113 @@ local ISABatteries = {
 	}
 }
 
-SuburbsDistributions.all.SolarBox = { procedural = true, procList = { {name="SolarBox", min=0, max=99, weightChance=80}, {name="ISABatteries", min=0, max=99, weightChance=20} }}
-SuburbsDistributions.all.BatteryBank = { procedural = true, procList = { {name="ISABatteries", min=0, max=99} }}
-ProceduralDistributions.list.SolarBox = SolarBox
-ProceduralDistributions.list.ISABatteries = ISABatteries
+ProceduralDistributions.list.ISABatteries = Batteries
+ProceduralDistributions.list.ISASolarBox = SolarBox
+SuburbsDistributions.all.BatteryBank = Batteries
+SuburbsDistributions.all.SolarBox = SolarBox
 
-mergeProcLists({
+---edit tables for room / cache house types
+
+--all is more of a direct check of container type loot, procedural would end up with no loot when outside
+--SuburbsDistributions.all.BatteryBank = {
+--	procedural = true,
+--	procList = {
+--		{name="ISABatteries", min=0, max=99},
+--	},
+--}
+--SuburbsDistributions.all.SolarBox = {
+--	procedural = true,
+--	procList = {
+--		{ name = "ISASolarBox", min = 0, max = 99, weightChance = 80 },
+--		{ name = "ISABatteries", min = 0, max = 99, weightChance = 20 },
+--	},
+--}
+local SolarBoxCache = copyTable(SuburbsDistributions.electronicsstorage)
+SolarBoxCache.isStore = nil
+SolarBoxCache.SolarBox = copyTable(SolarBox)
+SolarBoxCache.SolarBox.rolls = 32
+SuburbsDistributions.ISASolarBoxCache = SolarBoxCache
+
+insertRecursive("procList",SuburbsDistributions,{
 	electronicsstorage = {
-		metal_shelves = { { name = "SolarBox", min = 0, max = 1, weightChance = 10 } },
-		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 20 }, { name = "ISABatteries", min = 0, max = 1, weightChance = 5 } },
+		metal_shelves = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 10 },
+			},
+		},
+		crate = {
+			proclist = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 20 },
+				{ name = "ISABatteries", min = 0, max = 1, weightChance = 5 },
+			},
+		},
 	},
 	garagestorage = {
-		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 3 } }
+		crate = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 3 },
+			},
+		},
 	},
 	storageunit = {
-		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 5 } },
-		metal_shelves = { { name = "SolarBox", min = 0, max = 1, weightChance = 3 } }
+		crate = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 5 },
+			},
+		},
+		metal_shelves = {
+			proclist = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 3 },
+			}
+		}
 	},
 	warehouse = {
-		crate = { { name = "SolarBox", min = 0, max = 1, weightChance = 5 }, { name = "ISABatteries", min = 0, max = 1, weightChance = 5 } }
+		crate = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 5 },
+				{ name = "ISABatteries", min = 0, max = 1, weightChance = 5 },
+			},
+		},
 	},
+	--Cache
+	SafehouseLoot = {
+		metal_shelves = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 1, weightChance = 5 },
+			},
+		},
+	},
+	ISASolarBoxCache = {
+		crate = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 3, weightChance = 25 },
+				{ name = "ISABatteries", min = 0, max = 1, weightChance = 10 },
+			},
+		},
+		metal_shelves = {
+			procList = {
+				{ name = "ISASolarBox", min = 0, max = 3, weightChance = 20 },
+			},
+		},
+	}
 })
+
+--stash items
+util.distributions = {insertSimilarItems = insertSimilarItems}
+util.queueFunction("OnLoadedMapZones",function()
+	if util.distributions.doParse then
+		ItemPickerJava.Parse()
+	end
+	util.distributions = nil
+end)
+
+--util.distributions = {insertInto = insertInto,checkList = {}}
+--util.queueFunction("OnLoadedMapZones",function()
+--	for _,fn in ipairs(util.distributions.checkList) do
+--		fn()
+--	end
+--	if util.distributions.doParse then
+--		ItemPickerJava.Parse()
+--	end
+--	util.distributions = nil
+--end)

@@ -1,8 +1,11 @@
 if isClient() then return end
 
 require "Map/SGlobalObject"
+local isa = require "ISAUtilities"
+local solarscan = require "Powerbank/ISA_solarscan"
+local sandbox = SandboxVars.ISA
 
-SPowerbank = SGlobalObject:derive("SPowerbank")
+local SPowerbank = SGlobalObject:derive("SPowerbank")
 
 function SPowerbank:initNew()
     self.on = false
@@ -17,22 +20,21 @@ function SPowerbank:initNew()
 end
 
 function SPowerbank:new(luaSystem, globalObject)
-    local o = SGlobalObject.new(self, luaSystem, globalObject)
-    return o
+    return SGlobalObject.new(self, luaSystem, globalObject)
 end
 
 --when you load isoobject without luaobject, place object
 function SPowerbank:stateFromIsoObject(isoObject)
     self:initNew()
 
-    if SPowerbankSystem.isValidModData(isoObject:getModData()) then
+    if self.luaSystem.isValidModData(isoObject:getModData()) then
         self:noise("Valid Data")
         self:fromModData(isoObject:getModData())
     end
 
     self:handleBatteries(isoObject:getContainer())
     self:autoConnectToGenerator()
-    --createGenerator
+    self:createGenerator() --if generator...
     self:loadGenerator()
     self:updateDrain()
     self:updateSprite()
@@ -82,12 +84,13 @@ end
 function SPowerbank:shouldDrain(isoPb)
     if self.switchchanged then self.switchchanged = nil elseif not self.on then return false end
     if self.conGenerator and self.conGenerator.ison then return false end
-    --v.41.69+
-    if getWorld().isHydroPowerOn and getWorld():isHydroPowerOn() then
+
+    local world = getWorld()
+    if world:isHydroPowerOn() then
         if isoPb then
             if not isoPb:getSquare():isOutside() then return false end
         else
-            if getWorld():getMetaGrid():getRoomAt(self.x,self.y,self.z) then return false end
+            if world:getMetaGrid():getRoomAt(self.x,self.y,self.z) then return false end
         end
     end
     return true
@@ -115,7 +118,7 @@ end
 function SPowerbank:updateDrain()
     local square = self:getSquare()
     if not square then return end
-    if SandboxVars.ISA.DrainCalc == 1 then
+    if sandbox.DrainCalc == 1 then
         self.drain = solarscan(square, false, true, false, 0)
     else
         self.drain = SPowerbank:getDrainVanilla(square)
@@ -133,12 +136,15 @@ function SPowerbank:chargeBatteries(container,charge)
     end
 end
 
--- could be better to have a standard value * sandbox for lost condition, rather than random
+-- could be better to have a standard value * sandbox for lost condition, rather than random, reminder condition has only integers
 local degradeOpt = 1
 function SPowerbank:degradeBatteries(container)
-    local ISABatteryDegradeChance = SandboxVars.ISA.batteryDegradeChance
+    local ISABatteryDegradeChance = sandbox.batteryDegradeChance
     degradeOpt = ISABatteryDegradeChance / 100
     if ISABatteryDegradeChance == 0 then return end
+
+    local ZombRand = ZombRand
+
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
@@ -183,7 +189,7 @@ function SPowerbank:degradeBatteries(container)
                 end
             else
                 local degrade = 3.333
-                item:setCondition(item:getCondition() - degrade * degradeOpt * ZombRand(8,12)/10)
+                item:setCondition(item:getCondition() - degrade * degradeOpt * ZombRand(8,12)/10) --fixme only int
             end
         --end
     end
@@ -193,7 +199,7 @@ function SPowerbank:handleBatteries(container)
     local batteries = 0
     local capacity = 0
     local charge = 0
-    local maxCap = ISAUtilities.maxBatteryCapacity
+    local maxCap = isa.maxBatteryCapacity
     for i=0,container:getItems():size()-1 do
         local item = container:getItems():get(i)
         --local type = item:getType()
@@ -214,7 +220,7 @@ function SPowerbank:checkPanels()
     for i = #self.panels, 1, -1 do
         local panel = self.panels[i]
         local square = getSquare(panel.x, panel.y, panel.z)
-        if square and (not square:isOutside() or not ISAScan.findTypeOnSquare(square,"Panel")) then
+        if square and (not square:isOutside() or not isa.WorldUtil.findTypeOnSquare(square,"Panel")) then
             table.remove(self.panels,i)
         end
     end
@@ -349,8 +355,8 @@ end
 
 function SPowerbank:updateGenerator(dif)
     if dif == nil then
-        dif = SPowerbankSystem.instance.getModifiedSolarOutput(self.npanels) - self.drain
-        if SandboxVars.ISA.ChargeFreq == 1 then
+        dif = self.luaSystem:getModifiedSolarOutput(self.npanels) - self.drain
+        if sandbox.ChargeFreq == 1 then
             dif = dif / 6
         end
     end
@@ -365,7 +371,7 @@ end
 function SPowerbank:loadGenerator()
     local square = self:getSquare()
 
-    self:fixGeneratorNumber()
+    self:fixIndex()
 
     local gen = square:getGenerator()
     gen:setSurroundingElectricity()
@@ -378,32 +384,49 @@ function SPowerbank:loadGenerator()
 end
 
 --todo remove this fix for prev errors
-function SPowerbank:fixGeneratorNumber()
+function SPowerbank:fixIndex()
+    if self.doneFix then return end
+    self.doneFix = true
+
     local square = self:getSquare()
     local bank,hasGen
     local special = square:getSpecialObjects()
     local i = 0
     while i < special:size() do
         local obj = special:get(i)
-        if not bank then
-            if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then bank = true;
-            elseif instanceof(obj, "IsoGenerator") then obj:remove(); i=i-1;
+        if instanceof(obj,"Isogenerator") then
+            if not bank or hasGen then
+                obj:remove()
+                i=i-1
+            else
+                hasGen = true
             end
-        else
-            if instanceof(obj, "IsoGenerator") then
-                if hasGen then
-                    obj:remove()
-                    i=i-1
-                else
-                    hasGen = true
-                end
-            end
+        elseif not bank and obj:getTextureName() == "solarmod_tileset_01_0" then
+            bank = true
         end
+
+        --if not bank then
+        --    if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then
+        --        bank = true
+        --    elseif instanceof(obj, "IsoGenerator") then
+        --        obj:remove()
+        --        i=i-1
+        --    end
+        --else
+        --    if instanceof(obj, "IsoGenerator") then
+        --        if hasGen then
+        --            obj:remove()
+        --            i=i-1
+        --        else
+        --            hasGen = true
+        --        end
+        --    end
+        --end
         i = i +1
     end
     if self.conGenerator then
         local conGenerator,conSquare = self:getConGenerator()
-        if conSquare and (not conGenerator or ISAScan.findTypeOnSquare(conSquare,"Powerbank")) then
+        if conSquare and not self.luaSystem:getValidBackupOnSquare(conSquare) then
             self:autoConnectToGenerator()
         end
     end
@@ -420,7 +443,7 @@ function SPowerbank:connectBackupGenerator(generator)
 end
 
 function SPowerbank:autoConnectToGenerator()
-    local area = ISAScan.getValidBackupArea(nil,3)
+    local area = isa.WorldUtil.getValidBackupArea(nil,3)
 
     self.conGenerator = false
     for ix = self.x - area.radius, self.x + area.radius do
@@ -428,8 +451,10 @@ function SPowerbank:autoConnectToGenerator()
             for iz = self.z - area.levels, self.z + area.levels do
                 if ix >= 0 and iy >= 0 and iz >= 0 then
                     local isquare = IsoUtils.DistanceToSquared(self.x,self.y,self.z,ix,iy,iz) <= area.distance and getSquare(ix, iy, iz)
-                    local generator = isquare and isquare:getGenerator()
-                    if generator and generator:isConnected() and not ISAScan.findTypeOnSquare(isquare,"Powerbank") then
+                    local generator = isquare and self.luaSystem:getValidBackupOnSquare(isquare)
+                    if generator then
+                    --local generator = isquare and isquare:getGenerator()
+                    --if generator and self.luaSystem:isValidBackup(generator,isquare) then
                         self:connectBackupGenerator(generator)
                         return
                     end
@@ -458,7 +483,7 @@ function SPowerbank:updateConGenerator()
 
             conGenerator:update()
 
-            if self.on and ISAScan.findOnSquare(square, "solarmod_tileset_01_15") then
+            if self.on and isa.WorldUtil.findOnSquare(square, "solarmod_tileset_01_15") then
                 local minfailsafe = self.drain
                 if conGenerator:isActivated() then
                     if self.charge > minfailsafe then conGenerator:setActivated(false)end
@@ -473,3 +498,5 @@ function SPowerbank:updateConGenerator()
         end
     end
 end
+
+return SPowerbank

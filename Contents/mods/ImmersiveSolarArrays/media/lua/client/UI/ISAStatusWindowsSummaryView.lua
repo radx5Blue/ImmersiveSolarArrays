@@ -1,6 +1,8 @@
 require "ISUI/ISPanelJoypad"
+local isa = require "ISAUtilities"
+--local defaultRGB, goodRGB, badRGB = isa.UI.defaultRGB, isa.UI.goodRGB, isa.UI.badRGB
 
-ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
+local ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
 
 function ISAWindowsSumaryTab:initialise()
 	ISPanelJoypad.initialise(self);
@@ -108,7 +110,7 @@ function ISAWindowsSumaryTab:initialise()
 
 	-- Fix the daytime/nightime icon
 	local currentTime = getGameTime():getTimeOfDay();
-	if ISAIsDayTime(currentTime) then
+	if isa.UI.ISAIsDayTime(currentTime) then
 		self.imageSun:setVisible(true)
 		self.imageMoon:setVisible(false)
 		self.night = false
@@ -135,17 +137,17 @@ end
 
 function ISAWindowsSumaryTab:render()
 	local pb = self.parent.parent.luaPB
-	if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
+	if not (pb and pb:getIsoObject()) then return self.parent.parent:close() end
 	-- Update every 30 frames
 	if (self.currentFrame%30 == 0) then
 		pb:updateFromIsoObject()
 		self.batteryLevel = pb.charge / pb.maxcapacity
-		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(pb.npanels)
-		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(pb.npanels)
+		self.panelsMaxInput = pb.luaSystem:getMaxSolarOutput(pb.npanels)
+		self.panelsInput = pb.luaSystem:getModifiedSolarOutput(pb.npanels)
 		self.difference = self.panelsInput - (pb:shouldDrain() and pb.drain or 0)
 
 		local currentTime = getGameTime():getTimeOfDay();
-		if ISAIsDayTime(currentTime) then
+		if isa.UI.ISAIsDayTime(currentTime) then
 			if (self.night == true) then
 				self.imageSun:setVisible(true)
 				self.imageMoon:setVisible(false)
@@ -200,7 +202,7 @@ function ISAWindowsSumaryTab:render()
 	end
 	self.currentFrame = self.currentFrame +1
 
-	-- Sumary box
+	-- Summary box
 	local line = getTextManager():getFontHeight(UIFont.Small)
 	--local boxW = 0
 	local rectX, rectY, rectW, rectH = self.sumBox.x, 20, self.sumBox.width, 25 + line * 6
@@ -271,10 +273,11 @@ function ISAWindowsSumaryTab:render()
 end
 
 function ISAWindowsSumaryTab:new(x, y, width, height)
-	local o = {};
-	o = ISPanelJoypad:new(x, y, width, height);
-	setmetatable(o, self);
-    self.__index = self;
+	--local o = {};
+	--o = ISPanelJoypad:new(x, y, width, height);
+	--setmetatable(o, self);
+    --self.__index = self;
+	local o = ISPanelJoypad.new(self, x, y, width, height)
 	o:noBackground();
 
 	-- Textures
@@ -330,7 +333,7 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	--o.textBox = textBox
 	--o.textWidth = 0
 
-    ISAWindowsSumaryTab.instance = o;
+    --ISAWindowsSumaryTab.instance = o;
 
 	-- Used variables
 	self.currentFrame = 0;
@@ -375,3 +378,5 @@ function ISAWindowsSumaryTab.measureTexts()
 
 	return max
 end
+
+isa.StatusWindowSummaryView = ISAWindowsSumaryTab

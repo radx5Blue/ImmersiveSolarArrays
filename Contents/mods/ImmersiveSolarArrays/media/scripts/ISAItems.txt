@@ -3,7 +3,6 @@ module ISA
     imports
     {
         Base
-
     }
 	    item SolarPanel
     {
@@ -159,4 +158,36 @@ module ISA
 		DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_15,
 	}
+
+	/**************************** Maps **********************************/
+    item Stash_RiversideW1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_RiversideW1,
+        WorldStaticModel = Map,
+    }
+    item Stash_RosewoodE1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_RosewoodE1,
+        WorldStaticModel = Map,
+    }
+    item Stash_Louisville1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_Louisville1,
+        WorldStaticModel = Map,
+    }
 }

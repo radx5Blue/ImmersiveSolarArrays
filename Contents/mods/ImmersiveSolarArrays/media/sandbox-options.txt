@@ -3,7 +3,7 @@ option ISA.solarPanelEfficiency
 {
 	type = integer,
 	min = 1,
-	max = 1000,
+	max = 100,
 	default = 90,
 
 	page = ISA,
@@ -97,4 +97,12 @@ option ISA.BatteryBankSpawn
 	default = 3,
 	page = ISA,
 	translation = ISA_BatteryBankSpawn,
+}
+option ISA.StashMode
+{
+	type = enum,
+	numValues = 3,
+	default = 2,
+	page = ISA,
+	translation = ISA_StashMode,
 }

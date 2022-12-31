@@ -1,8 +1,8 @@
-ISARecipe = {}
-ISARecipe.GetItemTypes = {}
-ISARecipe.OnTest = {}
-ISARecipe.OnCreate = {}
-ISARecipe.OnGiveXP = {}
+require "Items/AcceptItemFunction"
+require "recipecode"
+local util = require("ISAUtilities")
+
+local def = {}
 
 local function addOrDrop(character, item)
 	local inv = character:getInventory()
@@ -16,31 +16,36 @@ local function addOrDrop(character, item)
 	end
 end
 
-function SolarModConvertBattery(items, result, player)
-	--this function makes sure charge and condition remain the same when converting a car battery for solar use
-
-	for i=0, items:size()-1 do
-		if(items:get(i):getType() == "CarBattery1" or items:get(i):getType() == "CarBattery2" or items:get(i):getType() == "CarBattery3") then
-			local item = items:get(i)
-			result:setUsedDelta(item:getUsedDelta());
-			result:setCondition(item:getCondition());
-		end
-	end
-	player:getXp():AddXP(Perks.Electricity, 1);
+AcceptItemFunction.ISA_Batteries = function(container,item)
+	if item:hasModData() and item:getModData().ISAMaxCapacityAh or util.maxBatteryCapacity[item:getType()] then return true end
+	return false
 end
 
-function SolarModConvertBatteryReverse(items, result, player)
-	--this function makes sure charge and condition remain the same when converting a battery back for car use
-	for i=0, items:size()-1 do
-		if(items:get(i):getType() == "50AhBattery" or items:get(i):getType() == "75AhBattery" or items:get(i):getType() == "100AhBattery") then
-			local item = items:get(i)
-			result:setUsedDelta(item:getUsedDelta());
-			result:setCondition(item:getCondition() - (25 - (player:getPerkLevel(Perks.Electricity)*2)));	--make it worse to prevent misuse
-		end
-	end
-end
+--function SolarModConvertBattery(items, result, player)
+--	--this function makes sure charge and condition remain the same when converting a car battery for solar use
+--
+--	for i=0, items:size()-1 do
+--		if(items:get(i):getType() == "CarBattery1" or items:get(i):getType() == "CarBattery2" or items:get(i):getType() == "CarBattery3") then
+--			local item = items:get(i)
+--			result:setUsedDelta(item:getUsedDelta());
+--			result:setCondition(item:getCondition());
+--		end
+--	end
+--	player:getXp():AddXP(Perks.Electricity, 1);
+--end
+--
+--function SolarModConvertBatteryReverse(items, result, player)
+--	--this function makes sure charge and condition remain the same when converting a battery back for car use
+--	for i=0, items:size()-1 do
+--		if(items:get(i):getType() == "50AhBattery" or items:get(i):getType() == "75AhBattery" or items:get(i):getType() == "100AhBattery") then
+--			local item = items:get(i)
+--			result:setUsedDelta(item:getUsedDelta());
+--			result:setCondition(item:getCondition() - (25 - (player:getPerkLevel(Perks.Electricity)*2)));	--make it worse to prevent misuse
+--		end
+--	end
+--end
 
-function SolarModConvertBatteryDIY(items, result, player)
+function Recipe.OnCreate.SolarModConvertBatteryDIY(items, result, player)
 	local addUpDelta = 0
 	local addUpCond = 0
 	local tick = 0
@@ -56,19 +61,19 @@ function SolarModConvertBatteryDIY(items, result, player)
 	result:setCondition(addUpCond / tick)
 end
 
---ISARecipe.convertBatteries = { ["Base.CarBattery1"] = "50AhBattery", ["Base.CarBattery2"] = "100AhBattery", ["Base.CarBattery3"] = "75AhBattery" }
-ISARecipe.carBatteries = { ["Base.CarBattery1"] = 50, ["Base.CarBattery2"] = 100, ["Base.CarBattery3"] = 75 }
-function ISARecipe.GetItemTypes.wireCarBattery(scriptItems)
-	for type,_ in pairs(ISARecipe.carBatteries) do
+--Recipe.convertBatteries = { ["Base.CarBattery1"] = "50AhBattery", ["Base.CarBattery2"] = "100AhBattery", ["Base.CarBattery3"] = "75AhBattery" }
+def.carBatteries = { ["Base.CarBattery1"] = 50, ["Base.CarBattery2"] = 100, ["Base.CarBattery3"] = 75 }
+function Recipe.GetItemTypes.wireCarBattery(scriptItems)
+	for type,_ in pairs(def.carBatteries) do
 		scriptItems:add(getScriptManager():getItem(type))
 	end
 end
 
-function ISARecipe.wireCarBattery(items, result, player)
+function Recipe.OnCreate.ISA_wireCarBattery(items, result, player)
 	local carBattery = items:get(2)
 	local type = carBattery:getFullType()
 	local resultData = result:getModData()
-	resultData.ISAMaxCapacityAh = ISARecipe.carBatteries[type]
+	resultData.ISAMaxCapacityAh = def.carBatteries[type]
 	resultData.unwiredType = type
 	if carBattery:hasModData() then
 		resultData.unwiredData = carBattery:getModData()
@@ -78,7 +83,7 @@ function ISARecipe.wireCarBattery(items, result, player)
 	result:setCondition(carBattery:getCondition()-ZombRand((11-player:getPerkLevel(Perks.Electricity))/2))
 end
 
-function ISARecipe.unwireCarBattery(items, result, player)
+function Recipe.OnCreate.ISA_unwireCarBattery(items, result, player)
 	local wiredBattery = items:get(1)
 	local oldData = wiredBattery:getModData()
 	local type = oldData.unwiredType or "CarBattery1"
@@ -94,7 +99,7 @@ function ISARecipe.unwireCarBattery(items, result, player)
 	addOrDrop(player,item)
 end
 
-function ISARecipe.OnCreate.ReverseSolarPanel(items, result, player)
+function Recipe.OnCreate.ISA_ReverseSolarPanel(items, result, player)
 	local inventory = player:getInventory()
 
 	if items:get(1):getWorldSprite() == "solarmod_tileset_01_8" then
@@ -107,7 +112,9 @@ function ISARecipe.OnCreate.ReverseSolarPanel(items, result, player)
 	end
 end
 
-function ISARecipe.OnGiveXP.CreateBatteryBank(recipe, ingredients, result, player)
+function Recipe.OnGiveXP.ISA_CreateBatteryBank(recipe, ingredients, result, player)
 	player:getXp():AddXP(Perks.Electricity, 8)
 	player:getXp():AddXP(Perks.MetalWelding, 2)
 end
+
+return def

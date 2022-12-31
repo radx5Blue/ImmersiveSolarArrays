@@ -15,7 +15,7 @@ module ISA
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
-        OnCreate:SolarModConvertBatteryDIY,
+        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
     }
 
     recipe Make DIY Battery from 75Ah
@@ -28,7 +28,7 @@ module ISA
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
-        OnCreate:SolarModConvertBatteryDIY,
+        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
     }
 
     recipe Make DIY Battery from 100Ah
@@ -41,20 +41,20 @@ module ISA
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
-        OnCreate:SolarModConvertBatteryDIY,
+        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
     }
     recipe WireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
         Radio.ElectricWire,
-        destroy [ISARecipe.GetItemTypes.wireCarBattery],
+        destroy [Recipe.GetItemTypes.wireCarBattery],
         SkillRequired:Electricity=3,
         Result: WiredCarBattery,
         Time:30,
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
-        OnCreate:ISARecipe.wireCarBattery,
+        OnCreate:Recipe.OnCreate.ISA_wireCarBattery,
     }
     recipe UnwireCarBattery
     {
@@ -67,7 +67,7 @@ module ISA
         CanBeDoneFromFloor:true,
         NoBrokenItems:false,
         Category:Electrical,
-        OnCreate:ISARecipe.unwireCarBattery,
+        OnCreate:Recipe.OnCreate.ISA_unwireCarBattery,
     }
     recipe Make Solar Roof Tile
     {
@@ -117,7 +117,7 @@ module ISA
         Time:120,
         SkillRequired:Electricity=3,
         Result: SolarPanel,
-        OnCreate:ISARecipe.OnCreate.ReverseSolarPanel,
+        OnCreate:Recipe.OnCreate.ISA_ReverseSolarPanel,
         NeedToBeLearn:true,
         Category:Electrical,
     }
@@ -131,7 +131,7 @@ module ISA
 		Base.SmallSheetMetal = 5,
 		CanBeDoneFromFloor:false,
         Time:400,
-        OnGiveXP:ISARecipe.OnGiveXP.CreateBatteryBank,
+        OnGiveXP:Recipe.OnGiveXP.ISA_CreateBatteryBank,
 		SkillRequired:Electricity=4;MetalWelding=2,
 		Result: Moveables.solarmod_tileset_01_0,
 		NeedToBeLearn:true,

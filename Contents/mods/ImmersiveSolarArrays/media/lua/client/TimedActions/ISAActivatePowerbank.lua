@@ -1,8 +1,9 @@
 require "TimedActions/ISBaseTimedAction"
+local isa = require "ISAUtilities"
 
-ISAActivatePowerbank = ISBaseTimedAction:derive("ISAConnectPanel");
+local ActivatePowerbank = ISBaseTimedAction:derive("ISAActivatePowerbank")
 
-function ISAActivatePowerbank:new(character, powerbank, activate)
+function ActivatePowerbank:new(character, powerbank, activate)
     local o = {}
     setmetatable(o, self)
     self.__index = self
@@ -19,12 +20,12 @@ function ISAActivatePowerbank:new(character, powerbank, activate)
     return o
 end
 
-function ISAActivatePowerbank:isValid()
+function ActivatePowerbank:isValid()
     return self.isoPb:getObjectIndex() ~= -1
 end
 
-function ISAActivatePowerbank:perform()
-    local luapb = CPowerbankSystem.instance:getLuaObjectOnSquare(self.isoPb:getSquare())
+function ActivatePowerbank:perform()
+    local luapb = isa.PbSystem_client:getLuaObjectOnSquare(self.isoPb:getSquare())
     if self.activate then
         local level = self.character:getPerkLevel(Perks.Electricity)
         if level < 3 and ZombRand(6-2*level) ~= 0 then
@@ -41,7 +42,9 @@ function ISAActivatePowerbank:perform()
     end
 
     local pb =  { x = luapb.x, y = luapb.y, z = luapb.z }
-    CPowerbankSystem.instance:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
+    isa.PbSystem_client:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
 
     ISBaseTimedAction.perform(self)
 end
+
+isa.ActivatePowerbank = ActivatePowerbank

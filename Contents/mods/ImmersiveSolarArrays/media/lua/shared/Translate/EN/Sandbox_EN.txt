@@ -36,4 +36,9 @@ Sandbox_EN = {
     Sandbox_ISA_BatteryBankSpawn_option2 = "Very Rare",
     Sandbox_ISA_BatteryBankSpawn_option3 = "Rare",
     Sandbox_ISA_BatteryBankSpawn_option4 = "Uncommon",
+    Sandbox_ISA_StashMode = "Stash Houses",
+    Sandbox_ISA_StashMode_tooltip = "Choose mode for Stash Houses.<br>Change only on new game.",
+    Sandbox_ISA_StashMode_option1 = "Don't add Stash Houses",
+    Sandbox_ISA_StashMode_option2 = "Add Stash Houses",
+    Sandbox_ISA_StashMode_option3 = "Add + known from start",
 }

@@ -1,6 +1,7 @@
 require "TimedActions/ISBaseTimedAction"
+local isa = require "ISAUtilities"
 
-ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel");
+local ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel");
 
 function ISAConnectPanel:isValid()
     return self.panel:getObjectIndex() ~= -1 and self.panel:getSquare():isOutside()
@@ -20,12 +21,12 @@ function ISAConnectPanel:start()
     if not prevdelta then prevdelta = 0 elseif prevdelta > 90 then prevdelta = 90 end
     data["connectDelta"] = prevdelta
     self:setCurrentTime(self.maxTime * prevdelta / 100)
-    if data["powerbank"] then
-        local pb = CPowerbankSystem.instance:getIsoObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z) and data["powerbank"]
+    if data["pbLinked"] then
+        local pb = isa.PbSystem_client:getIsoObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z) and data["pbLinked"]
         if pb then
-            CPowerbankSystem.instance:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
+            isa.PbSystem_client:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
         end
-        data["powerbank"] = nil
+        data["pbLinked"] = nil
     end
     self.panel:transmitModData()
 end
@@ -60,8 +61,8 @@ function ISAConnectPanel:perform()
     if isopb then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
         local panel = { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }
-        CPowerbankSystem.instance:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
-        data.powerbank = pb
+        isa.PbSystem_client:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
+        data.pbLinked = pb
     end
     self.panel:transmitModData()
 
@@ -84,3 +85,5 @@ function ISAConnectPanel:new(character, panel, powerbank)
     end
     return o;
 end
+
+isa.ConnectPanel = ISAConnectPanel
