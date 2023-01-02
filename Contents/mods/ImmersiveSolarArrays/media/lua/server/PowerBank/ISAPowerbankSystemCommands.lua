@@ -1,5 +1,6 @@
 if isClient() then return end
 
+--local isa = require "ISAUtilities"
 local PbSystem = require "Powerbank/ISAPowerbankSystem_server"
 
 local Commands = {}
@@ -27,8 +28,13 @@ end
 function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
-        local square = getSquare(args.panel.x,args.panel.y,args.panel.z)
-        if square and square:isOutside() then
+        local x,y,z = args.panel.x,args.panel.y,args.panel.z
+        local square = getSquare(x,y,z)
+        if square and self.luaSystem:getValidPanelOnSquare(square) then
+            --for _,panel in ipairs(pb.panels) do
+            --    if x == panel.x and y == panel.y and z == panel.z then return end
+            --end
+
             table.insert(pb.panels,args.panel)
             pb.npanels = pb.npanels + 1
             pb:saveData(true)

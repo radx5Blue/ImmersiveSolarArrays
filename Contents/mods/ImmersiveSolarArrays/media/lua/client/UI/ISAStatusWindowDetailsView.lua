@@ -3,7 +3,7 @@ require "UI/ISAUI"
 local isa = require "ISAUtilities"
 
 --local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
-local defaultRGB, goodRGB, badRGB = isa.UI.defaultRGB, isa.UI.goodRGB, isa.UI.badRGB
+local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
 
 local ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
 
@@ -94,7 +94,7 @@ function ISAWindowDetails:render()
         textY = textY + fontHeightSm
     else
         self.devButton:setVisible(false)
-        self:drawText(getText("IGUI_ISAWindow_Details_CantSee"), textX, textY, badRGB.r, badRGB.g, badRGB.b, 1, UIFont.Medium)
+        self:drawText(getText("IGUI_ISAWindow_Details_CantSee"), textX, textY, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Medium)
         textY = textY + fontHeightMed
     end
 
@@ -116,11 +116,11 @@ end
 
 function ISAWindowDetails:drawLineB(isTrue,igui,y)
     if isTrue then
-        self:drawText(getText(igui), 10, y, goodRGB.r, goodRGB.g, goodRGB.b, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_Yes"), self.width-10, y, goodRGB.r, goodRGB.g, goodRGB.b, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_Yes"), self.width-10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
     else
-        self:drawText(getText(igui), 10, y, badRGB.r, badRGB.g, badRGB.b, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_No"), self.width-10, y, badRGB.r, badRGB.g, badRGB.b, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_No"), self.width-10, y, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Small)
     end
 end
 

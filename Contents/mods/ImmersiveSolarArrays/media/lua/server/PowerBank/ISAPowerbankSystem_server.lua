@@ -1,20 +1,24 @@
 if isClient() then return end
 
 require "Map/SGlobalObjectSystem"
-local isa = require("ISAUtilities")
-local PbSystem_shared = require "ISAPowerbankSystem_shared"
+local isa = require "ISAUtilities"
 local Powerbank = require "Powerbank/ISAPowerbank_server"
 
 local PbSystem = SGlobalObjectSystem:derive("ISAPowerbankSystem_server")
+require("ISAPowerbankSystem_shared"):addCommon(PbSystem)
 
 function PbSystem:new()
-    return SGlobalObjectSystem.new(self, "isa_powerbank")
+    local o = SGlobalObjectSystem.new(self, "isa_powerbank")
+    isa.PbSystem_server = o
+    return o
 end
 
+PbSystem.savedObjModData = {'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
 function PbSystem:initSystem()
     SGlobalObjectSystem.initSystem(self)
-    self.system:setModDataKeys({})
-    self.system:setObjectModDataKeys({'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"})
+    --self.system:setModDataKeys(nil)
+    --self.system:setModDataKeys({})
+    self.system:setObjectModDataKeys(self.savedObjModData)
 end
 
 function PbSystem:newLuaObject(globalObject)
@@ -213,13 +217,9 @@ function PbSystem.sandbox()
     end
 end
 
-PbSystem_shared:addCommon(PbSystem)
 SGlobalObjectSystem.RegisterSystemClass(PbSystem)
 
 Events.OnInitGlobalModData.Add(PbSystem.sandbox)
 Events.EveryDays.Add(PbSystem.EveryDays)
-
-isa.PbSystem_server = PbSystem
-
 
 return PbSystem

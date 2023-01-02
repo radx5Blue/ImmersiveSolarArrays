@@ -9,7 +9,7 @@ util.maxBatteryCapacity = {
     ["DIYBattery"] = 200,
 }
 
-local function setDIYBatterySandboxValua()
+local function setDIYBatterySandboxValue()
     util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity or util.maxBatteryCapacity["DIYBattery"]
 end
 
@@ -73,6 +73,6 @@ function util.stringXYZ(obj)
     return obj:getX() .. "," .. obj:getY() .. "," .. obj:getZ()
 end
 
-Events.OnInitGlobalModData.Add(setDIYBatterySandboxValua)
+Events.OnInitGlobalModData.Add(setDIYBatterySandboxValue)
 
 return util

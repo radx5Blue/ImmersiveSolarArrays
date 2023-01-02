@@ -30,10 +30,11 @@ function SPowerbank:stateFromIsoObject(isoObject)
     if self.luaSystem.isValidModData(isoObject:getModData()) then
         self:noise("Valid Data")
         self:fromModData(isoObject:getModData())
+    else
+        self:handleBatteries(isoObject:getContainer())
+        self:autoConnectToGenerator()
     end
 
-    self:handleBatteries(isoObject:getContainer())
-    self:autoConnectToGenerator()
     self:createGenerator() --if generator...
     self:loadGenerator()
     self:updateDrain()
@@ -96,14 +97,14 @@ function SPowerbank:shouldDrain(isoPb)
     return true
 end
 
+SPowerbank.fuelToSolarRate = 800
 function SPowerbank:getDrainVanilla(square)
-    local scale = 800
     local gen = square:getGenerator()
     if gen:isActivated() then
         gen:setSurroundingElectricity()
-        return gen:getTotalPowerUsing() * scale
+        return gen:getTotalPowerUsing() * self.fuelToSolarRate
     else
-        return SPowerbank.getTotalWhenoff(gen) * scale
+        return SPowerbank.getTotalWhenoff(gen) * self.fuelToSolarRate
     end
 end
 
@@ -126,109 +127,169 @@ function SPowerbank:updateDrain()
 end
 
 function SPowerbank:chargeBatteries(container,charge)
-    --local max = ISAUtilities.maxBatteryCapacity
     local items = container:getItems()
-    for i=1,items:size() do
-        local item = items:get(i-1)
-        --if max[item:getType()] then
-            item:setUsedDelta(charge)
-        --end
+    for i=0,items:size()-1 do
+        local item = items:get(i)
+        item:setUsedDelta(charge)
     end
 end
+--function SPowerbank:chargeBatteries(container,charge)
+--    --local max = ISAUtilities.maxBatteryCapacity
+--    local items = container:getItems()
+--    for i=0,items:size()-1 do
+--        local item = items:get(i)
+--        --if max[item:getType()] then
+--            item:setUsedDelta(charge)
+--        --end
+--    end
+--end
 
--- could be better to have a standard value * sandbox for lost condition, rather than random, reminder condition has only integers
-local degradeOpt = 1
+SPowerbank.batteryDegrade = {
+    ["50AhBattery"] = 10,
+    ["75AhBattery"] = 8,
+    ["100AhBattery"] = 6,
+    ["WiredCarBattery"] = 7, --ModData
+    ["DIYBattery"] = 0.125,
+    ["DeepCycleBattery"] = 0.033,
+    ["SuperBattery"] = 0.033,
+}
 function SPowerbank:degradeBatteries(container)
-    local ISABatteryDegradeChance = sandbox.batteryDegradeChance
-    degradeOpt = ISABatteryDegradeChance / 100
-    if ISABatteryDegradeChance == 0 then return end
+    if sandbox.batteryDegradeChance == 0 then return end
 
-    local ZombRand = ZombRand
+    local ZombRand, math = ZombRand, math
+    local sandboxMod = sandbox.batteryDegradeChance / 100
 
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
-        --local condition = item:getCondition()
-        --if condition > 0 then
-            local type = item:getType()
-            if type ~= "WiredCarBattery" then
-                if ZombRand(100) < ISABatteryDegradeChance then
-                    if type == "50AhBattery" then
-                        item:setCondition(item:getCondition() - ZombRand(1, 10))
-                        --breaks in 20 days
-                    end
-                    if type == "75AhBattery" then
-                        item:setCondition(item:getCondition() - ZombRand(1, 8))
-                        --breaks in 25 days
-                    end
-                    if type == "100AhBattery" then
-                        item:setCondition(item:getCondition() - ZombRand(2, 6))
-                        --breaks in 33 days
-                    end
-                    if type == "DeepCycleBattery" then
-                        local chance = ZombRand(1, 33)
-                        if chance == 1 then
-                            item:setCondition(item:getCondition() - 1)
-                        end
-                        --breaks in 9+ years
-                    end
-                    if type == "SuperBattery" then
-                        local chance = ZombRand(1, 33)
-                        if chance == 1 then
-                            item:setCondition(item:getCondition() - 1)
-                        end
-                        --breaks in 9+ years
-                    end
-                    if type == "DIYBattery" then
-                        local chance = ZombRand(1, 8)
-                        if chance == 1 then
-                            item:setCondition(item:getCondition() - 1)
-                        end
-                        --breaks in 2 years
-                    end
-                end
-            else
-                local degrade = 3.333
-                item:setCondition(item:getCondition() - degrade * degradeOpt * ZombRand(8,12)/10) --fixme only int
+        local degradeVal = item:getModData()["ISA_degradeVal"] or self.batteryDegrade[item:getType()]
+        if degradeVal then
+            degradeVal = degradeVal * sandboxMod
+            -- 1.2 gives ~20% 2, 0.8 gives ~20% 0 // using 1 always returns 1 in both formulas
+            local conditionMod = degradeVal > 1 and math.floor(ZombRand(100,(degradeVal + 1) * 100) / 100) or degradeVal == 1 and 1 or math.floor(ZombRand(100 / degradeVal) / 100 ) == 0 and 1 or 0
+            if conditionMod > 0 then
+                item:setCondition(item:getCondition() - conditionMod)
             end
-        --end
+        end
     end
 end
 
+-- could be better to have a standard value * sandbox for lost condition, rather than random, reminder condition is integer value
+--function SPowerbank:degradeBatteries(container)
+--    local ISABatteryDegradeChance = sandbox.batteryDegradeChance
+--    degradeOpt = ISABatteryDegradeChance / 100
+--    if ISABatteryDegradeChance == 0 then return end
+--
+--    local ZombRand = ZombRand
+--
+--    local items = container:getItems()
+--    for i=0,items:size()-1 do
+--        local item = items:get(i)
+--        --local condition = item:getCondition()
+--        --if condition > 0 then
+--            local type = item:getType()
+--            if type ~= "WiredCarBattery" then
+--                if ZombRand(100) < ISABatteryDegradeChance then
+--                    if type == "50AhBattery" then
+--                        item:setCondition(item:getCondition() - ZombRand(1, 10))
+--                        --breaks in 20 days
+--                    end
+--                    if type == "75AhBattery" then
+--                        item:setCondition(item:getCondition() - ZombRand(1, 8))
+--                        --breaks in 25 days
+--                    end
+--                    if type == "100AhBattery" then
+--                        item:setCondition(item:getCondition() - ZombRand(2, 6))
+--                        --breaks in 33 days
+--                    end
+--                    if type == "DeepCycleBattery" then
+--                        local chance = ZombRand(1, 33)
+--                        if chance == 1 then
+--                            item:setCondition(item:getCondition() - 1)
+--                        end
+--                        --breaks in 9+ years
+--                    end
+--                    if type == "SuperBattery" then
+--                        local chance = ZombRand(1, 33)
+--                        if chance == 1 then
+--                            item:setCondition(item:getCondition() - 1)
+--                        end
+--                        --breaks in 9+ years
+--                    end
+--                    if type == "DIYBattery" then
+--                        local chance = ZombRand(1, 8)
+--                        if chance == 1 then
+--                            item:setCondition(item:getCondition() - 1)
+--                        end
+--                        --breaks in 2 years
+--                    end
+--                end
+--            else
+--                local degrade = 3.333
+--                item:setCondition(item:getCondition() - degrade * degradeOpt * ZombRand(8,12)/10) --fixme only int
+--            end
+--        --end
+--    end
+--end
+
 function SPowerbank:handleBatteries(container)
+    local maxCap = isa.maxBatteryCapacity
+
     local batteries = 0
     local capacity = 0
     local charge = 0
-    local maxCap = isa.maxBatteryCapacity
-    for i=0,container:getItems():size()-1 do
-        local item = container:getItems():get(i)
-        --local type = item:getType()
-        local maxCapType = (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCap[item:getType()])
-        if maxCapType and not item:isBroken() then
-            batteries = batteries + 1
-            local cap = maxCapType * (1 - math.pow((1 - (item:getCondition()/100)),6))
-            capacity = capacity + cap
-            charge = charge + cap * item:getUsedDelta()
+
+    local items = container:getItems()
+    for i=0,items:size()-1 do
+        local item = items:get(i)
+        local maxCapType = item:getModData().ISAMaxCapacityAh or maxCap[item:getType()]
+        --if maxCapType and not item:isBroken() then
+        if maxCapType then
+            local condition = item:getCondition()
+            if condition > 0 then
+                batteries = batteries + 1
+                local cap = maxCapType * (1 - math.pow((1 - (condition/100)),6))
+                capacity = capacity + cap
+                charge = charge + cap * item:getUsedDelta()
+            end
         end
     end
+
     self.batteries = batteries
     self.maxcapacity = capacity
     self.charge = charge
 end
 
+--if not square then check chunk is loaded?
 function SPowerbank:checkPanels()
+    local getSquare = getSquare
+
+    local dup = {}
     for i = #self.panels, 1, -1 do
         local panel = self.panels[i]
         local square = getSquare(panel.x, panel.y, panel.z)
-        if square and (not square:isOutside() or not isa.WorldUtil.findTypeOnSquare(square,"Panel")) then
+        if square and (not square:isOutside() or not isa.WorldUtil.findTypeOnSquare(square,"Panel") or dup[square]) then
             table.remove(self.panels,i)
         end
+        dup[square] = true
     end
+    self.npanels = #self.panels
 end
+
+--function SPowerbank:checkPanels()
+--    for i = #self.panels, 1, -1 do
+--        local panel = self.panels[i]
+--        local square = getSquare(panel.x, panel.y, panel.z)
+--        if square and (not square:isOutside() or not isa.WorldUtil.findTypeOnSquare(square,"Panel")) then
+--            table.remove(self.panels,i)
+--        end
+--    end
+--end
 
 function SPowerbank:getSprite(updatedCH)
     if self.batteries == 0 then return nil end
     if updatedCH == nil then updatedCH = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
+
     if updatedCH < 0.10 then
         --show 0 charge
         if self.batteries < 5 then
@@ -385,8 +446,8 @@ end
 
 --todo remove this fix for prev errors
 function SPowerbank:fixIndex()
-    if self.doneFix then return end
-    self.doneFix = true
+    if self.doneFix_fixIndex then return end
+    self.doneFix_fixIndex = true
 
     local square = self:getSquare()
     local bank,hasGen
@@ -469,6 +530,11 @@ function SPowerbank:getConGenerator()
         local square = getSquare(self.conGenerator.x,self.conGenerator.y,self.conGenerator.z)
         if square then
             local generator = square:getGenerator()
+
+            if not generator then
+                self.conGenerator = false
+            end
+
             return generator, square
         end
     end
@@ -476,26 +542,23 @@ function SPowerbank:getConGenerator()
 end
 
 function SPowerbank:updateConGenerator()
-    if self.lastHour == math.floor(getGameTime():getWorldAgeHours()) then return end
+    local currentHour = math.floor(getGameTime():getWorldAgeHours())
+    if self.lastHour == currentHour then return end
     local conGenerator,square = self:getConGenerator()
-    if square then
-        if conGenerator then
+    if conGenerator then
 
-            conGenerator:update()
+        conGenerator:update()
 
-            if self.on and isa.WorldUtil.findOnSquare(square, "solarmod_tileset_01_15") then
-                local minfailsafe = self.drain
-                if conGenerator:isActivated() then
-                    if self.charge > minfailsafe then conGenerator:setActivated(false)end
-                else
-                    if self.charge < minfailsafe and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true) end
-                end
+        if self.on and isa.WorldUtil.findOnSquare(square, "solarmod_tileset_01_15") then
+            local minfailsafe = self.drain
+            if conGenerator:isActivated() then
+                if self.charge > minfailsafe then conGenerator:setActivated(false)end
+            else
+                if self.charge < minfailsafe and conGenerator:getFuel() > 0 and conGenerator:getCondition() > 20 then conGenerator:setActivated(true) end
             end
-            self.lastHour = math.floor(getGameTime():getWorldAgeHours())
-            self.conGenerator.ison = conGenerator:isActivated()
-        else
-            self.conGenerator = false
         end
+        self.lastHour = currentHour
+        self.conGenerator.ison = conGenerator:isActivated()
     end
 end
 

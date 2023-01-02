@@ -1,2 +1,2 @@
--- removes generator early in OnPreFillWorldObjectContextMenu
+-- remove generator early in OnPreFillWorldObjectContextMenu
 require "UI/ISAUI"

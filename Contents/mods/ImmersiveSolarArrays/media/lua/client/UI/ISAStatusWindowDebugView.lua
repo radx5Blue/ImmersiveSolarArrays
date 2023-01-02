@@ -2,7 +2,7 @@ require "ISUI/ISPanelJoypad"
 require "UI/ISAUI"
 local isa = require "ISAUtilities"
 
-local badRGB = isa.UI.badRGB
+local rgbBad = isa.UI.rgbBad
 
 local ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")
 
@@ -62,9 +62,9 @@ function ISAWindowDebug:prerender()
             local generator = square and square:getGenerator()
             self.plugBackupButton.generator = generator
             self.plugBackupButton.enable = false
-            if not generator then self.plugBackupButton.tooltip = badRGB.rich .. "No generator on player's square"
-            elseif not generator:isConnected() then self.plugBackupButton.tooltip = badRGB.rich .. "Generator is not connected"
-            elseif isa.WorldUtil.findTypeOnSquare(square,"Powerbank") then self.plugBackupButton.tooltip = badRGB.rich .. "This is a Powerbank"
+            if not generator then self.plugBackupButton.tooltip = rgbBad.rich .. "No generator on player's square"
+            elseif not generator:isConnected() then self.plugBackupButton.tooltip = rgbBad.rich .. "Generator is not connected"
+            elseif isa.WorldUtil.findTypeOnSquare(square,"Powerbank") then self.plugBackupButton.tooltip = rgbBad.rich .. "This is a Powerbank"
             else
                 self.plugBackupButton.enable = true
                 self.plugBackupButton.tooltip = "Warning: No area check"

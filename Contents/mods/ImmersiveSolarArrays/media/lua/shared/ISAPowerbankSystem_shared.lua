@@ -50,6 +50,10 @@ function PbSystem.common:getValidBackupOnSquare(square)
     return generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
 end
 
+function PbSystem.common:getValidPanelOnSquare(square)
+    return square:isOutside() and isa.WorldUtil.findTypeOnSquare(square,"Panel")
+end
+
 --function PbSystem.common:isValidBackup(generator,square)
 --    --return generator and instanceof(generator,"IsoGenerator") and generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
 --    return generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")

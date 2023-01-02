@@ -100,9 +100,20 @@ option ISA.BatteryBankSpawn
 }
 option ISA.StashMode
 {
+	page = ISA,
+	translation = ISA_StashMode,
+
 	type = enum,
 	numValues = 3,
 	default = 2,
+}
+option ISA.ConnectPanelMin
+{
 	page = ISA,
-	translation = ISA_StashMode,
+	translation = ISA_ConnectPanelMin,
+
+	type = integer,
+	min = 1,
+	max = 1000,
+	default = 120,
 }

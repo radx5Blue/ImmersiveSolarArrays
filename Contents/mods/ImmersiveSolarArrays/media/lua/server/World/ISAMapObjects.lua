@@ -10,7 +10,7 @@ local function LoadPowerbank(isoObject)
         local gen = isoObject:getSquare():getGenerator()
         if gen then gen:getCell():addToProcessIsoObjectRemove(gen) end
     else
-        isa.PbSystem_server.instance:loadIsoObject(isoObject)
+        isa.PbSystem_server:loadIsoObject(isoObject)
     end
 end
 MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
@@ -18,7 +18,7 @@ MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
 if not isClient then
     local function OnObjectAboutToBeRemoved(isoObject)
         if isa.WorldUtil.objIsType(isoObject,"Panel") then
-            isa.PbSystem_server.instance:removePanel(isoObject)
+            isa.PbSystem_server:removePanel(isoObject)
         end
     end
     Events.OnObjectAboutToBeRemoved.Add(OnObjectAboutToBeRemoved)
@@ -59,8 +59,8 @@ end
 local prev_AcceptItemFunction
 local function debugAcceptItemFunction(index)
     index = index or 1
-    if not isa.PbSystem_client.instance or isa.PbSystem_client.instance:getLuaObjectCount() < 1 then return end
-    local pb = isa.PbSystem_client.instance:getLuaObjectByIndex(index)
+    if not isa.PbSystem_client or isa.PbSystem_client:getLuaObjectCount() < index then return end
+    local pb = isa.PbSystem_client:getLuaObjectByIndex(index)
     local isoObject = pb and pb:getIsoObject()
     if isoObject then
         local AcceptItemFunction = isoObject:getContainer():getAcceptItemFunction()

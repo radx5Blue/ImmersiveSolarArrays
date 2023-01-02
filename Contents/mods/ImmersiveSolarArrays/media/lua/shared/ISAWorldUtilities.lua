@@ -43,7 +43,7 @@ function WorldUtil.getLuaObjects(square,radius,level,distance)
                     if not isServer() then
                         pb = isa.PbSystem_client:getLuaObjectOnSquare(isquare)
                     else
-                        pb = isa.PbSystem_server.instance:getLuaObjectOnSquare(isquare)
+                        pb = isa.PbSystem_server:getLuaObjectOnSquare(isquare)
                     end
                 end
                 if pb then
@@ -57,18 +57,20 @@ end
 
 function WorldUtil.findOnSquare(square,sprite)
     local special = square:getSpecialObjects()
-    for i = 1, special:size() do
-        if special:get(i-1):getTextureName() == sprite then
-            return special:get(i-1)
+    for i = 0, special:size()-1 do
+        local obj = special:get(i)
+        if obj:getTextureName() == sprite then
+            return obj
         end
     end
 end
 
 function WorldUtil.findTypeOnSquare(square,type)
     local special = square:getSpecialObjects()
-    for i = 1, special:size() do
-        if WorldUtil.Types[special:get(i-1):getTextureName()] == type then
-            return special:get(i-1)
+    for i = 0, special:size()-1 do
+        local obj = special:get(i)
+        if WorldUtil.Types[obj:getTextureName()] == type then
+            return obj
         end
     end
 end

@@ -6,45 +6,45 @@ local UI = {}
 local _powerbank
 local maxCapacityTable = util.maxBatteryCapacity
 
---todo remove
-local rGood, gGood, bGood = 0,1,0
-local rBad, gBad, bBad = 0,1,0
-local richGood, richBad, richNeutral = " <RGB:0,1,0> ", " <RGB:1,0,0> ", " <RGB:1,1,1> "
+--local rGood, gGood, bGood = 0,1,0
+--local rBad, gBad, bBad = 0,1,0
+--local richGood, richBad, richNeutral = " <RGB:0,1,0> ", " <RGB:1,0,0> ", " <RGB:1,1,1> "
 --ver41.78+
-if getCore().getGoodHighlitedColor then
-	local good = getCore():getGoodHighlitedColor()
-	local bad = getCore():getBadHighlitedColor()
-	rGood, gGood, bGood, rBad, gBad, bBad = good:getR(), good:getG(), good:getB(), bad:getR(), bad:getG(), bad:getB()
-	richGood, richBad = string.format(" <RGB:%.2f,%.2f,%.2f> ",rGood, gGood, bGood), string.format(" <RGB:%.2f,%.2f,%.2f> ",rBad, gBad, bBad)
-end
+--if getCore().getGoodHighlitedColor then
+--	local good = getCore():getGoodHighlitedColor()
+--	local bad = getCore():getBadHighlitedColor()
+--	rGood, gGood, bGood, rBad, gBad, bBad = good:getR(), good:getG(), good:getB(), bad:getR(), bad:getG(), bad:getB()
+--	richGood, richBad = string.format(" <RGB:%.2f,%.2f,%.2f> ",rGood, gGood, bGood), string.format(" <RGB:%.2f,%.2f,%.2f> ",rBad, gBad, bBad)
+--end
 
-local defaultRGB, goodRGB, badRGB = { r = 1, g = 1, b = 1, rich = " <RGB:1,1,1> " }, {}, {}
-UI.defaultRGB, UI.goodRGB, UI.badRGB = defaultRGB, goodRGB, badRGB
+--todo move to utils, no only client
+local rgbDefault, rgbGood, rgbBad = { r = 1, g = 1, b = 1, rich = " <RGB:1,1,1> " }, {}, {}
+UI.rgbDefault, UI.rgbGood, UI.rgbBad = rgbDefault, rgbGood, rgbBad
 
 function UI.updateColours()
 	local core = getCore()
 	local good = core:getGoodHighlitedColor()
-	goodRGB.ColorInfo = good
-	goodRGB.r, goodRGB.g, goodRGB.b = good:getR(), good:getG(), good:getB()
-	goodRGB.rich = string.format(" <RGB:%.2f,%.2f,%.2f> ", goodRGB.r, goodRGB.g, goodRGB.b)
+	rgbGood.ColorInfo = good
+	rgbGood.r, rgbGood.g, rgbGood.b = good:getR(), good:getG(), good:getB()
+	rgbGood.rich = string.format(" <RGB:%.2f,%.2f,%.2f> ", rgbGood.r, rgbGood.g, rgbGood.b)
 	local bad = core:getBadHighlitedColor()
-	badRGB.ColorInfo = bad
-	badRGB.r, badRGB.g, badRGB.b = bad:getR(), bad:getG(), bad:getB()
-	badRGB.rich = string.format(" <RGB:%.2f,%.2f,%.2f> ", badRGB.r, badRGB.g, badRGB.b)
+	rgbBad.ColorInfo = bad
+	rgbBad.r, rgbBad.g, rgbBad.b = bad:getR(), bad:getG(), bad:getB()
+	rgbBad.rich = string.format(" <RGB:%.2f,%.2f,%.2f> ", rgbBad.r, rgbBad.g, rgbBad.b)
 end
 UI.updateColours()
 
-function UI.getRGB()
-	return rGood, gGood, bGood, rBad, gBad, bBad
-end
+--function UI.getRGB()
+--	return rGood, gGood, bGood, rBad, gBad, bBad
+--end
 
-function UI.getRGBRich()
-	return richGood, richBad, richNeutral
-end
+--function UI.getRGBRich()
+--	return richGood, richBad, richNeutral
+--end
 
-function UI.getRGBTables()
-	return UI.defaultRGB, UI.goodRGB, UI.badRGB
-end
+--function UI.getRGBTables()
+--	return UI.rgbDefault, UI.rgbGood, UI.rgbBad
+--end
 
 function UI.onConnectPanel(player,panel,powerbank)
 	local character = getSpecificPlayer(player)
@@ -119,15 +119,15 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 					local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), player, UI.onConnectPanel, panel, opt[1])
 					local tooltip = ISWorldObjectContextMenu.addToolTip()
 					tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
-					tooltip.description = opt[4] and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richBad .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
-					tooltip.description = tooltip.description .. (richNeutral .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
+					tooltip.description = opt[4] and rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or rgbBad.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+					tooltip.description = tooltip.description .. (rgbDefault.rich .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
 					option.toolTip = tooltip;
 				end
 			else
 				if test then return ISWorldObjectContextMenu.setTest() end
 				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
-				tooltip.description = richBad .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
+				tooltip.description = rgbBad.rich .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
 				tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
 				option.toolTip = tooltip;
 
@@ -172,7 +172,7 @@ function UI.ISInventoryPane_drawItemDetails_patch(drawItemDetails)
 		else
 			local hdrHgt = self.headerHgt
 			local top = hdrHgt + y * self.itemHgt + yoff
-			badRGB.ColorInfo:interp(goodRGB.ColorInfo, item:getCondition()/100, NewColorInfo)
+			rgbBad.ColorInfo:interp(rgbGood.ColorInfo, item:getCondition()/100, NewColorInfo)
 			local fgBar = {r=NewColorInfo:getR(),g=NewColorInfo:getG(),b=NewColorInfo:getB(),a=1}
 			local fgText = red and {r=0.0, g=0.0, b=0.5, a=0.7} or {r=0.6, g=0.8, b=0.5, a=0.6}
 			self:drawTextAndProgressBar(getText("Tooltip_weapon_Condition") .. ":", item:getCondition()/100, xoff, top, fgText, fgBar)

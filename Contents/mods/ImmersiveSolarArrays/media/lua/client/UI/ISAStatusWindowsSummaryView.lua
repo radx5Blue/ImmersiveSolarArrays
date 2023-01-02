@@ -1,6 +1,5 @@
 require "ISUI/ISPanelJoypad"
 local isa = require "ISAUtilities"
---local defaultRGB, goodRGB, badRGB = isa.UI.defaultRGB, isa.UI.goodRGB, isa.UI.badRGB
 
 local ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
 

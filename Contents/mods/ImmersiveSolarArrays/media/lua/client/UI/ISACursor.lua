@@ -1,7 +1,7 @@
 local isa = require "ISAUtilities"
 require "UI/ISAUI"
 
-local defaultRGB, goodRGB, badRGB = isa.UI.defaultRGB, isa.UI.goodRGB, isa.UI.badRGB
+local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
 
 --local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
 --local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
@@ -126,7 +126,7 @@ function ISAConnectPanelCursor:render(x,y,z,...)
         self.floorSprite:LoadFramesNoDirPageSimple('media/ui/FloorTileCursor.png')
     end
 
-    local c = self.valid and goodRGB or badRGB
+    local c = self.valid and rgbGood or rgbBad
     self.floorSprite:RenderGhostTileColor(x, y, z, c.r, c.g, c.b, 0.8)
     --if self.valid then
     --    self.floorSprite:RenderGhostTileColor(x, y, z, rGood, gGood, bGood, 0.8)
@@ -148,9 +148,9 @@ function ISAConnectPanelCursor:renderTooltip()
         self.tooltip = tooltip
     end
     if not self.panel then
-        tooltip.description = badRGB.rich .. getText("Tooltip_ISA_NoPanels")
+        tooltip.description = rgbBad.rich .. getText("Tooltip_ISA_NoPanels")
     else
-        tooltip.description = self.connected and goodRGB.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or defaultRGB.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+        tooltip.description = self.connected and rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or rgbDefault.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
         if not self.valid then tooltip.description = string.format("%s\n%s%s",tooltip.description,richBad,getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")) end
     end
 end

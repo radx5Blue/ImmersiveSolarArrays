@@ -1,10 +1,10 @@
 require "Map/CGlobalObjectSystem"
 local util = require "ISAUtilities"
 local isa = util
-local PbSystem_shared = require "ISAPowerbankSystem_shared"
 local Powerbank = require "Powerbank/ISAPowerbank_client"
 
 local pbSystem = CGlobalObjectSystem:derive("ISAPowerbankSystem_client")
+require("ISAPowerbankSystem_shared"):addCommon(pbSystem)
 
 function pbSystem:new()
     local o = CGlobalObjectSystem.new(self, "isa_powerbank")
@@ -296,10 +296,8 @@ function pbSystem.OnInitGlobalModData()
     Events.EveryDays.Add(pbSystem.resetAcceptItemFunction.addItems) --added after server function with sendObjectChange("containers") so SP need only one check
 end
 
-PbSystem_shared:addCommon(pbSystem)
 CGlobalObjectSystem.RegisterSystemClass(pbSystem)
 
 Events.OnInitGlobalModData.Add(pbSystem.OnInitGlobalModData)
 
-CPowerbankSystem = pbSystem
-util.PbSystem_client = pbSystem
+return pbSystem
