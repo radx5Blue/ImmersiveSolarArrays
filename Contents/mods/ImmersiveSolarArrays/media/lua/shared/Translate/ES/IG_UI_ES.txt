@@ -4,7 +4,7 @@ IGUI_ES = {
 
     IGUI_ISAWindowsStatus_Title = "Estado del Banco de Baterías",
 
-    IGUI_ISAWindowsSumaryTab_InfoText = " <CENTRE> <SIZE:medium> Panel del Banco de Baterías <LINE> <LINE> <LEFT> Pesta?a Resumen <LINE> <SIZE:small> Muestra un resumen visual del Banco de Baterías, los Paneles Solares y el estado de las Baterías. <LINE> <SIZE:medium> Pesta?a Detalles <LINE> <SIZE:small> Muestra información técnica acerca del Banco de Baterías y su estado. <LINE> <SIZE:medium> Pesta?a Depurar <LINE> <SIZE:small> Contiene botones para solucionar problemas con el Banco de Baterías. ",
+    IGUI_ISAWindowsSumaryTab_InfoText = " <CENTRE> <SIZE:medium> Panel del Banco de Baterías <LINE> <LINE> <LEFT> Pestaña Resumen <LINE> <SIZE:small> Muestra un resumen visual del Banco de Baterías, los Paneles Solares y el estado de las Baterías. <LINE> <SIZE:medium> Pestaña Detalles <LINE> <SIZE:small> Muestra información técnica acerca del Banco de Baterías y su estado. <LINE> <SIZE:medium> Pestaña Depurar <LINE> <SIZE:small> Contiene botones para solucionar problemas con el Banco de Baterías. ",
     IGUI_ISAWindowsSumaryTab_TabTitle = "Resumen"
     IGUI_ISAWindowsSumaryTab_PanelsStatus = "Estado de los Paneles",
     IGUI_ISAWindowsSumaryTab_BatteryLevel = "Nivel de las Baterías",
