@@ -30,7 +30,7 @@ function Commands.connectPanel(player,args)
     if pb then
         local x,y,z = args.panel.x,args.panel.y,args.panel.z
         local square = getSquare(x,y,z)
-        if square and self.luaSystem:getValidPanelOnSquare(square) then
+        if square and pb.luaSystem:getValidPanelOnSquare(square) then
             --for _,panel in ipairs(pb.panels) do
             --    if x == panel.x and y == panel.y and z == panel.z then return end
             --end

@@ -153,22 +153,27 @@ SPowerbank.batteryDegrade = {
     ["DeepCycleBattery"] = 0.033,
     ["SuperBattery"] = 0.033,
 }
+
+--condition is an int
 function SPowerbank:degradeBatteries(container)
     if sandbox.batteryDegradeChance == 0 then return end
 
     local ZombRand, math = ZombRand, math
-    local sandboxMod = sandbox.batteryDegradeChance / 100
+    local mod = sandbox.batteryDegradeChance * ZombRand(8,13) / 1000
 
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
         local degradeVal = item:getModData()["ISA_degradeVal"] or self.batteryDegrade[item:getType()]
         if degradeVal then
-            degradeVal = degradeVal * sandboxMod
-            -- 1.2 gives ~20% 2, 0.8 gives ~20% 0 // using 1 always returns 1 in both formulas
-            local conditionMod = degradeVal > 1 and math.floor(ZombRand(100,(degradeVal + 1) * 100) / 100) or degradeVal == 1 and 1 or math.floor(ZombRand(100 / degradeVal) / 100 ) == 0 and 1 or 0
-            if conditionMod > 0 then
-                item:setCondition(item:getCondition() - conditionMod)
+            -- average of 1M rolls / 10: 5.5 / 3: 2 / 1.6: 1.37364 / 0.9: 0.90082 / 0.033: 0.03280
+            degradeVal = degradeVal * mod
+            degradeVal = degradeVal > 1 and 1 + math.floor(ZombRand(degradeVal * 100) / 100) or math.floor(ZombRand(100 / degradeVal) / 100 ) == 0 and 1 or 0
+            --degradeVal = degradeVal > 1 and math.floor(ZombRand(100,(degradeVal + 1) * 100) / 100) or degradeVal == 1 and 1 or math.floor(ZombRand(100 / degradeVal) / 100 ) == 0 and 1 or 0
+            --degradeVal = degradeVal * sandbox.batteryDegradeChance
+            --local conditionMod = degradeVal > 100 and math.floor(ZombRand(100,degradeVal + 100) / 100) or degradeVal == 100 and 1 or math.floor(ZombRand(10000 / degradeVal) / 100 ) == 0 and 1 or 0
+            if degradeVal > 0 then
+                item:setCondition(item:getCondition() - degradeVal)
             end
         end
     end
@@ -446,43 +451,25 @@ end
 
 --todo remove this fix for prev errors
 function SPowerbank:fixIndex()
-    if self.doneFix_fixIndex then return end
-    self.doneFix_fixIndex = true
+    if self.fixIndex_done then return end
+    self.fixIndex_done = true
 
     local square = self:getSquare()
-    local bank,hasGen
     local special = square:getSpecialObjects()
+    local bank,hasGen
     local i = 0
     while i < special:size() do
         local obj = special:get(i)
-        if instanceof(obj,"Isogenerator") then
-            if not bank or hasGen then
+        if not bank and obj:getTextureName() == "solarmod_tileset_01_0" then
+            bank = true
+        elseif instanceof(obj,"IsoGenerator") then
+            if bank and not hasGen then
+                hasGen = true
+            else
                 obj:remove()
                 i=i-1
-            else
-                hasGen = true
             end
-        elseif not bank and obj:getTextureName() == "solarmod_tileset_01_0" then
-            bank = true
         end
-
-        --if not bank then
-        --    if obj:getSprite() and obj:getSprite():getName() == "solarmod_tileset_01_0" then
-        --        bank = true
-        --    elseif instanceof(obj, "IsoGenerator") then
-        --        obj:remove()
-        --        i=i-1
-        --    end
-        --else
-        --    if instanceof(obj, "IsoGenerator") then
-        --        if hasGen then
-        --            obj:remove()
-        --            i=i-1
-        --        else
-        --            hasGen = true
-        --        end
-        --    end
-        --end
         i = i +1
     end
     if self.conGenerator then

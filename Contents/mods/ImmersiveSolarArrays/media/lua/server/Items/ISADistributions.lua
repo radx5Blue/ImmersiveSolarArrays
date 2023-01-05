@@ -52,15 +52,15 @@ local function insertRecursive(insertKey,insertInto,insertFrom,default)
 	end
 end
 
-local function insertInto(targetKey,distName,modDist,default,doParse)
-	local dist = {
-		suburbs = SuburbsDistributions,
-		procedural = ProceduralDistributions,
-		vehicle = VehicleDistributions,
-	}
-	util.distributions.doParse = doParse or util.distributions.doParse
-	return insertRecursive(targetKey,dist[distName],modDist,default)
-end
+--local function insertInto(targetKey,distName,modDist,default,doParse)
+--	local dist = {
+--		suburbs = SuburbsDistributions,
+--		procedural = ProceduralDistributions,
+--		vehicle = VehicleDistributions,
+--	}
+--	util.distributions.doParse = doParse or util.distributions.doParse
+--	return insertRecursive(targetKey,dist[distName],modDist,default)
+--end
 
 
 ---edit tables for container loot types / item rolls
@@ -247,7 +247,7 @@ SuburbsDistributions.all.SolarBox = SolarBox
 
 ---edit tables for room / cache house types
 
---all is more of a direct check of container type loot, procedural would end up with no loot when outside
+--all is more of a direct check of container type loot, procedural ends up with no loot when outside
 --SuburbsDistributions.all.BatteryBank = {
 --	procedural = true,
 --	procList = {

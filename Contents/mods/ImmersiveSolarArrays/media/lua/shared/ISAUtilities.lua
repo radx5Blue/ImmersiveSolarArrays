@@ -69,10 +69,6 @@ do
     util.delayedProcess = delayedProcess
 end
 
-function util.stringXYZ(obj)
-    return obj:getX() .. "," .. obj:getY() .. "," .. obj:getZ()
-end
-
 Events.OnInitGlobalModData.Add(setDIYBatterySandboxValue)
 
 return util

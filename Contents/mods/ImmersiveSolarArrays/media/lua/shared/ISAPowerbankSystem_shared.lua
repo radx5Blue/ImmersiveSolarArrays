@@ -1,19 +1,30 @@
 local isa = require "ISAUtilities"
 local sandbox = SandboxVars.ISA
 
-local PbSystem = { common = {} }
+local PbSystem = {}
 
-function PbSystem:addCommon(obj)
-    for key,value in pairs(self.common) do
+--also adds this function
+function PbSystem:new(obj)
+
+    --local obj = CGlobalObjectSystem:derive("ISAPowerbankSystem_client")
+    --function obj:new()
+    --    local o = {}
+    --    setmetatable(o,self)
+    --    self.__index = self
+    --    return o
+    --end
+
+    for key,value in pairs(self) do
         obj[key] = value
     end
+    return obj
 end
 
-function PbSystem.common:isValidIsoObject(isoObject)
+function PbSystem:isValidIsoObject(isoObject)
     return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
 end
 
-function PbSystem.common:getIsoObjectOnSquare(square)
+function PbSystem:getIsoObjectOnSquare(square)
     if not square then return end
     local objects = square:getSpecialObjects()
     for i=0,objects:size()-1 do
@@ -24,12 +35,12 @@ function PbSystem.common:getIsoObjectOnSquare(square)
     end
 end
 
-function PbSystem.common:getMaxSolarOutput(SolarInput)
+function PbSystem:getMaxSolarOutput(SolarInput)
     return SolarInput * (83 * ((sandbox.solarPanelEfficiency * 1.25) / 100)) --changed to more realistic 1993 levels
 end
 
 local climateManager
-function PbSystem.common:getModifiedSolarOutput(SolarInput)
+function PbSystem:getModifiedSolarOutput(SolarInput)
     if not climateManager then climateManager = getClimateManager() end
     local cloudiness = climateManager:getCloudIntensity()
     local light = climateManager:getDayLightStrength()
@@ -44,19 +55,15 @@ function PbSystem.common:getModifiedSolarOutput(SolarInput)
     return output
 end
 
-function PbSystem.common:getValidBackupOnSquare(square)
+function PbSystem:getValidBackupOnSquare(square)
     local generator = square:getGenerator()
-    --return generator and instanceof(generator,"IsoGenerator") and generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
-    return generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
+    if generator and generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank") then
+        return generator
+    end
 end
 
-function PbSystem.common:getValidPanelOnSquare(square)
+function PbSystem:getValidPanelOnSquare(square)
     return square:isOutside() and isa.WorldUtil.findTypeOnSquare(square,"Panel")
 end
-
---function PbSystem.common:isValidBackup(generator,square)
---    --return generator and instanceof(generator,"IsoGenerator") and generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
---    return generator:isConnected() and not isa.WorldUtil.findTypeOnSquare(square,"Powerbank")
---end
 
 return PbSystem

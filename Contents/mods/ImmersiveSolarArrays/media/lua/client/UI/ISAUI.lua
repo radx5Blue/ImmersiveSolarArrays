@@ -138,6 +138,7 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 	--end
 end
 
+--todo update dawn / dusk less often?
 local climateManager
 UI.ISAIsDayTime = function(currentTime)
 	if not climateManager then climateManager = getClimateManager() end
@@ -229,5 +230,4 @@ end
 Events.OnPreFillWorldObjectContextMenu.Add(UI.OnPreFillWorldObjectContextMenu)
 Events.OnFillWorldObjectContextMenu.Add(UI.OnFillWorldObjectContextMenu)
 
-ISAMenu = UI
 isa.UI = UI

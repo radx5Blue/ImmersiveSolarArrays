@@ -4,8 +4,10 @@ require "Map/SGlobalObjectSystem"
 local isa = require "ISAUtilities"
 local Powerbank = require "Powerbank/ISAPowerbank_server"
 
-local PbSystem = SGlobalObjectSystem:derive("ISAPowerbankSystem_server")
-require("ISAPowerbankSystem_shared"):addCommon(PbSystem)
+--local PbSystem = SGlobalObjectSystem:derive("ISAPowerbankSystem_server")
+--require("ISAPowerbankSystem_shared"):addCommon(PbSystem)
+
+local PbSystem = require("ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
 function PbSystem:new()
     local o = SGlobalObjectSystem.new(self, "isa_powerbank")
@@ -58,8 +60,8 @@ function PbSystem:OnClientCommand(command, playerObj, args)
 end
 
 function PbSystem:removePanel(xpanel)
-    local data = xpanel:getModData()
-    local pb = data["pbLinked"] and self:getLuaObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z)
+    local pbData = xpanel:getModData()["pbLinked"]
+    local pb = pbData and self:getLuaObjectAt(pbData.x,pbData.y,pbData.z)
     if pb then
         local x = xpanel:getX()
         local y = xpanel:getY()
@@ -165,8 +167,8 @@ end
 --end
 
 function PbSystem.EveryDays()
-    for i=1,PbSystem.instance.system:getObjectCount() do
-        local pb = PbSystem.instance.system:getObjectByIndex(i-1):getModData()
+    for i=0,PbSystem.instance.system:getObjectCount()-1 do
+        local pb = PbSystem.instance.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
             local inv = isopb:getContainer()
@@ -180,8 +182,8 @@ end
 
 function PbSystem:updatePowerbanks(chargefreq)
     local solaroutput = self:getModifiedSolarOutput(1)
-    for i=1,self.system:getObjectCount() do
-        local pb = self.system:getObjectByIndex(i-1):getModData()
+    for i=0,self.system:getObjectCount() - 1 do
+        local pb = self.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         local drain
         if pb:shouldDrain(isopb) then

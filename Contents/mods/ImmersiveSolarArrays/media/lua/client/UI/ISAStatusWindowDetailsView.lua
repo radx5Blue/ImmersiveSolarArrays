@@ -100,21 +100,24 @@ function ISAWindowDetails:render()
 
     if self.showBackupDetails then
         textY = textY + 5
-        borderY, borderH = textY-3, fontHeightSm * 2 + 6
+        borderY, borderH = textY-3, fontHeightSm * 3 + 6
         self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
         self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
-        local generators = pb.luaSystem.getGeneratorsInAreaInfo(pb,area)
-        self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight(tostring(generators), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-        textY = textY + fontHeightSm
         self:drawLineB(validArea,"IGUI_ISAWindow_Details_ValidAreaPlayer",textY)
         textY = textY + fontHeightSm
+        self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight(tostring(pb.luaSystem.getGeneratorsInAreaInfo(pb,area)), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
+        self:drawText(getText(self:getDebugLineForPlayerSquareHasBackup()), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
     end
+
     --self:setScrollHeight(textY+10)
     self:setHeightAndParentHeight(textY+10)
 end
 
 function ISAWindowDetails:drawLineB(isTrue,igui,y)
+    print(isTrue,igui,y)
     if isTrue then
         self:drawText(getText(igui), 10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
         self:drawTextRight(getText("UI_Yes"), self.width-10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
@@ -128,6 +131,32 @@ function ISAWindowDetails:updateDevices()
     local luapb = self.parent.parent.luaPB
     luapb.luaSystem:sendCommand(self.parent.parent.playerObj,"activatePowerbank", { pb = { x = luapb.x, y = luapb.y, z = luapb.z }, activate = luapb.on })
 end
+
+function ISAWindowDetails:getDebugLineForPlayerSquareHasBackup()
+    local sq = self.parent.parent.playerObj:getSquare()
+    if not sq then return "No square" end
+    local pb = self.parent.parent.luaPB
+    local generator = sq:getGenerator()
+    if not generator then return "No generator on player's square"
+    elseif not generator:isConnected() then return "Generator is not connected"
+    elseif isa.WorldUtil.findTypeOnSquare(sq,"Powerbank") then return "This is a Powerbank"
+    elseif not pb.conGenerator or pb.conGenerator.x ~= generator:getX() or pb.conGenerator.y ~= generator:getY() or pb.conGenerator.z ~= generator:getZ() then return "This generator isn't the backup"
+    else return "This generator is the backup"
+    end
+end
+--
+--function ISAWindowDetails:getDebugLineForPlayerSquareHasBackup()
+--    local sq = self.parent.parent.playerObj:getSquare()
+--    if not sq then return false, "No square" end
+--    local pb = self.parent.parent.luaPB
+--    local generator = sq:getGenerator()
+--    if not generator then return false, "No generator on player's square"
+--    elseif not generator:isConnected() then return false, "Generator is not connected"
+--    elseif isa.WorldUtil.findTypeOnSquare(sq,"Powerbank") then return false, "This is a Powerbank"
+--    elseif not pb.conGenerator or pb.conGenerator.x ~= generator:getX() or pb.conGenerator.y ~= generator:getY() or pb.conGenerator.z ~= generator:getZ() then return false, "This generator isn't the backup"
+--    else return true, "This generator is the backup"
+--    end
+--end
 
 local function maxWidthOfTexts(texts)
     local max = 0

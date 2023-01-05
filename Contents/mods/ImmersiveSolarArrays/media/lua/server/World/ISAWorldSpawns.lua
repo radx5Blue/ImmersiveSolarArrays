@@ -3,7 +3,9 @@ if isClient() then return end
 local isa = require "ISAUtilities"
 local sandbox = SandboxVars.ISA
 local globalData
-local stringXYZ = isa.stringXYZ
+local function stringXYZ(obj)
+    return obj:getX() .. "," .. obj:getY() .. "," .. obj:getZ()
+end
 
 local ISAWorldSpawns = {}
 
@@ -121,6 +123,6 @@ end
 Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)
 
 --debug
-if not SandboxVars.ISA.BatteryBankSpawn then SandboxVars.ISA.BatteryBankSpawn = 1 end
+--if not SandboxVars.ISA.BatteryBankSpawn then SandboxVars.ISA.BatteryBankSpawn = 1 end
 
 return ISAWorldSpawns
