@@ -21,4 +21,19 @@ Sandbox_ES = {
 	
 	Sandbox_ISA_DIYBatteryCapacity = "Capacidad de batería fabricada (Ah)",
 	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Cuánta energía en Ah puede almacenar una batería fabricada.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Generador Ordinario",
+    Sandbox_ISA_DrainCalc = "Método de cáldulo de drenaje",
+    Sandbox_ISA_DrainCalc_tooltip = "El cálculo de Generador Ordinario tiene un menor impacto en el rendimiento",
+    Sandbox_ISA_ChargeFreq_option1 = "Cada 10 Minutos",
+    Sandbox_ISA_ChargeFreq_option2 = "Cada Hora",
+    Sandbox_ISA_ChargeFreq = "Frecuencia de Carga",
+    Sandbox_ISA_ChargeFreq_tooltip = "Como de a menudo cargara el Banco de Baterías",
+    Sandbox_ISA_BatteryBankSpawn = "Aparición de Bancos de Baterías",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rareza con la que los Bancos de Baterías aparecen por el mapa.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Ninguno",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Muy Raro",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Raro",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Poco Común",
 }

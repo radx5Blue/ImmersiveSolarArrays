@@ -1,7 +1,8 @@
 Moveables_ES = {
 	Battery_Bank = "Banco de baterías",
-	Solar_Roof_Tile = "Teja solar",
+	Solar_Roof_Tile = "Panel solar plano",
 	Wall_Mounted_Solar_Panel = "Panel solar de montaje en la pared",
 	Floor_Mounted_Solar_Panel = "Panel solar de montaje en el suelo",
-	Failsafe_Trigger = "Anti-fallo solar",
+	Failsafe_Trigger = "Disparador Anti-fallo",
+	Solar_Box = "Caja Solar",
 }

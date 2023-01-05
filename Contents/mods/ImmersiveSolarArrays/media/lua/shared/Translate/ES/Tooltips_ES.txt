@@ -1,0 +1,2 @@
+-- // Formatting tips // textArg = "Language Text" // 1st line is skipped // lines that have -- are skipped // lines that end with .. are skipped // ..
+Tooltip_ISA_NoPanels = "Sin Panel"
