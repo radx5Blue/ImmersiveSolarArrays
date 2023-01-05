@@ -3,7 +3,6 @@ ContextMenu_ES = {
     ContextMenu_ISA_BatteryBankStatus = "Ver Estado",
     ContextMenu_ISA_DiagnoseBankIssues = "Resetear",
 
-
     ContextMenu_ISA_NoPanels = "Actualmente no hay paneles conectados.",
     ContextMenu_ISA_CurrentPanels = "Actualmente hay %d panel conectado.",
     ContextMenu_ISA_CurrentPanels_Plural = "Actualmente hay %d paneles conectados.",

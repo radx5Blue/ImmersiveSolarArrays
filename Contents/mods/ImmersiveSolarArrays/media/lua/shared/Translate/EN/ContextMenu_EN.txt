@@ -1,23 +1,12 @@
 ContextMenu_EN = {
     ContextMenu_ISA_BatteryBank = "Battery Bank",
-    ContextMenu_ISA_BatteryBankStatus = "See the status",
-    ContextMenu_ISA_DiagnoseBankIssues = "Reset",
-
-
-    ContextMenu_ISA_NoPanels = "There are currently no panels connected.",
-    ContextMenu_ISA_CurrentPanels = "There is currently %d solar panel connected.",
-    ContextMenu_ISA_CurrentPanels_Plural = "There are currently %d solar panels connected.",
-    ContextMenu_ISA_Power_Enough_Panels = "The battery bank has enough solar panels to power my connected devices.",
-    ContextMenu_ISA_Power_Enough_Panels_No_Charging = "The battery bank has enough solar panels to power my connected devices but not to charge batteries.",
-    ContextMenu_ISA_Power_Charging = "It will take about %d hour to fully charge.",
-    ContextMenu_ISA_Power_Charging_Plural = "It will take about %d hours to fully charge.",
-    ContextMenu_ISA_Power_Charging_Almost_Full = "It will take less than a hour to fully charge.",
-    ContextMenu_ISA_Power_No_Enough_Panels = "I need more solar panels to power my devices.",
-    ContextMenu_ISA_Power_No_Sun = "Panels do not generate electricity - need to check during sunny day.",
-    ContextMenu_ISA_Power_Discharging = "Power will remain for about %d hour.",
-    ContextMenu_ISA_Power_Discharging_Plural = "Power will remain for about %d hours.",
-    ContextMenu_ISA_Power_Discharging_Almost_Empty = "Power will remain for less than an hour.",
-    ContextMenu_ISA_Batteries_No_Batteries = "There are no batteries to charge up the battery bank.",
-    ContextMenu_ISA_Batteries_No_Power = "The battery bank has no stored power.",
-    ContextMenu_ISA_Batteries_Power_Level = "The battery bank is currently at %d%% power."
+    ContextMenu_ISA_BatteryBankStatus = "Open Status Window",
+    ContextMenu_ISA_ConnectPanels = "Connect Panels",
+    ContextMenu_ISA_SolarPanel = "Solar Panel",
+    ContextMenu_ISA_Connect_Panel = "Connect to Battery Bank",
+    ContextMenu_ISA_Connect_Panel_toolTip = "   Battery Bank location in relation to the Solar Panel (x:y) ",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solar Panel is connected to this Battery Bank",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Solar Panel is not connected to this Battery Bank",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Solar Panel needs to be outside",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No Battery Bank is near this Solar Panel",
 }

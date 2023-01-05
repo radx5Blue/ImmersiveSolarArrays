@@ -107,8 +107,8 @@ function ISAWindowsSumaryTab:initialise()
     self:addChild(self.imageSolarPanelCross);
 
 	-- Fix the daytime/nightime icon
-	local currentHour = getGameTime():getHour();
-	if ISAIsDayTime(currentHour) then
+	local currentTime = getGameTime():getTimeOfDay();
+	if ISAIsDayTime(currentTime) then
 		self.imageSun:setVisible(true)
 		self.imageMoon:setVisible(false)
 		self.night = false
@@ -127,181 +127,143 @@ end
 function ISAWindowsSumaryTab:setVisible(visible)
     self.javaObject:setVisible(visible);
 	if visible then
-		local th = self.parent.parent:titleBarHeight()
-		-- Set the Window size
-		self.parent.parent:setWidth(580);
-		self.parent.parent:setHeight(410 + th);
-
-		-- Set the Panel size
-		self.parent:setWidth(580);
-		self.parent:setHeight(410 + th);
+		self:setWidthAndParentWidth(580)
+		self:setHeightAndParentHeight(390)
+		self.currentFrame = 0
 	end
-end
-
-function ISAWindowsSumaryTab:prerender()
-	ISPanelJoypad.prerender(self);
 end
 
 function ISAWindowsSumaryTab:render()
-	if ((self.currentFrameDrain % 4500) == 0) then
-		-- Drain calculation is slow and causes slowdowns in game, so will be refreshed at open and every 4500 frames (5 minutes)
-		self.drain = solarscan(self.parent.parent.fsquare, false, true, false, 0)
-
-		self.currentFrameDrain = 0;
-	end
-
-	self.currentFrameDrain = self.currentFrameDrain + 1;
-
+	local pb = self.parent.parent.luaPB
+	if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
 	-- Update every 30 frames
-	if ((self.currentFrame % 30) == 0) then
-		local testK = ModData.get("PBK")
-		local testX = ModData.get("PBX")
-		local testY = ModData.get("PBY")
-		local testZ = ModData.get("PBZ")
-		local testNP = ModData.get("PBNP")
-		local testC = ModData.get("PBCH")
+	if (self.currentFrame%30 == 0) then
+		pb:updateFromIsoObject()
+		self.batteryLevel = pb.charge / pb.maxcapacity
+		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(pb.npanels)
+		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(pb.npanels)
+		self.difference = self.panelsInput - (pb:shouldDrain() and pb.drain or 0)
 
-		for key = 1, #testK do
-			noX = tonumber(testX[key])
-			noY = tonumber(testY[key])
-			noZ = tonumber(testZ[key])
-			self.connectedPanels = tonumber(testNP[key])
-			self.batteryLevel = tonumber(testC[key])
-
-			if (self.parent.parent.sqX == noX and self.parent.parent.sqY == noY and self.parent.parent.sqZ == noZ) then
-				local batterybank = ISMoveableSpriteProps:findOnSquare(self.parent.parent.fsquare, "solarmod_tileset_01_0")
-				local inventory = batterybank:getContainer()
-				self.capacity = HandleBatteries(inventory, self.batteryLevel, false)
-				self.batteryNumber = HandleBatteries(inventory, self.batteryLevel, true)
-				self.panelsMaxInput = getMaxSolarOutput(self.connectedPanels)
-				self.panelsInput = getModifiedSolarOutput(self.connectedPanels)
-				self.actualCharge = self.capacity * self.batteryLevel
-				self.difference = self.panelsInput - self.drain
-
-				local currentHour = getGameTime():getHour();
-				if ISAIsDayTime(currentHour) then
-					if (self.night == true) then
-						self.imageSun:setVisible(true)
-						self.imageMoon:setVisible(false)
-						self.night = false
-					end
-				else
-					if (self.night == false) then
-						self.imageSun:setVisible(false)
-						self.imageMoon:setVisible(true)
-						self.night = true
-					end
-				end
-				
-				if (self.batteryNumber > 0) then
-					if (self.thereAreBatteries == false) then
-						self.imageBatteryCross:setVisible(false)
-						self.thereAreBatteries = true;
-					end
-				else
-					if (self.thereAreBatteries == true) then
-						self.imageBatteryCross:setVisible(true)
-						self.thereAreBatteries = false;
-					end
-				end
-
-				if (self.connectedPanels > 0) then
-					if (self.thereArePanels == false) then
-						self.imageSolarPanelCross:setVisible(false)
-						self.thereArePanels = true;
-					end
-				else
-					if (self.thereArePanels == false) then
-						self.imageSolarPanelCross:setVisible(true)
-						self.thereArePanels = false;
-					end
-				end
-				
-				self.batteryCharging = false;
-				if self.difference > 0 then
-					if (self.batteryCharging == false) then
-						self.imageSolarPanel:setVisible(true);
-						self.imageSolarPanelNoEnergy:setVisible(false);
-						self.batteryCharging = true;
-					end
-				else
-					if (self.batteryCharging == true) then
-						self.imageSolarPanel:setVisible(false);
-						self.imageSolarPanelNoEnergy:setVisible(true);
-						self.batteryCharging = false;
-					end
-				end
+		local currentTime = getGameTime():getTimeOfDay();
+		if ISAIsDayTime(currentTime) then
+			if (self.night == true) then
+				self.imageSun:setVisible(true)
+				self.imageMoon:setVisible(false)
+				self.night = false
+			end
+		else
+			if (self.night == false) then
+				self.imageSun:setVisible(false)
+				self.imageMoon:setVisible(true)
+				self.night = true
 			end
 		end
 
-		-- Reset the frames count to avoid overflow
-		self.currentFrame = 0;
-	end
+		if (pb.batteries > 0) then
+			if (self.thereAreBatteries == false) then
+				self.imageBatteryCross:setVisible(false)
+				self.thereAreBatteries = true;
+			end
+		else
+			if (self.thereAreBatteries == true) then
+				self.imageBatteryCross:setVisible(true)
+				self.thereAreBatteries = false;
+			end
+		end
 
-	self.currentFrame = self.currentFrame + 1;
+		if (pb.npanels > 0) then
+			if (self.thereArePanels == false) then
+				self.imageSolarPanelCross:setVisible(false)
+				self.thereArePanels = true;
+			end
+		else
+			if (self.thereArePanels == false) then
+				self.imageSolarPanelCross:setVisible(true)
+				self.thereArePanels = false;
+			end
+		end
+
+		if self.difference > 0 then
+			if (self.batteryCharging == false) then
+				self.imageSolarPanel:setVisible(true);
+				self.imageSolarPanelNoEnergy:setVisible(false);
+				self.batteryCharging = true;
+			end
+		else
+			if (self.batteryCharging == true) then
+				self.imageSolarPanel:setVisible(false);
+				self.imageSolarPanelNoEnergy:setVisible(true);
+				self.batteryCharging = false;
+			end
+		end
+		self.currentFrame = 0
+	end
+	self.currentFrame = self.currentFrame +1
 
 	-- Sumary box
-	--self:drawRect(310, 25, 250, 125, 1.0, 1.0, 1.0, 1.0);
-	self:drawRectBorder(310, 25, 250, 125, 1.0, 1.0, 1.0, 1.0);
+	local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125
+	self:drawRect(rectX, rectY, rectW, rectH, 0.5, 0.16, 0.16, 0.16)
+	self:drawRectBorder(rectX, rectY, rectW, rectH, 1, 1, 1, 1)
 
 	-- Sumary text
-	local text_x = 435;
+	local text_x = self.width - self.textWidth - 60
 	local text_y = 30;
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ConnectedPanels") .. ":", text_x, text_y, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
-
-	-- Connected panels
-	self:drawText(tostring(self.connectedPanels), text_x + 15, text_y, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
-	if (self.drain > self.panelsMaxInput) then
+	if (pb.drain > self.panelsMaxInput) then
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	elseif (self.drain > self.panelsMaxInput) then
-		self:drawText(getText("IGUI_ISAWindowsSumaryTab_WillNotCharge"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 	else
-		if (self.drain > self.panelsInput) then
+		if (pb.drain > self.panelsInput) then
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
 		end
 	end
 
-	if (self.batteryNumber > 0) then
-		self:drawText(string.format("%d%%", (self.batteryLevel or 0) * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+	if (pb.maxcapacity > 0) then
+		self:drawText(string.format("%d%%", self.batteryLevel * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 
 		if (self.difference > 0) then
-			local ctime = ((self.capacity - self.actualCharge) / self.difference);
-
-			if (ctime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			if pb.maxcapacity == pb.charge then
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local days = math.floor(ctime / 24);
-				local hours = math.floor(ctime % 24);
-				local minutes = (ctime - math.floor(ctime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_ChargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				local ctime = ((pb.maxcapacity - pb.charge) / self.difference)
+				local days = math.floor(ctime / 24)
+				local hours = math.floor(ctime % 24)
+				local minutes = math.floor((ctime - math.floor(ctime)) * 60)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ChargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			end
-
 		elseif (self.difference < 0) then
-			local dtime = math.abs(self.actualCharge / self.difference);
-
-			if (dtime == 0) then
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			if (pb.charge == 0) then
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			else
-				local days = math.floor(dtime / 24);
-				local hours = math.floor(dtime % 24);
-				local minutes = (dtime - math.floor(dtime)) * 60;
-				self:drawText(string.format(ISAFixedGetText("IGUI_ISAWindowsSumaryTab_DischargedIn"), days, hours, minutes), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+				local dtime = math.abs(pb.charge / self.difference)
+				local days = math.floor(dtime / 24)
+				local hours = math.floor(dtime % 24)
+				local minutes = math.floor((dtime - math.floor(dtime)) * 60)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_DischargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
 			end
 		else
 			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+		end
+		if pb.charge > 0 and pb.drain > 0 then
+			local dtime = pb.charge / pb.drain
+			local days = math.floor(dtime / 24)
+			local hours = math.floor(dtime % 24)
+			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
+			self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryRemaining"), text_x, text_y + 60, 0, 1, 0, 1, UIFont.Small)
+			self:drawText(string.format("%d %s\n%d %s\n%d %s",days,getText("IGUI_Gametime_days"),hours,getText("IGUI_Gametime_hours"),minutes,getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 60, 0, 1, 0, 1, UIFont.Small)
 		end
 	else
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
 		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
 	end
-	
 end
 
 function ISAWindowsSumaryTab:new(x, y, width, height)
@@ -310,7 +272,6 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	setmetatable(o, self);
     self.__index = self;
 	o:noBackground();
-	o.txtLen = 0;
 
 	-- Textures
 	o.textureBattery = getTexture("media/ui/isa_battery.png");
@@ -322,47 +283,50 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	o.textureSolarRadiation = getTexture("media/ui/isa_solar_radiation.png");
 	o.textureSun = getTexture("media/ui/isa_sun.png");
 	o.textureMoon = getTexture("media/ui/isa_moon.png");
+	o.textWidth = self.measureTexts()
 
     ISAWindowsSumaryTab.instance = o;
 
 	-- Used variables
 	self.currentFrame = 0;
-	self.currentFrameDrain = 0;
 	self.thereAreBatteries = false;
 	self.thereArePanels = false;
-	self.connectedPanels = 0;
 	self.panelsMaxInput = 0;
 	self.panelsInput = 0;
-	self.batteryNumber = 0;
 	self.batteryLevel = 0;
 	self.batteryCharging = false;
-	self.capacity = 0;
-	self.actualCharge = 0;
 	self.difference = 0;
 	self.night = false;
-   return o;
+   return o
 end
 
-function ISAWindowsSumaryTab:close()
-	ISPanelJoypad.close();
+function ISAWindowsSumaryTab.measureTexts()
+	local textTable = {
+		left = {
+			"IGUI_ISAWindowsSumaryTab_PanelsStatus",
+			"IGUI_ISAWindowsSumaryTab_BatteryLevel",
+			"IGUI_ISAWindowsSumaryTab_BatteryStatus",
+			"IGUI_ISAWindowsSumaryTab_ChargedIn",
+			"IGUI_ISAWindowsSumaryTab_DischargedIn",
+			"IGUI_ISAWindowsSumaryTab_BatteryRemaining",
+		},
+		right = {
+			"IGUI_ISAWindowsSumaryTab_NoEnoughPanels",
+			"IGUI_ISAWindowsSumaryTab_NoEnoughSun",
+			"IGUI_ISAWindowsSumaryTab_FullyCharged",
+			"IGUI_ISAWindowsSumaryTab_FullyDischarged",
+			"IGUI_ISAWindowsSumaryTab_NotCharging",
+			"IGUI_ISAWindowsSumaryTab_NoBatteries",
+		}
+	}
 
-	-- Reset the currentFrame
-	self.currentFrame = 0;
+	local max = 0
+	for type,texts in pairs(textTable) do
+		for _,text in ipairs(texts) do
+			local width = getTextManager():MeasureStringX(UIFont.Small, getText(text))
+			max = math.max(max, width)
+		end
+	end
 
-	-- Battery
-	self:removeChild(self.imageBatteryCross);
-
-	-- Sun and radiation
-	self:removeChild(self.imageSun);
-	self:removeChild(self.imageSolarRadiation1);
-	self:removeChild(self.imageSolarRadiation2);
-	self:removeChild(self.imageSolarRadiation3);
-	self:removeChild(self.imageSolarRadiationCross);
-
-	-- Solar Panel (two modes)
-	self:removeChild(self.imageSolarPanel);
-	self:removeChild(self.imageSolarPanelNoEnergy);
-	self:removeChild(self.imageSolarPanelCross);
-
-	self:removeFromUIManager()
+	return max
 end

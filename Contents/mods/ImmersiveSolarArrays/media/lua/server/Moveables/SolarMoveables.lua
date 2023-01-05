@@ -1,36 +1,3 @@
--- Removed function override and changed by an event (it caused some errors on server side)
-local function ISAplaceObject(_object)
-	local _origSpriteName = _object:getSprite():getName()
-	local _square = _object:getSquare()
-
-	if _origSpriteName == "solarmod_tileset_01_0" then
-		--print("Cool, a battery bank! Is it shiny?")
-		solarscan(_square, false, true, true, 0) 
-	elseif _origSpriteName == "solarmod_tileset_01_6" or _origSpriteName == "solarmod_tileset_01_7" or _origSpriteName == "solarmod_tileset_01_8" or _origSpriteName == "solarmod_tileset_01_9" or _origSpriteName == "solarmod_tileset_01_10" then  
-		print("AAAAAA! Shiny solar panels")
-		solarscan(_square, false, false, false, 0)
-	end
-end
-Events.OnObjectAdded.Add(ISAplaceObject)
-
-
-function ISApickUpObject(_object)
-	local _spriteName = _object:getSprite():getName()
-	local _square = _object:getSquare()
-
-	if _spriteName == "solarmod_tileset_01_0" then
-		--print("oo, heavy")
-		--TODO: battery bank data for the removed bank should be deleted here
-		DisconnectPower(_square)
-
-	elseif _spriteName == "solarmod_tileset_01_6" or _spriteName == "solarmod_tileset_01_7" or _spriteName == "solarmod_tileset_01_8" or _spriteName == "solarmod_tileset_01_9" or _spriteName == "solarmod_tileset_01_10" then  
-		--print("must not trip over, must not trip over")
-		solarscan(_square, false, false, false, 0)
-	end
-end
-Events.OnObjectAboutToBeRemoved.Add(ISApickUpObject)
-
-
 function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
 ----print("running solar scan")
 --square is the square of the solar panel, increment, limitedscan is if we should only scan for panels not do anything else, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
@@ -53,23 +20,26 @@ for x = bottom, top do
 					--scan coming from power bank
 					if InitialScan == true and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-						numberofpanels = numberofpanels + PanelScan(mysquare)
+						if ISAScan.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
+							numberofpanels = numberofpanels + 1
+						end
 					end
 					if InitialScan == false and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
 					end
 				end
 				
-				if IsBank == false and backupgenerator == 0 then
+				--if IsBank == false and backupgenerator == 0 then
 				--scan coming from solar panel
-						if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
-							local scan = solarscan(mysquare, true, true, false, 0)
-							changePanelData(mysquare, scan)
-						end
-				end
+				--		if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_0") then
+				--			local scan = solarscan(mysquare, true, true, false, 0)
+				--			changePanelData(mysquare, scan)
+				--		end
+				--end
 				if LimitedScan == true and backupgenerator == 0 then
-						numberofpanels = numberofpanels + PanelScan(mysquare)
-					
+					if ISAScan.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
+						numberofpanels = numberofpanels + 1
+					end
 				end
 				if backupgenerator ~= 0 then
 					if ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_15") then
@@ -116,7 +86,7 @@ end
 				if IsBank == true and backupgenerator == 0 then
 					--scan coming from power bank
 					if InitialScan == true then
-						TurnOnPower(powerconsumption, numberofpanels, square, true)
+						return powerconsumption, numberofpanels
 					end
 					if InitialScan == false and LimitedScan == false then
 			
@@ -127,26 +97,6 @@ end
 				if LimitedScan == true and backupgenerator == 0 then
 					return numberofpanels
 				end
-end
-
-function PanelScan(mysquare)
-local numberofpanels = 0
-					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_8") then
-				     --this is a flat solar panel, add to count
-						numberofpanels = numberofpanels + 1
-						--print("panel found")
-					end
-					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_6") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_7") then
-				     --this is a flat solar panel, add to count
-						numberofpanels = numberofpanels + 1
-						--print("panel found")
-					end
-					if mysquare:isOutside() and ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_9") or ISMoveableSpriteProps:findOnSquare(mysquare, "solarmod_tileset_01_10") then
-				     --this is a flat solar panel, add to count
-						numberofpanels = numberofpanels + 1
-						--print("panel found")
-					end
-return numberofpanels
 end
 
 function ConsumptionScan(square)
@@ -208,9 +158,6 @@ function ConsumptionScan(square)
 	end
 	return powerconsumption	* 920				
 end
-
-
-
 
 -- pass powerconsumption to power bank
 --power consumption of a freezer is around 350 watts

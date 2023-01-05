@@ -19,4 +19,17 @@ IGUI_ES = {
     IGUI_ISAWindowsSumaryTab_DischargedIn = "Descargado en:\n  %d días\n  %d horas\n  %d minutos",
     IGUI_ISAWindowsSumaryTab_NotCharging = "No Cargando",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Sin Baterías"
+	
+	
+	IGUI_ISAWindow_Details_InfoText = "Technical Details of Battery Bank",
+    IGUI_ISAWindow_Details_TabTitle = "Details",
+	IGUI_ISAWindow_Details_conGenerator = "El generador de respaldo está conectado: ",
+	IGUI_ISAWindow_Details_Failsafe = "El generador de copias de seguridad tiene protección contra fallas: ",
+	IGUI_ISAWindow_Details_GenInRange = "Generadores en rango: ",
+	IGUI_ISAWindow_Details_GenOutOfRange = "Generadores ligeramente fuera de rango: ",
+	IGUI_ISAWindow_Details_ShouldDrain = "El banco de baterías está consumiendo reservas: ",
+	IGUI_ISAWindow_Details_Autonomy = "Battery Bank puede alimentar dispositivos sin sol para: ",
+	IGUI_ISAWindow_Details_Far = "El banco de baterías está demasiado lejos",
+
+
 }

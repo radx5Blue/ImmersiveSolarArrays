@@ -1,4 +1,4 @@
-ItemName_EN = {
+ItemName_ES = {
     /* Magazine */
     ItemName_ISA.ISAMag1 = "Nuevos Avances: Energía del sol",
 

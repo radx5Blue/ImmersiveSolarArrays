@@ -1,0 +1,12 @@
+ContextMenu_PTBR = {
+    ContextMenu_ISA_BatteryBank = "Banco de Baterias",
+    ContextMenu_ISA_BatteryBankStatus = "Verificar o status",
+    ContextMenu_ISA_ConnectPanels = "Conectado Painel Solar",
+    ContextMenu_ISA_SolarPanel = "Painel Solar",
+    ContextMenu_ISA_Connect_Panel = "Conectado ao Banco de Baterias",
+    ContextMenu_ISA_Connect_Panel_toolTip = "   Local do Banco de Baterias em relação ao Painel Solar (x:y) ",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "O Painel Solar está conectado neste Banco de Baterias",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "O Painel Solar não está conectado neste Banco de Baterias",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "O Painel Solar precisa estar do lado de fora",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Nenhum Banco de Baterias perto deste Painel Solar",
+}

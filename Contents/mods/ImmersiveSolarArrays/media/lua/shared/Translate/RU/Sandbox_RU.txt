@@ -1,24 +1,39 @@
 Sandbox_RU = {	
-	Sandbox_ISA = "IMMERSIVE SOLAR ARRAYS",
+	Sandbox_ISA = "Иммерсивные солнечные батареи",
 	
-	Sandbox_ISA_solarPanelEfficiency = "Эффективность солнечных панелей (0-100)",
-	Sandbox_ISA_solarPanelEfficiency_tooltip = "12% - реалистично для 1993 года\n25% - современные панели\n90 - нереалистично",
+	Sandbox_ISA_solarPanelEfficiency = "Эффективность солнечной панели (0-100)",
+	Sandbox_ISA_solarPanelEfficiency_tooltip = "12% реалистично для 1993 года \n25% современная эффективность \n90% нереалистично",
 	
-	Sandbox_ISA_batteryDegradeChance = "Срок службы (0-100)",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "Шанс того, что с каждым днем состояние аккумуляторов будет снижаться.\nУменьшение этого значения значительно увеличит срок их службы.",
+	Sandbox_ISA_batteryDegradeChance = "Вероятность износа батарей (0-100)",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Вероятность износа батарей каждый день.\nУменьшение этого значения значительно увеличит срок службы батареи",
 	
-	Sandbox_ISA_solarPanelWorldSpawns = "Появление оборудования (шанс) (0-100)",
-	Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Появление солнечного оборудования в предустановленных местах. Установите значение на 0, если вы не хотите видеть какие-либо предварительно размещенные элементы.",
+	Sandbox_ISA_solarPanelWorldSpawns = "Вероятность появления объектов в мире(0-100)",
+	Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Вероятность появления солнечных панелей и ящиков в предварительно выбраных местах.",
 	
-	Sandbox_ISA_LRMSolarPanels = "Множитель появления - Солнечные панели",
-	Sandbox_ISA_LRMSolarPanels_tooltip = "Множитель появления солнечных панелей в случайных и предустановленных местах.",
+	Sandbox_ISA_LRMSolarPanels = "Редкость Лута: Солнечные Панели",
+	Sandbox_ISA_LRMSolarPanels_tooltip = "Солнечные панели появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
+
+	Sandbox_ISA_LRMBatteries = "Редкость Лута: Батареи",
+	Sandbox_ISA_LRMBatteries_tooltip = "Батарейки появляются в случайных контейнерах, множитель в предварительно размещенных ящиках",
+
+	Sandbox_ISA_LRMMisc = "Редкость Лута: Прочее",
+	Sandbox_ISA_LRMMisc_tooltip = "Магазин и инвертор появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
 	
-	Sandbox_ISA_LRMBatteries = "Множитель появления - Аккумуляторы",
-	Sandbox_ISA_LRMBatteries_tooltip = "Множитель появления аккумуляторов в случайных и предустановленных местах.",
-	
-	Sandbox_ISA_LRMMisc = "Множитель появления - Прочее",
-	Sandbox_ISA_LRMMisc_tooltip = "Множитель появления журналов и инверторов в случайных и предустановленных местах.",
-	
-	Sandbox_ISA_DIYBatteryCapacity = "Ёмкость аккумулятоной батареи (Ач)",
-	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Сколько заряда в Ач аккумуляторная батарея сможет хранить.",
+	Sandbox_ISA_DIYBatteryCapacity = "Емкость самодельной батареи (Ач)",
+	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Сколько заряда в Ач может хранить одна самодельная батарея.",
+    
+	Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Обычный генератор",
+    Sandbox_ISA_DrainCalc = "Метод вычисления разрядки",
+    Sandbox_ISA_DrainCalc_tooltip = "Обычный расчет генератора оказывает меньшее влияние на производительность",
+    Sandbox_ISA_ChargeFreq_option1 = "Каждые десять минут",
+    Sandbox_ISA_ChargeFreq_option2 = "Каждый час",
+    Sandbox_ISA_ChargeFreq = "Частота зарядки",
+    Sandbox_ISA_ChargeFreq_tooltip = "Как часто будет заряжаться Аккумуляторная Батарея",
+	Sandbox_ISA_BatteryBankSpawn = "Появление Аккумуляторной Батареи",
+	Sandbox_ISA_BatteryBankSpawn_tooltip = "Редкость появления Аккумуляторной Батареи в мире.",
+	Sandbox_ISA_BatteryBankSpawn_option1 = "Никогда",
+	Sandbox_ISA_BatteryBankSpawn_option2 = "Очень редко",
+	Sandbox_ISA_BatteryBankSpawn_option3 = "Редко",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Часто",
 }

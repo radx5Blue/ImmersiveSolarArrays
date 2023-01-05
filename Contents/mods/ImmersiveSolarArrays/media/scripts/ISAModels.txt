@@ -11,8 +11,8 @@ module ISA
 	model SolarMagModel
 	{
 		mesh = WorldItems/Magazine,
-		texture = WorldItems/MagazineSolar,
-		scale =  0.4,
+		texture = WorldItems/ISAMag1,
+		scale =  0.5,
 	}
 
 

@@ -1,0 +1,4 @@
+Tooltip_PTBR = {
+    Tooltip_Recipe_ElectricalIntermediate = "Requer lv. 3 de Elétrica",
+    Tooltip_Recipe_ElectricalAdvanced = "Requer lv. 5 de Elétrica",
+}

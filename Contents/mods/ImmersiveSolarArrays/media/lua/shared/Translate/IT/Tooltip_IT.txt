@@ -1,0 +1,4 @@
+Tooltip_IT = {
+Tooltip_ISA_NoPanels = "Niente pannello"         
+}
+
