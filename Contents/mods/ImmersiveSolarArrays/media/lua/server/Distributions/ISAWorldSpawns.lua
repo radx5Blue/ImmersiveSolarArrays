@@ -84,7 +84,7 @@ local spawnBatteryBankChance = { 9999, 10, 3, 1 }
 function ISAWorldSpawns.OnSeeNewRoom(room)
     local name = room:getName()
     local chance = spawnBatteryBankRooms[name]
-    if chance and ZombRand(chance * SandboxVars.ISA.BatteryBankSpawn) == 0 then
+    if chance and ZombRand(chance * spawnBatteryBankChance[SandboxVars.ISA.BatteryBankSpawn]) == 0 then
         local square = room:getRandomFreeSquare()
         if square then
             ISAWorldSpawns.addToWorld(square,"solarmod_tileset_01_0")

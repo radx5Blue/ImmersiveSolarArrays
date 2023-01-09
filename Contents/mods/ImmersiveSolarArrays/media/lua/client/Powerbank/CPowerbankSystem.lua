@@ -203,7 +203,7 @@ function CPowerbankSystem.onMoveablesAction(o)
                 isoObjectSpecial:getModData().charge = nil
             elseif type == "Panel" then
                 isoObjectSpecial:getModData().connectDelta = nil
-                isoObjectSpecial:getModData().powerbank = nil
+                --isoObjectSpecial:getModData().powerbank = nil
             end
         end
     end
