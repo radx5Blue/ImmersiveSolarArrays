@@ -76,7 +76,7 @@ Events.EveryTenMinutes.Add(debugAcceptItemFunction)
 
 local function OnSave()
     debugAcceptItemFunction()
-    print("ISAtest OnSave AcceptItemFunction",prev_AcceptItemFunction)
+    print("ISAtest OnSave AcceptItemFunction",math.floor(getGameTime():getWorldAgeHours()),prev_AcceptItemFunction)
     isa.queueFunction("OnTick",function()
         debugAcceptItemFunction()
         print("ISAtest OnTick after Save AcceptItemFunction",prev_AcceptItemFunction)

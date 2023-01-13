@@ -209,7 +209,7 @@ end
 function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferAction_transferItem)
     return function(self,item,...)
         --check if item is valid battery
-        local maxCapacity = (item:hasModData() and item:getModData().ISAMaxCapacityAh or isa.maxBatteryCapacity[item:getType()])
+        local maxCapacity = (item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()])
         if not maxCapacity then return ISInventoryTransferAction_transferItem(self,item,...) end
 
         --check if battery was moved to/from BatteryBank
@@ -282,7 +282,7 @@ function PbSystem.updateBanksForClient()
             for v=0,items:size()-1 do
                 local item = items:get(v)
                 --all items should be drainable (valid batteries) here
-                if item:getModData().ISAMaxCapacityAh or isa.maxBatteryCapacity[item:getType()] then
+                if item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()] then
                     item:setUsedDelta(delta)
                 end
             end

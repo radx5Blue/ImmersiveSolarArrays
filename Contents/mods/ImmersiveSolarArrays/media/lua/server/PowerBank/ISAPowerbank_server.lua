@@ -145,9 +145,9 @@ end
 --end
 
 SPowerbank.batteryDegrade = {
-    ["50AhBattery"] = 10,
-    ["75AhBattery"] = 8,
-    ["100AhBattery"] = 6,
+    --["50AhBattery"] = 10,
+    --["75AhBattery"] = 8,
+    --["100AhBattery"] = 6,
     ["WiredCarBattery"] = 7, --ModData
     ["DIYBattery"] = 0.125,
     ["DeepCycleBattery"] = 0.033,
@@ -164,7 +164,7 @@ function SPowerbank:degradeBatteries(container)
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
-        local degradeVal = item:getModData()["ISA_degradeVal"] or self.batteryDegrade[item:getType()]
+        local degradeVal = item:getModData()["ISA_BatteryDegrade"] or self.batteryDegrade[item:getType()]
         if degradeVal then
             -- average of 1M rolls / 10: 5.5 / 3: 2 / 1.6: 1.37364 / 0.9: 0.90082 / 0.033: 0.03280
             degradeVal = degradeVal * mod
@@ -247,7 +247,7 @@ function SPowerbank:handleBatteries(container)
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
-        local maxCapType = item:getModData().ISAMaxCapacityAh or maxCap[item:getType()]
+        local maxCapType = item:getModData().ISA_maxCapacity or maxCap[item:getType()]
         --if maxCapType and not item:isBroken() then
         if maxCapType then
             local condition = item:getCondition()

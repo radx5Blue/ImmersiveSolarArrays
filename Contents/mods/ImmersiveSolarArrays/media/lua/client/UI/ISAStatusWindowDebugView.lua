@@ -37,7 +37,8 @@ function ISAWindowDebug:createChildren()
     end
 
     if width > self.width then self:setWidth(width) end
-    if y > self.height then self:setHeight(y) end
+    self:setHeight(y)
+    --if y > self.height then self:setHeight(y) end
 end
 
 function ISAWindowDebug:setVisible(visible)
@@ -74,8 +75,8 @@ function ISAWindowDebug:prerender()
 end
 
 function ISAWindowDebug:showBackupDetails()
-    local show = self.parent.parent.detailsView.showBackupDetails
-    self.parent.parent.detailsView.showBackupDetails = not show
+    local show = not self.parent.parent.detailsView.showBackupDetails
+    self.parent.parent.detailsView.showBackupDetails = show
     self.showBackupDetailsButton.title = show and getText("IGUI_ISAWindow_Debug_HideBackup") or getText("IGUI_ISAWindow_Debug_ShowBackup")
 end
 

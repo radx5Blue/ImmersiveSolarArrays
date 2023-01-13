@@ -3,71 +3,51 @@ module ISA
     imports
     {
         Base,
-        Radio
+        Radio,
     }
-    recipe Make DIY Battery from 50Ah
-    {
-        keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 50AhBattery = 4,
-        SkillRequired:Electricity=5,
-        Result: DIYBattery,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
-    }
+    /**************************** Batteries **********************************/
 
-    recipe Make DIY Battery from 75Ah
-    {
-        keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 75AhBattery = 3,
-        SkillRequired:Electricity=5,
-        Result: DIYBattery,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
-    }
-
-    recipe Make DIY Battery from 100Ah
-    {
-        keep [Recipe.GetItemTypes.Screwdriver],
-        destroy 100AhBattery = 2,
-        SkillRequired:Electricity=5,
-        Result: DIYBattery,
-        Time:30,
-        CanBeDoneFromFloor:true,
-        NeedToBeLearn:true,
-        Category:Electrical,
-        OnCreate:Recipe.OnCreate.SolarModConvertBatteryDIY,
-    }
     recipe WireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
         Radio.ElectricWire,
         destroy [Recipe.GetItemTypes.wireCarBattery],
-        SkillRequired:Electricity=3,
         Result: WiredCarBattery,
-        Time:30,
+        SkillRequired:Electricity=3,
+        Time:100,
         CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
         OnCreate:Recipe.OnCreate.ISA_wireCarBattery,
+        OnGiveXP:Recipe.OnGiveXP.ISA_minorElectricalXP,
     }
     recipe UnwireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
         destroy WiredCarBattery,
-        SkillRequired:Electricity=3,
         Result:WiredCarBattery,
         RemoveResultItem:true,
-        Time:30,
+        SkillRequired:Electricity=3,
+        Time:80,
         CanBeDoneFromFloor:true,
         NoBrokenItems:false,
         Category:Electrical,
         OnCreate:Recipe.OnCreate.ISA_unwireCarBattery,
+        OnGiveXP:Recipe.OnGiveXP.ISA_minorElectricalXP,
+    }
+    recipe Make DIY Battery
+    {
+        keep [Recipe.GetItemTypes.Screwdriver],
+        Base.ElectronicsScrap,
+        destroy WiredCarBattery = 4,
+        SkillRequired:Electricity=5,
+        Result: DIYBattery,
+        Time:30,
+        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
+        Category:Electrical,
+        OnCreate:Recipe.OnCreate.ISA_createDiyBattery,
+        OnGiveXP:Recipe.OnGiveXP.ISA_minorElectricalXP,
     }
     recipe Make Solar Roof Tile
     {
@@ -142,9 +122,8 @@ module ISA
 		keep [Recipe.GetItemTypes.Screwdriver],
 		Radio.ElectricWire = 2,
 		Base.RemoteCraftedV3 = 1,
-		destroy ISA.50AhBattery,
-		CanBeDoneFromFloor:false,
-        Time:250,
+        destroy WiredCarBattery,
+        Time:120,
 		SkillRequired:Electricity=3,
 		Result: SolarFailsafe,
 		NeedToBeLearn:true,

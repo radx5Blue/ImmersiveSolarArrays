@@ -117,7 +117,6 @@ function ISAWindowDetails:render()
 end
 
 function ISAWindowDetails:drawLineB(isTrue,igui,y)
-    print(isTrue,igui,y)
     if isTrue then
         self:drawText(getText(igui), 10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
         self:drawTextRight(getText("UI_Yes"), self.width-10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)

@@ -2,7 +2,7 @@ module ISA
 {
     imports
     {
-        Base
+        Base,
     }
 	    item SolarPanel
     {
@@ -36,7 +36,7 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 200,
+        ISA_maxCapacity = 200,
     }
 	    item SuperBattery
     {
@@ -50,77 +50,36 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 400,
-    }
-	    item DIYBattery
-    {
-        Weight	=	7,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	DIY Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 200,
-    }
-	    item 50AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	50Ah Car Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 50,
-    }
-	    item 75AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	75Ah Car Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 75,
-    }
-	    item 100AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	100Ah Car Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 100,
+        ISA_maxCapacity = 400,
     }
     item WiredCarBattery
     {
-        Weight	=	5,
         Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
         DisplayName	=	WiredCarBattery,
         Icon	=	CarBattery,
+        Weight	=	5,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
-        ISAMaxCapacityAh = 50,
+        ISA_maxCapacity = 50,
+        ISA_BatteryDegrade = 8,
+    }
+	    item DIYBattery
+    {
+        Type	=	Drainable,
+        DisplayName	=	DIY Battery,
+        Icon	=	CarBattery,
+        Weight	=	7,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        ConditionMax = 100,
+        WorldStaticModel = CarBattery,
+        ISA_maxCapacity = 200,
     }
 	item PowerBank
 	{

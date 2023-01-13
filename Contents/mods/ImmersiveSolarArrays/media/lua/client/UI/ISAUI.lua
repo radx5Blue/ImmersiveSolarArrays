@@ -1,10 +1,8 @@
-local util = require "ISAUtilities"
-local isa = util
+local string, math, getText = string, math, getText
+
+local isa = require "ISAUtilities"
 
 local UI = {}
-
-local _powerbank
-local maxCapacityTable = util.maxBatteryCapacity
 
 --local rGood, gGood, bGood = 0,1,0
 --local rBad, gBad, bBad = 0,1,0
@@ -64,6 +62,8 @@ end
 local function onConnectPanelCursor(player, square, powerbank)
 	return isa.ConnectPanelCursor:new(player, square, powerbank)
 end
+
+local _powerbank
 
 function UI.OnPreFillWorldObjectContextMenu(player, context, worldobjects, test)
 	if generator then
@@ -168,7 +168,8 @@ function UI.ISInventoryPane_drawItemDetails_patch(drawItemDetails)
 
 	return function(self,item, y, xoff, yoff, red,...)
 		if not item then return end
-		if not (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()]) then
+		--if not (item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]) then
+		if not (item:getModData().ISA_maxCapacity) then
 			return drawItemDetails(self,item, y, xoff, yoff, red,...)
 		else
 			local hdrHgt = self.headerHgt
@@ -183,7 +184,8 @@ end
 
 function UI.DoTooltip_patch(DoTooltip)
 	return function(item,tooltip)
-		if not (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()]) then
+		local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
+		if not maxCapacity then
 			return DoTooltip(item,tooltip)
 		else
 			local lineHeight = tooltip:getLineSpacing()
@@ -203,11 +205,12 @@ function UI.DoTooltip_patch(DoTooltip)
 			else
 				option = layout:addItem()
 				option:setLabel(getText("Tooltip_item_Weight")..":",1,1,0.8,1)
-				if item:isEquipped() or item:getAttachedSlot() > -1 then
-					option:setValue(string.format("%.2f    (%.2f %s) ",item:getEquippedWeight(),item:getUnequippedWeight(),getText("Tooltip_item_Unequipped")),1,1,0.8,1)
-				else
-					option:setValue(string.format("%.2f    (%.2f %s) ",item:getUnequippedWeight(),item:getEquippedWeight(),getText("Tooltip_item_Equipped")),1,1,0.8,1)
-				end
+				option:setValue(string.format("%.2f",item:isEquipped() and item:getEquippedWeight() or item:getUnequippedWeight()),1,1,0.8,1)
+				--if item:isEquipped() or item:getAttachedSlot() > -1 then
+				--	option:setValue(string.format("%.2f    (%.2f %s) ",item:getEquippedWeight(),item:getUnequippedWeight(),getText("Tooltip_item_Unequipped")),1,1,0.8,1)
+				--else
+				--	option:setValue(string.format("%.2f    (%.2f %s) ",item:getUnequippedWeight(),item:getEquippedWeight(),getText("Tooltip_item_Equipped")),1,1,0.8,1)
+				--end
 				option = layout:addItem()
 				option:setLabel(getText("IGUI_invpanel_Remaining")..":",1,1,0.8,1)
 				option:setValue(string.format("%d%%",item:getUsedDelta()*100),1,1,0.8,1)
@@ -216,8 +219,13 @@ function UI.DoTooltip_patch(DoTooltip)
 				option:setValue(string.format("%d%%",item:getCondition()),1,1,0.8,1)
 				option = layout:addItem()
 				option:setLabel(getText("Tooltip_container_Capacity")..":",1,1,0.8,1)
-				local max = (item:hasModData() and item:getModData().ISAMaxCapacityAh or maxCapacityTable[item:getType()])
-				option:setValue(string.format("%d / %d",max * (1 - math.pow((1 - (item:getCondition()/100)),6)),max),1,1,0.8,1)
+				--option:setLabel(getText("Tooltip_container_Capacity").."Ah (~):",1,1,0.8,1)
+				--local capacityMod = (1 - math.pow((1 - (item:getCondition()/100)),6))
+				--local capacity = math.floor(maxCapacity * capacityMod / 5 + 0.4) * 5 --round 5, just a visual preference
+				--option:setValue(string.format("%d    (%d%%) ",capacity,capacityMod * 100),1,1,0.8,1)
+				--maxCapacity = math.floor(maxCapacity/5 + 0.4)*5 --round 5, just a visual preference filter
+				--maxCapacity = math.floor(maxCapacity/2 + 0.5)*2 --round 2, just a visual preference filter
+				option:setValue(string.format("%d / %d",maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6)),maxCapacity),1,1,0.8,1)
 			end
 			y = layout:render(5,y,tooltip)
 			tooltip:endLayout(layout)
