@@ -1,16 +1,18 @@
 if isClient() then return end
 
-ISAWorldSpawns = {}
-local data
-
-local function stringXYZ(iso)
-    return iso:getX() .. "," .. iso:getY() .. "," .. iso:getZ()
+local isa = require "ISAUtilities"
+local sandbox = SandboxVars.ISA
+local globalData
+local function stringXYZ(obj)
+    return obj:getX() .. "," .. obj:getY() .. "," .. obj:getZ()
 end
 
-function ISAWorldSpawns.addToWorld(square, sprite)
+local ISAWorldSpawns = {}
+
+function ISAWorldSpawns.addToWorld(square, sprite, index)
     --if square:isFree(true) or (sprite == "solarmod_tileset_01_6" or sprite == "solarmod_tileset_01_7") and square:isFreeOrMidair(true) then
     local isoObject
-    if ISAScan.Types[sprite] == "Powerbank" then
+    if isa.WorldUtil.Types[sprite] == "Powerbank" then
         isoObject = IsoThumpable.new(square:getCell(), square, sprite, false, {})
         isoObject:setThumpDmg(8)
     else
@@ -19,11 +21,12 @@ function ISAWorldSpawns.addToWorld(square, sprite)
     isoObject:createContainersFromSpriteProperties()
     ISAWorldSpawns.fill(isoObject,sprite)
 
-    square:AddSpecialObject(isoObject)
+    square:AddSpecialObject(isoObject,index or -1)
     if isServer() then
         isoObject:transmitCompleteItemToClients()
     end
     triggerEvent("OnObjectAdded", isoObject)
+
     --else get another tile
     --end
 end
@@ -36,8 +39,8 @@ function ISAWorldSpawns.fill(isoObject,sprite)
     --elseif sprite == "solarmod_tileset_01_0" then overlayType = false
     end
     if fillType == "SolarBox" then
-        local panelnumber = ZombRand(3, 5) * SandboxVars.ISA.LRMSolarPanels
-        local batterynumber = ZombRand(1, 2) * SandboxVars.ISA.LRMBatteries
+        local panelnumber = ZombRand(3, 5) * sandbox.LRMSolarPanels
+        local batterynumber = ZombRand(1, 2) * sandbox.LRMBatteries
         panelnumber = panelnumber < 8 and panelnumber or 7
         batterynumber = batterynumber < 4 and batterynumber or 3
         container:AddItems("ISA.SolarPanel",panelnumber)
@@ -58,20 +61,21 @@ function ISAWorldSpawns.fill(isoObject,sprite)
 end
 
 function ISAWorldSpawns.doRolls()
-    local spawnChance = SandboxVars.ISA.solarPanelWorldSpawns
+    local spawnChance = sandbox.solarPanelWorldSpawns
     if spawnChance == 0 then return end
+    local ZombRand = ZombRand
 
-    local mapLocations = ISAWorldSpawns.defs.mapLocations
     local loaded = {}
     for _,map in ipairs(getWorld():getMap():split(";")) do
-        if mapLocations[map] then
-            for _,location in ipairs(mapLocations[map]) do
+        local mapLocations = ISAWorldSpawns.Maps[map]
+        if mapLocations then
+            for _,location in ipairs(mapLocations) do
                 local valid = true
                 for _,over in ipairs(location.overwrite) do
                     if loaded[over] then valid = false end
                 end
                 if valid and ZombRand(1, 100) <= spawnChance then
-                    data[location.x .. "," .. location.y .. "," .. location.z] = location.type
+                    globalData[location.x .. "," .. location.y .. "," .. location.z] = location.type
                 end
             end
         end
@@ -79,12 +83,11 @@ function ISAWorldSpawns.doRolls()
     end
 end
 
-local spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
-local spawnBatteryBankChance = { 9999, 10, 3, 1 }
+ISAWorldSpawns.spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
+ISAWorldSpawns.spawnBatteryBankChance = { 9999, 10, 3, 1 }
 function ISAWorldSpawns.OnSeeNewRoom(room)
-    local name = room:getName()
-    local chance = spawnBatteryBankRooms[name]
-    if chance and ZombRand(chance * spawnBatteryBankChance[SandboxVars.ISA.BatteryBankSpawn]) == 0 then
+    local roomChance = ISAWorldSpawns.spawnBatteryBankRooms[room:getName()]
+    if roomChance and ZombRand(roomChance * ISAWorldSpawns.spawnBatteryBankChance[sandbox.BatteryBankSpawn]) == 0 then
         local square = room:getRandomFreeSquare()
         if square then
             ISAWorldSpawns.addToWorld(square,"solarmod_tileset_01_0")
@@ -92,34 +95,31 @@ function ISAWorldSpawns.OnSeeNewRoom(room)
     end
 end
 
-local LoadGridsquare = function(square)
+ISAWorldSpawns.LoadGridsquare = function(square)
     local xyz = stringXYZ(square)
-    local spawn = data[xyz]
-    if spawn then
-        ISAWorldSpawns.addToWorld(square,spawn)
-        data[xyz] = nil
-    end
+    local spawn = globalData[xyz]
+    if not spawn then return end
+    globalData[xyz] = nil
+    ISAWorldSpawns.addToWorld(square,spawn)
 end
 
 ISAWorldSpawns.OnInitGlobalModData = function(newGame)
     if ModData.exists("ISAWorldSpawns") then
-        data = ModData.get("ISAWorldSpawns")
+        globalData = ModData.get("ISAWorldSpawns")
     else
-        data = ModData.create("ISAWorldSpawns")
+        globalData = ModData.create("ISAWorldSpawns")
         ISAWorldSpawns.doRolls()
     end
 
-    for _,_ in pairs(data) do
-        Events.LoadGridsquare.Add(LoadGridsquare)
+    for _,_ in pairs(globalData) do
+        Events.LoadGridsquare.Add(ISAWorldSpawns.LoadGridsquare)
         break
     end
-    if SandboxVars.ISA.BatteryBankSpawn > 1 then
+    if sandbox.BatteryBankSpawn > 1 then
         Events.OnSeeNewRoom.Add(ISAWorldSpawns.OnSeeNewRoom)
     end
 end
+
 Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)
 
-ISAWorldSpawns.defs = { spawnBatteryBankRooms = spawnBatteryBankRooms, spawnBatteryBankChance = spawnBatteryBankChance }
-
---debug
-if not SandboxVars.ISA.BatteryBankSpawn then print("ISA Warning: Missing BatteryBankSpawn"); SandboxVars.ISA.BatteryBankSpawn = 1 end
+return ISAWorldSpawns

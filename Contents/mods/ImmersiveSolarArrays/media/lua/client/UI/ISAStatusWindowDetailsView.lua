@@ -1,18 +1,14 @@
 require "ISUI/ISPanelJoypad"
+require "UI/ISAUI"
+local isa = require "ISAUtilities"
 
-require "SolarUI/ISAUI"
-local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
+local rgbGood, rgbBad = isa.UI.rgbGood, isa.UI.rgbBad
 
-ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
+local ISAWindowDetails = ISPanelJoypad:derive("ISAWindowDetails")
 
 function ISAWindowDetails:new(x, y, width, height)
-    local o = {}
-    o = ISPanelJoypad:new(x, y, ISAWindowDetails.measureWidth(), height)
-    setmetatable(o, self)
-    self.__index = self
+    local o = ISPanelJoypad.new(self, x, y, self.measureWidth(), height)
     o:noBackground()
-
-    ISAWindowDetails.instance = o
     return o
 end
 
@@ -35,7 +31,7 @@ end
 
 function ISAWindowDetails:render()
     local pb = self.parent.parent.luaPB
-    if not (pb and pb:getIsoObject()) then print("ISA no Lua Obj"); return ISAStatusWindow.instance:close() end
+    if not (pb and pb:getIsoObject()) then print("ISA no Lua Obj"); return self.parent.parent:close() end
 
     local textX = 10
     local textXr = self.width -10
@@ -45,9 +41,9 @@ function ISAWindowDetails:render()
     local fontHeightMed = getTextManager():getFontHeight(UIFont.Medium)
 
     pb:updateFromIsoObject()
-    local player = self.parent.parent.player
-    local canSee = self.parent.parent.square:getCanSee(self.parent.parent.playerNum)
-    local area = ISAScan.getValidBackupArea(player)
+    local player = self.parent.parent.playerObj
+    local canSee = self.parent.parent.square:getCanSee(self.parent.parent.player)
+    local area = isa.WorldUtil.getValidBackupArea(player)
     local validArea = IsoUtils.DistanceToSquared(player:getX(),player:getY(),player:getZ(),pb.x+0.5,pb.y+0.5,pb.z) <= area.distance and math.abs(player:getZ()-pb.z) <= area.levels
     if canSee and validArea or self.showDetails then
         local devices = pb:getSquare():getGenerator():getItemsPowered()
@@ -64,9 +60,8 @@ function ISAWindowDetails:render()
         self:drawTextRight(tostring(pb.npanels), textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
         self:drawText(getText("IGUI_ISAWindow_Details_MaxPanelOutput"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight(string.format("%.1f",CPowerbankSystem.getMaxSolarOutput(pb.npanels)) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight(string.format("%.1f",pb.luaSystem:getMaxSolarOutput(pb.npanels)) .. " Ah", textXr, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
-        --self:drawRect(5, borderY, self.width-10, textY-borderY+3, 0.18, 1, 1, 1)
 
         textY = textY + fontHeightSm
         self:drawText(getText("IGUI_ISAWindow_Details_ElectricalDevices"), textX, textY, 1, 1, 1, 1, UIFont.Medium)
@@ -94,24 +89,25 @@ function ISAWindowDetails:render()
         self:drawLineB(pb.conGenerator,"IGUI_ISAWindow_Details_conGenerator",textY)
 
         textY = textY + fontHeightSm
-        self:drawLineB(pb.conGenerator and ISAScan.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15"),"IGUI_ISAWindow_Details_Failsafe",textY)
+        self:drawLineB(pb.conGenerator and isa.WorldUtil.findOnSquare(getSquare(pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z), "solarmod_tileset_01_15"),"IGUI_ISAWindow_Details_Failsafe",textY)
         textY = textY + fontHeightSm
     else
         self.devButton:setVisible(false)
-        self:drawText(getText("IGUI_ISAWindow_Details_CantSee"), textX, textY, rBad, gBad, bBad, 1, UIFont.Medium)
+        self:drawText(getText("IGUI_ISAWindow_Details_CantSee"), textX, textY, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Medium)
         textY = textY + fontHeightMed
     end
 
     if self.showBackupDetails then
         textY = textY + 5
-        borderY, borderH = textY-3, fontHeightSm * 2 + 6
+        borderY, borderH = textY-3, fontHeightSm * 3 + 6
         self:drawRect(borderX, borderY, borderW, borderH, 0.7, 0.2, 0.2, 0.2)
         self:drawRectBorder(borderX, borderY, borderW, borderH, 1, 0.3, 0.3, 0.3)
-        local generators = CPowerbankSystem.getGeneratorsInAreaInfo(pb,area)
-        self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
-        self:drawTextRight(tostring(generators), textXr, textY, 1, 1, 1, 1, UIFont.Small)
-        textY = textY + fontHeightSm
         self:drawLineB(validArea,"IGUI_ISAWindow_Details_ValidAreaPlayer",textY)
+        textY = textY + fontHeightSm
+        self:drawText(getText("IGUI_ISAWindow_Details_GenInRange"), textX, textY, 1, 1, 1, 1, UIFont.Small)
+        self:drawTextRight(tostring(pb.luaSystem.getGeneratorsInAreaInfo(pb,area)), textXr, textY, 1, 1, 1, 1, UIFont.Small)
+        textY = textY + fontHeightSm
+        self:drawText(self:getDebugLineForPlayerSquareBackup(), textX, textY, 1, 1, 1, 1, UIFont.Small)
         textY = textY + fontHeightSm
     end
 
@@ -121,17 +117,38 @@ end
 
 function ISAWindowDetails:drawLineB(isTrue,igui,y)
     if isTrue then
-        self:drawText(getText(igui), 10, y, rGood, gGood, bGood, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_Yes"), self.width-10, y, rGood, gGood, bGood, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_Yes"), self.width-10, y, rgbGood.r, rgbGood.g, rgbGood.b, 1, UIFont.Small)
     else
-        self:drawText(getText(igui), 10, y, rBad, gBad, bBad, 1, UIFont.Small)
-        self:drawTextRight(getText("UI_No"), self.width-10, y, rBad, gBad, bBad, 1, UIFont.Small)
+        self:drawText(getText(igui), 10, y, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Small)
+        self:drawTextRight(getText("UI_No"), self.width-10, y, rgbBad.r, rgbBad.g, rgbBad.b, 1, UIFont.Small)
     end
 end
 
 function ISAWindowDetails:updateDevices()
     local luapb = self.parent.parent.luaPB
-    CPowerbankSystem.instance:sendCommand(self.parent.parent.player,"activatePowerbank", { pb = { x = luapb.x, y = luapb.y, z = luapb.z }, activate = luapb.on })
+    luapb.luaSystem:sendCommand(self.parent.parent.playerObj,"activatePowerbank", { pb = { x = luapb.x, y = luapb.y, z = luapb.z }, activate = luapb.on })
+end
+
+function ISAWindowDetails:getDebugLineForPlayerSquareBackup()
+    local text
+    local sq = self.parent.parent.playerObj:getSquare()
+    if not sq then text = "IGUI_ISAWindow_Details_BackupDebugNoSquare"
+    else
+        local pb = self.parent.parent.luaPB
+        local generator = sq:getGenerator()
+        if not generator then text = "IGUI_ISAWindow_Details_BackupDebugNoGenerator"
+        elseif not generator:isConnected() then text = "IGUI_ISAWindow_Details_BackupDebugNotConnected"
+        elseif isa.WorldUtil.findTypeOnSquare(sq,"Powerbank") then text = "IGUI_ISAWindow_Details_BackupDebugPowerbank"
+        elseif not pb.conGenerator or pb.conGenerator.x ~= sq:getX() or pb.conGenerator.y ~= sq:getY() or pb.conGenerator.z ~= sq:getZ() then text = "IGUI_ISAWindow_Details_BackupDebugNotBackup"
+        elseif generator:getFuel() <= 0 then text = "IGUI_ISAWindow_Details_BackupDebugNoFuel"
+        elseif generator:getCondition() <= 20 then text = "IGUI_ISAWindow_Details_BackupDebugLowCondition"
+        else
+            return getText("IGUI_ISAWindow_Details_BackupDebugOK"), true
+        end
+    end
+
+    return getText(text), false
 end
 
 local function maxWidthOfTexts(texts)
@@ -171,3 +188,5 @@ function ISAWindowDetails.measureWidth()
 
     return max
 end
+
+isa.StatusWindowDetailsView = ISAWindowDetails

@@ -1,15 +1,15 @@
 version=1
 id=2857548524
 title=Immersive Solar Arrays - GitHub
-description=Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
-description=[hr][/hr][URL=https://github.com/radx5Blue/ImmersiveSolarArrays/wiki]github wiki[/url]
-description=[URL=https://steamcommunity.com/linkfilter/?url=https://discord.gg/denwquecsf]Discord Link [/URL]
-description=[URL=https://steamcommunity.com/sharedfiles/filedetails/?id=2623458493]Link to original mod[/url]
-description=[hr][/hr]
-description=[h1]Notice[/h1]
-description=[i]~ This mod has the same ID as the original for compatibility with other mods, and to not cause issues with existing saves when switching. However the game doesn't handle it very well, make sure to remove other versions of this mod (unsubscribe, delete files manually if you have to).
-description=~ Mods that delete changes made to default actions like inventory transfer and generator interactions can cause problems.
-description=~ This is upload of latest version of mod on GitHub.
-description=[u][URL=https://steamcommunity.com/workshop/filedetails/discussion/2857548524/3463857594042602200/]~ MP troubleshooting link[/URL][/u][/i]
+description=Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
+description=[hr][/hr][URL=https://github.com/radx5Blue/ImmersiveSolarArrays/wiki]github wiki[/url]
+description=[URL=https://steamcommunity.com/linkfilter/?url=https://discord.gg/denwquecsf]Discord Link [/URL]
+description=[URL=https://steamcommunity.com/sharedfiles/filedetails/?id=2623458493]Link to original mod[/url]
+description=[hr][/hr]
+description=[h1]Notice[/h1]
+description=[i]~ This mod has the same ID as the original for compatibility with other mods, and to not cause issues with existing saves when switching. However the game doesn't handle it very well, make sure to remove other versions of this mod (unsubscribe, delete files manually if you have to).
+description=~ Mods that delete changes made to default actions like inventory transfer and generator interactions can cause problems.
+description=~ This is upload of latest version of mod on GitHub.
+description=[u][URL=https://steamcommunity.com/workshop/filedetails/discussion/2857548524/3463857594042602200/]~ MP troubleshooting link[/URL][/u][/i]
 tags=Build 41;Building;Multiplayer
 visibility=public

@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "saw truck leaving"
+Stash_ISA_Stash_RiversideW1_t2 = "they must be staying in a farm nearby"
+Stash_ISA_Stash_RosewoodE1_t1 = "Danger: Survivors may be escaping inmates"
+Stash_ISA_Stash_RosewoodE1_t2 = "Neighbour's base is abandoned"
+Stash_ISA_Stash_Muldraugh1_t1 = "Dead Inside"
+Stash_ISA_Stash_Muldraugh1_t2 = "Here was Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Welcome to"
+Stash_ISA_Stash_Westpoint1_t2 = "Tasty Brains"
+Stash_ISA_Stash_Westpoint1_t3 = "Every town had a hoarder, I just need to find where they lived."
+Stash_ISA_Stash_Louisville1_t1 = "Tomorrow we loot the store"

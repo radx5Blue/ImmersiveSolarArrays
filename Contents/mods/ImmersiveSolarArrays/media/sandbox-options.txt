@@ -1,10 +1,28 @@
 VERSION = 1,
+option ISA.ChargeFreq
+{
+	type = enum,
+	numValues = 2,
+	default = 1,
+	page = ISA,
+	translation = ISA_ChargeFreq,
+	valueTranslation = ISA_ChargeFreq,
+}
+option ISA.DrainCalc
+{
+	type = enum,
+	numValues = 2,
+	default = 2,
+	page = ISA,
+	translation = ISA_DrainCalc,
+	valueTranslation = ISA_DrainCalc,
+}
 option ISA.solarPanelEfficiency
 {
 	type = integer,
 	min = 1,
-	max = 1000,
-	default = 90,
+	max = 100,
+	default = 25,
 
 	page = ISA,
 	translation = ISA_solarPanelEfficiency,
@@ -13,13 +31,23 @@ option ISA.batteryDegradeChance
 {
 	type = integer,
 	min = 0,
-	max = 100,
+	max = 1000,
 	default = 100,
 
 	page = ISA,
 	translation = ISA_batteryDegradeChance,
 }
-option ISA.solarPanelWorldSpawns 
+option ISA.DIYBatteryMultiplier
+{
+	type = integer,
+	min = 1,
+	max = 10000,
+	default = 100,
+
+	page = ISA,
+	translation = ISA_DIYBatteryMultiplier,
+}
+option ISA.solarPanelWorldSpawns
 {
 	type = integer,
 	min = 0,
@@ -28,6 +56,23 @@ option ISA.solarPanelWorldSpawns
 
 	page = ISA,
 	translation = ISA_solarPanelWorldSpawns,
+}
+option ISA.BatteryBankSpawn
+{
+	type = enum,
+	numValues = 4,
+	default = 3,
+	page = ISA,
+	translation = ISA_BatteryBankSpawn,
+}
+option ISA.StashMode
+{
+	page = ISA,
+	translation = ISA_StashMode,
+
+	type = enum,
+	numValues = 3,
+	default = 2,
 }
 option ISA.LRMSolarPanels
 {
@@ -62,39 +107,13 @@ option ISA.LRMMisc
 	translation = ISA_LRMMisc,
 	valueTranslation = ISA_LRMMisc,
 }
-option ISA.DIYBatteryCapacity
+option ISA.ConnectPanelMin
 {
+	page = ISA,
+	translation = ISA_ConnectPanelMin,
+
 	type = integer,
 	min = 1,
-	max = 10000,
-	default = 200,
-
-	page = ISA,
-	translation = ISA_DIYBatteryCapacity,
-}
-option ISA.DrainCalc
-{
-	type = enum,
-	numValues = 2,
-	default = 2,
-	page = ISA,
-	translation = ISA_DrainCalc,
-	valueTranslation = ISA_DrainCalc,
-}
-option ISA.ChargeFreq
-{
-	type = enum,
-	numValues = 2,
-	default = 1,
-	page = ISA,
-	translation = ISA_ChargeFreq,
-	valueTranslation = ISA_ChargeFreq,
-}
-option ISA.BatteryBankSpawn
-{
-	type = enum,
-	numValues = 4,
-	default = 3,
-	page = ISA,
-	translation = ISA_BatteryBankSpawn,
+	max = 1000,
+	default = 120,
 }

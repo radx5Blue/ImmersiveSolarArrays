@@ -1,9 +1,9 @@
-require "SolarUI/ISAUI"
-local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
-local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
+local isa = require "ISAUtilities"
+require "UI/ISAUI"
 
-ISACursor = {}
-ISACursor.Type = "ISACursor"
+local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
+
+local ISACursor = ISBaseObject:derive("ISACursor")
 
 function ISACursor:new(player,square)
     local o = {}
@@ -21,14 +21,7 @@ function ISACursor:new(player,square)
     else
         getCell():setDrag(o, player)
     end
-    return o
-end
 
-function ISACursor:derive(type)
-    local o = {}
-    setmetatable(o, self)
-    self.__index = self
-    o.Type = type
     return o
 end
 
@@ -45,8 +38,7 @@ function ISACursor:onGainJoypadFocus(joypadData)
     getCell():setDrag(self,self.player)
 end
 function ISACursor:onJoypadDown(button, joypadData) return self:onJoypadPressButton(nil, joypadData, button) end
---function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button) end
-function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button) --onPressButtonNoFocus
+function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button)
     if button == Joypad.AButton and self.valid then self:tryBuild() end
     if button == Joypad.BButton then self:close() end
     if button == Joypad.YButton then
@@ -58,7 +50,7 @@ function ISACursor:onJoypadDirDown(joypadData) self.yJoy = self.yJoy + 1 end
 function ISACursor:onJoypadDirUp(joypadData) self.yJoy = self.yJoy - 1 end
 function ISACursor:onJoypadDirRight(joypadData) self.xJoy = self.xJoy + 1 end
 function ISACursor:onJoypadDirLeft(joypadData) self.xJoy = self.xJoy - 1 end
-function ISACursor:getAPrompt() return self.valid and "Interact" end --text
+function ISACursor:getAPrompt() return self.valid and getText("IGUI_Controller_Interact") end
 function ISACursor:getBPrompt() return getText("UI_Cancel") end
 function ISACursor:getYPrompt() return getText("IGUI_SetCursorToPlayerLocation") end
 function ISACursor:getLBPrompt() end
@@ -84,15 +76,15 @@ function ISACursor:close()
 end
 
 function ISACursor:isVisible()
-    return getCell():getDrag(self.player) == ISACursor.cursor
+    local drag = getCell():getDrag(self.player)
+    return drag and (drag.Type == self.Type)
 end
 
-ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
+local ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 
 function ISAConnectPanelCursor:new(player,square, powerbank)
     local o = ISACursor.new(self,player, square)
-    --o.isoPb = powerbank
-    o.luaPb = CPowerbankSystem.instance:getLuaObjectOnSquare(powerbank:getSquare())
+    o.luaPb = isa.PbSystem_client:getLuaObjectOnSquare(powerbank:getSquare())
     return o
 end
 
@@ -100,7 +92,7 @@ function ISAConnectPanelCursor:isValid(square,...)
     square = self.joyfocus and getSquare(self.xJoy,self.yJoy,self.playerObj:getZ()) or square
     if self.sq ~= square then
         self.sq = square
-        local panel = ISAScan.findTypeOnSquare(square,"Panel")
+        local panel = isa.WorldUtil.findTypeOnSquare(square,"Panel")
         self.panel = panel
         if not panel then
             self.valid = false
@@ -120,11 +112,8 @@ function ISAConnectPanelCursor:render(x,y,z,...)
         self.floorSprite:LoadFramesNoDirPageSimple('media/ui/FloorTileCursor.png')
     end
 
-    if self.valid then
-        self.floorSprite:RenderGhostTileColor(x, y, z, rGood, gGood, bGood, 0.8)
-    else
-        self.floorSprite:RenderGhostTileColor(x, y, z, rBad, gBad, bBad, 0.8)
-    end
+    local c = self.valid and rgbGood or rgbBad
+    self.floorSprite:RenderGhostTileColor(x, y, z, c.r, c.g, c.b, 0.8)
 
     self:renderTooltip()
 end
@@ -140,15 +129,15 @@ function ISAConnectPanelCursor:renderTooltip()
         self.tooltip = tooltip
     end
     if not self.panel then
-        tooltip.description = richBad .. getText("Tooltip_ISA_NoPanels")
+        tooltip.description = rgbBad.rich .. getText("Tooltip_ISA_NoPanels")
     else
-        tooltip.description = self.connected and richGood .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or richNeutral .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+        tooltip.description = self.connected and rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or rgbDefault.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
         if not self.valid then tooltip.description = string.format("%s\n%s%s",tooltip.description,richBad,getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")) end
     end
 end
 
 function ISAConnectPanelCursor:tryBuild()
-    return ISAMenu.onConnectPanel(nil,self.player,self.panel,self.luaPb)
+    return isa.UI.onConnectPanel(self.player,self.panel,self.luaPb)
 end
 
 function ISAConnectPanelCursor:getAPrompt()
@@ -156,7 +145,7 @@ function ISAConnectPanelCursor:getAPrompt()
 end
 
 function ISAConnectPanelCursor:isConnected()
-    local dataPb, luaPb = self.panel:getModData().powerbank, self.luaPb
+    local dataPb, luaPb = self.panel:getModData().pbLinked, self.luaPb
     if dataPb and dataPb.x == luaPb.x and dataPb.y == luaPb.y and dataPb.z == luaPb.z then
         local x,y,z = self.panel:getX(), self.panel:getY(), self.panel:getZ()
         self.luaPb:updateFromIsoObject()
@@ -165,3 +154,5 @@ function ISAConnectPanelCursor:isConnected()
         end
     end
 end
+
+isa.ConnectPanelCursor = ISAConnectPanelCursor

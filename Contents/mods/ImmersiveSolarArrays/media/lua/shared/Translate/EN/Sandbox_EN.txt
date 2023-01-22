@@ -1,13 +1,13 @@
 Sandbox_EN = {
 	Sandbox_ISA = "Immersive Solar Arrays",
 
-	Sandbox_ISA_solarPanelEfficiency = "Solar Panel Efficiency (0-100)",
+	Sandbox_ISA_solarPanelEfficiency = "Solar Panel Efficiency",
 	Sandbox_ISA_solarPanelEfficiency_tooltip = "Solar panel power efficiency<br>12% is realistic for 1993<br>25% is modern solar<br>default is unrealistic",
 
-	Sandbox_ISA_batteryDegradeChance = "Battery Degrade Chance (0-100)",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "Chance of batteries degrading each day.\nDecreasing this will dramatically increase battery life.",
+	Sandbox_ISA_batteryDegradeChance = "Battery Degrade Severity",
+	Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplier for the average degrade of batteries.\nDecreasing this will dramatically increase battery life.",
 
-	Sandbox_ISA_solarPanelWorldSpawns = "Solar Panel / Crate World Spawns (0-100)",
+	Sandbox_ISA_solarPanelWorldSpawns = "Solar Panel / Crate World Spawns",
 	Sandbox_ISA_solarPanelWorldSpawns = "How likely pre-placed solar panels and crates are to spawn at a given spawn location",
 
 	Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Solar panels",
@@ -19,8 +19,8 @@ Sandbox_EN = {
 	Sandbox_ISA_LRMMisc = "Loot Rarity Multiplier - Misc",
 	Sandbox_ISA_LRMMisc_tooltip = "Magazine and inverter spawns in random containers and pre-placed crates multiplier",
 	
-	Sandbox_ISA_DIYBatteryCapacity = "DIY Battery Capacity (Ah)",
-	Sandbox_ISA_DIYBatteryCapacity_tooltip = "How much energy in Ah a single DIY Battery can store.",
+	Sandbox_ISA_DIYBatteryMultiplier = "DIY Battery Capacity",
+	Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplier for the capacity of crafted DIY batteries.",
 
     Sandbox_ISA_DrainCalc_option1 = "ISA",
     Sandbox_ISA_DrainCalc_option2 = "Regular Generator",
@@ -36,4 +36,11 @@ Sandbox_EN = {
     Sandbox_ISA_BatteryBankSpawn_option2 = "Very Rare",
     Sandbox_ISA_BatteryBankSpawn_option3 = "Rare",
     Sandbox_ISA_BatteryBankSpawn_option4 = "Uncommon",
+    Sandbox_ISA_StashMode = "Stash Houses",
+    Sandbox_ISA_StashMode_tooltip = "Choose mode for Stash Houses.<br>Change only on new game.",
+    Sandbox_ISA_StashMode_option1 = "Don't add Stash Houses",
+    Sandbox_ISA_StashMode_option2 = "Add Stash Houses",
+    Sandbox_ISA_StashMode_option3 = "Add + known from start",
+    Sandbox_ISA_ConnectPanelMin = "Connect Panel Time",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Base number of in-game minutes it takes to connect one panel",
 }

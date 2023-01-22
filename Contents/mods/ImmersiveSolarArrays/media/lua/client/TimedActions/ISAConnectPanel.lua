@@ -1,9 +1,10 @@
 require "TimedActions/ISBaseTimedAction"
+local isa = require "ISAUtilities"
 
-ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel");
+local ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel")
 
 function ISAConnectPanel:isValid()
-    return self.panel:getObjectIndex() ~= -1 and self.panel:getSquare():isOutside()
+    return self.panel:getObjectIndex() ~= -1
 end
 
 function ISAConnectPanel:start()
@@ -12,20 +13,17 @@ function ISAConnectPanel:start()
     self.character:reportEvent("EventLootItem")
     self.sound = self.character:playSound("GeneratorConnect")
 
-    local x = self.panel:getX()
-    local y = self.panel:getY()
-    local z = self.panel:getZ()
     local data = self.panel:getModData()
-    local prevdelta = data["connectDelta"]
-    if not prevdelta then prevdelta = 0 elseif prevdelta > 90 then prevdelta = 90 end
-    data["connectDelta"] = prevdelta
-    self:setCurrentTime(self.maxTime * prevdelta / 100)
-    if data["powerbank"] then
-        local pb = CPowerbankSystem.instance:getIsoObjectAt(data["powerbank"].x,data["powerbank"].y,data["powerbank"].z) and data["powerbank"]
+    local prevDelta = data["connectDelta"]
+    if not prevDelta then prevDelta = 0 elseif prevDelta > 90 then prevDelta = 90 end
+    data["connectDelta"] = prevDelta
+    self:setCurrentTime(self.maxTime * prevDelta / 100)
+    if data["pbLinked"] then
+        local pb = isa.PbSystem_client:getIsoObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z) and data["pbLinked"]
         if pb then
-            CPowerbankSystem.instance:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
+            isa.PbSystem_client:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
         end
-        data["powerbank"] = nil
+        data["pbLinked"] = nil
     end
     self.panel:transmitModData()
 end
@@ -36,7 +34,7 @@ function ISAConnectPanel:waitToStart()
 end
 
 function ISAConnectPanel:update()
-    self.character:faceThisObject(self.generator)
+    self.character:faceThisObject(self.panel)
 end
 
 function ISAConnectPanel:stop()
@@ -56,12 +54,11 @@ function ISAConnectPanel:perform()
 
     local data = self.panel:getModData()
     data.connectDelta = 100
-    local isopb = self.powerbank:getIsoObject()
-    if isopb then
+    if self.powerbank:getIsoObject() then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
         local panel = { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }
-        CPowerbankSystem.instance:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
-        data.powerbank = pb
+        isa.PbSystem_client:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
+        data.pbLinked = pb
     end
     self.panel:transmitModData()
 
@@ -78,9 +75,12 @@ function ISAConnectPanel:new(character, panel, powerbank)
     o.stopOnWalk = true;
     o.stopOnRun = true;
     o.stopOnAim = false
-    o.maxTime = (120 - (character:getPerkLevel(Perks.Electricity) - 3) * 10) * 2 * getGameTime():getMinutesPerDay() / 10 --2 hours at level 3, ~half at level 10 --- temp /10
-    if o.character:isTimedActionInstant() then
-        o.maxTime = 1
-    end
-    return o;
+    o.maxTime = SandboxVars.ISA.ConnectPanelMin * (1 - 0.095 * (character:getPerkLevel(Perks.Electricity) - 3)) * 2 * getGameTime():getMinutesPerDay() --base time in minutes at level 3, ~1/3 at level 10
+
+    if o.character:isTimedActionInstant() then o.maxTime = 1 end
+    return o
 end
+
+if not SandboxVars.ISA.ConnectPanelMin then SandboxVars.ISA.ConnectPanelMin = 120 end
+
+isa.ConnectPanel = ISAConnectPanel
