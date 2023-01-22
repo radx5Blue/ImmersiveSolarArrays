@@ -1,6 +1,8 @@
-ISAScan = {}
+local isa = require "ISAUtilities"
 
-ISAScan.Types = {
+local WorldUtil = {}
+
+WorldUtil.Types = {
     solarmod_tileset_01_0 = "Powerbank",
     solarmod_tileset_01_6 = "Panel",
     solarmod_tileset_01_7 = "Panel",
@@ -10,12 +12,20 @@ ISAScan.Types = {
     solarmod_tileset_01_15 = "Failsafe",
 }
 
-function ISAScan.getValidBackupArea(isoPlayer,level)
+function WorldUtil.getType(isoObject)
+    return WorldUtil.Types[isoObject:getTextureName()]
+end
+
+function WorldUtil.objIsType(isoObject,modType)
+    return WorldUtil.Types[isoObject:getTextureName()] == modType
+end
+
+function WorldUtil.getValidBackupArea(isoPlayer,level)
     local skillLevel = isoPlayer and isoPlayer:getPerkLevel(Perks.Electricity) or level or 3
     return { radius = skillLevel, levels = skillLevel > 5 and 1 or 0, distance = math.pow(skillLevel, 2) * 1.25 }
 end
 
-function ISAScan.getLuaObjects(square,radius,level,distance)
+function WorldUtil.getLuaObjects(square,radius,level,distance)
     local banks = {}
     local x = square:getX()
     local y = square:getY()
@@ -27,9 +37,9 @@ function ISAScan.getLuaObjects(square,radius,level,distance)
                 local pb
                 if isquare then
                     if not isServer() then
-                        pb = CPowerbankSystem.instance:getLuaObjectOnSquare(isquare)
+                        pb = isa.PbSystem_client:getLuaObjectOnSquare(isquare)
                     else
-                        pb = SPowerbankSystem.instance:getLuaObjectOnSquare(isquare)
+                        pb = isa.PbSystem_server:getLuaObjectOnSquare(isquare)
                     end
                 end
                 if pb then
@@ -41,20 +51,24 @@ function ISAScan.getLuaObjects(square,radius,level,distance)
     return banks
 end
 
-function ISAScan.findOnSquare(square,sprite)
+function WorldUtil.findOnSquare(square,sprite)
     local special = square:getSpecialObjects()
-    for i = 1, special:size() do
-        if special:get(i-1):getTextureName() == sprite then
-            return special:get(i-1)
+    for i = 0, special:size()-1 do
+        local obj = special:get(i)
+        if obj:getTextureName() == sprite then
+            return obj
         end
     end
 end
 
-function ISAScan.findTypeOnSquare(square,type)
+function WorldUtil.findTypeOnSquare(square,type)
     local special = square:getSpecialObjects()
-    for i = 1, special:size() do
-        if ISAScan.Types[special:get(i-1):getTextureName()] == type then
-            return special:get(i-1)
+    for i = 0, special:size()-1 do
+        local obj = special:get(i)
+        if WorldUtil.Types[obj:getTextureName()] == type then
+            return obj
         end
     end
 end
+
+isa.WorldUtil = WorldUtil

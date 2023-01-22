@@ -7,8 +7,6 @@ ItemName_EN = {
     ItemName_ISA.ISAInverter = "Inverter",
     ItemName_ISA.DeepCycleBattery = "200Ah Deep Cycle Battery",
     ItemName_ISA.SuperBattery = "400Ah Deep Cycle Battery",
+    ItemName_ISA.WiredCarBattery = "Wired Car Battery",
     ItemName_ISA.DIYBattery = "DIY Deep Cycle Battery",
-    ItemName_ISA.50AhBattery = "50Ah Wired Car Battery",
-    ItemName_ISA.75AhBattery = "75Ah Wired Car Battery",
-    ItemName_ISA.100AhBattery = "100Ah Wired Car Battery",
 }

@@ -1,6 +1,7 @@
 require "ISUI/ISPanelJoypad"
+local isa = require "ISAUtilities"
 
-ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
+local ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab");
 
 function ISAWindowsSumaryTab:initialise()
 	ISPanelJoypad.initialise(self);
@@ -108,7 +109,7 @@ function ISAWindowsSumaryTab:initialise()
 
 	-- Fix the daytime/nightime icon
 	local currentTime = getGameTime():getTimeOfDay();
-	if ISAIsDayTime(currentTime) then
+	if isa.UI.ISAIsDayTime(currentTime) then
 		self.imageSun:setVisible(true)
 		self.imageMoon:setVisible(false)
 		self.night = false
@@ -135,17 +136,17 @@ end
 
 function ISAWindowsSumaryTab:render()
 	local pb = self.parent.parent.luaPB
-	if not (pb and pb:getIsoObject()) then return ISAStatusWindow.instance:close() end
+	if not (pb and pb:getIsoObject()) then return self.parent.parent:close() end
 	-- Update every 30 frames
 	if (self.currentFrame%30 == 0) then
 		pb:updateFromIsoObject()
 		self.batteryLevel = pb.charge / pb.maxcapacity
-		self.panelsMaxInput = CPowerbankSystem.instance.getMaxSolarOutput(pb.npanels)
-		self.panelsInput = CPowerbankSystem.instance.getModifiedSolarOutput(pb.npanels)
+		self.panelsMaxInput = pb.luaSystem:getMaxSolarOutput(pb.npanels)
+		self.panelsInput = pb.luaSystem:getModifiedSolarOutput(pb.npanels)
 		self.difference = self.panelsInput - (pb:shouldDrain() and pb.drain or 0)
 
 		local currentTime = getGameTime():getTimeOfDay();
-		if ISAIsDayTime(currentTime) then
+		if isa.UI.ISAIsDayTime(currentTime) then
 			if (self.night == true) then
 				self.imageSun:setVisible(true)
 				self.imageMoon:setVisible(false)
@@ -200,77 +201,76 @@ function ISAWindowsSumaryTab:render()
 	end
 	self.currentFrame = self.currentFrame +1
 
-	-- Sumary box
-	local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125
+	-- Summary box
+	local line = getTextManager():getFontHeight(UIFont.Small)
+	local rectX, rectY, rectW, rectH = self.sumBox.x, 20, self.sumBox.width, 25 + line * 6
+	local text_x = self.sumBox.textX
+	local text_x2 = text_x + self.sumBox.pad1
+	local text_y = 30;
 	self:drawRect(rectX, rectY, rectW, rectH, 0.5, 0.16, 0.16, 0.16)
 	self:drawRectBorder(rectX, rectY, rectW, rectH, 1, 1, 1, 1)
 
-	-- Sumary text
-	local text_x = self.width - self.textWidth - 60
-	local text_y = 30;
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + 15, 0, 1, 0, 1, UIFont.Small);
-	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+	-- Summary text
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + line * 0, 0, 1, 0, 1, UIFont.Small);
+	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + line *1, 0, 1, 0, 1, UIFont.Small);
 
 	-- Solar panels status
 	if (pb.drain > self.panelsMaxInput) then
-		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughPanels"), text_x2, text_y + line * 0, 0, 1, 0, 1, UIFont.Small);
 	else
 		if (pb.drain > self.panelsInput) then
-			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoEnoughSun"), text_x2, text_y + line * 0, 0, 1, 0, 1, UIFont.Small);
 		else
-			self:drawText(getText("IGUI_ISAWindowsSumaryTab_Working"), text_x + 15, text_y + 15, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_Working"), text_x2, text_y + line * 0, 0, 1, 0, 1, UIFont.Small);
 		end
 	end
 
 	if (pb.maxcapacity > 0) then
-		self:drawText(string.format("%d%%", self.batteryLevel * 100), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(string.format("%d%%", self.batteryLevel * 100), text_x2, text_y + line * 1, 0, 1, 0, 1, UIFont.Small);
 
 		if (self.difference > 0) then
 			if pb.maxcapacity == pb.charge then
-				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + line *2, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyCharged"), text_x2, text_y + line *2, 0, 1, 0, 1, UIFont.Small)
 			else
 				local ctime = ((pb.maxcapacity - pb.charge) / self.difference)
 				local days = math.floor(ctime / 24)
 				local hours = math.floor(ctime % 24)
 				local minutes = math.floor((ctime - math.floor(ctime)) * 60)
-				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ChargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
-				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_ChargedIn"), text_x, text_y + line *2, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x2, text_y + line *2, 0, 1, 0, 1, UIFont.Small)
 			end
 		elseif (self.difference < 0) then
 			if (pb.charge == 0) then
-				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small);
-				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryStatus") .. ":", text_x, text_y + line *2, 0, 1, 0, 1, UIFont.Small);
+				self:drawText(getText("IGUI_ISAWindowsSumaryTab_FullyDischarged"), text_x2, text_y + line *2, 0, 1, 0, 1, UIFont.Small)
 			else
 				local dtime = math.abs(pb.charge / self.difference)
 				local days = math.floor(dtime / 24)
 				local hours = math.floor(dtime % 24)
 				local minutes = math.floor((dtime - math.floor(dtime)) * 60)
-				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_DischargedIn"), text_x, text_y + 45, 0, 1, 0, 1, UIFont.Small)
-				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small)
+				self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_DischargedIn"), text_x, text_y + line *2, 0, 1, 0, 1, UIFont.Small)
+				self:drawText(days > 0 and (days .. " " .. getText("IGUI_Gametime_days")) or hours > 0 and (hours .. " " .. getText("IGUI_Gametime_hours")) or (minutes .. " " .. getText("IGUI_Gametime_minutes")), text_x2, text_y + line * 2, 0, 1, 0, 1, UIFont.Small)
 			end
 		else
-			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+			self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x2, text_y + line *2, 0, 1, 0, 1, UIFont.Small);
 		end
 		if pb.charge > 0 and pb.drain > 0 then
 			local dtime = pb.charge / pb.drain
 			local days = math.floor(dtime / 24)
 			local hours = math.floor(dtime % 24)
 			local minutes = math.floor((dtime - math.floor(dtime)) * 60)
-			self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryRemaining"), text_x, text_y + 60, 0, 1, 0, 1, UIFont.Small)
-			self:drawText(string.format("%d %s\n%d %s\n%d %s",days,getText("IGUI_Gametime_days"),hours,getText("IGUI_Gametime_hours"),minutes,getText("IGUI_Gametime_minutes")), text_x + 15, text_y + 60, 0, 1, 0, 1, UIFont.Small)
+			self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryRemaining"), text_x, text_y + line *3, 0, 1, 0, 1, UIFont.Small)
+			self:drawText(string.format("%d %s\n%d %s\n%d %s",days,getText("IGUI_Gametime_days"),hours,getText("IGUI_Gametime_hours"),minutes,getText("IGUI_Gametime_minutes")), text_x2, text_y + line *3, 0, 1, 0, 1, UIFont.Small)
 		end
 	else
-		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x + 15, text_y + 30, 0, 1, 0, 1, UIFont.Small);
-		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x + 15, text_y + 45, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NoBatteries"), text_x2, text_y + line *1, 0, 1, 0, 1, UIFont.Small);
+		self:drawText(getText("IGUI_ISAWindowsSumaryTab_NotCharging"), text_x2, text_y + line *2, 0, 1, 0, 1, UIFont.Small);
 	end
 end
 
 function ISAWindowsSumaryTab:new(x, y, width, height)
-	local o = {};
-	o = ISPanelJoypad:new(x, y, width, height);
-	setmetatable(o, self);
-    self.__index = self;
+	local o = ISPanelJoypad.new(self, x, y, width, height)
 	o:noBackground();
 
 	-- Textures
@@ -283,9 +283,36 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 	o.textureSolarRadiation = getTexture("media/ui/isa_solar_radiation.png");
 	o.textureSun = getTexture("media/ui/isa_sun.png");
 	o.textureMoon = getTexture("media/ui/isa_moon.png");
-	o.textWidth = self.measureTexts()
 
-    ISAWindowsSumaryTab.instance = o;
+	local maxMeasured = o.measureTexts()
+	local maxLR = maxMeasured.left + maxMeasured.right
+	o.sumBox = {}
+	if maxLR > 580 then -- resize?
+		o.sumBox.x = 0
+		o.sumBox.width = 580
+		o.sumBox.pad1 = 1
+		o.sumBox.textX = maxMeasured.left
+	elseif maxLR > 570 then
+		o.sumBox.x = 0
+		o.sumBox.width = 580
+		o.sumBox.pad1 = 580 - maxLR
+		o.sumBox.textX = maxMeasured.left
+	elseif maxLR > 530 then
+		o.sumBox.x = 0
+		o.sumBox.width = 580
+		o.sumBox.pad1 = 10
+		o.sumBox.textX = maxMeasured.left + math.floor((570-maxLR) / 2)
+	elseif maxLR > 490 then
+		o.sumBox.x = math.floor((570 - maxLR) / 2)
+		o.sumBox.width = maxLR + 50
+		o.sumBox.pad1 = 10
+		o.sumBox.textX = o.sumBox.x + 20 + maxMeasured.left
+	else
+		o.sumBox.x = 510 - maxLR
+		o.sumBox.width = maxLR + 50
+		o.sumBox.pad1 = 10
+		o.sumBox.textX = o.sumBox.x + 20 + maxMeasured.left
+	end
 
 	-- Used variables
 	self.currentFrame = 0;
@@ -320,13 +347,15 @@ function ISAWindowsSumaryTab.measureTexts()
 		}
 	}
 
-	local max = 0
+	local max = { left = 0, right = 0}
 	for type,texts in pairs(textTable) do
 		for _,text in ipairs(texts) do
 			local width = getTextManager():MeasureStringX(UIFont.Small, getText(text))
-			max = math.max(max, width)
+			max[type] = math.max(max[type], width)
 		end
 	end
 
 	return max
 end
+
+isa.StatusWindowSummaryView = ISAWindowsSumaryTab

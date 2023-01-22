@@ -1,12 +1,13 @@
 if isClient() then return end
-require "PowerBank/SPowerbankSystem"
+
+local PbSystem = require "Powerbank/ISAPowerbankSystem_server"
 
 local Commands = {}
 
-local function noise(message) SPowerbankSystem.instance:noise(message) end
+local function noise(message) return PbSystem.instance:noise(message) end
 
 local function getPowerbank(args)
-    return SPowerbankSystem.instance:getLuaObjectAt(args.x, args.y, args.z)
+    return PbSystem.instance:getLuaObjectAt(args.x, args.y, args.z)
 end
 
 function Commands.disconnectPanel(player,args)
@@ -26,8 +27,15 @@ end
 function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
     if pb then
-        local square = getSquare(args.panel.x,args.panel.y,args.panel.z)
-        if square and square:isOutside() then
+        local x,y,z = args.panel.x,args.panel.y,args.panel.z
+        local square = getSquare(x,y,z)
+        if square and pb.luaSystem:getValidPanelOnSquare(square) then
+            --not always necessary but removes duplication errors
+            --need during v42 overhaul, for compatibility with older saves
+            for _,panel in ipairs(pb.panels) do
+                if x == panel.x and y == panel.y and z == panel.z then return end
+            end
+
             table.insert(pb.panels,args.panel)
             pb.npanels = pb.npanels + 1
             pb:saveData(true)
@@ -41,11 +49,11 @@ function Commands.Battery(player,args)
         noise("Transfering Battery")
         if args[2] == "take" then
             pb.batteries = pb.batteries - 1
-            pb.charge = pb.charge - args[3] * args[4]
+            pb.charge = pb.charge - args[4]
             pb.maxcapacity = pb.maxcapacity - args[4]
         elseif args[2] == "put" then
             pb.batteries = pb.batteries + 1
-            pb.charge = pb.charge + args[3] * args[4]
+            pb.charge = pb.charge + args[4]
             pb.maxcapacity = pb.maxcapacity + args[4]
         end
         pb:updateGenerator()
@@ -56,11 +64,11 @@ end
 
 function Commands.plugGenerator(player,args)
     local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
-    local generator = square and square:getGenerator()
+    local generator = square and PbSystem.instance:getValidBackupOnSquare(square)
     for _,i in ipairs(args.pbList) do
         local pb = getPowerbank(i)
         if pb then
-            if args.plug and generator and not ISAScan.findTypeOnSquare(square,"Powerbank") then
+            if args.plug and generator then
                 noise("adding backup")
                 pb:connectBackupGenerator(generator)
             else
@@ -103,4 +111,4 @@ function Commands.countBatteries(player,args)
     end
 end
 
-SPowerbankSystemCommands = Commands
+PbSystem.Commands = Commands

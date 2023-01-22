@@ -2,8 +2,7 @@ module ISA
 {
     imports
     {
-        Base
-
+        Base,
     }
 	    item SolarPanel
     {
@@ -36,9 +35,8 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISA_maxCapacity = 200,
     }
 	    item SuperBattery
     {
@@ -51,69 +49,37 @@ module ISA
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
+        ISA_maxCapacity = 400,
+    }
+    item WiredCarBattery
+    {
+        Type	=	Drainable,
+        DisplayName	=	WiredCarBattery,
+        Icon	=	CarBattery,
+        Weight	=	5,
+        UseDelta	=	0.00001,
+        UseWhileEquipped	=	FALSE,
+        MetalValue = 1,
+        cantBeConsolided = TRUE,
+        ConditionMax = 100,
+        WorldStaticModel = CarBattery,
+        ISA_maxCapacity = 50,
+        ISA_BatteryDegrade = 8,
     }
 	    item DIYBattery
     {
-        Weight	=	7,
         Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
         DisplayName	=	DIY Battery,
         Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
-        WorldStaticModel = CarBattery,
-    }
-	    item 50AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
+        Weight	=	7,
         UseDelta	=	0.00001,
         UseWhileEquipped	=	FALSE,
-        DisplayName	=	50Ah Car Battery,
-        Icon	=	CarBattery,
         MetalValue = 1,
         cantBeConsolided = TRUE,
         ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
         WorldStaticModel = CarBattery,
-    }
-	    item 75AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	75Ah Car Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
-        WorldStaticModel = CarBattery,
-    }
-	    item 100AhBattery
-    {
-        Weight	=	5,
-        Type	=	Drainable,
-        UseDelta	=	0.00001,
-        UseWhileEquipped	=	FALSE,
-        DisplayName	=	100Ah Car Battery,
-        Icon	=	CarBattery,
-        MetalValue = 1,
-        cantBeConsolided = TRUE,
-        ConditionMax = 100,
-        ChanceToSpawnDamaged = 0,
-        MechanicsItem = FALSE,
-        WorldStaticModel = CarBattery,
+        ISA_maxCapacity = 200,
     }
 	item PowerBank
 	{
@@ -151,4 +117,50 @@ module ISA
 		DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_15,
 	}
+
+    /**************************** Literature **********************************/
+	item ISAMag1
+    {
+		DisplayCategory = SkillBook,
+        Weight	=	0.1,
+        Type	=	Literature,
+        DisplayName	=	New Advancements: Energy From The Sun,
+        Icon	=	ISAMag1,
+        TeachedRecipes = Create Battery Bank; WireCarBattery; UnwireCarBattery; Make DIY Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Reverse Solar Panel; Create Solar Failsafe,
+        ReplaceOnUse    =   ISAMag1,
+		StaticModel = Magazine,
+		WorldStaticModel = ISA.SolarMagModel,
+    }
+
+	/**************************** Maps **********************************/
+    item Stash_RiversideW1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_RiversideW1,
+        WorldStaticModel = Map,
+    }
+    item Stash_RosewoodE1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_RosewoodE1,
+        WorldStaticModel = Map,
+    }
+    item Stash_Louisville1
+    {
+        Type = Map,
+        DisplayCategory = Cartography,
+        DisplayName = Map,
+        Icon = Map,
+        Weight = 0.05,
+        Map = ISA_Stash_Louisville1,
+        WorldStaticModel = Map,
+    }
 }

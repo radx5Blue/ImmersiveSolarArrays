@@ -1,4 +1,66 @@
-function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
+local isa = require "ISAUtilities"
+
+local function ConsumptionScan(square)
+	--print("running consumption scan")
+	--calculates the power consumption of appliances within a square
+	local powerconsumption = 0;
+	if square:getObjects():size() ~= nil then
+		--print("square has objects")
+		for objs = 1, square:getObjects():size() do
+			local myObject = square:getObjects():get(objs-1);
+			if (myObject ~= nil) then
+				--print("object not nil")
+				if instanceof(myObject, "IsoWorldInventoryObject") == false then
+					--print("is this running1")
+
+					if instanceof(myObject, "IsoTelevision") then
+						if myObject:getDeviceData() ~= nil then
+							if myObject:getDeviceData():getIsTurnedOn() then
+								powerconsumption = powerconsumption + 0.017
+								--print("found tv")
+							end
+						end
+					end
+					if instanceof(myObject, "IsoRadio") then
+						if myObject:getDeviceData() ~= nil then
+							if myObject:getDeviceData():getIsTurnedOn() then
+								powerconsumption = powerconsumption + 0.005
+								--print("found radio")
+							end
+						end
+					end
+
+					--print("is this running3")
+					if instanceof(myObject, "IsoStove") and myObject:Activated() then
+						powerconsumption = powerconsumption + 0.13
+					end
+					--print("is this running4")
+					for containerIndex = 1,myObject:getContainerCount() do
+						--print("scanning containers")
+						local container = myObject:getContainerByIndex(containerIndex-1)
+						if container:getType() == "fridge" then
+							powerconsumption = powerconsumption + 0.05
+							--print("found fridge")
+						end
+						if container:getType() == "freezer" then
+							powerconsumption = powerconsumption + 0.08
+							--print("found freezer")
+						end
+
+					end
+					--print("is this running5")
+					if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
+						powerconsumption = powerconsumption + 0.002
+						--print("found light")
+					end
+				end
+			end
+		end
+	end
+	return powerconsumption	* 920
+end
+
+local function solarscan(square, LimitedScan, IsBank, InitialScan, backupgenerator)
 ----print("running solar scan")
 --square is the square of the solar panel, increment, limitedscan is if we should only scan for panels not do anything else, IsBank: false if scan is coming from solar panel, true if coming from a battery bank, initial scan true when object first placed
 --backupgenerator is normally 0, 1 wehn turning on a generator and 2 when turning off one
@@ -20,7 +82,7 @@ for x = bottom, top do
 					--scan coming from power bank
 					if InitialScan == true and backupgenerator == 0 then
 						powerconsumption = powerconsumption + ConsumptionScan(mysquare)
-						if ISAScan.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
+						if isa.WorldUtil.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
 							numberofpanels = numberofpanels + 1
 						end
 					end
@@ -37,7 +99,7 @@ for x = bottom, top do
 				--		end
 				--end
 				if LimitedScan == true and backupgenerator == 0 then
-					if ISAScan.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
+					if isa.WorldUtil.findTypeOnSquare(mysquare,"Panel") and mysquare:isOutside() then
 						numberofpanels = numberofpanels + 1
 					end
 				end
@@ -99,65 +161,7 @@ end
 				end
 end
 
-function ConsumptionScan(square)
---print("running consumption scan")
---calculates the power consumption of appliances within a square
-	local powerconsumption = 0;
-		if square:getObjects():size() ~= nil then
-		--print("square has objects")
-		for objs = 1, square:getObjects():size() do
-			local myObject = square:getObjects():get(objs-1);
-				if (myObject ~= nil) then
-					--print("object not nil")
-					if instanceof(myObject, "IsoWorldInventoryObject") == false then
-						--print("is this running1")
-						
-						if instanceof(myObject, "IsoTelevision") then
-							if myObject:getDeviceData() ~= nil then
-								if myObject:getDeviceData():getIsTurnedOn() then
-									powerconsumption = powerconsumption + 0.017
-									--print("found tv")
-								end
-							end					
-						end 
-						if instanceof(myObject, "IsoRadio") then
-							if myObject:getDeviceData() ~= nil then
-								if myObject:getDeviceData():getIsTurnedOn() then
-									powerconsumption = powerconsumption + 0.005
-									--print("found radio")
-								end
-							end					
-						end 
-						
-						--print("is this running3")
-					if instanceof(myObject, "IsoStove") and myObject:Activated() then
-						powerconsumption = powerconsumption + 0.13
-					end
-						--print("is this running4")
-						for containerIndex = 1,myObject:getContainerCount() do
-							--print("scanning containers")
-							local container = myObject:getContainerByIndex(containerIndex-1)
-							if container:getType() == "fridge" then
-								powerconsumption = powerconsumption + 0.05
-								--print("found fridge")
-							end
-							if container:getType() == "freezer" then
-								powerconsumption = powerconsumption + 0.08
-								--print("found freezer")
-							end
-								
-						end		
-						--print("is this running5")
-						if instanceof(myObject, "IsoLightSwitch") and myObject:isActivated() then
-						powerconsumption = powerconsumption + 0.002
-						--print("found light")
-					end
-				end
-			end
-		end
-	end
-	return powerconsumption	* 920				
-end
+
 
 -- pass powerconsumption to power bank
 --power consumption of a freezer is around 350 watts
@@ -166,3 +170,4 @@ end
 --batteries ah-range: standard 50Ah, Sport: 75Ah, Heavy-Duty 100Ah, deep cycle 200Ah
 --you'd need around 1800Ah for the freezer assuming mixed battery types, 
 --which means you'd need an almost fully upgraded battery bank using heavy-duty batteries
+return solarscan
