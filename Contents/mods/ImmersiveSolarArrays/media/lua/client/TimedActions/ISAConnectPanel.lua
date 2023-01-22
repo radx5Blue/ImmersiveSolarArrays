@@ -4,9 +4,7 @@ local isa = require "ISAUtilities"
 local ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel")
 
 function ISAConnectPanel:isValid()
-    self.character:faceThisObject(self.panel)
     return self.panel:getObjectIndex() ~= -1
-    --return self.panel:getObjectIndex() ~= -1 and self.panel:getSquare():isOutside()
 end
 
 function ISAConnectPanel:start()
@@ -15,14 +13,11 @@ function ISAConnectPanel:start()
     self.character:reportEvent("EventLootItem")
     self.sound = self.character:playSound("GeneratorConnect")
 
-    local x = self.panel:getX()
-    local y = self.panel:getY()
-    local z = self.panel:getZ()
     local data = self.panel:getModData()
-    local prevdelta = data["connectDelta"]
-    if not prevdelta then prevdelta = 0 elseif prevdelta > 90 then prevdelta = 90 end
-    data["connectDelta"] = prevdelta
-    self:setCurrentTime(self.maxTime * prevdelta / 100)
+    local prevDelta = data["connectDelta"]
+    if not prevDelta then prevDelta = 0 elseif prevDelta > 90 then prevDelta = 90 end
+    data["connectDelta"] = prevDelta
+    self:setCurrentTime(self.maxTime * prevDelta / 100)
     if data["pbLinked"] then
         local pb = isa.PbSystem_client:getIsoObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z) and data["pbLinked"]
         if pb then
@@ -39,7 +34,7 @@ function ISAConnectPanel:waitToStart()
 end
 
 function ISAConnectPanel:update()
-    self.character:faceThisObject(self.generator)
+    self.character:faceThisObject(self.panel)
 end
 
 function ISAConnectPanel:stop()
@@ -70,7 +65,6 @@ function ISAConnectPanel:perform()
     ISBaseTimedAction.perform(self);
 end
 
---ISAConnectPanel.connectTime = 12
 function ISAConnectPanel:new(character, panel, powerbank)
     local o = {}
     setmetatable(o, self)
@@ -81,14 +75,12 @@ function ISAConnectPanel:new(character, panel, powerbank)
     o.stopOnWalk = true;
     o.stopOnRun = true;
     o.stopOnAim = false
-    --o.maxTime = (120 - (character:getPerkLevel(Perks.Electricity) - 3) * 10) * 2 * getGameTime():getMinutesPerDay() / 10 --2 hours at level 3, ~half at level 10 --- temp /10
-    --o.maxTime = self.connectTime * (1 - 0.07 * (character:getPerkLevel(Perks.Electricity) - 3)) * 2 * getGameTime():getMinutesPerDay() --connectTime in minutes at level 3, ~half at level 10
     o.maxTime = SandboxVars.ISA.ConnectPanelMin * (1 - 0.095 * (character:getPerkLevel(Perks.Electricity) - 3)) * 2 * getGameTime():getMinutesPerDay() --base time in minutes at level 3, ~1/3 at level 10
 
     if o.character:isTimedActionInstant() then o.maxTime = 1 end
     return o
 end
 
---if not SandboxVars.ISA.ConnectPanelMin then SandboxVars.ISA.ConnectPanelMin = 120 end
+if not SandboxVars.ISA.ConnectPanelMin then SandboxVars.ISA.ConnectPanelMin = 120 end
 
 isa.ConnectPanel = ISAConnectPanel

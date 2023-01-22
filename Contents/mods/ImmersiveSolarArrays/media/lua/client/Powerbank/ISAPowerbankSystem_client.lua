@@ -2,9 +2,6 @@ require "Map/CGlobalObjectSystem"
 local isa = require "ISAUtilities"
 local Powerbank = require "Powerbank/ISAPowerbank_client"
 
---local PbSystem = CGlobalObjectSystem:derive("ISAPowerbankSystem_client")
---require("ISAPowerbankSystem_shared"):addCommon(PbSystem)
-
 local PbSystem = require("ISAPowerbankSystem_shared"):new(CGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
 function PbSystem:new()
@@ -12,21 +9,6 @@ function PbSystem:new()
     isa.PbSystem_client = o
     return o
 end
-
---function PbSystem:isValidIsoObject(isoObject)
---    return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
---end
-
---function PbSystem:getIsoObjectOnSquare(square)
---    if not square then return end
---    local objects = square:getSpecialObjects()
---    for i=0,objects:size()-1 do
---        local isoObject = objects:get(i)
---        if self:isValidIsoObject(isoObject) then
---            return isoObject
---        end
---    end
---end
 
 function PbSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
@@ -43,7 +25,7 @@ end
 do
     local o = isa.delayedProcess:new{maxTimes=999}
 
-    function o.process(tick)
+    function o.process()
         if not o.data then return o:stop() end
         for i = #o.data, 1 , -1 do
             local gen = o.data[i]:getGenerator()
@@ -75,7 +57,7 @@ do
 end
 
 do
-    local o = isa.delayedProcess:new{event=Events.EveryOneMinute,maxTimes=10}
+    local o = isa.delayedProcess:new{maxTimes=999}
 
     function o.process()
         if not o.data then return o:stop() end
@@ -87,10 +69,22 @@ do
             else
                 local container = obj:getContainer()
                 if container:getAcceptItemFunction() == nil then
-                    print("ISAtest AcceptItemFunction resetting") --todo remove
+                    PbSystem.instance:noise("Container reset")
+
                     container:setAcceptItemFunction("AcceptItemFunction.ISA_Batteries")
                     triggerEvent("OnContainerUpdate",obj)
                     table.remove(o.data,i)
+
+                    --shortcut for container changed, bugged transfer action
+                    local players = IsoPlayer.getPlayers()
+                    for i=0, players:size() -1 do
+                        local player = players:get(i)
+                        if player and player:getZ() == obj:getZ() and IsoUtils.DistanceToSquared(player:getX(),player:getY(),obj:getX()+0.5,obj:getY()+0.5) <= 4 then
+                            --clear both java / lua
+                            ISTimedActionQueue.clear(player)
+                        end
+                    end
+
                 end
             end
         end
@@ -122,8 +116,8 @@ function PbSystem.canConnectPanelTo(panel)
     local y = panel:getY()
     local z = panel:getZ()
     local options = {}
-    for i=1, PbSystem.instance.system:getObjectCount() do
-        local pb = PbSystem.instance.system:getObjectByIndex(i-1):getModData()
+    for i=0, PbSystem.instance.system:getObjectCount() -1  do
+        local pb = PbSystem.instance.system:getObjectByIndex(i):getModData()
         if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) <= 3 then
             pb:updateFromIsoObject()
             local isConnected
@@ -139,7 +133,7 @@ function PbSystem.canConnectPanelTo(panel)
     return options
 end
 
---draw debug text for player square
+--draw debug num of valid generators
 function PbSystem.getGeneratorsInAreaInfo(luaPb,area)
     local getSquare = getSquare
     local DistanceToSquared = IsoUtils.DistanceToSquared
@@ -151,13 +145,8 @@ function PbSystem.getGeneratorsInAreaInfo(luaPb,area)
                 if ix >= 0 and iy >= 0 and iz >= 0 then
                     local isquare = getSquare(ix, iy, iz)
                     local generator = isquare and luaPb.luaSystem:getValidBackupOnSquare(isquare)
-                    --getValidBackupOnSquare
                     if generator and DistanceToSquared(luaPb.x,luaPb.y,luaPb.z,ix,iy,iz) <= area.distance then
-                    --if generator and not isa.WorldUtil.findTypeOnSquare(isquare,"Powerbank") then
-                    --if generator and PbSystem.instance:isValidBackup(generator) then
-                    --    if IsoUtils.DistanceToSquared(luaPb.x,luaPb.y,luaPb.z,ix,iy,iz) <= area.distance then
-                            generators = generators + 1
-                        --end
+                        generators = generators + 1
                     end
                 end
             end
@@ -166,32 +155,12 @@ function PbSystem.getGeneratorsInAreaInfo(luaPb,area)
     return generators
 end
 
---function PbSystem.getMaxSolarOutput(SolarInput)
---    return SolarInput * (83 * ((SandboxVars.ISA.solarPanelEfficiency * 1.25) / 100)) --changed to more realistic 1993 levels
---end
-
---local climateManager
---function PbSystem.getModifiedSolarOutput(SolarInput)
---    if not climateManager then climateManager = getClimateManager() end
---    local cloudiness = climateManager:getCloudIntensity()
---    local light = climateManager:getDayLightStrength()
---    local fogginess = climateManager:getFogIntensity()
---    local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
---    local temperature = climateManager:getTemperature()
---    local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
---    local output = PbSystem.getMaxSolarOutput(SolarInput)
---    output = output * CloudinessFogginessMean
---    output = output * temperaturefactor
---    output = output * light
---    return output
---end
-
 function PbSystem.ISActivateGenerator_perform(ISActivateGenerator_perform)
     return function(self,...)
-        local res = ISActivateGenerator_perform(self,...)
+        local result = ISActivateGenerator_perform(self,...)
 
         --check perform was successful
-        if self.activate and not self.generator:isActivated() then return res end
+        if self.activate and not self.generator:isActivated() then return result end
 
         local x, y, z = self.generator:getX(), self.generator:getY(), self.generator:getZ()
         for i=1,PbSystem.instance:getLuaObjectCount() do
@@ -202,51 +171,60 @@ function PbSystem.ISActivateGenerator_perform(ISActivateGenerator_perform)
             end
         end
 
-        return res
+        return result
     end
 end
 
+--used to be overlay needed to be reset here, will need to be updated in v42 probably
 function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferAction_transferItem)
     return function(self,item,...)
-        --check if item is valid battery
-        local maxCapacity = (item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()])
-        if not maxCapacity then return ISInventoryTransferAction_transferItem(self,item,...) end
+        local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
+        --check if item is valid battery, and not moved already
+        if maxCapacity and not self.destContainer:contains(item) then
+            --check if item is moved to/from BatteryBank successfully
+            local src = self.srcContainer:getParent()
+            local dest = self.destContainer:getParent()
+            local take = src and isa.WorldUtil.Types[src:getTextureName()] == "Powerbank"
+            local put = dest and isa.WorldUtil.Types[dest:getTextureName()] == "Powerbank"
+            if take or put then
+                local success, result = pcall(ISInventoryTransferAction_transferItem,self,item,...)
 
-        --check if battery was moved to/from BatteryBank
-        local wasInDest = self.destContainer:contains(item)
-        local res = ISInventoryTransferAction_transferItem(self,item,...)
-        local src, dest, character = self.srcContainer:getParent(), self.destContainer:getParent(), self.character
-        local take = src and isa.WorldUtil.Types[src:getTextureName()] == "Powerbank"
-        local put = dest and isa.WorldUtil.Types[dest:getTextureName()] == "Powerbank"
-        if not (take or put and self.destContainer:contains(item)) or wasInDest then return res end
+                if self.destContainer:contains(item) then
+                    local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
+                    local charge = capacity * item:getUsedDelta()
+                    if take then
+                        PbSystem.instance:sendCommand(self.character,"Battery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", charge, capacity})
+                    end
+                    if put then
+                        PbSystem.instance:sendCommand(self.character,"Battery", { { x = dest:getX(), y = dest:getY(), z = dest:getZ()} ,"put", charge, capacity})
+                    end
+                    if take and put then HaloTextHelper.addText(self.character,"bzzz ... BZZZZZ ... bzzz") end
+                end
 
-        local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
-        local charge = capacity * item:getUsedDelta()
-
-        if take then
-            PbSystem.instance:sendCommand(character,"Battery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", charge, capacity})
+                if success then
+                    return result
+                else
+                    return error(result)
+                end
+            end
         end
-        if put then
-            PbSystem.instance:sendCommand(character,"Battery", { { x = dest:getX(), y = dest:getY(), z = dest:getZ()} ,"put", charge, capacity})
-        end
-        if take and put then HaloTextHelper.addText(character,"bzzz ... BZZZZZ ... bzzz") end
 
-        return res
+        return ISInventoryTransferAction_transferItem(self,item,...)
     end
 end
 
 function PbSystem.ISPlugGenerator_perform(ISPlugGenerator_perform)
     return function(self,...)
 
-        local character,generator,plug = self.character,self.generator,self.plug
-        local area = isa.WorldUtil.getValidBackupArea(plug and character,10)
+        local generator = self.generator
+        local area = isa.WorldUtil.getValidBackupArea(self.plug and self.character,10)
         local luaPowerbanks = isa.WorldUtil.getLuaObjects(generator:getSquare(),area.radius, area.levels, area.distance)
         if #luaPowerbanks > 0 then
-            local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = plug}
+            local args = { pbList = {}, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = self.plug}
             for i,luaPb in ipairs(luaPowerbanks) do
                 args.pbList[i] = { x = luaPb.x, y = luaPb.y, z = luaPb.z }
             end
-            PbSystem.instance:sendCommand(character,"plugGenerator",args)
+            PbSystem.instance:sendCommand(self.character,"plugGenerator",args)
         end
 
         return ISPlugGenerator_perform(self,...)
@@ -271,6 +249,7 @@ function PbSystem.ISMoveablesAction_perform(ISMoveablesAction_perform)
     end
 end
 
+--this might run before new data is received
 function PbSystem.updateBanksForClient()
     for i=1,PbSystem.instance:getLuaObjectCount() do
         local pb = PbSystem.instance:getLuaObjectByIndex(i)
@@ -281,7 +260,7 @@ function PbSystem.updateBanksForClient()
             local items = isopb:getContainer():getItems()
             for v=0,items:size()-1 do
                 local item = items:get(v)
-                --all items should be drainable (valid batteries) here
+                --all items should be valid batteries and drainable here already
                 if item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()] then
                     item:setUsedDelta(delta)
                 end
@@ -292,11 +271,12 @@ end
 
 function PbSystem.OnInitGlobalModData()
     if isClient() then
-        if SandboxVars.ISA.ChargeFreq == 1 then
-            Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
-        else
-            Events.EveryHours.Add(PbSystem.updateBanksForClient)
-        end
+        Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
+        --if SandboxVars.ISA.ChargeFreq == 1 then
+        --    Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
+        --else
+        --    Events.EveryHours.Add(PbSystem.updateBanksForClient)
+        --end
     end
     Events.EveryDays.Add(PbSystem.resetAcceptItemFunction.addItems) --added after server function with sendObjectChange("containers") so SP need only one check
 end

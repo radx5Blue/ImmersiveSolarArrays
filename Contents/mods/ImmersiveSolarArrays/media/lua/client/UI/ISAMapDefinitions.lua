@@ -3,21 +3,6 @@ require 'Maps/ISMapDefinitions'
 local LootMaps = LootMaps
 local MapUtils = MapUtils
 
---local MINZ = 0
---local MAXZ = 24
---local function replaceWaterStyle(mapAPI)
---    if not WATER_TEXTURE then return end
---    local styleAPI = mapAPI:getStyleAPI()
---    local layer = styleAPI:getLayerByName("water")
---    if not layer then return end
---    layer:setMinZoom(MINZ)
---    layer:setFilter("water", "river")
---    layer:removeAllFill()
---    layer:removeAllTexture()
---    layer:addFill(MINZ, 59, 141, 149, 255)
---    layer:addFill(MAXZ, 59, 141, 149, 255)
---end
-
 local function addMapInit(name,x1,y1,x2,y2)
     LootMaps.Init[name] = function(mapUI)
         local mapAPI = mapUI.javaObject:getAPIv1()

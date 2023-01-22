@@ -1,12 +1,5 @@
 module ISA
 {
-    imports
-    {
-        Base,
-        Radio,
-    }
-    /**************************** Batteries **********************************/
-
     recipe WireCarBattery
     {
         keep [Recipe.GetItemTypes.Screwdriver],
@@ -15,7 +8,6 @@ module ISA
         Result: WiredCarBattery,
         SkillRequired:Electricity=3,
         Time:100,
-        CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
         OnCreate:Recipe.OnCreate.ISA_wireCarBattery,
@@ -29,7 +21,7 @@ module ISA
         RemoveResultItem:true,
         SkillRequired:Electricity=3,
         Time:80,
-        CanBeDoneFromFloor:true,
+        NeedToBeLearn:true,
         NoBrokenItems:false,
         Category:Electrical,
         OnCreate:Recipe.OnCreate.ISA_unwireCarBattery,
@@ -43,12 +35,12 @@ module ISA
         SkillRequired:Electricity=5,
         Result: DIYBattery,
         Time:30,
-        CanBeDoneFromFloor:true,
         NeedToBeLearn:true,
         Category:Electrical,
         OnCreate:Recipe.OnCreate.ISA_createDiyBattery,
         OnGiveXP:Recipe.OnGiveXP.ISA_minorElectricalXP,
     }
+
     recipe Make Solar Roof Tile
     {
 		keep [Recipe.GetItemTypes.Screwdriver],
@@ -93,7 +85,6 @@ module ISA
     {
 		keep [Recipe.GetItemTypes.Screwdriver],
         Moveables.solarmod_tileset_01_6/Moveables.solarmod_tileset_01_7/Moveables.solarmod_tileset_01_8/Moveables.solarmod_tileset_01_9/Moveables.solarmod_tileset_01_10,
-        CanBeDoneFromFloor:true,
         Time:120,
         SkillRequired:Electricity=3,
         Result: SolarPanel,
@@ -101,6 +92,7 @@ module ISA
         NeedToBeLearn:true,
         Category:Electrical,
     }
+
     recipe Create Battery Bank
     {
 		keep [Recipe.GetItemTypes.Screwdriver],

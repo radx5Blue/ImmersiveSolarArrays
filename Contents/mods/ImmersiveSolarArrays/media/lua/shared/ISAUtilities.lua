@@ -1,25 +1,11 @@
 local util = {}
 
 util.maxBatteryCapacity = {
-    --["50AhBattery"] = 50,
-    --["75AhBattery"] = 75,
-    --["100AhBattery"] = 100,
     ["DeepCycleBattery"] = 200,
     ["SuperBattery"] = 400,
+    ["WiredCarBattery"] = 50, --ModData
     ["DIYBattery"] = 200,
 }
-
-local function setDIYBatterySandboxValue()
-    util.maxBatteryCapacity["DIYBattery"] = SandboxVars.ISA.DIYBatteryCapacity or util.maxBatteryCapacity["DIYBattery"]
-end
-
---Events.OnInitGlobalModData.Add(function()
---    local manager = getScriptManager()
---    for i,v in pairs(util.maxBatteryCapacity) do
---        manager:getItem("ISA."..i):DoParam("maxCapacity = "..v)
---        manager:getItem("ISA."..i):DoParam("ItemCapacity = "..math.floor((v/2)))
---    end
---end)
 
 util.patchClassMetaMethod = function(class, methodName, createPatch)
     local metatable = __classmetatables[class]
@@ -68,7 +54,5 @@ do
 
     util.delayedProcess = delayedProcess
 end
-
-Events.OnInitGlobalModData.Add(setDIYBatterySandboxValue)
 
 return util

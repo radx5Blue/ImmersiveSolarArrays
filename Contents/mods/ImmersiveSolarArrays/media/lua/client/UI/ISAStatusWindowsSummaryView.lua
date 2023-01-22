@@ -203,16 +203,14 @@ function ISAWindowsSumaryTab:render()
 
 	-- Summary box
 	local line = getTextManager():getFontHeight(UIFont.Small)
-	--local boxW = 0
 	local rectX, rectY, rectW, rectH = self.sumBox.x, 20, self.sumBox.width, 25 + line * 6
-	--local rectX, rectY, rectW, rectH = self.width - self.textWidth * 2 - 80, 25, self.textWidth * 2 + 55, 125
 	local text_x = self.sumBox.textX
 	local text_x2 = text_x + self.sumBox.pad1
 	local text_y = 30;
 	self:drawRect(rectX, rectY, rectW, rectH, 0.5, 0.16, 0.16, 0.16)
 	self:drawRectBorder(rectX, rectY, rectW, rectH, 1, 1, 1, 1)
 
-	-- Sumary text
+	-- Summary text
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_PanelsStatus") .. ":", text_x, text_y + line * 0, 0, 1, 0, 1, UIFont.Small);
 	self:drawTextRight(getText("IGUI_ISAWindowsSumaryTab_BatteryLevel") .. ":", text_x, text_y + line *1, 0, 1, 0, 1, UIFont.Small);
 
@@ -272,10 +270,6 @@ function ISAWindowsSumaryTab:render()
 end
 
 function ISAWindowsSumaryTab:new(x, y, width, height)
-	--local o = {};
-	--o = ISPanelJoypad:new(x, y, width, height);
-	--setmetatable(o, self);
-    --self.__index = self;
 	local o = ISPanelJoypad.new(self, x, y, width, height)
 	o:noBackground();
 
@@ -292,9 +286,6 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 
 	local maxMeasured = o.measureTexts()
 	local maxLR = maxMeasured.left + maxMeasured.right
-	--local pad1 = maxLR < 570 and 10 or maxLR < 580 and 580 - maxLR or 1
-	--local baseBox = maxLR + 50
-	--580 w
 	o.sumBox = {}
 	if maxLR > 580 then -- resize?
 		o.sumBox.x = 0
@@ -322,17 +313,6 @@ function ISAWindowsSumaryTab:new(x, y, width, height)
 		o.sumBox.pad1 = 10
 		o.sumBox.textX = o.sumBox.x + 20 + maxMeasured.left
 	end
-	--x 70, width 510
-	--elseif maxLR > 570 then 	textBox = { x = 0, width = 580, pad1 = 580 - maxLR}; pad = 0
-	--elseif maxLR > 530 then		textBox = { x = 0, width = 580, pad1 = 10}; pad = math.floor((570-maxLR) / 2)
-	--elseif maxLR > 490 then		textBox = { x = (580 - baseBox)/2, width = baseBox, pad1 = 10}; pad = 20
-	--else 						textBox = { x = 580 - baseBox - 20, width = baseBox, pad1 = 10}; pad = 20
-	--end
-	--textBox.textX = maxLR > 530 and maxMeasured.left or textBox.x + boxPad + maxMeasured.left
-	--o.textBox = textBox
-	--o.textWidth = 0
-
-    --ISAWindowsSumaryTab.instance = o;
 
 	-- Used variables
 	self.currentFrame = 0;

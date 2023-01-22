@@ -7,8 +7,7 @@ local rgbBad = isa.UI.rgbBad
 local ISAWindowDebug = ISPanelJoypad:derive("ISAWindowDebug")
 
 function ISAWindowDebug:new(x, y, width, height)
-    local o = ISPanelJoypad.new(self, x, y, width, height)
-    return o
+    return ISPanelJoypad.new(self, x, y, width, height)
 end
 
 function ISAWindowDebug:createChildren()
@@ -38,7 +37,6 @@ function ISAWindowDebug:createChildren()
 
     if width > self.width then self:setWidth(width) end
     self:setHeight(y)
-    --if y > self.height then self:setHeight(y) end
 end
 
 function ISAWindowDebug:setVisible(visible)

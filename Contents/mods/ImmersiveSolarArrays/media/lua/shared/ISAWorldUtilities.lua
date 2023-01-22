@@ -20,10 +20,6 @@ function WorldUtil.objIsType(isoObject,modType)
     return WorldUtil.Types[isoObject:getTextureName()] == modType
 end
 
---function WorldUtil.isoObjectIsType(isoObject, type)
---    return WorldUtil.Types[isoObject:getTextureName()] == type
---end
-
 function WorldUtil.getValidBackupArea(isoPlayer,level)
     local skillLevel = isoPlayer and isoPlayer:getPerkLevel(Perks.Electricity) or level or 3
     return { radius = skillLevel, levels = skillLevel > 5 and 1 or 0, distance = math.pow(skillLevel, 2) * 1.25 }

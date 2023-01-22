@@ -122,7 +122,4 @@ end
 
 Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)
 
---debug
---if not SandboxVars.ISA.BatteryBankSpawn then SandboxVars.ISA.BatteryBankSpawn = 1 end
-
 return ISAWorldSpawns

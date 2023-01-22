@@ -4,18 +4,6 @@ local isa = require "ISAUtilities"
 
 local UI = {}
 
---local rGood, gGood, bGood = 0,1,0
---local rBad, gBad, bBad = 0,1,0
---local richGood, richBad, richNeutral = " <RGB:0,1,0> ", " <RGB:1,0,0> ", " <RGB:1,1,1> "
---ver41.78+
---if getCore().getGoodHighlitedColor then
---	local good = getCore():getGoodHighlitedColor()
---	local bad = getCore():getBadHighlitedColor()
---	rGood, gGood, bGood, rBad, gBad, bBad = good:getR(), good:getG(), good:getB(), bad:getR(), bad:getG(), bad:getB()
---	richGood, richBad = string.format(" <RGB:%.2f,%.2f,%.2f> ",rGood, gGood, bGood), string.format(" <RGB:%.2f,%.2f,%.2f> ",rBad, gBad, bBad)
---end
-
---todo move to utils, no only client
 local rgbDefault, rgbGood, rgbBad = { r = 1, g = 1, b = 1, rich = " <RGB:1,1,1> " }, {}, {}
 UI.rgbDefault, UI.rgbGood, UI.rgbBad = rgbDefault, rgbGood, rgbBad
 
@@ -32,25 +20,12 @@ function UI.updateColours()
 end
 UI.updateColours()
 
---function UI.getRGB()
---	return rGood, gGood, bGood, rBad, gBad, bBad
---end
-
---function UI.getRGBRich()
---	return richGood, richBad, richNeutral
---end
-
---function UI.getRGBTables()
---	return UI.rgbDefault, UI.rgbGood, UI.rgbBad
---end
-
 function UI.onConnectPanel(player,panel,powerbank)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, panel:getSquare(), true) then
 		ISTimedActionQueue.add(isa.ConnectPanel:new(character, panel, powerbank))
 	end
 end
-
 
 local function ActivatePowerbank(player,powerbank,activate)
 	local character = getSpecificPlayer(player)
@@ -138,30 +113,15 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 	--end
 end
 
---todo update dawn / dusk less often?
+--update dawn / dusk less often?
 local climateManager
 UI.ISAIsDayTime = function(currentTime)
 	if not climateManager then climateManager = getClimateManager() end
 	-- Get the current season to calculate when is day time or night time
 	local season = climateManager:getSeason()
-	return currentTime > season:getDawn() and currentTime < season:getDusk()
-	--local dawn = season:getDawn();
-	--local dusk = season:getDusk();
-	--
-	--if (currentTime > dawn) and (currentTime < dusk) then
-	--	return true
-	--else
-	--	return false
-	--end
-end
 
--- This function fixes the escaped strings that are retreived
--- by getText as literals, making it fail.
---ISAFixedGetText = function(getTextString)
---	local text = getText(getTextString)
---	text = string.gsub(text, '\\n', '\n')
---	return text
---end
+	return currentTime > season:getDawn() and currentTime < season:getDusk()
+end
 
 function UI.ISInventoryPane_drawItemDetails_patch(drawItemDetails)
 	local NewColorInfo = ColorInfo:new()
@@ -206,11 +166,6 @@ function UI.DoTooltip_patch(DoTooltip)
 				option = layout:addItem()
 				option:setLabel(getText("Tooltip_item_Weight")..":",1,1,0.8,1)
 				option:setValue(string.format("%.2f",item:isEquipped() and item:getEquippedWeight() or item:getUnequippedWeight()),1,1,0.8,1)
-				--if item:isEquipped() or item:getAttachedSlot() > -1 then
-				--	option:setValue(string.format("%.2f    (%.2f %s) ",item:getEquippedWeight(),item:getUnequippedWeight(),getText("Tooltip_item_Unequipped")),1,1,0.8,1)
-				--else
-				--	option:setValue(string.format("%.2f    (%.2f %s) ",item:getUnequippedWeight(),item:getEquippedWeight(),getText("Tooltip_item_Equipped")),1,1,0.8,1)
-				--end
 				option = layout:addItem()
 				option:setLabel(getText("IGUI_invpanel_Remaining")..":",1,1,0.8,1)
 				option:setValue(string.format("%d%%",item:getUsedDelta()*100),1,1,0.8,1)
@@ -219,12 +174,6 @@ function UI.DoTooltip_patch(DoTooltip)
 				option:setValue(string.format("%d%%",item:getCondition()),1,1,0.8,1)
 				option = layout:addItem()
 				option:setLabel(getText("Tooltip_container_Capacity")..":",1,1,0.8,1)
-				--option:setLabel(getText("Tooltip_container_Capacity").."Ah (~):",1,1,0.8,1)
-				--local capacityMod = (1 - math.pow((1 - (item:getCondition()/100)),6))
-				--local capacity = math.floor(maxCapacity * capacityMod / 5 + 0.4) * 5 --round 5, just a visual preference
-				--option:setValue(string.format("%d    (%d%%) ",capacity,capacityMod * 100),1,1,0.8,1)
-				--maxCapacity = math.floor(maxCapacity/5 + 0.4)*5 --round 5, just a visual preference filter
-				--maxCapacity = math.floor(maxCapacity/2 + 0.5)*2 --round 2, just a visual preference filter
 				option:setValue(string.format("%d / %d",maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6)),maxCapacity),1,1,0.8,1)
 			end
 			y = layout:render(5,y,tooltip)

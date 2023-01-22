@@ -52,17 +52,6 @@ local function insertRecursive(insertKey,insertInto,insertFrom,default)
 	end
 end
 
---local function insertInto(targetKey,distName,modDist,default,doParse)
---	local dist = {
---		suburbs = SuburbsDistributions,
---		procedural = ProceduralDistributions,
---		vehicle = VehicleDistributions,
---	}
---	util.distributions.doParse = doParse or util.distributions.doParse
---	return insertRecursive(targetKey,dist[distName],modDist,default)
---end
-
-
 ---edit tables for container loot types / item rolls
 
 local iReg = ""
@@ -339,14 +328,3 @@ util.queueFunction("OnLoadedMapZones",function()
 	end
 	util.distributions = nil
 end)
-
---util.distributions = {insertInto = insertInto,checkList = {}}
---util.queueFunction("OnLoadedMapZones",function()
---	for _,fn in ipairs(util.distributions.checkList) do
---		fn()
---	end
---	if util.distributions.doParse then
---		ItemPickerJava.Parse()
---	end
---	util.distributions = nil
---end)

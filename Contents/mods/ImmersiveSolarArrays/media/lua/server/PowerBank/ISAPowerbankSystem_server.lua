@@ -4,9 +4,6 @@ require "Map/SGlobalObjectSystem"
 local isa = require "ISAUtilities"
 local Powerbank = require "Powerbank/ISAPowerbank_server"
 
---local PbSystem = SGlobalObjectSystem:derive("ISAPowerbankSystem_server")
---require("ISAPowerbankSystem_shared"):addCommon(PbSystem)
-
 local PbSystem = require("ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
 function PbSystem:new()
@@ -18,8 +15,6 @@ end
 PbSystem.savedObjModData = {'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
 function PbSystem:initSystem()
     SGlobalObjectSystem.initSystem(self)
-    --self.system:setModDataKeys(nil)
-    --self.system:setModDataKeys({})
     self.system:setObjectModDataKeys(self.savedObjModData)
 end
 
@@ -27,31 +22,15 @@ function PbSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
 end
 
---function PbSystem:isValidIsoObject(isoObject)
---    return instanceof(isoObject, "IsoThumpable") and isoObject:getTextureName() == "solarmod_tileset_01_0"
---end
-
 function PbSystem.isValidModData(modData)
     return modData.on ~= nil
 end
-
---function PbSystem:getIsoObjectOnSquare(square)
---    if not square then return end
---    local objects = square:getSpecialObjects()
---    for i=0,objects:size()-1 do
---        local isoObject = objects:get(i)
---        if self:isValidIsoObject(isoObject) then
---            return isoObject
---        end
---    end
---end
 
 function PbSystem:OnObjectAboutToBeRemoved(isoObject)
     if not self:isValidIsoObject(isoObject) then return end
     local luaObject = self:getLuaObjectOnSquare(isoObject:getSquare())
     if not luaObject then return end
     self:removeLuaObject(luaObject)
-    --self:addToRemoveGenerators(isoObject)
     self.processRemoveObj:addItem(isoObject)
 end
 
@@ -85,7 +64,6 @@ do
         if not o.data then return o:stop() end
 
         for i = #o.data, 1, -1 do
-            --print("delayed, index: ",checkoutObjects[i].obj:getObjectIndex())
             if o.data[i].obj:getObjectIndex() == -1 then
                 local square = o.data[i].sq
                 local generator = square and square:getGenerator()
@@ -113,62 +91,10 @@ do
     PbSystem.processRemoveObj = o
 end
 
---local checkoutObjects = {}
---local dgrTick
---local function delayedGenRemove()
---    for i = #checkoutObjects, 1, -1 do
---        --print("delayed, index: ",checkoutObjects[i].obj:getObjectIndex())
---        if checkoutObjects[i].obj:getObjectIndex() == -1 then
---            local square = checkoutObjects[i].sq
---            local generator = square and square:getGenerator()
---            if generator then
---                generator:setActivated(false)
---                generator:remove()
---            end
---            table.remove(checkoutObjects,i)
---        end
---    end
---    if #checkoutObjects == 0 or dgrTick > 255 then
---        dgrTick = nil
---        return Events.OnTick.Remove(delayedGenRemove)
---    end
---    dgrTick = dgrTick + 1
---end
---
---function PbSystem:addToRemoveGenerators(isoObject)
---    table.insert(checkoutObjects, { obj = isoObject, sq = isoObject:getSquare() })
---    if not dgrTick then Events.OnTick.Add(delayedGenRemove) end
---    dgrTick = 0
---end
-
---function PbSystem:isValidBackup(generator,square)
---    --return generator and instanceof(generator,"IsoGenerator") and generator:isConnected() and not isa.Scan.findTypeOnSquare(square,"Powerbank")
---    return generator:isConnected() and not isa.Scan.findTypeOnSquare(square,"Powerbank")
---end
-
---function PbSystem:getMaxSolarOutput(SolarInput)
---    local ISASolarEfficiency = SandboxVars.ISA.solarPanelEfficiency
---    local output = SolarInput * (83 * ((ISASolarEfficiency * 1.25) / 100)) --changed to more realistic 1993 levels
---    return output
---end
-
---function PbSystem:getModifiedSolarOutput(SolarInput)
---    local cloudiness = getClimateManager():getCloudIntensity()
---    local light = getClimateManager():getDayLightStrength()
---    local fogginess = getClimateManager():getFogIntensity()
---    local CloudinessFogginessMean = 1 - (((cloudiness + fogginess) / 2) * 0.25) --make it so that clouds and fog can only reduce output by 25%
---    local output = PbSystem.instance:getMaxSolarOutput(SolarInput)
---    local temperature = getClimateManager():getTemperature()
---    local temperaturefactor = temperature * -0.0035 + 1.1 --based on linear single crystal sp efficiency
---    output = output * CloudinessFogginessMean
---    output = output * temperaturefactor
---    output = output * light
---    return output
---end
-
 function PbSystem.EveryDays()
-    for i=0,PbSystem.instance.system:getObjectCount()-1 do
-        local pb = PbSystem.instance.system:getObjectByIndex(i):getModData()
+    local self = PbSystem.instance
+    for i=0,self.system:getObjectCount()-1 do
+        local pb = self.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
             local inv = isopb:getContainer()

@@ -5,15 +5,6 @@ local PbSystem = {}
 
 --also adds this function
 function PbSystem:new(obj)
-
-    --local obj = CGlobalObjectSystem:derive("ISAPowerbankSystem_client")
-    --function obj:new()
-    --    local o = {}
-    --    setmetatable(o,self)
-    --    self.__index = self
-    --    return o
-    --end
-
     for key,value in pairs(self) do
         obj[key] = value
     end
@@ -41,7 +32,7 @@ end
 
 local climateManager
 function PbSystem:getModifiedSolarOutput(SolarInput)
-    if not climateManager then climateManager = getClimateManager() end
+    climateManager = climateManager or getClimateManager()
     local cloudiness = climateManager:getCloudIntensity()
     local light = climateManager:getDayLightStrength()
     local fogginess = climateManager:getFogIntensity()

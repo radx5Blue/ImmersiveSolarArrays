@@ -4,7 +4,6 @@ local WorldSpawns = require "World/ISAWorldSpawns"
 local isClient = isClient()
 
 local function LoadPowerbank(isoObject)
-    print("ISAtest LoadPowerbank")
     isoObject:getContainer():setAcceptItemFunction("AcceptItemFunction.ISA_Batteries")
     if isClient then
         local gen = isoObject:getSquare():getGenerator()
@@ -34,15 +33,6 @@ if not isClient then
         if type == "Powerbank" then
             local index = isoObject:getObjectIndex()
             square:transmitRemoveItemFromSquare(isoObject)
-
-            --local newObj = IsoThumpable.new(square:getCell(), square, spriteName, false, {})
-            --newObj:setThumpDmg(8)
-            --newObj:createContainersFromSpriteProperties()
-            --WorldSpawns.fill(newObj,spriteName)
-            --square:AddSpecialObject(newObj,index)
-            --newObj:transmitCompleteItemToClients()
-
-            --triggerEvent("OnObjectAdded", newObj)
             WorldSpawns.addToWorld(square,spriteName,index)
         else
             square:getSpecialObjects():add(isoObject)
@@ -56,35 +46,20 @@ if not isClient then
 end
 
 --- Debug
-local prev_AcceptItemFunction
+--todo remove
+local prev_AcceptItemFunction = "AcceptItemFunction.ISA_Batteries"
 local function debugAcceptItemFunction(index)
     index = index or 1
     if not isa.PbSystem_client or isa.PbSystem_client:getLuaObjectCount() < index then return end
     local pb = isa.PbSystem_client:getLuaObjectByIndex(index)
     local isoObject = pb and pb:getIsoObject()
-    if isoObject then
-        local AcceptItemFunction = isoObject:getContainer():getAcceptItemFunction()
-        if AcceptItemFunction ~= prev_AcceptItemFunction then
-            local player = getPlayer()
-            if player then player:Say("ISAtest accepts: "..tostring(AcceptItemFunction)) end
-            print("ISAtest AcceptItemFunction changed: ",AcceptItemFunction)
-            prev_AcceptItemFunction = AcceptItemFunction
-        end
+    if not isoObject then return end
+    local AcceptItemFunction = isoObject:getContainer():getAcceptItemFunction()
+    if AcceptItemFunction ~= prev_AcceptItemFunction then
+        local player = getPlayer()
+        if player then player:Say("ISA debug AcceptItemFunction changed") end
+        print(string.format("ISA debug AcceptItemFunction changed: %.1f ", math.floor(getGameTime():getWorldAgeHours())), AcceptItemFunction ~= nil)
+        prev_AcceptItemFunction = AcceptItemFunction
     end
 end
 Events.EveryTenMinutes.Add(debugAcceptItemFunction)
-
-local function OnSave()
-    debugAcceptItemFunction()
-    print("ISAtest OnSave AcceptItemFunction",math.floor(getGameTime():getWorldAgeHours()),prev_AcceptItemFunction)
-    isa.queueFunction("OnTick",function()
-        debugAcceptItemFunction()
-        print("ISAtest OnTick after Save AcceptItemFunction",prev_AcceptItemFunction)
-    end)
-end
-Events.OnSave.Add(OnSave)
---local function OnPostSave()
---    debugAcceptItemFunction()
---    print("ISAtest OnPostSave AcceptItemFunction",prev_AcceptItemFunction)
---end
---Events.OnPostSave.Add(OnPostSave)

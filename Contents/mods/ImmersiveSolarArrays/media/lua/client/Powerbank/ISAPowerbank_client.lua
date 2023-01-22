@@ -14,7 +14,7 @@ function CPowerbank:fromModData(modData)
     self.drain = modData["drain"]
     self.npanels = modData["npanels"]
     self.panels = modData["panels"]
-    --self.lastHour = modData["lastHour"]
+    self.lastHour = modData["lastHour"]
     self.conGenerator = modData["conGenerator"]
 end
 

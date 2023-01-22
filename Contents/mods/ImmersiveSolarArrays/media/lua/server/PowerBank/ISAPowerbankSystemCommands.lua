@@ -1,6 +1,5 @@
 if isClient() then return end
 
---local isa = require "ISAUtilities"
 local PbSystem = require "Powerbank/ISAPowerbankSystem_server"
 
 local Commands = {}
@@ -31,9 +30,11 @@ function Commands.connectPanel(player,args)
         local x,y,z = args.panel.x,args.panel.y,args.panel.z
         local square = getSquare(x,y,z)
         if square and pb.luaSystem:getValidPanelOnSquare(square) then
-            --for _,panel in ipairs(pb.panels) do
-            --    if x == panel.x and y == panel.y and z == panel.z then return end
-            --end
+            --not always necessary but removes duplication errors
+            --need during v42 overhaul, for compatibility with older saves
+            for _,panel in ipairs(pb.panels) do
+                if x == panel.x and y == panel.y and z == panel.z then return end
+            end
 
             table.insert(pb.panels,args.panel)
             pb.npanels = pb.npanels + 1
@@ -80,26 +81,6 @@ function Commands.plugGenerator(player,args)
         end
     end
 end
---
---function Commands.plugGenerator(player,args)
---    local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
---    local generator = square and square:getGenerator()
---    for _,i in ipairs(args.pbList) do
---        local pb = getPowerbank(i)
---        if pb then
---            if args.plug and generator and pb.luaSystem:isValidBackup(generator,square) then
---                noise("adding backup")
---                pb:connectBackupGenerator(generator)
---            else
---                if pb.conGenerator and pb.conGenerator.x == args.gen.x and pb.conGenerator.y == args.gen.y and pb.conGenerator.z == args.gen.z then
---                    noise("removing backup")
---                    pb.conGenerator = false
---                end
---            end
---            pb:saveData(true)
---        end
---    end
---end
 
 function Commands.activateGenerator(player,args)
     local pb = getPowerbank(args.pb)

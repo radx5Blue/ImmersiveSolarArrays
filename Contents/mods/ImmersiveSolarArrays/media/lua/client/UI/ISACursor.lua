@@ -3,9 +3,6 @@ require "UI/ISAUI"
 
 local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
 
---local rGood, gGood, bGood, rBad, gBad, bBad = ISAMenu.getRGB()
---local richGood, richBad, richNeutral = ISAMenu.getRGBRich()
-
 local ISACursor = ISBaseObject:derive("ISACursor")
 
 function ISACursor:new(player,square)
@@ -25,17 +22,8 @@ function ISACursor:new(player,square)
         getCell():setDrag(o, player)
     end
 
-    --ISACursor.cursor = o --todo need this?
     return o
 end
-
---function ISACursor:derive(type)
---    local o = {}
---    setmetatable(o, self)
---    self.__index = self
---    o.Type = type
---    return o
---end
 
 function ISACursor:rotateMouse(x,y) end
 function ISACursor:rotateKey(key) end
@@ -50,7 +38,6 @@ function ISACursor:onGainJoypadFocus(joypadData)
     getCell():setDrag(self,self.player)
 end
 function ISACursor:onJoypadDown(button, joypadData) return self:onJoypadPressButton(nil, joypadData, button) end
---function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button) end
 function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button)
     if button == Joypad.AButton and self.valid then self:tryBuild() end
     if button == Joypad.BButton then self:close() end
@@ -97,7 +84,6 @@ local ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 
 function ISAConnectPanelCursor:new(player,square, powerbank)
     local o = ISACursor.new(self,player, square)
-    --o.isoPb = powerbank
     o.luaPb = isa.PbSystem_client:getLuaObjectOnSquare(powerbank:getSquare())
     return o
 end
@@ -128,11 +114,6 @@ function ISAConnectPanelCursor:render(x,y,z,...)
 
     local c = self.valid and rgbGood or rgbBad
     self.floorSprite:RenderGhostTileColor(x, y, z, c.r, c.g, c.b, 0.8)
-    --if self.valid then
-    --    self.floorSprite:RenderGhostTileColor(x, y, z, rGood, gGood, bGood, 0.8)
-    --else
-    --    self.floorSprite:RenderGhostTileColor(x, y, z, rBad, gBad, bBad, 0.8)
-    --end
 
     self:renderTooltip()
 end
