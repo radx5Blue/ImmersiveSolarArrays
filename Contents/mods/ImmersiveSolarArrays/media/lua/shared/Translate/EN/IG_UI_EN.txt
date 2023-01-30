@@ -34,6 +34,7 @@ IGUI_EN = {
     IGUI_ISAWindow_Details_BackupDebugNotConnected = "This generator is not connected",
     IGUI_ISAWindow_Details_BackupDebugPowerbank = "This generator is a Powerbank",
     IGUI_ISAWindow_Details_BackupDebugNotBackup = "This square isn't set as backup",
+    IGUI_ISAWindow_Details_BackupDebugNoFailsafe = "This square has no failsafe",
     IGUI_ISAWindow_Details_BackupDebugNoFuel = "This generator has no fuel",
     IGUI_ISAWindow_Details_BackupDebugLowCondition = "This generator has low condition",
     IGUI_ISAWindow_Details_BackupDebugOK = "This square has a valid backup",

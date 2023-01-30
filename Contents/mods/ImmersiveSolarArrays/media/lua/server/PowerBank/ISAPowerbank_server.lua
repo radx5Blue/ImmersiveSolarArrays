@@ -453,6 +453,7 @@ function SPowerbank:updateConGenerator()
             end
         end
         self.lastHour = currentHour
+        -- if isActive ~= setActive then
         self.conGenerator.ison = conGenerator:isActivated()
     end
 end
