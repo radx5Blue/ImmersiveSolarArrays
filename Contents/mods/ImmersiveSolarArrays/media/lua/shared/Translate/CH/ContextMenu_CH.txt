@@ -1,0 +1,12 @@
+ContextMenu_CH = {
+    ContextMenu_ISA_BatteryBank = "蓄電池庫",
+    ContextMenu_ISA_BatteryBankStatus = "開啟狀態選單",
+    ContextMenu_ISA_ConnectPanels = "連接太陽能板",
+    ContextMenu_ISA_SolarPanel = "太陽能板",
+    ContextMenu_ISA_Connect_Panel = "連接蓄電池庫",
+    ContextMenu_ISA_Connect_Panel_toolTip = "   蓄電池庫相對於太陽能板的位置 (x:y) ",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "太陽能板已連接蓄電池庫",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "太陽能板未連接蓄電池庫",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "太陽能板必須在戶外",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "太陽能板附近沒有蓄電池庫",
+}

@@ -1,0 +1,11 @@
+Recipes_CH {
+    Recipe_Make_DIY_Battery = "製作 自製電池",
+    Recipe_WireCarBattery = "接線 車用電池",
+    Recipe_UnwireCarBattery = "拆線 車用電池",
+    Recipe_Make_Solar_Roof_Tile = "製作 平板式太陽能板",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "製作 掛壁式太陽能板",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "製作 落地式太陽能板",
+    Recipe_Reverse_Solar_Panel = "將太陽能板拆分成部件",
+    Recipe_Create_Battery_Bank = "製造 蓄電池庫",
+    Recipe_Create_Solar_Failsafe = "製造 太陽能故障保險器",
+}

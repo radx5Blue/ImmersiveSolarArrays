@@ -1,0 +1,12 @@
+ItemName_CH = {
+    /* Magazine */
+    ItemName_ISA.ISAMag1 = "新發展: 來自太陽的能源",
+
+    /* Items */
+    ItemName_ISA.SolarPanel = "太陽能板 (部件)",
+    ItemName_ISA.ISAInverter = "逆變器",
+    ItemName_ISA.DeepCycleBattery = "200安 深循環電池",
+    ItemName_ISA.SuperBattery = "400安 深循環電池",
+    ItemName_ISA.WiredCarBattery = "有線車用電池",
+    ItemName_ISA.DIYBattery = "自製深循環電池",
+}
