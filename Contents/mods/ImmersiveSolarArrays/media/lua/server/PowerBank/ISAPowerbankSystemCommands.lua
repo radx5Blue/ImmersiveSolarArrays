@@ -64,7 +64,7 @@ end
 
 function Commands.plugGenerator(player,args)
     local square = getSquare(args.gen.x,args.gen.y,args.gen.z)
-    local generator = square and PbSystem.instance:getValidBackupOnSquare(square)
+    local generator = square and square:getGenerator()
     for _,i in ipairs(args.pbList) do
         local pb = getPowerbank(i)
         if pb then
