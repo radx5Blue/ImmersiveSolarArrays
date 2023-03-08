@@ -1,3 +1,7 @@
+--[[
+"isa_powerbank" server system
+--]]
+
 if isClient() then return end
 
 require "Map/SGlobalObjectSystem"
@@ -6,36 +10,53 @@ local Powerbank = require "Powerbank/ISAPowerbank_server"
 
 local PbSystem = require("ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
+--called when making the instance, triggered by: Events.OnSGlobalObjectSystemInit
 function PbSystem:new()
     local o = SGlobalObjectSystem.new(self, "isa_powerbank")
     isa.PbSystem_server = o
     return o
 end
 
-PbSystem.savedObjModData = {'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
+--called in C/SGlobalObjectSystem:new(name)
+PbSystem.savedObjectModData = { 'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
 function PbSystem:initSystem()
-    SGlobalObjectSystem.initSystem(self)
-    self.system:setObjectModDataKeys(self.savedObjModData)
+    --SGlobalObjectSystem.initSystem(self) --does nothing
+    --set saved fields
+    self.system:setObjectModDataKeys(self.savedObjectModData)
+
+    --sandbox options, *Events.Event.Add() doesn't need to be specifically inside a function call
+    self.updateEveryTenMinutes = SandboxVars.ISA.ChargeFreq == 1 and true
+    if self.updateEveryTenMinutes then
+        Events.EveryTenMinutes.Add(PbSystem.updatePowerbanks)
+    else
+        Events.EveryHours.Add(PbSystem.updatePowerbanks)
+    end
+    Events.EveryDays.Add(PbSystem.EveryDays)
 end
 
 function PbSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
 end
 
-function PbSystem.isValidModData(modData)
-    return modData.on ~= nil
-end
-
+--triggered by: Events.OnObjectAboutToBeRemoved, Events.OnDestroyIsoThumpable, *v41.78 object data has already been copied to InventoryItem on pickup
 function PbSystem:OnObjectAboutToBeRemoved(isoObject)
-    if not self:isValidIsoObject(isoObject) then return end
-    local luaObject = self:getLuaObjectOnSquare(isoObject:getSquare())
-    if not luaObject then return end
-    self:removeLuaObject(luaObject)
-    self.processRemoveObj:addItem(isoObject)
+    local isaType = isa.WorldUtil.getType(isoObject)
+    if not isaType then return end
+    if self:isValidIsoObject(isoObject) then
+        local luaObject = self:getLuaObjectOnSquare(isoObject:getSquare())
+        if not luaObject then return end
+        self:removeLuaObject(luaObject)
+        self.processRemoveObj:addItem(isoObject) --todo try again to remove generator without this
+    elseif isaType == "Panel" then
+        self:removePanel(isoObject)
+    end
 end
 
 function PbSystem:OnClientCommand(command, playerObj, args)
-    return self.Commands[command](playerObj, args)
+    local command = self.Commands[command]
+    if command ~= nil then
+        command(playerObj, args)
+    end
 end
 
 function PbSystem:removePanel(xpanel)
@@ -106,7 +127,8 @@ function PbSystem.EveryDays()
     end
 end
 
-function PbSystem:updatePowerbanks(chargefreq)
+function PbSystem.updatePowerbanks()
+    local self = PbSystem.instance
     local solaroutput = self:getModifiedSolarOutput(1)
     for i=0,self.system:getObjectCount() - 1 do
         local pb = self.system:getObjectByIndex(i):getModData()
@@ -120,7 +142,7 @@ function PbSystem:updatePowerbanks(chargefreq)
         end
 
         local dif = solaroutput * pb.npanels - drain
-        if chargefreq == 1 then dif = dif / 6 end
+        if self.updateEveryTenMinutes then dif = dif / 6 end
         local charge = pb.charge + dif
         if charge < 0 then charge = 0 elseif charge > pb.maxcapacity then charge = pb.maxcapacity end
         local chargemod = pb.maxcapacity > 0 and charge / pb.maxcapacity or 0
@@ -137,17 +159,6 @@ function PbSystem:updatePowerbanks(chargefreq)
     end
 end
 
-function PbSystem.sandbox()
-    if SandboxVars.ISA.ChargeFreq == 1 then
-        Events.EveryTenMinutes.Add(function()PbSystem.instance:updatePowerbanks(1) end)
-    else
-        Events.EveryHours.Add(function()PbSystem.instance:updatePowerbanks(2) end)
-    end
-end
-
 SGlobalObjectSystem.RegisterSystemClass(PbSystem)
-
-Events.OnInitGlobalModData.Add(PbSystem.sandbox)
-Events.EveryDays.Add(PbSystem.EveryDays)
 
 return PbSystem

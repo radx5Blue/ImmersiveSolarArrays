@@ -1,3 +1,7 @@
+--[[
+Shared functions between client and server systems
+--]]
+
 local isa = require "ISAUtilities"
 local sandbox = SandboxVars.ISA
 

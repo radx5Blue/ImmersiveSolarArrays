@@ -10,6 +10,19 @@ function PbSystem:new()
     return o
 end
 
+function PbSystem:initSystem()
+    --sandbox options, (Events.Event.Add() doesn't need to be specifically inside a function call)
+    if isClient() then
+        Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
+        --if SandboxVars.ISA.ChargeFreq == 1 then
+        --    Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
+        --else
+        --    Events.EveryHours.Add(PbSystem.updateBanksForClient)
+        --end
+    end
+    Events.EveryDays.Add(PbSystem.resetAcceptItemFunction.addItems) --added after server function with sendObjectChange("containers") so SP need only one check
+end
+
 function PbSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
 end
@@ -178,8 +191,8 @@ end
 --used to be overlay needed to be reset here, will need to be updated in v42 probably
 function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferAction_transferItem)
     return function(self,item,...)
-        local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
         --check if item is valid battery, and not moved already
+        local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
         if maxCapacity and not self.destContainer:contains(item) then
             --check if item is moved to/from BatteryBank successfully
             local src = self.srcContainer:getParent()
@@ -215,6 +228,7 @@ end
 
 function PbSystem.ISPlugGenerator_perform(ISPlugGenerator_perform)
     return function(self,...)
+        local o = ISPlugGenerator_perform(self,...)
 
         local generator = self.generator
         local area = isa.WorldUtil.getValidBackupArea(self.plug and self.character,10)
@@ -227,10 +241,11 @@ function PbSystem.ISPlugGenerator_perform(ISPlugGenerator_perform)
             PbSystem.instance:sendCommand(self.character,"plugGenerator",args)
         end
 
-        return ISPlugGenerator_perform(self,...)
+        return o
     end
 end
 
+--todo remove panel data when placed, Battery Bank data not used
 function PbSystem.ISMoveablesAction_perform(ISMoveablesAction_perform)
     return function(self,...)
         local type = isa.WorldUtil.Types[self.origSpriteName]
@@ -269,20 +284,6 @@ function PbSystem.updateBanksForClient()
     end
 end
 
-function PbSystem.OnInitGlobalModData()
-    if isClient() then
-        Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
-        --if SandboxVars.ISA.ChargeFreq == 1 then
-        --    Events.EveryTenMinutes.Add(PbSystem.updateBanksForClient)
-        --else
-        --    Events.EveryHours.Add(PbSystem.updateBanksForClient)
-        --end
-    end
-    Events.EveryDays.Add(PbSystem.resetAcceptItemFunction.addItems) --added after server function with sendObjectChange("containers") so SP need only one check
-end
-
 CGlobalObjectSystem.RegisterSystemClass(PbSystem)
-
-Events.OnInitGlobalModData.Add(PbSystem.OnInitGlobalModData)
 
 return PbSystem

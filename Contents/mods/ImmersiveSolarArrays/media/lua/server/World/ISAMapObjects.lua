@@ -15,13 +15,6 @@ end
 MapObjects.OnLoadWithSprite("solarmod_tileset_01_0", LoadPowerbank, 5)
 
 if not isClient then
-    local function OnObjectAboutToBeRemoved(isoObject)
-        if isa.WorldUtil.objIsType(isoObject,"Panel") then
-            isa.PbSystem_server:removePanel(isoObject)
-        end
-    end
-    Events.OnObjectAboutToBeRemoved.Add(OnObjectAboutToBeRemoved)
-
     --- if a map had our objects
     local function OnNewWithSprite(isoObject)
         local spriteName = isoObject:getTextureName()

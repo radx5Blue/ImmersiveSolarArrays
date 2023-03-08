@@ -69,6 +69,7 @@ function WorldUtil.findTypeOnSquare(square,type)
             return obj
         end
     end
+    return nil
 end
 
 isa.WorldUtil = WorldUtil

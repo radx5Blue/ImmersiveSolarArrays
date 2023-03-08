@@ -1,3 +1,7 @@
+--[[
+"isa_powerbank" server luaObject
+--]]
+
 if isClient() then return end
 
 require "Map/SGlobalObject"
@@ -6,6 +10,10 @@ local solarscan = require "Powerbank/ISA_solarscan"
 local sandbox = SandboxVars.ISA
 
 local SPowerbank = SGlobalObject:derive("SPowerbank")
+
+function SPowerbank:new(luaSystem, globalObject)
+    return SGlobalObject.new(self, luaSystem, globalObject)
+end
 
 function SPowerbank:initNew()
     self.on = false
@@ -19,22 +27,11 @@ function SPowerbank:initNew()
     self.conGenerator = false
 end
 
-function SPowerbank:new(luaSystem, globalObject)
-    return SGlobalObject.new(self, luaSystem, globalObject)
-end
-
---when you load isoobject without luaobject, place object
+--called from loadIsoObject function when making new globalObject & luaObject, triggered by: Events.OnObjectAdded, MapObjects.OnLoadWithSprite
 function SPowerbank:stateFromIsoObject(isoObject)
     self:initNew()
-
-    if self.luaSystem.isValidModData(isoObject:getModData()) then
-        self:noise("Valid Data")
-        self:fromModData(isoObject:getModData())
-    else
-        self:handleBatteries(isoObject:getContainer())
-        self:autoConnectToGenerator()
-    end
-
+    self:handleBatteries(isoObject:getContainer())
+    self:autoConnectToGenerator()
     self:createGenerator() --if generator...
     self:loadGenerator()
     self:updateDrain()
@@ -42,6 +39,7 @@ function SPowerbank:stateFromIsoObject(isoObject)
     self:saveData(true)
 end
 
+--called from loadIsoObject function when luaObject exists, triggered by: Events.OnObjectAdded, MapObjects.OnLoadWithSprite
 function SPowerbank:stateToIsoObject(isoObject)
     self:toModData(isoObject:getModData())
     isoObject:transmitModData()
@@ -50,27 +48,27 @@ function SPowerbank:stateToIsoObject(isoObject)
 end
 
 function SPowerbank:fromModData(modData)
-    self.on = modData["on"]
-    self.batteries = modData["batteries"]
-    self.charge = modData["charge"]
-    self.maxcapacity = modData["maxcapacity"]
-    self.drain = modData["drain"]
-    self.npanels = modData["npanels"]
-    self.panels = modData["panels"]
-    self.lastHour = modData["lastHour"]
-    self.conGenerator = modData["conGenerator"]
+    self.on = modData.on
+    self.batteries = modData.batteries
+    self.charge = modData.charge
+    self.maxcapacity = modData.maxcapacity
+    self.drain = modData.drain
+    self.npanels = modData.npanels
+    self.panels = modData.panels
+    self.lastHour = modData.lastHour
+    self.conGenerator = modData.conGenerator
 end
 
 function SPowerbank:toModData(modData)
-    modData["on"] = self.on
-    modData["batteries"] = self.batteries
-    modData["charge"] = self.charge
-    modData["maxcapacity"] = self.maxcapacity
-    modData["panels"] = self.panels
-    modData["npanels"] = self.npanels
-    modData["drain"] = self.drain
-    modData["lastHour"] = self.lastHour
-    modData["conGenerator"] = self.conGenerator
+    modData.on = self.on
+    modData.batteries = self.batteries
+    modData.charge = self.charge
+    modData.maxcapacity = self.maxcapacity
+    modData.panels = self.panels
+    modData.npanels = self.npanels
+    modData.drain = self.drain
+    modData.lastHour = self.lastHour
+    modData.conGenerator = self.conGenerator
 end
 
 function SPowerbank:saveData(transmit)
