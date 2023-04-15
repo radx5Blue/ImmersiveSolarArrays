@@ -106,7 +106,7 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	end
 
 	local resultData = result:getModData()
-	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * SandboxVars.ISA.DIYBatteryMultiplier)
+	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * SandboxVars.ISA.DIYBatteryMultiplier / 100)
 
 	result:setUsedDelta(0)
 	--result:setUsedDelta(addUpDelta / tick)
