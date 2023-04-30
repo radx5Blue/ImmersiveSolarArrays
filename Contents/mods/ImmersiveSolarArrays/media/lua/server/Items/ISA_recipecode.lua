@@ -1,10 +1,15 @@
+--[[
+	global and recipe functions
+--]]
+
 require "Items/AcceptItemFunction"
 require "recipecode"
-local isa = require("ISAUtilities")
 
+local isa = require("ISAUtilities")
+local Sandbox = SandboxVars.ISA
 local RecipeDef = {}
 
---ISCraftAction:addOrDropItem
+--- ISCraftAction:addOrDropItem
 local function addOrDrop(character, item)
 	local inv = character:getInventory()
 	if inv:getCapacityWeight() + item:getWeight() < inv:getEffectiveCapacity(character) then
@@ -32,6 +37,10 @@ function Recipe.GetItemTypes.wireCarBattery(scriptItems)
 	for fullType,_ in pairs(RecipeDef.carBatteries) do
 		scriptItems:add(manager:getItem(fullType))
 	end
+end
+
+function Recipe.OnCanPerform.ISA_expandedRecipes(recipe, playerObj, item)
+	return Sandbox.enableExpandedRecipes
 end
 
 function Recipe.OnCreate.ISA_wireCarBattery(items, result, player)
@@ -88,7 +97,7 @@ function Recipe.OnCreate.ISA_unwireCarBattery(items, result, player)
 	end
 end
 
---todo result condition formula (average vs mix vs 100), maxCapacity formula (sum of max vs sum of current), v42 when?
+--todo result condition formula (average vs mix vs 100), maxCapacity formula (sum of max vs sum of current), waiting for v42 and evolved recipe or blueprint
 function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	--local addUpDelta = 0
 	local sourceItems = 0
@@ -106,7 +115,7 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	end
 
 	local resultData = result:getModData()
-	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * SandboxVars.ISA.DIYBatteryMultiplier / 100)
+	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * Sandbox.DIYBatteryMultiplier / 100)
 
 	result:setUsedDelta(0)
 	--result:setUsedDelta(addUpDelta / tick)
@@ -135,5 +144,20 @@ function Recipe.OnGiveXP.ISA_CreateBatteryBank(recipe, ingredients, result, play
 	player:getXp():AddXP(Perks.Electricity, 8)
 	player:getXp():AddXP(Perks.MetalWelding, 2)
 end
+
+--- show recipes if option is enabled
+RecipeDef.hiddenExpandedRecipes = {"ISA.Make Solar Panel","ISA.Make Inverter"}
+function RecipeDef.OnInitGlobalModData()
+	if Sandbox.enableExpandedRecipes then
+		local manager = getScriptManager()
+		for _,recipeName in ipairs(RecipeDef.hiddenExpandedRecipes) do
+			local recipe = manager:getRecipe(recipeName)
+			if recipe then
+				recipe:setIsHidden(false)
+			end
+		end
+	end
+end
+Events.OnInitGlobalModData.Add(RecipeDef.OnInitGlobalModData)
 
 return RecipeDef

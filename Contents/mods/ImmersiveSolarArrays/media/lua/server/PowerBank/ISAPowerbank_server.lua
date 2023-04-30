@@ -189,7 +189,26 @@ function SPowerbank:handleBatteries(container)
     self.charge = charge
 end
 
---if not square then check chunk is loaded?
+function SPowerbank:isValidPanel(panel)
+    local x,y,z = panel:getX(), panel:getY(), panel:getZ()
+    if IsoUtils.DistanceToSquared(x, y, self.x, self.y) <= 400.0 and math.abs(z - self.z) <= 3 then
+        for _,panel in ipairs(self.panels) do
+            if x == panel.x and y == panel.y and z == panel.z then return "valid" end
+        end
+        return "not connected"
+    else
+        return "far"
+    end
+end
+
+---checks the square for a panel object and returns the object and status
+function SPowerbank:isValidPanelOnSquare(square)
+    local panel = isa.WorldUtil.findTypeOnSquare(square,"Panel")
+    if panel ~= nil then
+        return panel, square:isOutside() and self:isValidPanel(panel) or "inside"
+    end
+end
+
 function SPowerbank:checkPanels()
     local getSquare = getSquare
 
@@ -197,10 +216,13 @@ function SPowerbank:checkPanels()
     for i = #self.panels, 1, -1 do
         local panel = self.panels[i]
         local square = getSquare(panel.x, panel.y, panel.z)
-        if square and (not square:isOutside() or not isa.WorldUtil.findTypeOnSquare(square,"Panel") or dup[square]) then
-            table.remove(self.panels,i)
+        if square ~= nil then --is chunk loaded?
+            local panelObj, status = self:isValidPanelOnSquare(square)
+            if not panelObj or status ~= "valid" or dup[square] then
+                table.remove(self.panels,i)
+            end
+            dup[square] = true
         end
-        dup[square] = true
     end
     self.npanels = #self.panels
 end

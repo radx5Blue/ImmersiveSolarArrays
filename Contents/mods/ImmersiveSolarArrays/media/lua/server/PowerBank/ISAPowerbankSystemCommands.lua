@@ -26,21 +26,18 @@ end
 
 function Commands.connectPanel(player,args)
     local pb = getPowerbank(args.pb)
-    if pb then
-        local x,y,z = args.panel.x,args.panel.y,args.panel.z
-        local square = getSquare(x,y,z)
-        if square and pb.luaSystem:getValidPanelOnSquare(square) then
-            --not always necessary but removes duplication errors
-            --need during v42 overhaul, for compatibility with older saves
-            for _,panel in ipairs(pb.panels) do
-                if x == panel.x and y == panel.y and z == panel.z then return end
-            end
+    if not pb then return end
 
-            table.insert(pb.panels,args.panel)
-            pb.npanels = pb.npanels + 1
-            pb:saveData(true)
-        end
-    end
+    local x,y,z = args.panel.x,args.panel.y,args.panel.z
+    local square = getSquare(x,y,z)
+    if not square then return end
+
+    local panel, status = pb:isValidPanelOnSquare(square)
+    if not panel or status ~= "not connected" then return end
+
+    table.insert(pb.panels,args.panel)
+    pb.npanels = pb.npanels + 1
+    pb:saveData(true)
 end
 
 function Commands.Battery(player,args)

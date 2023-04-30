@@ -1,8 +1,8 @@
 id=ISA_41
-name=Immersive Solar Arrays [23.02.01]
+name=Immersive Solar Arrays [23.5.1]
 poster=poster.png
 description=Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
-pack=solarmod_tileset_01
+pack=solarmod_tileset
 tiledef=solarmodtiledefs 575
 versionMin=41.78
 

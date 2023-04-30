@@ -173,7 +173,7 @@ function Stash.insertItems()
             isa.distributions.insertSimilarItems(all,customDef.targets,{stashMap.item,customDef.rarity})
         end
     end
-    isa.distributions.doParse = true
+    ItemPickerJava.doParse = true
 end
 
 function Stash.sandbox(newGame)

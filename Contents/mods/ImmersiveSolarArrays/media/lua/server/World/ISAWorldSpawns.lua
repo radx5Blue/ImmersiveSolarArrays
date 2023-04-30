@@ -95,7 +95,6 @@ function ISAWorldSpawns.OnSeeNewRoom(room)
     end
 end
 
---fixme generating strings makes garbage
 ISAWorldSpawns.LoadGridsquare = function(square)
     local xyz = stringXYZ(square)
     local spawn = globalData[xyz]

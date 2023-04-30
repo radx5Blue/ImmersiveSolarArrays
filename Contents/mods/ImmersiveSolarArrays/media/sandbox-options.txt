@@ -1,119 +1,53 @@
 VERSION = 1,
-option ISA.ChargeFreq
-{
-	type = enum,
-	numValues = 2,
-	default = 1,
-	page = ISA,
-	translation = ISA_ChargeFreq,
-	valueTranslation = ISA_ChargeFreq,
+option ISA.ChargeFreq {
+	page = ISA, translation = ISA_ChargeFreq, valueTranslation = ISA_ChargeFreq,
+	type = enum, numValues = 2, default = 1,
 }
-option ISA.DrainCalc
-{
-	type = enum,
-	numValues = 2,
-	default = 2,
-	page = ISA,
-	translation = ISA_DrainCalc,
-	valueTranslation = ISA_DrainCalc,
+option ISA.DrainCalc {
+	page = ISA, translation = ISA_DrainCalc, valueTranslation = ISA_DrainCalc,
+	type = enum, numValues = 2, default = 2,
 }
-option ISA.solarPanelEfficiency
-{
-	type = integer,
-	min = 1,
-	max = 100,
-	default = 25,
-
-	page = ISA,
-	translation = ISA_solarPanelEfficiency,
+option ISA.solarPanelEfficiency {
+	page = ISA, translation = ISA_solarPanelEfficiency,
+	type = integer, min = 1, max = 100, default = 25,
 }
-option ISA.batteryDegradeChance
-{
-	type = integer,
-	min = 0,
-	max = 1000,
-	default = 100,
-
-	page = ISA,
-	translation = ISA_batteryDegradeChance,
+option ISA.batteryDegradeChance {
+	page = ISA, translation = ISA_batteryDegradeChance,
+	type = integer, min = 0, max = 1000, default = 100,
 }
-option ISA.DIYBatteryMultiplier
-{
-	type = integer,
-	min = 1,
-	max = 10000,
-	default = 100,
-
-	page = ISA,
-	translation = ISA_DIYBatteryMultiplier,
+option ISA.DIYBatteryMultiplier {
+	page = ISA, translation = ISA_DIYBatteryMultiplier,
+	type = integer, min = 1, max = 10000, default = 100,
 }
-option ISA.solarPanelWorldSpawns
-{
-	type = integer,
-	min = 0,
-	max = 100,
-	default = 25,
-
-	page = ISA,
-	translation = ISA_solarPanelWorldSpawns,
+option ISA.solarPanelWorldSpawns {
+	page = ISA, translation = ISA_solarPanelWorldSpawns,
+	type = integer, min = 0, max = 100, default = 25,
 }
-option ISA.BatteryBankSpawn
-{
-	type = enum,
-	numValues = 4,
-	default = 3,
-	page = ISA,
-	translation = ISA_BatteryBankSpawn,
+option ISA.BatteryBankSpawn {
+	page = ISA, translation = ISA_BatteryBankSpawn,
+	type = enum, numValues = 4, default = 3,
 }
-option ISA.StashMode
-{
-	page = ISA,
-	translation = ISA_StashMode,
-
-	type = enum,
-	numValues = 3,
-	default = 2,
+option ISA.StashMode {
+	page = ISA, translation = ISA_StashMode,
+	type = enum, numValues = 3, default = 2,
 }
-option ISA.LRMSolarPanels
-{
-	type = double,
-	min = 0,
-	max = 100,
-	default = 1,
-
-	page = ISA,
-	translation = ISA_LRMSolarPanels,
-	valueTranslation = ISA_LRMSolarPanels,
+option ISA.LRMSolarPanels {
+	page = ISA, translation = ISA_LRMSolarPanels, valueTranslation = ISA_LRMSolarPanels,
+	type = double, min = 0, max = 100, default = 1,
 }
-option ISA.LRMBatteries
-{
-	type = double,
-	min = 0,
-	max = 100,
-	default = 1,
-
-	page = ISA,
-	translation = ISA_LRMBatteries,
-	valueTranslation = ISA_LRMBatteries,
+option ISA.LRMBatteries {
+	page = ISA, translation = ISA_LRMBatteries, valueTranslation = ISA_LRMBatteries,
+	type = double, min = 0, max = 100, default = 1,
 }
-option ISA.LRMMisc
-{
-	type = double,
-	min = 0,
-	max = 100,
-	default = 1,
-
-	page = ISA,
-	translation = ISA_LRMMisc,
-	valueTranslation = ISA_LRMMisc,
+option ISA.LRMMisc {
+	page = ISA, translation = ISA_LRMMisc, valueTranslation = ISA_LRMMisc,
+	type = double, min = 0, max = 100, default = 1,
 }
-option ISA.ConnectPanelMin
-{
-	page = ISA,
-	translation = ISA_ConnectPanelMin,
-
-	type = integer,
-	min = 1,
-	max = 1000,
-	default = 120,
+option ISA.ConnectPanelMin {
+	page = ISA, translation = ISA_ConnectPanelMin,
+	type = integer, min = 1, max = 1000, default = 120,
+}
+option ISA.enableExpandedRecipes {
+    page = ISA, translation = ISA_enableExpandedRecipes,
+    type = boolean, default = false,
 }

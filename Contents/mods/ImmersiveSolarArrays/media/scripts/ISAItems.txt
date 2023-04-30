@@ -126,7 +126,7 @@ module ISA
         Type	=	Literature,
         DisplayName	=	New Advancements: Energy From The Sun,
         Icon	=	ISAMag1,
-        TeachedRecipes = Create Battery Bank; WireCarBattery; UnwireCarBattery; Make DIY Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Reverse Solar Panel; Create Solar Failsafe,
+        TeachedRecipes = Create Battery Bank; WireCarBattery; UnwireCarBattery; Make DIY Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Reverse Solar Panel; Create Solar Failsafe;Make Solar Panel;Make Inverter,
         ReplaceOnUse    =   ISAMag1,
 		StaticModel = Magazine,
 		WorldStaticModel = ISA.SolarMagModel,

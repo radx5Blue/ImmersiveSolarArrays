@@ -15,6 +15,3 @@ ISInventoryTransferAction.transferItem = PbSystem.ISInventoryTransferAction_tran
 
 require "TimedActions/ISPlugGenerator"
 ISPlugGenerator.perform = PbSystem.ISPlugGenerator_perform(ISPlugGenerator.perform)
-
-require "Moveables/ISMoveablesAction"
-ISMoveablesAction.perform = PbSystem.ISMoveablesAction_perform(ISMoveablesAction.perform)

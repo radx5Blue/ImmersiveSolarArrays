@@ -51,7 +51,7 @@ do
                 table.remove(o.data,i)
             end
         end
-        if #o.data == 0 or o.times <= 1 then o:stop() end
+        if #o.data == 0 or o.times <= 1 then o:stop() return end
         o.times = o.times - 1
     end
 
@@ -125,13 +125,23 @@ do
 end
 
 function PbSystem.canConnectPanelTo(panel)
+    local options = {}
+
+    if not panel:getSquare():isOutside() then
+        options.inside = true
+        return options
+    end
+
     local x = panel:getX()
     local y = panel:getY()
     local z = panel:getZ()
-    local options = {}
-    for i=0, PbSystem.instance.system:getObjectCount() -1  do
-        local pb = PbSystem.instance.system:getObjectByIndex(i):getModData()
-        if IsoUtils.DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and math.abs(z - pb.z) <= 3 then
+    local DistanceToSquared, abs = IsoUtils.DistanceToSquared, math.abs
+    local jSystem = PbSystem.instance.system
+
+    for i=0, jSystem:getObjectCount() -1  do
+        local pb = jSystem:getObjectByIndex(i):getModData()
+
+        if DistanceToSquared(x, y, pb.x, pb.y) <= 400.0 and abs(z - pb.z) <= 3 then
             pb:updateFromIsoObject()
             local isConnected
             for _,ipanel in ipairs(pb.panels) do
@@ -143,6 +153,7 @@ function PbSystem.canConnectPanelTo(panel)
             table.insert(options, {pb, pb.x-x,pb.y-y, isConnected})
         end
     end
+
     return options
 end
 
@@ -242,25 +253,6 @@ function PbSystem.ISPlugGenerator_perform(ISPlugGenerator_perform)
         end
 
         return o
-    end
-end
-
---todo remove panel data when placed, Battery Bank data not used
-function PbSystem.ISMoveablesAction_perform(ISMoveablesAction_perform)
-    return function(self,...)
-        local type = isa.WorldUtil.Types[self.origSpriteName]
-        if type and self.mode == "pickup" then
-            local isoObjectSpecial = isa.WorldUtil.findOnSquare(self.square,self.origSpriteName)
-            if isoObjectSpecial then
-                if type == "Powerbank" then
-                    isoObjectSpecial:getModData().on = nil
-                elseif type == "Panel" then
-                    isoObjectSpecial:getModData().connectDelta = nil
-                    --isoObjectSpecial:getModData().pbLinked = nil --need to remove panel from pb luaObj, alt send disconnectPanel
-                end
-            end
-        end
-        return ISMoveablesAction_perform(self,...)
     end
 end
 
