@@ -1,35 +1,32 @@
 version=1
-id=2857548524
-title=Immersive Solar Arrays - GitHub
-description=[h1] This is a BETA TEST branch, difference is in use of the API for spawning objects like crates.[/h1]
-description=[hr][/hr]
-description=[h1]Description[/h1]
-description=Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
+id=2969478819
+title=Immersive Solar Arrays - Test
+description=[h1] Just another test branch, difference is in use of the API for spawning objects like crates [/h1]
 description=
-description=[h1]Links with useful resources[/h1]
-description=[URL=https://github.com/radx5Blue/ImmersiveSolarArrays/wiki]wiki pages on github[/url]
+description=Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
+description=[hr][/hr][URL=https://github.com/radx5Blue/ImmersiveSolarArrays/wiki]wiki pages on github[/url]
 description=[URL=https://steamcommunity.com/linkfilter/?url=https://discord.gg/denwquecsf]Discord Server Link[/URL]
 description=[URL=https://steamcommunity.com/sharedfiles/filedetails/?id=2623458493]Link to original mod[/url]
-description=
-description=[h1]Notice![/h1]
-description=[i][list]
-description=[*] Use only one version of the mod. Latest mod id is "ISA_41".
+description=[hr][/hr]
+description=[h1]Notice[/h1]
+description=[list][i]
+description=[*] Use only one version of the mod. Latest mod id is "ISA_41". The older mod with id "ISA" has the same ID as the original for compatibility with other mods, and to not cause issues with existing saves when switching. However the game doesn't handle it very well, make sure to remove other copies of the mod if you use that version (unsubscribe, delete files manually if you have to).
 description=[*] Mods that delete changes made to default actions like inventory transfer and generator interactions can cause problems.
 description=[*] Enable x2 Textures in options or tiles will appear wrong in world.
-description=[*] [URL=https://steamcommunity.com/app/108600/discussions/0/3767859894285799675/]Missing recipes link[/URL]
-description=[*] [URL=https://steamcommunity.com/workshop/filedetails/discussion/2857548524/3463857594042602200/]MP troubleshooting link[/URL]
+description=[u][URL=https://steamcommunity.com/workshop/filedetails/discussion/2857548524/3463857594042602200/]~ MP troubleshooting link[/URL][/u]
+description=[URL=https://steamcommunity.com/app/108600/discussions/0/3767859894285799675/]~ Missing recipes link[/URL]
 description=[*] If you have problems downloading the mod with steam, you can find the latest version of mod on GitHub.
 description=[*] Use mods at your own risk, mod author is not responsible for any faults on your side. If a mod has been updated, make sure to read change logs. When installing a mod read warnings if there are any.
-description=[/list][i]
-description=[h1]I found a bug that's not covered above, what to do now?[/h1]
-description=> First of all, you should try to reproduce the bug with only this mod enabled and write the steps necessary to reproduce the bug. If you can't reproduce it with only this mod then try to limit it to a specif set of mods. Logs are very useful, especially if you're getting errors.
-description=
+description=[/i][/list]
+description=[h1]> I found a bug that's not covered above, what to do now?[/h1]
+description=Please provide a clear and well formatted bug reports, with all relevant information.
+description=[hr][/hr]
 description=[table]
 description=[tr][th][url=https://ko-fi.com/P5P6JASON]Support Poltergeist / Neznajka[/url][/th][th][url=https://ko-fi.com/radx5]Support radx5[/url][/th][/tr]
 description=[tr][td][url=https://ko-fi.com/P5P6JASON][img]https://storage.ko-fi.com/cdn/brandasset/kofi_bg_tag_dark.png[/img][/url][/td][td][url=https://ko-fi.com/radx5] [img]https://cdn.ko-fi.com/cdn/kofi2.png?v=3[/img][/url][/td][/tr]
 description=[/table]
 description=[code]
-description=
+description=...
 description=[/code]
 tags=Build 41;Building;Multiplayer
-visibility=public
+visibility=unlisted

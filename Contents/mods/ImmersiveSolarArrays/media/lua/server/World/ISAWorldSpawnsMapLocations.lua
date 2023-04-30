@@ -1,6 +1,6 @@
 if isClient() then return end
 local WorldSpawns = require "World/ISAWorldSpawns"
-WorldSpawns.Maps = {}
+WorldSpawns.Maps = WorldSpawns.Maps or {}
 
 --main map, mp and challenges list this map
 WorldSpawns.Maps["Muldraugh, KY"] = {

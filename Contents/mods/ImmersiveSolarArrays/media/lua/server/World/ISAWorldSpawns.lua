@@ -1,13 +1,13 @@
 if isClient() then return end
 
 local isa = require "ISAUtilities"
+local TargetSquare_OnLoad = require "!_TargetSquare_OnLoad"
 local sandbox = SandboxVars.ISA
-local globalData
-local function stringXYZ(obj)
-    return obj:getX() .. "," .. obj:getY() .. "," .. obj:getZ()
-end
 
 local ISAWorldSpawns = {}
+ISAWorldSpawns.Maps = {}
+ISAWorldSpawns.spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
+ISAWorldSpawns.spawnBatteryBankChance = { 9999, 10, 3, 1 }
 
 function ISAWorldSpawns.addToWorld(square, sprite, index)
     --if square:isFree(true) or (sprite == "solarmod_tileset_01_6" or sprite == "solarmod_tileset_01_7") and square:isFreeOrMidair(true) then
@@ -60,22 +60,22 @@ function ISAWorldSpawns.fill(isoObject,sprite)
     container:setExplored(true)
 end
 
-function ISAWorldSpawns.doRolls()
+function ISAWorldSpawns.doRolls(ws)
     local spawnChance = sandbox.solarPanelWorldSpawns
     if spawnChance == 0 then return end
-    local ZombRand = ZombRand
+    local ZombRand, ipairs = ZombRand, ipairs
 
     local loaded = {}
     for _,map in ipairs(getWorld():getMap():split(";")) do
         local mapLocations = ISAWorldSpawns.Maps[map]
-        if mapLocations then
+        if mapLocations ~= nil then
             for _,location in ipairs(mapLocations) do
                 local valid = true
                 for _,over in ipairs(location.overwrite) do
-                    if loaded[over] then valid = false end
+                    if loaded[over] then valid = false break end
                 end
-                if valid and ZombRand(1, 100) <= spawnChance then
-                    globalData[location.x .. "," .. location.y .. "," .. location.z] = location.type
+                if valid and ZombRand(100) < spawnChance then
+                    ws.addCommand(location.x,location.y,location.z,{ command = "isaWorldSpawn", sprite = location.type})
                 end
             end
         end
@@ -83,8 +83,6 @@ function ISAWorldSpawns.doRolls()
     end
 end
 
-ISAWorldSpawns.spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
-ISAWorldSpawns.spawnBatteryBankChance = { 9999, 10, 3, 1 }
 function ISAWorldSpawns.OnSeeNewRoom(room)
     local roomChance = ISAWorldSpawns.spawnBatteryBankRooms[room:getName()]
     if roomChance and ZombRand(roomChance * ISAWorldSpawns.spawnBatteryBankChance[sandbox.BatteryBankSpawn]) == 0 then
@@ -95,31 +93,34 @@ function ISAWorldSpawns.OnSeeNewRoom(room)
     end
 end
 
-ISAWorldSpawns.LoadGridsquare = function(square)
-    local xyz = stringXYZ(square)
-    local spawn = globalData[xyz]
-    if not spawn then return end
-    globalData[xyz] = nil
-    ISAWorldSpawns.addToWorld(square,spawn)
-end
-
-ISAWorldSpawns.OnInitGlobalModData = function(newGame)
-    if ModData.exists("ISAWorldSpawns") then
-        globalData = ModData.get("ISAWorldSpawns")
-    else
-        globalData = ModData.create("ISAWorldSpawns")
-        ISAWorldSpawns.doRolls()
-    end
-
-    for _,_ in pairs(globalData) do
-        Events.LoadGridsquare.Add(ISAWorldSpawns.LoadGridsquare)
-        break
-    end
+function ISAWorldSpawns.InitSpawns()
     if sandbox.BatteryBankSpawn > 1 then
         Events.OnSeeNewRoom.Add(ISAWorldSpawns.OnSeeNewRoom)
     end
+
+    local instance = TargetSquare_OnLoad and TargetSquare_OnLoad.instance
+    if not instance then return end
+
+    instance.OnLoadCommands.isaWorldSpawn = function(square,command)
+        ISAWorldSpawns.addToWorld(square,command.sprite)
+    end
+
+    if instance.savedData["isaWorldSpawns"] then return end
+
+    local oldData = ModData.remove("ISAWorldSpawns")
+    if oldData then
+        for k,v in pairs(oldData) do
+            local split = k:split(",")
+            local x,y,z = tonumber(split[1]), tonumber(split[2]), tonumber(split[3])
+            instance.addCommand(x,y,z,{ command = "isaWorldSpawn", sprite = v })
+        end
+    else
+        ISAWorldSpawns.doRolls(instance)
+    end
+
+    instance.savedData["isaWorldSpawns"] = true
 end
 
-Events.OnInitGlobalModData.Add(ISAWorldSpawns.OnInitGlobalModData)
+Events.OnSGlobalObjectSystemInit.Add(ISAWorldSpawns.InitSpawns)
 
 return ISAWorldSpawns

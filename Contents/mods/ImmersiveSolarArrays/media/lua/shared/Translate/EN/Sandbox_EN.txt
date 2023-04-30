@@ -8,7 +8,7 @@ Sandbox_EN = {
 	Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplier for the average degrade of batteries.\nDecreasing this will dramatically increase battery life.",
 
 	Sandbox_ISA_solarPanelWorldSpawns = "Solar Panel / Crate World Spawns",
-	Sandbox_ISA_solarPanelWorldSpawns = "How likely pre-placed solar panels and crates are to spawn at a given spawn location",
+	Sandbox_ISA_solarPanelWorldSpawns = "How likely pre-placed solar panels and crates are to spawn at a given spawn location<br>Requires external API to work",
 
 	Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Solar panels",
 	Sandbox_ISA_LRMSolarPanels_tooltip = "Solar panel spawns in random containers and pre-placed crates multiplier",
