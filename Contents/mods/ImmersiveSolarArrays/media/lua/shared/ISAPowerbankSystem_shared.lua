@@ -57,8 +57,4 @@ function PbSystem:getValidBackupOnSquare(square)
     end
 end
 
-function PbSystem:getValidPanelOnSquare(square)
-    return square:isOutside() and isa.WorldUtil.findTypeOnSquare(square,"Panel")
-end
-
 return PbSystem

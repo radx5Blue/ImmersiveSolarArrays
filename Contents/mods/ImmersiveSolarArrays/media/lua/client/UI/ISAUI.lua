@@ -84,11 +84,11 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 	--for _,panel in ipairs(panels) do
 		if panel then
 			if test then return ISWorldObjectContextMenu.setTest() end
-			local ISASubMenu = context:getNew(context)
-			context:addSubMenu(context:addOption(getText("ContextMenu_ISA_SolarPanel")), ISASubMenu)
-			local isOutside = panel:getSquare():isOutside()
+			local panelOption = context:addOption(getText("ContextMenu_ISA_SolarPanel"))
 			local options = isa.PbSystem_client.canConnectPanelTo(panel)
-			if #options > 0 and isOutside then
+			if #options > 0 then
+				local ISASubMenu = context:getNew(context)
+				context:addSubMenu(panelOption, ISASubMenu)
 				for i,opt in ipairs(options) do
 					if test then return ISWorldObjectContextMenu.setTest() end
 					local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), player, UI.onConnectPanel, panel, opt[1])
@@ -96,18 +96,19 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 					tooltip:setName(getText("ContextMenu_ISA_BatteryBank"))
 					tooltip.description = opt[4] and rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or rgbBad.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
 					tooltip.description = tooltip.description .. (rgbDefault.rich .. "<BR>" .. "( "..opt[2].." : "..opt[3].." )" .. getText("ContextMenu_ISA_Connect_Panel_toolTip"))
-					option.toolTip = tooltip;
+					option.toolTip = tooltip
 				end
 			else
 				if test then return ISWorldObjectContextMenu.setTest() end
-				local option = ISASubMenu:addOption(getText("ContextMenu_ISA_Connect_Panel"), worldobjects)
 				local tooltip = ISWorldObjectContextMenu.addToolTip()
-				tooltip.description = rgbBad.rich .. (#options == 0 and getText("ContextMenu_ISA_Connect_Panel_NoPowerbank") .. " <BR>" or "")
-				tooltip.description = tooltip.description .. (not isOutside and getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside") or "")
-				option.toolTip = tooltip;
-
-				option.notAvailable = true;
-				option.onSelect = nil;
+				if options.inside then
+					tooltip.description = rgbBad.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")
+				else
+					tooltip.description = rgbBad.rich .. getText("ContextMenu_ISA_Connect_Panel_NoPowerbank")
+				end
+				panelOption.toolTip = tooltip
+				panelOption.notAvailable = true
+				panelOption.onSelect = nil
 			end
 		end
 	--end
@@ -128,7 +129,6 @@ function UI.ISInventoryPane_drawItemDetails_patch(drawItemDetails)
 
 	return function(self,item, y, xoff, yoff, red,...)
 		if not item then return end
-		--if not (item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]) then
 		if not (item:getModData().ISA_maxCapacity) then
 			return drawItemDetails(self,item, y, xoff, yoff, red,...)
 		else

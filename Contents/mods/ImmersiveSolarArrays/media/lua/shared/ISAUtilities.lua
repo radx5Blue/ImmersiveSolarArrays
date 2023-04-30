@@ -55,4 +55,5 @@ do
     util.delayedProcess = delayedProcess
 end
 
+ImmersiveSolarArrays = util
 return util

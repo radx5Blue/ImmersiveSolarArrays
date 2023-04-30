@@ -85,6 +85,13 @@ local ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 function ISAConnectPanelCursor:new(player,square, powerbank)
     local o = ISACursor.new(self,player, square)
     o.luaPb = isa.PbSystem_client:getLuaObjectOnSquare(powerbank:getSquare())
+
+    o.tooltip = ISWorldObjectContextMenu.addToolTip()
+    o.tooltip:setVisible(true)
+    o.tooltip:addToUIManager()
+    o.tooltip.maxLineWidth = 1000
+    if o.joyfocus then o.tooltip.followMouse = false; o.tooltip.contextMenu = o end
+
     return o
 end
 
@@ -92,13 +99,20 @@ function ISAConnectPanelCursor:isValid(square,...)
     square = self.joyfocus and getSquare(self.xJoy,self.yJoy,self.playerObj:getZ()) or square
     if self.sq ~= square then
         self.sq = square
-        local panel = isa.WorldUtil.findTypeOnSquare(square,"Panel")
-        self.panel = panel
-        if not panel then
-            self.valid = false
-        else
-            self.valid = panel:getSquare():isOutside()
-            self.connected = self:isConnected()
+        self.luaPb:updateFromIsoObject()
+        self.panel, self.status = self.luaPb:isValidPanelOnSquare(square)
+        self.valid = self.status == "not connected"
+
+        if self.valid then
+            self.tooltip.description = rgbDefault.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
+        elseif self.status == "valid" then
+            self.tooltip.description = rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected")
+        elseif not self.panel then
+            self.tooltip.description = rgbBad.rich .. getText("Tooltip_ISA_NoPanels")
+        elseif self.status == "far" then
+            self.tooltip.description = rgbBad.rich .. getText("Tooltip_ISA_PanelFar")
+        elseif self.status == "inside" then
+            self.tooltip.description = rgbBad.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")
         end
     end
     return self.valid
@@ -114,26 +128,6 @@ function ISAConnectPanelCursor:render(x,y,z,...)
 
     local c = self.valid and rgbGood or rgbBad
     self.floorSprite:RenderGhostTileColor(x, y, z, c.r, c.g, c.b, 0.8)
-
-    self:renderTooltip()
-end
-
-function ISAConnectPanelCursor:renderTooltip()
-    local tooltip = self.tooltip
-    if not tooltip then
-        tooltip = ISWorldObjectContextMenu.addToolTip()
-        tooltip:setVisible(true)
-        tooltip:addToUIManager()
-        tooltip.maxLineWidth = 1000
-        if self.joyfocus then tooltip.followMouse = false; tooltip.contextMenu = self end
-        self.tooltip = tooltip
-    end
-    if not self.panel then
-        tooltip.description = rgbBad.rich .. getText("Tooltip_ISA_NoPanels")
-    else
-        tooltip.description = self.connected and rgbGood.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected") or rgbDefault.rich .. getText("ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false")
-        if not self.valid then tooltip.description = string.format("%s\n%s%s",tooltip.description,richBad,getText("ContextMenu_ISA_Connect_Panel_toolTip_isOutside")) end
-    end
 end
 
 function ISAConnectPanelCursor:tryBuild()
@@ -142,17 +136,6 @@ end
 
 function ISAConnectPanelCursor:getAPrompt()
     if self.valid then return getText("ContextMenu_ISA_Connect_Panel") end
-end
-
-function ISAConnectPanelCursor:isConnected()
-    local dataPb, luaPb = self.panel:getModData().pbLinked, self.luaPb
-    if dataPb and dataPb.x == luaPb.x and dataPb.y == luaPb.y and dataPb.z == luaPb.z then
-        local x,y,z = self.panel:getX(), self.panel:getY(), self.panel:getZ()
-        self.luaPb:updateFromIsoObject()
-        for _,panel in ipairs(self.luaPb.panels) do
-            if x == panel.x and y == panel.y and z == panel.z then return true end
-        end
-    end
 end
 
 isa.ConnectPanelCursor = ISAConnectPanelCursor

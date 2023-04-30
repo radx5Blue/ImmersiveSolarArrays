@@ -8,4 +8,6 @@ Recipes_EN {
     Recipe_Reverse_Solar_Panel = "Split Solar Panel to parts",
     Recipe_Create_Battery_Bank = "Create Battery Bank",
     Recipe_Create_Solar_Failsafe = "Create Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Make Solar Panel (part)",
+    Recipe_Make_Inverter = "Make Inverter",
 }

@@ -38,15 +38,30 @@ function PbSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
 end
 
---triggered by: Events.OnObjectAboutToBeRemoved, Events.OnDestroyIsoThumpable, *v41.78 object data has already been copied to InventoryItem on pickup
+---triggered by: Events.OnObjectAdded (SGlobalObjectSystem)
+function PbSystem:OnObjectAdded(isoObject)
+    local isaType = isa.WorldUtil.getType(isoObject)
+    if not isaType then return end
+    if isaType == "Powerbank" and self:isValidIsoObject(isoObject) then
+        self:loadIsoObject(isoObject)
+    elseif isaType == "Panel" then
+        local modData = isoObject:getModData()
+        modData.pbLinked = nil
+        modData.connectDelta = nil
+        isoObject:transmitModData()
+    end
+end
+
+---triggered by: Events.OnObjectAboutToBeRemoved, Events.OnDestroyIsoThumpable  (SGlobalObjectSystem)
+---v41.78 object data has already been copied to InventoryItem on pickup
 function PbSystem:OnObjectAboutToBeRemoved(isoObject)
     local isaType = isa.WorldUtil.getType(isoObject)
     if not isaType then return end
-    if self:isValidIsoObject(isoObject) then
+    if isaType == "Powerbank" and self:isValidIsoObject(isoObject) then
         local luaObject = self:getLuaObjectOnSquare(isoObject:getSquare())
         if not luaObject then return end
         self:removeLuaObject(luaObject)
-        self.processRemoveObj:addItem(isoObject) --todo try again to remove generator without this
+        self.processRemoveObj:addItem(isoObject)
     elseif isaType == "Panel" then
         self:removePanel(isoObject)
     end
@@ -82,7 +97,7 @@ do
     local o = isa.delayedProcess:new{maxTimes=999}
 
     function o.process(tick)
-        if not o.data then return o:stop() end
+        if not o.data then o:stop() return end
 
         for i = #o.data, 1, -1 do
             if o.data[i].obj:getObjectIndex() == -1 then
@@ -96,7 +111,7 @@ do
             end
         end
 
-        if #o.data == 0 or o.times <= 1 then o:stop() end
+        if #o.data == 0 or o.times <= 1 then o:stop() return end
         o.times = o.times - 1
     end
 

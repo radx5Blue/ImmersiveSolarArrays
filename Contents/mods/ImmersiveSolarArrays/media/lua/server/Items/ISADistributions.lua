@@ -1,10 +1,20 @@
---fixme SandboxVars are default value at this stage, MP are loaded already OnPreDistributionMerge???, SP are not
+-- fixme SandboxVars are sometimes the default values at this stage - MP server values are loaded OnPreDistributionMerge???, SP are loaded when creating a character
+
 
 local require, pairs, ipairs, table, type = require, pairs, ipairs, table, type --I mean why not
 
 require 'Items/Distributions'
 require 'Items/ProceduralDistributions'
 local util = require "ISAUtilities"
+
+--- remake distributions based on sandbox, used by stash items
+local function OnLoadedMapZones()
+	if ItemPickerJava.doParse then
+		ItemPickerJava.doParse = nil
+		ItemPickerJava.Parse()
+	end
+	util.distributions = nil
+end
 
 local copyTable = copyTable
 local SuburbsDistributions = SuburbsDistributions
@@ -320,11 +330,6 @@ insertRecursive("procList",SuburbsDistributions,{
 	}
 })
 
---stash items
-util.distributions = {insertSimilarItems = insertSimilarItems}
-util.queueFunction("OnLoadedMapZones",function()
-	if util.distributions.doParse then
-		ItemPickerJava.Parse()
-	end
-	util.distributions = nil
-end)
+Events.OnLoadedMapZones.Add(OnLoadedMapZones)
+
+util.distributions = { insertSimilarItems = insertSimilarItems, OnLoadedMapZones = OnLoadedMapZones}
