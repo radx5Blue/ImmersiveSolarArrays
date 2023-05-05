@@ -15,6 +15,7 @@ function ISACursor:new(player,square)
     o.xJoypad = -1
     o.xJoy = square:getX()
     o.yJoy = square:getY()
+    o.zJoypad = o.playerObj:getZ()
     o.joyfocus = not wasMouseActiveMoreRecentlyThanJoypad() and JoypadState.players[player+1]
     if o.joyfocus then
         setJoypadFocus(player, o)
@@ -39,7 +40,7 @@ function ISACursor:onGainJoypadFocus(joypadData)
 end
 function ISACursor:onJoypadDown(button, joypadData) return self:onJoypadPressButton(nil, joypadData, button) end
 function ISACursor:onJoypadPressButton(joypadIndex, joypadData, button)
-    if button == Joypad.AButton and self.valid then self:tryBuild() end
+    if button == Joypad.AButton and self.valid then self:tryBuild(self.xJoy, self.yJoy, self.zJoypad) end
     if button == Joypad.BButton then self:close() end
     if button == Joypad.YButton then
         self.xJoy = self.playerObj:getCurrentSquare():getX()
@@ -95,8 +96,8 @@ function ISAConnectPanelCursor:new(player,square, powerbank)
     return o
 end
 
-function ISAConnectPanelCursor:isValid(square,...)
-    square = self.joyfocus and getSquare(self.xJoy,self.yJoy,self.playerObj:getZ()) or square
+function ISAConnectPanelCursor:isValid(square,north)
+    square = self.joyfocus and getSquare(self.xJoy,self.yJoy,self.zJoypad) or square
     if self.sq ~= square then
         self.sq = square
         self.luaPb:updateFromIsoObject()
@@ -130,8 +131,11 @@ function ISAConnectPanelCursor:render(x,y,z,...)
     self.floorSprite:RenderGhostTileColor(x, y, z, c.r, c.g, c.b, 0.8)
 end
 
-function ISAConnectPanelCursor:tryBuild()
-    return isa.UI.onConnectPanel(self.player,self.panel,self.luaPb)
+function ISAConnectPanelCursor:tryBuild(x,y,z)
+    self.sq = nil
+    if self:isValid(getSquare(x,y,z)) then
+        isa.UI.onConnectPanel(self.player,self.panel,self.luaPb)
+    end
 end
 
 function ISAConnectPanelCursor:getAPrompt()

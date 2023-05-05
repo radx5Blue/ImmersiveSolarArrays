@@ -65,22 +65,20 @@ function ISAConnectPanel:perform()
     ISBaseTimedAction.perform(self);
 end
 
-function ISAConnectPanel:new(character, panel, powerbank)
+function ISAConnectPanel:new(character, panel, luaPb)
     local o = {}
     setmetatable(o, self)
     self.__index = self
     o.character = character
     o.panel = panel
-    o.powerbank = powerbank
-    o.stopOnWalk = true;
-    o.stopOnRun = true;
+    o.powerbank = luaPb
+    o.stopOnWalk = true
+    o.stopOnRun = true
     o.stopOnAim = false
     o.maxTime = SandboxVars.ISA.ConnectPanelMin * (1 - 0.095 * (character:getPerkLevel(Perks.Electricity) - 3)) * 2 * getGameTime():getMinutesPerDay() --base time in minutes at level 3, ~1/3 at level 10
 
     if o.character:isTimedActionInstant() then o.maxTime = 1 end
     return o
 end
-
-if not SandboxVars.ISA.ConnectPanelMin then SandboxVars.ISA.ConnectPanelMin = 120 end
 
 isa.ConnectPanel = ISAConnectPanel
