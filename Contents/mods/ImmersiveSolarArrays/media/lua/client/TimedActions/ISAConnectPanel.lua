@@ -46,7 +46,7 @@ function ISAConnectPanel:stop()
         self.panel:transmitModData()
     end
 
-    ISBaseTimedAction.stop(self);
+    ISBaseTimedAction.stop(self)
 end
 
 function ISAConnectPanel:perform()
@@ -62,7 +62,7 @@ function ISAConnectPanel:perform()
     end
     self.panel:transmitModData()
 
-    ISBaseTimedAction.perform(self);
+    ISBaseTimedAction.perform(self)
 end
 
 function ISAConnectPanel:new(character, panel, luaPb)

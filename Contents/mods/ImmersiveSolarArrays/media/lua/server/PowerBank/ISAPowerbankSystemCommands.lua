@@ -46,11 +46,16 @@ function Commands.Battery(player,args)
         noise("Transfering Battery")
         if args[2] == "take" then
             pb.batteries = pb.batteries - 1
-            pb.charge = pb.charge - args[4]
-            pb.maxcapacity = pb.maxcapacity - args[4]
+            if pb.batteries > 0 then
+                pb.charge = pb.charge - args[3]
+                pb.maxcapacity = pb.maxcapacity - args[4]
+            else
+                pb.charge = 0
+                pb.maxcapacity = 0
+            end
         elseif args[2] == "put" then
             pb.batteries = pb.batteries + 1
-            pb.charge = pb.charge + args[4]
+            pb.charge = pb.charge + args[3]
             pb.maxcapacity = pb.maxcapacity + args[4]
         end
         pb:updateGenerator()

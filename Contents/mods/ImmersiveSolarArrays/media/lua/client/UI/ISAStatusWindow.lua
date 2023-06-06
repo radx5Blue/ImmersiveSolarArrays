@@ -15,10 +15,10 @@ end
 function ISAStatusWindow:createChildren()
 	ISCollapsableWindow.createChildren(self);
 	local th = self:titleBarHeight()
-	self.panel = ISTabPanel:new(0, th, self.width, self.height-th);
-	self.panel:initialise();
-	self.panel.equalTabWidth = false;
-	self:addChild(self.panel);
+	self.panel = ISTabPanel:new(0, th, self.width, self.height-th)
+	self.panel:initialise()
+	self.panel.equalTabWidth = false
+	self:addChild(self.panel)
 
 	self.summaryView = isa.StatusWindowSummaryView:new(0, 8, self.width, self.height-8)
 	self.summaryView:initialise()
