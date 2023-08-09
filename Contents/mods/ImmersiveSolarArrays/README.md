@@ -8,6 +8,9 @@ Poltergeist: maintainer, full mod rework
 kattiko: development in initial stages
 deacon: recipes
 
+## Testers
+CarlosRojasCu
+
 ## Translators
 Kev1931: Italian
 Wailwolf: French

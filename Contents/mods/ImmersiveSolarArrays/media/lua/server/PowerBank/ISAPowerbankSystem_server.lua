@@ -8,7 +8,8 @@ require "Map/SGlobalObjectSystem"
 local isa = require "ISAUtilities"
 local Powerbank = require "Powerbank/ISAPowerbank_server"
 
-local PbSystem = require("ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
+---@class PowerbankSystem_Server : PowerbankSystem, SGlobalObjectSystem
+local PbSystem = require("ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_server"))
 
 --called when making the instance, triggered by: Events.OnSGlobalObjectSystemInit
 function PbSystem:new()
@@ -143,9 +144,11 @@ function PbSystem.EveryDays()
 end
 
 function PbSystem.updatePowerbanks()
+    ---@type PowerbankSystem_Server
     local self = PbSystem.instance
     local solaroutput = self:getModifiedSolarOutput(1)
     for i=0,self.system:getObjectCount() - 1 do
+        ---@type PowerbankObject_Server
         local pb = self.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         local drain

@@ -111,8 +111,7 @@ function ISAWorldSpawns.InitSpawns()
     if oldData then
         for k,v in pairs(oldData) do
             local split = k:split(",")
-            local x,y,z = tonumber(split[1]), tonumber(split[2]), tonumber(split[3])
-            instance.addCommand(x,y,z,{ command = "isaWorldSpawn", sprite = v })
+            instance.addCommand(tonumber(split[1]), tonumber(split[2]), tonumber(split[3]),{ command = "isaWorldSpawn", sprite = v })
         end
     else
         ISAWorldSpawns.doRolls(instance)
