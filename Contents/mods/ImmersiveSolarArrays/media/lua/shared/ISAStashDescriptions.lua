@@ -162,27 +162,29 @@ function Stash.prepareBuildingStash()
     end
 end
 
-function Stash.insertItems()
+function Stash.insertItems(addMapItems)
     local table = table
     local StashDescriptions = StashDescriptions
     local all = SuburbsDistributions.all
 
     for stashMap,customDef in pairs(Stash.descriptions) do
         table.insert(StashDescriptions,stashMap)
-        if customDef.rarity and customDef.targets then
+        if addMapItems and customDef.rarity and customDef.targets then
             isa.distributions.insertSimilarItems(all,customDef.targets,{stashMap.item,customDef.rarity})
         end
     end
-    ItemPickerJava.doParse = true
+    if addMapItems then
+        ItemPickerJava.doParse = true
+    end
 end
 
 function Stash.sandbox(newGame)
     local mode = SandboxVars.ISA.StashMode or 1
     if mode == 1 then return end
 
-    Stash.insertItems()
+    Stash.insertItems(mode ~= 4)
 
-    if mode == 3 and newGame and not isClient() then
+    if mode ~= 2 and newGame and not isClient() then
         isa.queueFunction("OnTick",Stash.prepareBuildingStash)
     end
 end
