@@ -1,0 +1,12 @@
+ContextMenu_PL = {
+    ContextMenu_ISA_BatteryBank = "Bank baterii",
+    ContextMenu_ISA_BatteryBankStatus = "Otwórz okno statusu",
+    ContextMenu_ISA_ConnectPanels = "Po³¹cz panele",
+    ContextMenu_ISA_SolarPanel = "Panel s³oneczny",
+    ContextMenu_ISA_Connect_Panel = "Po³¹cz z bankiem baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Lokalizacja banku baterii w stosunku do panelu s³onecznego (x: y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Panel s³oneczny jest pod³¹czony do tego banku baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Panel s³oneczny nie jest pod³¹czony do tego banku baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Panel s³oneczny musi byæ na zewn¹trz",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Brak baterii nie znajduje siê w pobli¿u tego panelu s³onecznego",
+}

@@ -1,0 +1,12 @@
+ItemName_ID = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Kemajuan Baru: Energi dari Matahari",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Panel surya (bagian)",
+    ItemName_ISA.ISAInverter = "Inverter",
+    ItemName_ISA.DeepCycleBattery = "Baterai siklus dalam 200Ah",
+    ItemName_ISA.SuperBattery = "Baterai siklus dalam 400Ah",
+    ItemName_ISA.WiredCarBattery = "Baterai mobil kabel",
+    ItemName_ISA.DIYBattery = "Baterai siklus dalam DIY",
+}

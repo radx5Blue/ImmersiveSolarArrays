@@ -1,0 +1,12 @@
+ContextMenu_TR = {
+    ContextMenu_ISA_BatteryBank = "Þarj Bankasý",
+    ContextMenu_ISA_BatteryBankStatus = "Durum Penceresi Aç",
+    ContextMenu_ISA_ConnectPanels = "Panelleri Baðla",
+    ContextMenu_ISA_SolarPanel = "Güneþ paneli",
+    ContextMenu_ISA_Connect_Panel = "Pil Bankasýna Baðlan",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Güneþ Paneli ile Ýlgili Pil Bankasý Konumu (X: Y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Güneþ paneli bu pil bankasýna baðlý",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Güneþ paneli bu pil bankasýna baðlý deðil",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Güneþ panelinin dýþarýda olmasý gerekiyor",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Bu güneþ panelinin yakýnýnda hiçbir pil bankasý yok",
+}

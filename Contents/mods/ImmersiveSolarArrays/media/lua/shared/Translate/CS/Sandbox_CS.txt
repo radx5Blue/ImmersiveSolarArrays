@@ -1,0 +1,49 @@
+Sandbox_CS = {
+    Sandbox_ISA = "Pohlcuj¡c¡ sol rn¡ pole",
+
+    Sandbox_ISA_solarPanelEfficiency = "éŸinnost sol rn¡ho panelu",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "éŸinnost energie sol rn¡ho panelu <br> 12% je realistick  pro 1993 <br> 25% je modern¡ sol rn¡ energie <br> Vìchoz¡ hodnota je nerealistick ",
+
+    Sandbox_ISA_batteryDegradeChance = "Baterie zhorçuje z va§nost",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplik tor pro pr…mØrnou degradaci bateri¡.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Slucnì panel / Crate World se roztý¡st¡",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Jak je pravdØpodobn‚ pýedem um¡stØn‚ sol rn¡ panely a bedny, kter‚ se mohou vynoýit na dan‚m um¡stØn¡ SPAWN. <br> vy§aduje, aby extern¡ API fungovalo.",
+
+    Sandbox_ISA_LRMSolarPanels = "Koýist multiplik tor rarity - sol rn¡ panely",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Sol rn¡ panel se vynoý¡ v n hodnìch kontejnerech a pýedem um¡stØn‚m multiplik toru bedny",
+
+    Sandbox_ISA_LRMBatteries = "Koýist multiplik tor rarity - baterie",
+    Sandbox_ISA_LRMBatteries_tooltip = "Baterie se vynoý¡ v n hodnìch kontejnerech a pýedem um¡stØn‚m multiplik toru bedny",
+
+    Sandbox_ISA_LRMMisc = "Koýist rarita multiplier - Misc",
+    Sandbox_ISA_LRMMisc_tooltip = "¬asopis a stý¡daŸ se vynoý¡ v n hodnìch kontejnerech a multiplik toru pýedem um¡stØnìch pýepravk…",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Kapacita baterie pro kutily",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplik tor pro kapacitu vytvoýenìch diy bateri¡.",
+
+    Sandbox_ISA_DrainCalc_option1 = "JE",
+    Sandbox_ISA_DrainCalc_option2 = "BØ§nì gener tor",
+    Sandbox_ISA_DrainCalc = "Metoda vìpoŸtu odtoku",
+    Sandbox_ISA_DrainCalc_tooltip = "Pravidelnì vìpoŸet gener toru m  menç¡ dopad na vìkon",
+    Sandbox_ISA_ChargeFreq_option1 = "Ka§dìch deset minut",
+    Sandbox_ISA_ChargeFreq_option2 = "Ka§dou hodinu",
+    Sandbox_ISA_ChargeFreq = "Frekvence nab¡jen¡",
+    Sandbox_ISA_ChargeFreq_tooltip = "Jak Ÿasto se nabije baterie",
+    Sandbox_ISA_BatteryBankSpawn = "Bateriov‚ banky",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rarita baterie se na mapØ.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "¦ dnì",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Velmi vz cn‚",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Vz cnì",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Neobvykl‚",
+    Sandbox_ISA_StashMode = "Domy skrìçe",
+    Sandbox_ISA_StashMode_tooltip = "Zvolte re§im pro domy Stash. <br> ZmØna pouze na nov‚ hýe.",
+    Sandbox_ISA_StashMode_option1 = "Nepýid vejte domy skrìçe",
+    Sandbox_ISA_StashMode_option2 = "Pýidejte domy skrìçe",
+    Sandbox_ISA_StashMode_option3 = "Pýidat + zn m‚ od startu",
+    Sandbox_ISA_StashMode_option4 = "Pýidejte n hodn‚ poŸ teŸn¡",
+    Sandbox_ISA_ConnectPanelMin = "Pýipojte Ÿas panelu",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Z kladn¡ poŸet hern¡ch minut potýebn‚ k pýipojen¡ jednoho panelu",
+    Sandbox_ISA_enableExpandedRecipes = "Rozç¡ýen‚ recepty",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Umo§åuje vytv ýet sol rn¡ panely a stý¡daŸe",
+}

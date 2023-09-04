@@ -1,0 +1,3 @@
+Tooltip_TH
+Tooltip_ISA_NoPanels = "ไม่มีแผง"
+Tooltip_ISA_PanelFar = "แผงนี้อยู่ไกลเกินไป"

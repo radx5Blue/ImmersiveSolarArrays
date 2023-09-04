@@ -1,0 +1,13 @@
+Recipes_CA {
+    Recipe_Make_DIY_Battery = "Fer bateria de bricolatge",
+    Recipe_WireCarBattery = "Bateria del cotxe de filferro",
+    Recipe_UnwireCarBattery = "Bateria del cotxe no vol",
+    Recipe_Make_Solar_Roof_Tile = "Feu un panell solar pla",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Feu un panell solar muntat a la paret",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Feu un panell solar muntat al sòl",
+    Recipe_Reverse_Solar_Panel = "Dividiu el panell solar a parts",
+    Recipe_Create_Battery_Bank = "Crea un banc de bateries",
+    Recipe_Create_Solar_Failsafe = "Crear Solar FailSafe",
+    Recipe_Make_Solar_Panel = "Fer el panell solar (part)",
+    Recipe_Make_Inverter = "Fer inversor",
+}

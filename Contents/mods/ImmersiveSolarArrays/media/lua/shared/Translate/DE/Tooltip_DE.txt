@@ -1,0 +1,3 @@
+Tooltip_DE
+Tooltip_ISA_NoPanels = "Kein Panel"
+Tooltip_ISA_PanelFar = "Dieses Panel ist zu weit"

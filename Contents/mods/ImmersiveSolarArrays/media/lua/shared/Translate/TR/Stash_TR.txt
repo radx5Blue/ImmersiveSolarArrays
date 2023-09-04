@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "Testere kamyonu ayrýldý"
+Stash_ISA_Stash_RiversideW1_t2 = "Yakýndaki bir çiftlikte kalýyor olmalýlar"
+Stash_ISA_Stash_RosewoodE1_t1 = "Tehlike: Hayatta kalanlar mahkmatmlardan kaçýyor olabilir"
+Stash_ISA_Stash_RosewoodE1_t2 = "Komþunun üssü terk edildi"
+Stash_ISA_Stash_Muldraugh1_t1 = "Ölü içeride"
+Stash_ISA_Stash_Muldraugh1_t2 = "Ýþte Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Hoþgeldiniz"
+Stash_ISA_Stash_Westpoint1_t2 = "Lezzetli beyinler"
+Stash_ISA_Stash_Westpoint1_t3 = "Her kasabanýn bir istifçisi vardý, sadece nerede yaþadýklarýný bulmam gerekiyor."
+Stash_ISA_Stash_Louisville1_t1 = "Yarýn maðazayý yaðmalýyoruz"

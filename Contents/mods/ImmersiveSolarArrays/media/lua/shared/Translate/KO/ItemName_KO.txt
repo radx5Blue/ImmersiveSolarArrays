@@ -1,0 +1,12 @@
+ItemName_KO = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "새로운 발전 : 태양의 에너지",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "태양 전지판 (부품)",
+    ItemName_ISA.ISAInverter = "인버터",
+    ItemName_ISA.DeepCycleBattery = "200Ah 딥 사이클 배터리",
+    ItemName_ISA.SuperBattery = "400Ah 깊은 사이클 배터리",
+    ItemName_ISA.WiredCarBattery = "유선 자동차 배터리",
+    ItemName_ISA.DIYBattery = "DIY 딥 사이클 배터리",
+}

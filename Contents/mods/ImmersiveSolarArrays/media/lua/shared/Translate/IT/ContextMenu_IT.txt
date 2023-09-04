@@ -10,4 +10,3 @@ ContextMenu_IT = {
     ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Il pannello solare deve essere posizionato all'esterno",
     ContextMenu_ISA_Connect_Panel_NoPowerbank = "Nessun banco batterie presente vicino a questo pannello solare",
 }
-

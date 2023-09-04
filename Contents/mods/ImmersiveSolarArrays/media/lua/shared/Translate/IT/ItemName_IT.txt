@@ -1,16 +1,12 @@
 ItemName_IT = {
-    /* Magazine */
+    -- Magazines
     ItemName_ISA.ISAMag1 = "Nuovi progressi: Energia dal sole",
 
-    /* Items */
+    -- Items
     ItemName_ISA.SolarPanel = "Pannello solare (Parte)",
     ItemName_ISA.ISAInverter = "Inverter",
     ItemName_ISA.DeepCycleBattery = "Batteria da 200Ah",
     ItemName_ISA.SuperBattery = "Batteria da 400Ah",
+    ItemName_ISA.WiredCarBattery = "Batteria per auto cablata",
     ItemName_ISA.DIYBattery = "Batteria improvvisata",
-    ItemName_ISA.50AhBattery = "Batteria per autoveicoli da 50Ah",
-    ItemName_ISA.75AhBattery = "Batteria per autoveicoli da 75Ah",
-    ItemName_ISA.100AhBattery = Batteria per autoveicoli da 100Ah"
-
-
 }

@@ -15,7 +15,7 @@ IGUI_PTBR = {
     IGUI_ISAWindowsSumaryTab_FullyDischarged = "Completamente descarregado",
     IGUI_ISAWindowsSumaryTab_ChargedIn = "Carregado em:",
     IGUI_ISAWindowsSumaryTab_DischargedIn = "Descarregado em:",
-	IGUI_ISAWindowsSumaryTab_BatteryRemaining = "Battery Reserves:",
+    IGUI_ISAWindowsSumaryTab_BatteryRemaining = "Battery Reserves:",
     IGUI_ISAWindowsSumaryTab_NotCharging = "Não está carregando",
     IGUI_ISAWindowsSumaryTab_NoBatteries = "Sem Baterias",
     IGUI_ISAWindow_Details_TabTitle = "Detalhes",
@@ -26,17 +26,21 @@ IGUI_PTBR = {
     IGUI_ISAWindow_Details_conGenerator = "O Gerador de Backup está conectado: ",
     IGUI_ISAWindow_Details_Failsafe = "O Gerador de Backup tem proteção contra falhas: ",
     IGUI_ISAWindow_Details_GenInRange = "Geradores no intervalo: ",
-    IGUI_ISAWindow_Details_GenOutOfRange = "Geradores fora do intervalo: ",
+    IGUI_ISAWindow_Details_ValidAreaPlayer = "O jogador está em área válida:",
     IGUI_ISAWindow_Details_ElectricityExternal = "Fontes externas",
     IGUI_ISAWindow_Details_CantSee = "Battery Bank está muito longe",
-	IGUI_ISAWindow_Debug_ShowBackup = "Mostrar de backup detalhes",
+    IGUI_ISAWindow_Details_BackupDebugNoSquare = "Sem quadrado",
+    IGUI_ISAWindow_Details_BackupDebugNoGenerator = "Nenhum gerador na praça do jogador",
+    IGUI_ISAWindow_Details_BackupDebugNotConnected = "Este gerador não está conectado",
+    IGUI_ISAWindow_Details_BackupDebugPowerbank = "Este gerador é um banco de powerbank",
+    IGUI_ISAWindow_Details_BackupDebugNotBackup = "Este quadrado não está definido como backup",
+    IGUI_ISAWindow_Details_BackupDebugNoFailsafe = "Este quadrado não tem falhas",
+    IGUI_ISAWindow_Details_BackupDebugNoFuel = "Este gerador não tem combustível",
+    IGUI_ISAWindow_Details_BackupDebugLowCondition = "Este gerador tem baixa condição",
+    IGUI_ISAWindow_Details_BackupDebugOK = "Este quadrado tem um backup válido",
+    IGUI_ISAWindow_Debug_ShowBackup = "Mostrar de backup detalhes",
     IGUI_ISAWindow_Debug_HideBackup = "Ocultar de backup detalhes",
-	IGUI_ISA_Update = "Atualizar",
-	
-    IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar %1",
-	
-	/*need update
-	-IGUI_ISAWindowsSumaryTab_InfoText
-    -IGUI_ISAWindow_Details_CantSee
+    IGUI_ISA_Update = "Atualizar",
 
+    IGUI_ISAContainerNotBattery = "Este parece ser um bom lugar para guardar %1",
 }

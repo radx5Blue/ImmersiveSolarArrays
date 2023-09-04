@@ -1,0 +1,12 @@
+ItemName_HU = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Új elõrelépések: Energia a naptól",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Napelem (rész)",
+    ItemName_ISA.ISAInverter = "Inverter",
+    ItemName_ISA.DeepCycleBattery = "200ah mélyciklusos akkumulátor",
+    ItemName_ISA.SuperBattery = "400ah mély ciklus akkumulátor",
+    ItemName_ISA.WiredCarBattery = "Vezetékes autó akkumulátor",
+    ItemName_ISA.DIYBattery = "DIY mélyciklusos akkumulátor",
+}

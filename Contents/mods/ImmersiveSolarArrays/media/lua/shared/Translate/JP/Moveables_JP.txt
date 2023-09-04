@@ -1,0 +1,8 @@
+Moveables_JP = {
+    Battery_Bank = "バッテリーバンク",
+    Solar_Roof_Tile = "フラットソーラーパネル",
+    Wall_Mounted_Solar_Panel = "壁に取り付けられたソーラーパネル",
+    Floor_Mounted_Solar_Panel = "床に取り付けられたソーラーパネル",
+    Failsafe_Trigger = "FailSafeトリガー",
+    Solar_Box = "ソーラーボックス",
+}

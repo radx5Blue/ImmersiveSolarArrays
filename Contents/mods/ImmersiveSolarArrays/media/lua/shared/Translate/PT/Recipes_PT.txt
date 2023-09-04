@@ -1,0 +1,13 @@
+Recipes_PT {
+    Recipe_Make_DIY_Battery = "Faça bateria DIY",
+    Recipe_WireCarBattery = "Bateria do carro de arame",
+    Recipe_UnwireCarBattery = "Bateria inútil",
+    Recipe_Make_Solar_Roof_Tile = "Faça painel solar plano",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Faça painel solar montado na parede",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Faça painel solar montado no piso",
+    Recipe_Reverse_Solar_Panel = "Painel solar dividido em peças",
+    Recipe_Create_Battery_Bank = "Crie banco de bateria",
+    Recipe_Create_Solar_Failsafe = "Crie Solar FailSafe",
+    Recipe_Make_Solar_Panel = "Faça o painel solar (parte)",
+    Recipe_Make_Inverter = "Faça inversor",
+}

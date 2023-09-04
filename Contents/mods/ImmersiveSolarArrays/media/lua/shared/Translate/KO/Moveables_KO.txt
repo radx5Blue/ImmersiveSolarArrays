@@ -1,0 +1,8 @@
+Moveables_KO = {
+    Battery_Bank = "배터리 뱅크",
+    Solar_Roof_Tile = "플랫 태양 전지판",
+    Wall_Mounted_Solar_Panel = "벽 장착 태양 전지판",
+    Floor_Mounted_Solar_Panel = "바닥 장착 태양 전지판",
+    Failsafe_Trigger = "실패한 트리거",
+    Solar_Box = "태양열 상자",
+}

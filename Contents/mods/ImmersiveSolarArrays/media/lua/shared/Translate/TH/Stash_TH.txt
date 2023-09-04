@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "เห็นรถบรรทุกออกไป"
+Stash_ISA_Stash_RiversideW1_t2 = "พวกเขาจะต้องอยู่ในฟาร์มใกล้เคียง"
+Stash_ISA_Stash_RosewoodE1_t1 = "อันตราย: ผู้รอดชีวิตอาจหนีผู้ต้องขังได้"
+Stash_ISA_Stash_RosewoodE1_t2 = "ฐานของเพื่อนบ้านถูกทอดทิ้ง"
+Stash_ISA_Stash_Muldraugh1_t1 = "ตายภายใน"
+Stash_ISA_Stash_Muldraugh1_t2 = "นี่คือปีเตอร์"
+Stash_ISA_Stash_Westpoint1_t1 = "ยินดีต้อนรับสู่"
+Stash_ISA_Stash_Westpoint1_t2 = "สมองอร่อย"
+Stash_ISA_Stash_Westpoint1_t3 = "ทุกเมืองมีผู้สะสมฉันแค่ต้องหาว่าพวกเขาอาศัยอยู่ที่ไหน"
+Stash_ISA_Stash_Louisville1_t1 = "พรุ่งนี้เราปล้นร้านค้า"

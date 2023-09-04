@@ -1,0 +1,12 @@
+ContextMenu_CN = {
+    ContextMenu_ISA_BatteryBank = "电池库",
+    ContextMenu_ISA_BatteryBankStatus = "打开状态窗口",
+    ContextMenu_ISA_ConnectPanels = "连接面板",
+    ContextMenu_ISA_SolarPanel = "太阳能板",
+    ContextMenu_ISA_Connect_Panel = "连接到电池库",
+    ContextMenu_ISA_Connect_Panel_toolTip = "与太阳能电池板相关的电池库位置（x：y）",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "太阳能电池板连接到此电池库",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "太阳能电池板没有连接到此电池库",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "太阳能电池板需要在外面",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "该太阳能电池板附近没有电池库",
+}

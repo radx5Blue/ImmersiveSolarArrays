@@ -1,0 +1,49 @@
+Sandbox_ID = {
+    Sandbox_ISA = "Array surya yang mendalam",
+
+    Sandbox_ISA_solarPanelEfficiency = "Efisiensi panel surya",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Efisiensi Daya Panel Surya <br> 12% realistis untuk tahun 1993 <br> 25% adalah Solar Modern <br> Default tidak realistis",
+
+    Sandbox_ISA_batteryDegradeChance = "Keparahan degradasi baterai",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Pengganda untuk rata -rata degrade baterai. \ Ndecreasing Ini akan secara dramatis meningkatkan masa pakai baterai.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Panel surya / dunia peti melahirkan",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Seberapa besar kemungkinan panel surya dan peti pra-ditempatkan untuk bertelur di lokasi bibit yang diberikan. <br> Membutuhkan API eksternal untuk bekerja.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Panel Surya",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Panel surya bertelur dalam wadah acak dan pengganda peti pra-ditempatkan",
+
+    Sandbox_ISA_LRMBatteries = "Pengganda Ramping - Baterai",
+    Sandbox_ISA_LRMBatteries_tooltip = "Baterai melahirkan dalam wadah acak dan pengganda peti pra-ditempatkan",
+
+    Sandbox_ISA_LRMMisc = "Pengganda Ramping Loot - Misc",
+    Sandbox_ISA_LRMMisc_tooltip = "Majalah dan Inverter muncul dalam wadah acak dan pengganda peti pra-ditempatkan",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Kapasitas baterai DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Pengganda untuk kapasitas baterai DIY yang dibuat.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ADALAH",
+    Sandbox_ISA_DrainCalc_option2 = "Generator reguler",
+    Sandbox_ISA_DrainCalc = "Tiriskan metode perhitungan",
+    Sandbox_ISA_DrainCalc_tooltip = "Perhitungan generator reguler memiliki dampak kinerja yang lebih sedikit",
+    Sandbox_ISA_ChargeFreq_option1 = "Setiap sepuluh menit",
+    Sandbox_ISA_ChargeFreq_option2 = "Setiap jam",
+    Sandbox_ISA_ChargeFreq = "Frekuensi muatan",
+    Sandbox_ISA_ChargeFreq_tooltip = "Seberapa sering bank baterai akan mengisi daya",
+    Sandbox_ISA_BatteryBankSpawn = "Baterai bank bertelur",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Kelangkaan bank baterai memalukan di peta.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Tidak ada",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Sangat langka",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Langka",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Luar biasa",
+    Sandbox_ISA_StashMode = "Rumah simpanan",
+    Sandbox_ISA_StashMode_tooltip = "Pilih mode untuk rumah simpanan. <br> Ubah hanya pada game baru.",
+    Sandbox_ISA_StashMode_option1 = "Jangan tambahkan rumah simpanan",
+    Sandbox_ISA_StashMode_option2 = "Tambahkan rumah simpanan",
+    Sandbox_ISA_StashMode_option3 = "Tambahkan + diketahui dari awal",
+    Sandbox_ISA_StashMode_option4 = "Tambahkan inisial acak",
+    Sandbox_ISA_ConnectPanelMin = "Hubungkan waktu panel",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Jumlah dasar menit dalam game yang diperlukan untuk menghubungkan satu panel",
+    Sandbox_ISA_enableExpandedRecipes = "Resep yang diperluas",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Memungkinkan untuk membuat panel surya dan inverter",
+}

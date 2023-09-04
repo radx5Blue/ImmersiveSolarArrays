@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "SABED CAMUR"
+Stash_ISA_Stash_RiversideW1_t2 = "Han d’estar allotjats en una granja propera"
+Stash_ISA_Stash_RosewoodE1_t1 = "Danger: els supervivents poden escapar dels interns"
+Stash_ISA_Stash_RosewoodE1_t2 = "La base del ve� està abandonada"
+Stash_ISA_Stash_Muldraugh1_t1 = "Mort dins"
+Stash_ISA_Stash_Muldraugh1_t2 = "Aqu� hi havia Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Benvingut a"
+Stash_ISA_Stash_Westpoint1_t2 = "Cervells saborosos"
+Stash_ISA_Stash_Westpoint1_t3 = "Totes les ciutats tenien un acaparador, només necessito trobar on vivien."
+Stash_ISA_Stash_Louisville1_t1 = "Demà saqueja la botiga"

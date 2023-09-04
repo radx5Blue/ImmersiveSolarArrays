@@ -1,0 +1,12 @@
+ContextMenu_NL = {
+    ContextMenu_ISA_BatteryBank = "Batterij",
+    ContextMenu_ISA_BatteryBankStatus = "Open het statusvenster",
+    ContextMenu_ISA_ConnectPanels = "Verbind panelen",
+    ContextMenu_ISA_SolarPanel = "Zonnepaneel",
+    ContextMenu_ISA_Connect_Panel = "Maak verbinding met batterijbank",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Batterijbanklocatie met betrekking tot het zonnepaneel (x: y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Zonnepaneel is verbonden met deze batterijbank",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Zonnepaneel is niet aangesloten op deze batterijbank",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Zonnepaneel moet buiten zijn",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Er is geen batterijbank in de buurt van dit zonnepaneel",
+}

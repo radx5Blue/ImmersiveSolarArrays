@@ -1,8 +1,8 @@
 Moveables_CH = {
-	Battery_Bank = "蓄電池庫",
-	Solar_Roof_Tile = "平面式太陽能板",
-	Wall_Mounted_Solar_Panel = "掛壁式太陽能板",
-	Floor_Mounted_Solar_Panel = "落地式太陽能板",
-	Failsafe_Trigger = "故障保護觸發器",
-	Solar_Box = "太陽能箱",
+    Battery_Bank = "蓄電池庫",
+    Solar_Roof_Tile = "平面式太陽能板",
+    Wall_Mounted_Solar_Panel = "掛壁式太陽能板",
+    Floor_Mounted_Solar_Panel = "落地式太陽能板",
+    Failsafe_Trigger = "故障保護觸發器",
+    Solar_Box = "太陽能箱",
 }

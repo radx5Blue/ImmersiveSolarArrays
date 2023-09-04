@@ -1,0 +1,8 @@
+Moveables_TH = {
+    Battery_Bank = "ธนาคารแบตเตอรี่",
+    Solar_Roof_Tile = "แผงเซลล์แสงอาทิตย์แบน",
+    Wall_Mounted_Solar_Panel = "แผงเซลล์แสงอาทิตย์ติดผนัง",
+    Floor_Mounted_Solar_Panel = "แผงโซลาร์",
+    Failsafe_Trigger = "ทริกเกอร์ Failsafe",
+    Solar_Box = "กล่องแสงอาทิตย์",
+}

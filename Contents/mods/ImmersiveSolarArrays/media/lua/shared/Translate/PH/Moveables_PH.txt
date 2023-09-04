@@ -1,0 +1,8 @@
+Moveables_PH = {
+    Battery_Bank = "Battery Bank",
+    Solar_Roof_Tile = "Flat solar panel",
+    Wall_Mounted_Solar_Panel = "Wall-mount solar panel",
+    Floor_Mounted_Solar_Panel = "Solar na naka-mount na solar panel",
+    Failsafe_Trigger = "FailSafe trigger",
+    Solar_Box = "Solar Box",
+}

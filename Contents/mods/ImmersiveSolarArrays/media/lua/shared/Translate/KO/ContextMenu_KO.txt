@@ -1,0 +1,12 @@
+ContextMenu_KO = {
+    ContextMenu_ISA_BatteryBank = "배터리 뱅크",
+    ContextMenu_ISA_BatteryBankStatus = "열린 상태 창",
+    ContextMenu_ISA_ConnectPanels = "연결 패널",
+    ContextMenu_ISA_SolarPanel = "태양 전지 패널",
+    ContextMenu_ISA_Connect_Panel = "배터리 뱅크에 연결하십시오",
+    ContextMenu_ISA_Connect_Panel_toolTip = "태양 전지판과 관련된 배터리 뱅크 위치 (X : Y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "태양 전지판은이 배터리 뱅크에 연결되어 있습니다",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "태양 전지판은이 배터리 뱅크에 연결되어 있지 않습니다",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "태양 전지판은 외부에 있어야합니다",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "이 태양 광 패널 근처에 배터리 뱅크가 없습니다",
+}

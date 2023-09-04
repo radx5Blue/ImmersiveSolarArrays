@@ -1,0 +1,13 @@
+Recipes_NL {
+    Recipe_Make_DIY_Battery = "Maak een doe -het -zelf -batterij",
+    Recipe_WireCarBattery = "Draadauto -batterij",
+    Recipe_UnwireCarBattery = "WRIME Autobatterij",
+    Recipe_Make_Solar_Roof_Tile = "Maak een plat zonnepaneel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Maak een muur gemonteerd zonnepaneel",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Maak op de vloer gemonteerd zonnepaneel",
+    Recipe_Reverse_Solar_Panel = "Split zonnepaneel naar onderdelen",
+    Recipe_Create_Battery_Bank = "Maak een batterijbank",
+    Recipe_Create_Solar_Failsafe = "Creëer zonne -failsafe",
+    Recipe_Make_Solar_Panel = "Maak zonnepaneel (deel)",
+    Recipe_Make_Inverter = "Omvormer maken",
+}

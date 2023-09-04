@@ -1,0 +1,8 @@
+Moveables_HU = {
+    Battery_Bank = "Akkumulátoros bank",
+    Solar_Roof_Tile = "Lapos napelem",
+    Wall_Mounted_Solar_Panel = "Falra szerelt napelem",
+    Floor_Mounted_Solar_Panel = "Padlóra szerelt napelem",
+    Failsafe_Trigger = "FAILSAFE Trigger",
+    Solar_Box = "Napenergia doboz",
+}

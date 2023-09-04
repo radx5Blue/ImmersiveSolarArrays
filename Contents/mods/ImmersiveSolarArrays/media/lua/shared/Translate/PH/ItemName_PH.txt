@@ -1,0 +1,12 @@
+ItemName_PH = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Mga Bagong Pagsulong: Enerhiya mula sa Araw",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Solar Panel (Bahagi)",
+    ItemName_ISA.ISAInverter = "Inverter",
+    ItemName_ISA.DeepCycleBattery = "200ah Deep Cycle Battery",
+    ItemName_ISA.SuperBattery = "400ah malalim na baterya ng siklo",
+    ItemName_ISA.WiredCarBattery = "Wired na baterya ng kotse",
+    ItemName_ISA.DIYBattery = "DIY malalim na baterya ng siklo",
+}

@@ -8,4 +8,6 @@ Recipes_CH {
     Recipe_Reverse_Solar_Panel = "將太陽能板拆分成部件",
     Recipe_Create_Battery_Bank = "製造 蓄電池庫",
     Recipe_Create_Solar_Failsafe = "製造 太陽能故障保險器",
+    Recipe_Make_Solar_Panel = "製作太陽能電池板（部分）",
+    Recipe_Make_Inverter = "製作逆變器",
 }

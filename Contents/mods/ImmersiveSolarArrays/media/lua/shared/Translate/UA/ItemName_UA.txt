@@ -1,0 +1,12 @@
+ItemName_UA = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Ќов≥ дос€гненн€: енерг≥€ в≥д сонц€",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "—он€чна панель (частина)",
+    ItemName_ISA.ISAInverter = "≤нвертор",
+    ItemName_ISA.DeepCycleBattery = "200ah глибокий цикл акумул€тор",
+    ItemName_ISA.SuperBattery = "400ah глибокий цикл акумул€тор",
+    ItemName_ISA.WiredCarBattery = "ƒротова акумул€торна акумул€тор",
+    ItemName_ISA.DIYBattery = "«роб≥ть самост≥йне цикл акумул€тор",
+}

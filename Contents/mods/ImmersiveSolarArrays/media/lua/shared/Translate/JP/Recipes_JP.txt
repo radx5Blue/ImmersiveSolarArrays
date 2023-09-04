@@ -1,0 +1,13 @@
+Recipes_JP {
+    Recipe_Make_DIY_Battery = "DIYバッテリーを作ります",
+    Recipe_WireCarBattery = "ワイヤーカーのバッテリー",
+    Recipe_UnwireCarBattery = "自動車のバッテリー",
+    Recipe_Make_Solar_Roof_Tile = "フラットソーラーパネルを作成します",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "壁に取り付けられたソーラーパネルを作ります",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "床に取り付けられたソーラーパネルを作ります",
+    Recipe_Reverse_Solar_Panel = "ソーラーパネルを部品に分割します",
+    Recipe_Create_Battery_Bank = "バッテリーバンクを作成します",
+    Recipe_Create_Solar_Failsafe = "Solar FailSafeを作成します",
+    Recipe_Make_Solar_Panel = "ソーラーパネル（一部）を作成する",
+    Recipe_Make_Inverter = "インバーターを作ります",
+}

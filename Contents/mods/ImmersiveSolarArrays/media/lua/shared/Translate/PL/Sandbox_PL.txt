@@ -1,0 +1,49 @@
+Sandbox_PL = {
+    Sandbox_ISA = "Wci¹gaj¹ce macierze s³oneczne",
+
+    Sandbox_ISA_solarPanelEfficiency = "Wydajnoœæ panelu s³onecznego",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Wydajnoœæ energetyki panelu s³onecznego <br> 12% jest realistyczna w 1993 r. <br> 25% to nowoczesne s³oneczne <br> domyœlne jest nierealne",
+
+    Sandbox_ISA_batteryDegradeChance = "Nasilenie baterii",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Mno¿nik dla œredniego degradacji akumulatorów. \ Necreasing To znacznie zwiêkszy ¿ywotnoœæ baterii.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Panel Solar / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Jak prawdopodobne, ¿e wstêpnie umieszczone panele s³oneczne i skrzynie maj¹ siê odrodziæ w danym odrodzie. <br> Wymaga zewnêtrznego interfejsu API.",
+
+    Sandbox_ISA_LRMSolarPanels = "Mno¿nik rzadkoœci ³upów - panele s³oneczne",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Panel s³oneczny odradza siê w losowych pojemnikach i wstêpnie rozmieszczonych mno¿nikach skrzyñ",
+
+    Sandbox_ISA_LRMBatteries = "Mno¿nik rzadkoœci ³upów - baterie",
+    Sandbox_ISA_LRMBatteries_tooltip = "Baterie odradzaj¹ siê w losowych pojemnikach i wstêpnie rozmieszczonych skrzyniach mno¿¹cych",
+
+    Sandbox_ISA_LRMMisc = "Mno¿nik ³upów - Misc",
+    Sandbox_ISA_LRMMisc_tooltip = "Magazyn i spawny w losowych pojemnikach i wstêpnie rozmieszczonych skrzyniach mno¿¹cych",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Pojemnoœæ baterii DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Mno¿nik pojemnoœci wykonanych baterii DIY.",
+
+    Sandbox_ISA_DrainCalc_option1 = "JEST",
+    Sandbox_ISA_DrainCalc_option2 = "Regularny generator",
+    Sandbox_ISA_DrainCalc = "Metoda obliczania drena¿u",
+    Sandbox_ISA_DrainCalc_tooltip = "Regularne obliczenia generatora ma mniejszy wp³yw na wydajnoœæ",
+    Sandbox_ISA_ChargeFreq_option1 = "Co dziesiêæ minut",
+    Sandbox_ISA_ChargeFreq_option2 = "Co godzinê",
+    Sandbox_ISA_ChargeFreq = "Czêstotliwoœæ ³adowania",
+    Sandbox_ISA_ChargeFreq_tooltip = "Jak czêsto na³aduje bank baterii",
+    Sandbox_ISA_BatteryBankSpawn = "Bank baterii odradzaj¹ siê",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rzadkoœæ baterii bateryjnej na mapê.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Nic",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Bardzo rzadkie",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rzadki",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Niezwyk³y",
+    Sandbox_ISA_StashMode = "Stash domy",
+    Sandbox_ISA_StashMode_tooltip = "Wybierz tryb dla domów stash. <br> Zmieñ tylko w nowej grze.",
+    Sandbox_ISA_StashMode_option1 = "Nie dodawaj domów ze skrytkami",
+    Sandbox_ISA_StashMode_option2 = "Dodaj skrytki",
+    Sandbox_ISA_StashMode_option3 = "Dodaj + znane od pocz¹tku",
+    Sandbox_ISA_StashMode_option4 = "Dodaj losow¹ inicja³",
+    Sandbox_ISA_ConnectPanelMin = "Pod³¹cz czas panelu",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Podstawowa liczba minut w grze potrzebnej do pod³¹czenia jednego panelu",
+    Sandbox_ISA_enableExpandedRecipes = "Rozszerzone przepisy",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Pozwala na tworzenie paneli s³onecznych i falowników",
+}

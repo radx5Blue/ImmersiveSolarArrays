@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "odch zej¡c¡ kamion"
+Stash_ISA_Stash_RiversideW1_t2 = "Mus¡ z…stat na nedalek‚ farmØ"
+Stash_ISA_Stash_RosewoodE1_t1 = "NebezpeŸ¡: Poz…stal¡ mohou uniknout vØzå…m"
+Stash_ISA_Stash_RosewoodE1_t2 = "Sousedn¡ z kladna je opuçtØn "
+Stash_ISA_Stash_Muldraugh1_t1 = "Mrtvì uvnitý"
+Stash_ISA_Stash_Muldraugh1_t2 = "Tady byl Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "V¡tejte v"
+Stash_ISA_Stash_Westpoint1_t2 = "Chutn‚ mozky"
+Stash_ISA_Stash_Westpoint1_t3 = "Ka§d‚ mØsto mØlo hromadu, mus¡m jen zjistit, kde §ili."
+Stash_ISA_Stash_Louisville1_t1 = "Z¡tra kop¡rujeme obchod"

@@ -1,0 +1,12 @@
+ItemName_NL = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nieuwe vooruitgang: energie van de zon",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Zonnepaneel (deel)",
+    ItemName_ISA.ISAInverter = "Omvormer",
+    ItemName_ISA.DeepCycleBattery = "200Ah diepe cyclusbatterij",
+    ItemName_ISA.SuperBattery = "400Ah diepe cyclusbatterij",
+    ItemName_ISA.WiredCarBattery = "Bedraad auto -batterij",
+    ItemName_ISA.DIYBattery = "DIY Deep Cycle Battery",
+}

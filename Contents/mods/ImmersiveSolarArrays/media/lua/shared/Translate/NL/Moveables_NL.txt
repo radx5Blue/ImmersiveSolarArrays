@@ -1,0 +1,8 @@
+Moveables_NL = {
+    Battery_Bank = "Batterij",
+    Solar_Roof_Tile = "Plat zonnepaneel",
+    Wall_Mounted_Solar_Panel = "Muur gemonteerd zonnepaneel",
+    Floor_Mounted_Solar_Panel = "Op de vloer gemonteerd zonnepaneel",
+    Failsafe_Trigger = "Failsafe trigger",
+    Solar_Box = "Zonnedoos",
+}

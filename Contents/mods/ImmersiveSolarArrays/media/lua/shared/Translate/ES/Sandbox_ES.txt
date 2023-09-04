@@ -1,26 +1,26 @@
 Sandbox_ES = {
-	Sandbox_ISA = "Immersive Solar Arrays",
+    Sandbox_ISA = "Immersive Solar Arrays",
 
-	Sandbox_ISA_solarPanelEfficiency = "Eficiencia del panel solar (0-100)",
-	Sandbox_ISA_solarPanelEfficiency_tooltip = "Eficiencia de potencia del panel solar. 12% es realista para 1993, 25% es para paneles modernos, el por defecto es poco realista",
+    Sandbox_ISA_solarPanelEfficiency = "Eficiencia del panel solar (0-100)",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Eficiencia de potencia del panel solar. 12% es realista para 1993, 25% es para paneles modernos, el por defecto es poco realista",
 
-	Sandbox_ISA_batteryDegradeChance = "Posibilidad de degradado de la batería (0-100)",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "Posibilidad de que las baterías se degraden cada día. Reducir esto aumentará dramáticamente la vida útil de las baterías",
+    Sandbox_ISA_batteryDegradeChance = "Posibilidad de degradado de la batería (0-100)",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Posibilidad de que las baterías se degraden cada día. Reducir esto aumentará dramáticamente la vida útil de las baterías",
 
-	Sandbox_ISA_solarPanelWorldSpawns = "Panel solar / Aparición de cajas en el mundo (0-100)",
-	Sandbox_ISA_solarPanelWorldSpawns = "Qué tan probable es que aparezcan paneles solares y cajas pre-colocadas en ciertas localizaciones",
+    Sandbox_ISA_solarPanelWorldSpawns = "Panel solar / Aparición de cajas en el mundo (0-100)",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Qué tan probable es que aparezcan paneles solares y cajas pre-colocadas en ciertas localizaciones.<br> requiere que funcione la API externa para que funcione",
 
-	Sandbox_ISA_LRMSolarPanels = "Multiplicador de rareza de botín - Paneles solares",
-	Sandbox_ISA_LRMSolarPanels_tooltip = "Multiplicador de probabilidad de que aparezcan paneles solares en contenedores aleatorios y cajas pre-colocadas",
+    Sandbox_ISA_LRMSolarPanels = "Multiplicador de rareza de botín - Paneles solares",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Multiplicador de probabilidad de que aparezcan paneles solares en contenedores aleatorios y cajas pre-colocadas",
 
-	Sandbox_ISA_LRMBatteries = "Multiplicador de rareza de botín - Baterías",
-	Sandbox_ISA_LRMBatteries_tooltip = "Multiplicador de probabilidad de que aparezcan baterías en contenedores aleatorios y cajas pre-colocadas",
+    Sandbox_ISA_LRMBatteries = "Multiplicador de rareza de botín - Baterías",
+    Sandbox_ISA_LRMBatteries_tooltip = "Multiplicador de probabilidad de que aparezcan baterías en contenedores aleatorios y cajas pre-colocadas",
 
-	Sandbox_ISA_LRMMisc = "Multiplicador de rareza de botín - Misceláneo",
-	Sandbox_ISA_LRMMisc_tooltip = "Multiplicador de probabilidad de que aparezcan revistas e inversores en contenedores aleatorios y cajas pre-colocadas",
-	
-	Sandbox_ISA_DIYBatteryCapacity = "Capacidad de batería fabricada (Ah)",
-	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Cuánta energía en Ah puede almacenar una batería fabricada.",
+    Sandbox_ISA_LRMMisc = "Multiplicador de rareza de botín - Misceláneo",
+    Sandbox_ISA_LRMMisc_tooltip = "Multiplicador de probabilidad de que aparezcan revistas e inversores en contenedores aleatorios y cajas pre-colocadas",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Capacidad de batería de bricolaje",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplicador para la capacidad de las baterías de bricolaje elaboradas.",
 
     Sandbox_ISA_DrainCalc_option1 = "ISA",
     Sandbox_ISA_DrainCalc_option2 = "Generador Ordinario",
@@ -36,4 +36,14 @@ Sandbox_ES = {
     Sandbox_ISA_BatteryBankSpawn_option2 = "Muy Raro",
     Sandbox_ISA_BatteryBankSpawn_option3 = "Raro",
     Sandbox_ISA_BatteryBankSpawn_option4 = "Poco Común",
+    Sandbox_ISA_StashMode = "Casas de escondite",
+    Sandbox_ISA_StashMode_tooltip = "Elija el modo para casas de altura. <BR> Cambie solo en un nuevo juego.",
+    Sandbox_ISA_StashMode_option1 = "No agregue casas de alijo",
+    Sandbox_ISA_StashMode_option2 = "Agregar casas de alijo",
+    Sandbox_ISA_StashMode_option3 = "Agregar + conocido desde el inicio",
+    Sandbox_ISA_StashMode_option4 = "Agregar inicial aleatoria",
+    Sandbox_ISA_ConnectPanelMin = "Conecte el tiempo del panel",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Número base de minutos en el juego Se necesita para conectar un panel",
+    Sandbox_ISA_enableExpandedRecipes = "Recetas expandidas",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Permite elaborar paneles e inversores solares",
 }

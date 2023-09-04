@@ -1,0 +1,3 @@
+Tooltip_RO
+Tooltip_ISA_NoPanels = "Fără panou"
+Tooltip_ISA_PanelFar = "Acest panou este prea departe"

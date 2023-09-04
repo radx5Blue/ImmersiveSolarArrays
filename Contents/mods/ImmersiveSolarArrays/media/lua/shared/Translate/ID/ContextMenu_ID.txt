@@ -1,0 +1,12 @@
+ContextMenu_ID = {
+    ContextMenu_ISA_BatteryBank = "Bank baterai",
+    ContextMenu_ISA_BatteryBankStatus = "Buka jendela Status",
+    ContextMenu_ISA_ConnectPanels = "Hubungkan panel",
+    ContextMenu_ISA_SolarPanel = "Panel surya",
+    ContextMenu_ISA_Connect_Panel = "Sambungkan ke Baterai Baterai",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Lokasi bank baterai sehubungan dengan panel surya (x: y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Panel surya terhubung ke bank baterai ini",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Panel surya tidak terhubung ke bank baterai ini",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Panel surya harus berada di luar",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Tidak ada bank baterai di dekat panel surya ini",
+}

@@ -1,0 +1,13 @@
+Recipes_CS {
+    Recipe_Make_DIY_Battery = "Vytvoýte baterii pro kutily",
+    Recipe_WireCarBattery = "Dr tØn  auto baterie",
+    Recipe_UnwireCarBattery = "UnhovovaŸka automobilov‚ baterie",
+    Recipe_Make_Solar_Roof_Tile = "Vytvoýte plochì sol rn¡ panel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Vytvoýte sol rn¡ panel namontovanì na zeÔ",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Vytvoýte sol rn¡ panel namontovanì na podlaze",
+    Recipe_Reverse_Solar_Panel = "RozdØlit sol rn¡ panel na d¡ly",
+    Recipe_Create_Battery_Bank = "Vytvoýte banku bateri¡",
+    Recipe_Create_Solar_Failsafe = "Vytvoýte sol rn¡ selh n¡",
+    Recipe_Make_Solar_Panel = "Vytvoýte sol rn¡ panel (Ÿ st)",
+    Recipe_Make_Inverter = "Vytvoýte stý¡daŸ",
+}

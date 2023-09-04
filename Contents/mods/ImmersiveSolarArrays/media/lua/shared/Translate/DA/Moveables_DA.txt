@@ -1,0 +1,8 @@
+Moveables_DA = {
+    Battery_Bank = "Batteribank",
+    Solar_Roof_Tile = "Fladt solcellepanel",
+    Wall_Mounted_Solar_Panel = "Vægmonteret solcellepanel",
+    Floor_Mounted_Solar_Panel = "Gulvmonteret solcellepanel",
+    Failsafe_Trigger = "Failsafe Trigger",
+    Solar_Box = "Solboks",
+}

@@ -1,0 +1,13 @@
+Recipes_UA {
+    Recipe_Make_DIY_Battery = "«роб≥ть самост≥йно акумул€тор",
+    Recipe_WireCarBattery = "ƒрот€ний автомоб≥ль акумул€тор",
+    Recipe_UnwireCarBattery = "Ќемасельна акумул€торна акумул€тор",
+    Recipe_Make_Solar_Roof_Tile = "«роб≥ть р≥вну сон€чну панель",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "«роб≥ть наст≥нну сон€чну панель",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "«роб≥ть п≥длогу сон€чну панель",
+    Recipe_Reverse_Solar_Panel = "–озд≥лена сон€чна панель на детал≥",
+    Recipe_Create_Battery_Bank = "—твор≥ть банк акумул€тора",
+    Recipe_Create_Solar_Failsafe = "—твор≥ть сон€чн≥ невдач≥",
+    Recipe_Make_Solar_Panel = "«роб≥ть сон€чну панель (частина)",
+    Recipe_Make_Inverter = "–обити ≥нвертор",
+}

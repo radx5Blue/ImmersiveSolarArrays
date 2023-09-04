@@ -1,0 +1,12 @@
+ItemName_RO = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Noi progrese: energie de la soare",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Panou solar (parte)",
+    ItemName_ISA.ISAInverter = "Invertor",
+    ItemName_ISA.DeepCycleBattery = "Baterie cu ciclu profund 200ah",
+    ItemName_ISA.SuperBattery = "Baterie cu ciclu profund 400AH",
+    ItemName_ISA.WiredCarBattery = "Baterie auto cu fir",
+    ItemName_ISA.DIYBattery = "Baterie cu ciclu profund DIY",
+}

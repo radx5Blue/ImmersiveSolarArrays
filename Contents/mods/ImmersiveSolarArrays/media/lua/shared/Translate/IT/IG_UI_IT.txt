@@ -1,5 +1,5 @@
 IGUI_IT = {
-     IGUI_ContainerTitle_BatteryBank = "Banco batterie",
+    IGUI_ContainerTitle_BatteryBank = "Banco batterie",
     IGUI_ContainerTitle_SolarBox = "Caldaia solare",
 
     IGUI_ISAWindowsStatus_Title = "Stato del banco batterie",
@@ -29,11 +29,18 @@ IGUI_IT = {
     IGUI_ISAWindow_Details_ValidAreaPlayer = "Il giocatore e' in un'area valida: ",
     IGUI_ISAWindow_Details_ElectricityExternal = "Fonti esterne",
     IGUI_ISAWindow_Details_CantSee = "Impossibile vedere i dettagli",
+    IGUI_ISAWindow_Details_BackupDebugNoSquare = "Nessun quadrato",
+    IGUI_ISAWindow_Details_BackupDebugNoGenerator = "Nessun generatore in piazza del giocatore",
+    IGUI_ISAWindow_Details_BackupDebugNotConnected = "Questo generatore non è connesso",
+    IGUI_ISAWindow_Details_BackupDebugPowerbank = "Questo generatore è un powerbank",
+    IGUI_ISAWindow_Details_BackupDebugNotBackup = "Questo quadrato non è impostato come backup",
+    IGUI_ISAWindow_Details_BackupDebugNoFailsafe = "Questo quadrato non ha facetsafe",
+    IGUI_ISAWindow_Details_BackupDebugNoFuel = "Questo generatore non ha carburante",
+    IGUI_ISAWindow_Details_BackupDebugLowCondition = "Questo generatore ha basse condizioni",
+    IGUI_ISAWindow_Details_BackupDebugOK = "Questo quadrato ha un backup valido",
     IGUI_ISAWindow_Debug_ShowBackup = "Mostra i dettagli dell'area di backup",
     IGUI_ISAWindow_Debug_HideBackup = "Nascondi i dettagli dell'area di backup",
     IGUI_ISA_Update = "Aggiorna",
 
     IGUI_ISAContainerNotBattery = "Sembra un buon posto per sistemare %1",
 }
-
-

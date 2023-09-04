@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "트럭이 떠나는 것을 보았습니다"
+Stash_ISA_Stash_RiversideW1_t2 = "그들은 근처의 농장에 머무르고 있어야합니다"
+Stash_ISA_Stash_RosewoodE1_t1 = "위험 : 생존자들은 수감자를 탈출 할 수 있습니다"
+Stash_ISA_Stash_RosewoodE1_t2 = "이웃의 기지가 버려졌습니다"
+Stash_ISA_Stash_Muldraugh1_t1 = "내부에서 죽었다"
+Stash_ISA_Stash_Muldraugh1_t2 = "여기 베드가있었습니다"
+Stash_ISA_Stash_Westpoint1_t1 = "에 오신 것을 환영합니다"
+Stash_ISA_Stash_Westpoint1_t2 = "맛있는 두뇌"
+Stash_ISA_Stash_Westpoint1_t3 = "모든 마을에는 비장이 있었는데, 그들이 살았던 곳을 찾아야합니다."
+Stash_ISA_Stash_Louisville1_t1 = "내일 우리는 가게를 약탈합니다"

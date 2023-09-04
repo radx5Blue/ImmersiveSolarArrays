@@ -1,0 +1,8 @@
+Moveables_UA = {
+    Battery_Bank = "Ѕатаре€",
+    Solar_Roof_Tile = "ѕлоска сон€чна панель",
+    Wall_Mounted_Solar_Panel = "—он€чна панель, встановлена на ст≥н≥",
+    Floor_Mounted_Solar_Panel = "—он€чна панель, встановлена на п≥длоз≥",
+    Failsafe_Trigger = "Trigger Failsafe",
+    Solar_Box = "—он€чна коробка",
+}

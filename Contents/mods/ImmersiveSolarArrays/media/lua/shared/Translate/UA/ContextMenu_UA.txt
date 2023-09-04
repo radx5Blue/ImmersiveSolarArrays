@@ -1,0 +1,12 @@
+ContextMenu_UA = {
+    ContextMenu_ISA_BatteryBank = "Батарея",
+    ContextMenu_ISA_BatteryBankStatus = "Відкрити вікно статусу",
+    ContextMenu_ISA_ConnectPanels = "Підключіть панелі",
+    ContextMenu_ISA_SolarPanel = "Сонячна панель",
+    ContextMenu_ISA_Connect_Panel = "Підключіться до банку акумулятора",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Розташування банку акумулятора стосовно сонячної панелі (x: y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Сонячна панель підключена до цього банку акумулятора",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Сонячна панель не підключена до цього банку акумулятора",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Сонячна панель повинна бути на вулиці",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Жоден банк акумулятора не знаходиться поблизу цієї сонячної панелі",
+}

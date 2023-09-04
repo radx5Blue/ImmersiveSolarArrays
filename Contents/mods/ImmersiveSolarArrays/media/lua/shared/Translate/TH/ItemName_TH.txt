@@ -1,0 +1,12 @@
+ItemName_TH = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "ความก้าวหน้าใหม่: พลังงานจากดวงอาทิตย์",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "แผงโซลาร์เซลล์ (ส่วน)",
+    ItemName_ISA.ISAInverter = "อินเวอร์เตอร์",
+    ItemName_ISA.DeepCycleBattery = "แบตเตอรี่รอบลึก 200AH",
+    ItemName_ISA.SuperBattery = "แบตเตอรี่รอบลึก 400AH",
+    ItemName_ISA.WiredCarBattery = "แบตเตอรี่แบบมีสาย",
+    ItemName_ISA.DIYBattery = "แบตเตอรี่ DIY Deep Cycle",
+}

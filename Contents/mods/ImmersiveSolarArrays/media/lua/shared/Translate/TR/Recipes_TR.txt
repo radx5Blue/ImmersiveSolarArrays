@@ -1,0 +1,13 @@
+Recipes_TR {
+    Recipe_Make_DIY_Battery = "DIY Pil Yap",
+    Recipe_WireCarBattery = "Telli araba pil",
+    Recipe_UnwireCarBattery = "Tuhaf Araba Pili",
+    Recipe_Make_Solar_Roof_Tile = "Düz güneþ paneli yapýn",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Duvara monte güneþ paneli yapýn",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Zemine monte güneþ paneli yapýn",
+    Recipe_Reverse_Solar_Panel = "Güneþ panelini parçalara ayýrýn",
+    Recipe_Create_Battery_Bank = "Pil Bankasý Oluþtur",
+    Recipe_Create_Solar_Failsafe = "Güneþ baþarýsýzlýðý oluþturun",
+    Recipe_Make_Solar_Panel = "Güneþ paneli yap (parça)",
+    Recipe_Make_Inverter = "Ýnverter yap",
+}

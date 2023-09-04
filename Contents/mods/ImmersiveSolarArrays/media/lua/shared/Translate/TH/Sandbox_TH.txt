@@ -1,0 +1,49 @@
+Sandbox_TH = {
+    Sandbox_ISA = "อาร์เรย์พลังงานแสงอาทิตย์ดื่มด่ำ",
+
+    Sandbox_ISA_solarPanelEfficiency = "ประสิทธิภาพของแผงโซลาร์เซลล์",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "ประสิทธิภาพการใช้พลังงานของแผงโซลาร์เซลล์ <br> 12% เป็นจริงสำหรับปี 1993 <br> 25% เป็นพลังงานแสงอาทิตย์ที่ทันสมัย <br> ค่าเริ่มต้นนั้นไม่สมจริง",
+
+    Sandbox_ISA_batteryDegradeChance = "แบตเตอรี่ลดความรุนแรง",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "ตัวทวีคูณสำหรับการลดลงของแบตเตอรี่โดยเฉลี่ย \ ndecreasing สิ่งนี้จะเพิ่มอายุการใช้งานแบตเตอรี่อย่างมาก",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "แผงโซลาร์เซลล์ / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "แผงโซลาร์เซลล์และลังที่วางไว้ล่วงหน้ามีแนวโน้มที่จะวางไข่ในตำแหน่งวางไข่ที่กำหนด <br> ต้องการ API ภายนอกเพื่อทำงาน",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - แผงโซลาร์เซลล์",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "แผงเซลล์แสงอาทิตย์วางไข่ในภาชนะสุ่มและตัวคูณลังก่อนวางไว้ล่วงหน้า",
+
+    Sandbox_ISA_LRMBatteries = "Loot Rarity Multiplier - แบตเตอรี่",
+    Sandbox_ISA_LRMBatteries_tooltip = "แบตเตอรี่วางไข่ในภาชนะสุ่มและตัวคูณลังก่อนวางไว้ล่วงหน้า",
+
+    Sandbox_ISA_LRMMisc = "Loot rarity multiplier - อื่น ๆ",
+    Sandbox_ISA_LRMMisc_tooltip = "นิตยสารและอินเวอร์เตอร์วางไข่ในภาชนะบรรจุแบบสุ่ม",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "ความจุแบตเตอรี่ DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "ตัวคูณสำหรับความจุของแบตเตอรี่ DIY ที่สร้างขึ้น",
+
+    Sandbox_ISA_DrainCalc_option1 = "คือ",
+    Sandbox_ISA_DrainCalc_option2 = "เครื่องกำเนิดไฟฟ้าปกติ",
+    Sandbox_ISA_DrainCalc = "วิธีการคำนวณท่อระบายน้ำ",
+    Sandbox_ISA_DrainCalc_tooltip = "การคำนวณเครื่องกำเนิดไฟฟ้าปกติมีผลกระทบน้อยกว่าประสิทธิภาพ",
+    Sandbox_ISA_ChargeFreq_option1 = "ทุก ๆ สิบนาที",
+    Sandbox_ISA_ChargeFreq_option2 = "ทุกชั่วโมง",
+    Sandbox_ISA_ChargeFreq = "ความถี่ประจุ",
+    Sandbox_ISA_ChargeFreq_tooltip = "ธนาคารแบตเตอรี่จะชาร์จบ่อยแค่ไหน",
+    Sandbox_ISA_BatteryBankSpawn = "แบตเตอรีวางไข่",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "ความหายากของแบตเตอรี่ธนาคารวางไข่บนแผนที่",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "ไม่มี",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "หายากมาก",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "หายาก",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "ผิดปกติ",
+    Sandbox_ISA_StashMode = "บ้านซ่อน",
+    Sandbox_ISA_StashMode_tooltip = "เลือกโหมดสำหรับบ้านซ่อน <br> เปลี่ยนเฉพาะในเกมใหม่",
+    Sandbox_ISA_StashMode_option1 = "อย่าเพิ่มบ้านซ่อน",
+    Sandbox_ISA_StashMode_option2 = "เพิ่มบ้านซ่อน",
+    Sandbox_ISA_StashMode_option3 = "เพิ่ม + เป็นที่รู้จักตั้งแต่เริ่มต้น",
+    Sandbox_ISA_StashMode_option4 = "เพิ่มค่าเริ่มต้นแบบสุ่ม",
+    Sandbox_ISA_ConnectPanelMin = "เชื่อมต่อเวลาแผง",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "หมายเลขพื้นฐานของนาทีในเกมที่ใช้ในการเชื่อมต่อหนึ่งแผง",
+    Sandbox_ISA_enableExpandedRecipes = "สูตรขยาย",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "ช่วยให้สามารถสร้างแผงโซลาร์เซลล์และอินเวอร์เตอร์",
+}

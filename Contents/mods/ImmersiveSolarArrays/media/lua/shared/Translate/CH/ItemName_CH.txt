@@ -1,8 +1,8 @@
 ItemName_CH = {
-    /* Magazine */
+    -- Magazines
     ItemName_ISA.ISAMag1 = "新發展: 來自太陽的能源",
 
-    /* Items */
+    -- Items
     ItemName_ISA.SolarPanel = "太陽能板 (部件)",
     ItemName_ISA.ISAInverter = "逆變器",
     ItemName_ISA.DeepCycleBattery = "200安 深循環電池",

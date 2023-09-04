@@ -1,0 +1,13 @@
+Recipes_RO {
+    Recipe_Make_DIY_Battery = "Faceți baterie de bricolaj",
+    Recipe_WireCarBattery = "Baterie auto",
+    Recipe_UnwireCarBattery = "Bateria auto nesar",
+    Recipe_Make_Solar_Roof_Tile = "Faceți panoul solar plat",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Faceți panoul solar montat pe perete",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Faceți panoul solar montat pe podea",
+    Recipe_Reverse_Solar_Panel = "Împărțiți panoul solar în piese",
+    Recipe_Create_Battery_Bank = "Creați Battery Bank",
+    Recipe_Create_Solar_Failsafe = "Creați SOLAR FAILSAFE",
+    Recipe_Make_Solar_Panel = "Faceți panoul solar (parte)",
+    Recipe_Make_Inverter = "Faceți invertor",
+}

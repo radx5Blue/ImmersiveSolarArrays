@@ -1,0 +1,12 @@
+ContextMenu_HU = {
+    ContextMenu_ISA_BatteryBank = "Akkumulátoros bank",
+    ContextMenu_ISA_BatteryBankStatus = "Nyissa meg az állapotablakot",
+    ContextMenu_ISA_ConnectPanels = "Csatlakoztassa a paneleket",
+    ContextMenu_ISA_SolarPanel = "Napelem",
+    ContextMenu_ISA_Connect_Panel = "Csatlakozzon az akkumulátor bankhoz",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Az akkumulátor bank helye a napelemhez viszonyítva (x: y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "A napelem csatlakozik ehhez az akkumulátorhoz",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "A napelem nem kapcsolódik ehhez az akkumulátorhoz",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "A napelemnek kint kell lennie",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "A napelem közelében nincs akkumulátor bank",
+}

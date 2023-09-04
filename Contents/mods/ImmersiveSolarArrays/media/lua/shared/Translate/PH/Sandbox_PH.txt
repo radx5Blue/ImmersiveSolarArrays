@@ -1,0 +1,49 @@
+Sandbox_PH = {
+    Sandbox_ISA = "Nakakalmot na solar arrays",
+
+    Sandbox_ISA_solarPanelEfficiency = "Kahusayan ng solar panel",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Ang kahusayan ng kapangyarihan ng solar panel <br> 12% ay makatotohanang para sa 1993 <br> 25% ay modernong solar <br> default ay hindi makatotohanang",
+
+    Sandbox_ISA_batteryDegradeChance = "Pinahihintulutan ng baterya ang kalubhaan",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplier para sa average na pagbagsak ng mga baterya. \ Ndecreasing ito ay kapansin -pansing madaragdagan ang buhay ng baterya.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Solar Panel / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Paano malamang na inilagay ang mga solar panel at crates ay mag-spaw sa isang naibigay na lokasyon ng spaw.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot rarity multiplier - solar panel",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Solar panel spawns sa mga random na lalagyan at pre-nakalagay na mga crates multiplier",
+
+    Sandbox_ISA_LRMBatteries = "Loot Rarity Multiplier - Mga Baterya",
+    Sandbox_ISA_LRMBatteries_tooltip = "Ang mga baterya ay spawns sa mga random na lalagyan at pre-nakalagay na mga crates multiplier",
+
+    Sandbox_ISA_LRMMisc = "Loot rarity multiplier - misc",
+    Sandbox_ISA_LRMMisc_tooltip = "Magazine at inverter spawns sa mga random na lalagyan at pre-nakalagay na mga crates multiplier",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Kapasidad ng baterya ng DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplier para sa kapasidad ng mga crafted DIY baterya.",
+
+    Sandbox_ISA_DrainCalc_option1 = "AY ISANG",
+    Sandbox_ISA_DrainCalc_option2 = "Regular na generator",
+    Sandbox_ISA_DrainCalc = "Paraan ng pagkalkula ng alisan ng tubig",
+    Sandbox_ISA_DrainCalc_tooltip = "Ang regular na pagkalkula ng generator ay may mas kaunting epekto sa pagganap",
+    Sandbox_ISA_ChargeFreq_option1 = "Tuwing sampung minuto",
+    Sandbox_ISA_ChargeFreq_option2 = "Bawat oras",
+    Sandbox_ISA_ChargeFreq = "Singilin ang dalas",
+    Sandbox_ISA_ChargeFreq_tooltip = "Gaano kadalas singilin ang bangko ng baterya",
+    Sandbox_ISA_BatteryBankSpawn = "Baterya ng bangko ng baterya",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Ang pambihira ng bangko ng baterya na naglalakad sa mapa.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Wala",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Napakabihirang",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Bihira",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Hindi pangkaraniwan",
+    Sandbox_ISA_StashMode = "Mga stash na bahay",
+    Sandbox_ISA_StashMode_tooltip = "Piliin ang mode para sa mga stash house. <br> Baguhin lamang ang bagong laro.",
+    Sandbox_ISA_StashMode_option1 = "Huwag magdagdag ng mga stash house",
+    Sandbox_ISA_StashMode_option2 = "Magdagdag ng mga stash na bahay",
+    Sandbox_ISA_StashMode_option3 = "Magdagdag ng + kilala mula sa simula",
+    Sandbox_ISA_StashMode_option4 = "Magdagdag ng random na paunang",
+    Sandbox_ISA_ConnectPanelMin = "Ikonekta ang oras ng panel",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Base bilang ng mga minuto na in-game na kinakailangan upang ikonekta ang isang panel",
+    Sandbox_ISA_enableExpandedRecipes = "Pinalawak na mga recipe",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Pinapayagan na gumawa ng mga solar panel at inverters",
+}

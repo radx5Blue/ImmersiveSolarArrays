@@ -1,8 +1,8 @@
 Moveables_IT = {
-	Battery_Bank = "Banco batterie",
-	Solar_Roof_Tile = "Pannello solare da tetto",
-	Wall_Mounted_Solar_Panel = "Pannello solare da parete",
-	Floor_Mounted_Solar_Panel = "Pannello solare da pavimento",
-	Failsafe_Trigger = "Meccanismo di sicurezza",
-	Solar_Box = "Caldaia solare",
+    Battery_Bank = "Banco batterie",
+    Solar_Roof_Tile = "Pannello solare da tetto",
+    Wall_Mounted_Solar_Panel = "Pannello solare da parete",
+    Floor_Mounted_Solar_Panel = "Pannello solare da pavimento",
+    Failsafe_Trigger = "Meccanismo di sicurezza",
+    Solar_Box = "Caldaia solare",
 }
