@@ -1,6 +1,6 @@
 --
 Stash_ISA_Stash_RiversideW1_t1 = "SABED CAMUR"
-Stash_ISA_Stash_RiversideW1_t2 = "Han dâ€™estar allotjats en una granja propera"
+Stash_ISA_Stash_RiversideW1_t2 = "Han dâ¤?estar allotjats en una granja propera"
 Stash_ISA_Stash_RosewoodE1_t1 = "Danger: els supervivents poden escapar dels interns"
 Stash_ISA_Stash_RosewoodE1_t2 = "La base del ve¡ estÃ  abandonada"
 Stash_ISA_Stash_Muldraugh1_t1 = "Mort dins"

@@ -1,6 +1,6 @@
 ItemName_CA = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Nous aven‡os: energia del sol",
+    ItemName_ISA.ISAMag1 = "Nous aven?os: energia del sol",
 
     -- Items
     ItemName_ISA.SolarPanel = "Panell solar (part)",

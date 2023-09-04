@@ -1,3 +1,0 @@
-Tooltip_RU
-Tooltip_ISA_NoPanels = "Нет панели"
-Tooltip_ISA_PanelFar = "Эта панель слишком далеко"

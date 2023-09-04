@@ -2,7 +2,7 @@ Moveables_CA = {
     Battery_Bank = "Banc de la bateria",
     Solar_Roof_Tile = "Tauler solar pla",
     Wall_Mounted_Solar_Panel = "Tauler solar muntat a la paret",
-    Floor_Mounted_Solar_Panel = "Tauler solar muntat al sÃ²l",
+    Floor_Mounted_Solar_Panel = "Tauler solar muntat al sòl",
     Failsafe_Trigger = "Desencadenant de fallades",
     Solar_Box = "Caixa solar",
 }
