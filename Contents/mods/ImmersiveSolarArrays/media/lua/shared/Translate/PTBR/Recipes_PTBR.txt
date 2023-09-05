@@ -1,13 +1,13 @@
-Recipes_PTBR {
-    Recipe_Make_DIY_Battery = "Faça bateria DIY",
+Recipes_PTBR = {
+    Recipe_Make_DIY_Battery = "FaÃ§a bateria DIY",
     Recipe_WireCarBattery = "Bateria do carro de arame",
-    Recipe_UnwireCarBattery = "Bateria inútil",
+    Recipe_UnwireCarBattery = "Bateria inÃºtil",
     Recipe_Make_Solar_Roof_Tile = "Fazer Painel Solar de Teto",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Fazer Painel Solar de Parede",
-    Recipe_Make_Floor-Mounted_Solar_Panel = "Fazer Painel Solar de Chão",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Fazer Painel Solar de ChÃ£o",
     Recipe_Reverse_Solar_Panel = "Dividir o painel solar em partes",
     Recipe_Create_Battery_Bank = "Criar Banco de Baterias",
-    Recipe_Create_Solar_Failsafe = "Criar Mecanismo de Segurança",
-    Recipe_Make_Solar_Panel = "Faça o painel solar (parte)",
-    Recipe_Make_Inverter = "Faça inversor",
+    Recipe_Create_Solar_Failsafe = "Criar Mecanismo de SeguranÃ§a",
+    Recipe_Make_Solar_Panel = "FaÃ§a o painel solar (parte)",
+    Recipe_Make_Inverter = "FaÃ§a inversor",
 }

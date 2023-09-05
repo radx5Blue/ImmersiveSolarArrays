@@ -1,12 +1,12 @@
 ContextMenu_TH = {
     ContextMenu_ISA_BatteryBank = "ธนาคารแบตเตอรี่",
     ContextMenu_ISA_BatteryBankStatus = "เปิดหน้าต่างสถานะ",
-    ContextMenu_ISA_ConnectPanels = "เชื่อมต่อแผงควบคุม",
+    ContextMenu_ISA_ConnectPanels = "เชื่อมต่อแผง",
     ContextMenu_ISA_SolarPanel = "แผงเซลล์แสงอาทิตย์",
-    ContextMenu_ISA_Connect_Panel = "เชื่อมต่อกับแบตเตอรี่แบงก์",
-    ContextMenu_ISA_Connect_Panel_toolTip = "สถานที่ตั้งแบตเตอรี่ที่เกี่ยวข้องกับแผงโซลาร์เซลล์ (X: Y)",
-    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "แผงโซลาร์เซลล์เชื่อมต่อกับธนาคารแบตเตอรี่นี้",
-    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "แผงโซลาร์เซลล์ไม่ได้เชื่อมต่อกับธนาคารแบตเตอรี่นี้",
-    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "แผงโซลาร์เซลล์ต้องอยู่ข้างนอก",
+    ContextMenu_ISA_Connect_Panel = "เชื่อมต่อกับแบตเตอรีแบงค์",
+    ContextMenu_ISA_Connect_Panel_toolTip = "ตำแหน่งแบตเตอรีแบตสัมพันธ์กับแผงโซลาร์เซลล์ (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "แผงโซลาร์เซลล์เชื่อมต่อกับแบตเตอรีแบงค์นี้",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "แผงโซลาร์เซลล์ไม่ได้เชื่อมต่อกับแบตเตอรีแบงค์นี้",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "แผงโซลาร์เซลล์ต้องอยู่ภายนอก",
     ContextMenu_ISA_Connect_Panel_NoPowerbank = "ไม่มีธนาคารแบตเตอรี่อยู่ใกล้แผงโซลาร์เซลล์นี้",
 }

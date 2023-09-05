@@ -1,12 +1,12 @@
 ItemName_FI = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Uudet edistykset: Auringon energia",
+    ItemName_ISA.ISAMag1 = "Uusia edistysaskeleita: Energiaa auringosta",
 
     -- Items
     ItemName_ISA.SolarPanel = "Aurinkopaneeli (osa)",
     ItemName_ISA.ISAInverter = "Invertteri",
-    ItemName_ISA.DeepCycleBattery = "200Ah Deep Cycle Akku",
-    ItemName_ISA.SuperBattery = "400AH syvä sykli akku",
-    ItemName_ISA.WiredCarBattery = "Langallinen auto -akku",
-    ItemName_ISA.DIYBattery = "DIY syvän syklin akku",
+    ItemName_ISA.DeepCycleBattery = "200 Ah Deep Cycle -akku",
+    ItemName_ISA.SuperBattery = "400 Ah Deep Cycle -akku",
+    ItemName_ISA.WiredCarBattery = "Langallinen auton akku",
+    ItemName_ISA.DIYBattery = "DIY Deep Cycle -akku",
 }

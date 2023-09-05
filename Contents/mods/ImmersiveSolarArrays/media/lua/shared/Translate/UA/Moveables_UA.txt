@@ -1,8 +1,8 @@
 Moveables_UA = {
-    Battery_Bank = "Батарея",
-    Solar_Roof_Tile = "Плоска сонячна панель",
-    Wall_Mounted_Solar_Panel = "Сонячна панель, встановлена на стіні",
-    Floor_Mounted_Solar_Panel = "Сонячна панель, встановлена на підлозі",
-    Failsafe_Trigger = "Trigger Failsafe",
-    Solar_Box = "Сонячна коробка",
+    Battery_Bank = "Р‘Р°РЅРє Р±Р°С‚Р°СЂРµС—",
+    Solar_Roof_Tile = "РџР»РѕСЃРєР° СЃРѕРЅСЏС‡РЅР° РїР°РЅРµР»СЊ",
+    Wall_Mounted_Solar_Panel = "РќР°СЃС‚С–РЅРЅР° СЃРѕРЅСЏС‡РЅР° РїР°РЅРµР»СЊ",
+    Floor_Mounted_Solar_Panel = "РЎРѕРЅСЏС‡РЅР° РїР°РЅРµР»СЊ, РІСЃС‚Р°РЅРѕРІР»РµРЅР° РЅР° РїС–РґР»РѕР·С–",
+    Failsafe_Trigger = "Р‘РµР·РІС–РґРјРѕРІРЅРёР№ С‚СЂРёРіРµСЂ",
+    Solar_Box = "РЎРѕРЅСЏС‡РЅР° РєРѕСЂРѕР±РєР°",
 }

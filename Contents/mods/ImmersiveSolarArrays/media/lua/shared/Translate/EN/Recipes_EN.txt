@@ -1,4 +1,4 @@
-Recipes_EN {
+Recipes_EN = {
     Recipe_Make_DIY_Battery = "Make DIY Battery",
     Recipe_WireCarBattery = "Wire Car Battery",
     Recipe_UnwireCarBattery = "Unwire Car Battery",

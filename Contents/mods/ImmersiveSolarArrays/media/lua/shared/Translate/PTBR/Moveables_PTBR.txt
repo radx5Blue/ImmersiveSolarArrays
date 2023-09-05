@@ -2,7 +2,7 @@ Moveables_PTBR = {
     Battery_Bank = "Banco de Baterias",
     Solar_Roof_Tile = "Painel Solar de Teto",
     Wall_Mounted_Solar_Panel = "Painel Solar de Parede",
-    Floor_Mounted_Solar_Panel = "Painel Solar de Ch„o",
-    Failsafe_Trigger = "Mecanismo de SeguranÁa",
+    Floor_Mounted_Solar_Panel = "Painel Solar de Ch√£o",
+    Failsafe_Trigger = "Mecanismo de Seguran√ßa",
     Solar_Box = "Caixa Solar",
 }

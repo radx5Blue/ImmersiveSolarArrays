@@ -1,8 +1,8 @@
 Moveables_RO = {
-    Battery_Bank = "Baterie de baterii",
+    Battery_Bank = "Banca de baterii",
     Solar_Roof_Tile = "Panou solar plat",
     Wall_Mounted_Solar_Panel = "Panou solar montat pe perete",
     Floor_Mounted_Solar_Panel = "Panou solar montat pe podea",
-    Failsafe_Trigger = "Declanșatorul eșuului",
-    Solar_Box = "Cutie solară",
+    Failsafe_Trigger = "Declanșator de siguranță",
+    Solar_Box = "Cutia solară",
 }

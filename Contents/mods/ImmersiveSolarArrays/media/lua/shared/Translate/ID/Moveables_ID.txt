@@ -1,8 +1,8 @@
 Moveables_ID = {
-    Battery_Bank = "Bank baterai",
-    Solar_Roof_Tile = "Panel surya datar",
-    Wall_Mounted_Solar_Panel = "Panel surya yang dipasang di dinding",
-    Floor_Mounted_Solar_Panel = "Panel surya yang dipasang di lantai",
-    Failsafe_Trigger = "Pemicu Failsafe",
-    Solar_Box = "Kotak surya",
+    Battery_Bank = "Bank Baterai",
+    Solar_Roof_Tile = "Panel Surya Datar",
+    Wall_Mounted_Solar_Panel = "Panel Surya yang Dipasang di Dinding",
+    Floor_Mounted_Solar_Panel = "Panel Surya yang Dipasang di Lantai",
+    Failsafe_Trigger = "Pemicu Kegagalan Aman",
+    Solar_Box = "Kotak Surya",
 }

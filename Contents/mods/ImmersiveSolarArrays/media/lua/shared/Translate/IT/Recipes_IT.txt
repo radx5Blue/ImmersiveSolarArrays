@@ -1,4 +1,4 @@
-Recipes_IT {
+Recipes_IT = {
     Recipe_Make_DIY_Battery = "Crea batteria fai -da -te",
     Recipe_WireCarBattery = "Batteria per auto in filo",
     Recipe_UnwireCarBattery = "Batteria per auto non richiamata",

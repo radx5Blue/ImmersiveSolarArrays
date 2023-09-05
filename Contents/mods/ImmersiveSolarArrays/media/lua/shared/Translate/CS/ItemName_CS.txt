@@ -1,12 +1,12 @@
 ItemName_CS = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "NovÈ pokroky: Energie ze slunce",
+    ItemName_ISA.ISAMag1 = "Nov√© pokroky: Energie ze Slunce",
 
     -- Items
-    ItemName_ISA.SolarPanel = "Sol·rnÌ panel (Ë·st)",
-    ItemName_ISA.ISAInverter = "St¯ÌdaË",
-    ItemName_ISA.DeepCycleBattery = "200Ah hlubok˝ cyklus baterie",
-    ItemName_ISA.SuperBattery = "400AH Deep Cycle Battery",
-    ItemName_ISA.WiredCarBattery = "Kabelov· automobilov· baterie",
-    ItemName_ISA.DIYBattery = "DIY hlubok˝ cyklus baterie",
+    ItemName_ISA.SolarPanel = "Sol√°rn√≠ panel (ƒç√°st)",
+    ItemName_ISA.ISAInverter = "St≈ô√≠daƒç",
+    ItemName_ISA.DeepCycleBattery = "200Ah baterie s hlubok√Ωm cyklem",
+    ItemName_ISA.SuperBattery = "Baterie s hlubok√Ωm cyklem 400 Ah",
+    ItemName_ISA.WiredCarBattery = "Kabelov√° autobaterie",
+    ItemName_ISA.DIYBattery = "DIY baterie s hlubok√Ωm cyklem",
 }

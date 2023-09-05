@@ -1,3 +1,3 @@
 Tooltip_UA
-Tooltip_ISA_NoPanels = "Без панелі"
-Tooltip_ISA_PanelFar = "Ця панель занадто далеко"
+Tooltip_ISA_NoPanels = "Р‘РµР· РїР°РЅРµР»С–"
+Tooltip_ISA_PanelFar = "Р¦СЏ РїР°РЅРµР»СЊ РЅР°РґС‚Рѕ РґР°Р»РµРєРѕ"

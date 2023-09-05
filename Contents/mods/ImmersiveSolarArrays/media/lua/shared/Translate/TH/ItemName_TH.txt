@@ -3,10 +3,10 @@ ItemName_TH = {
     ItemName_ISA.ISAMag1 = "ความก้าวหน้าใหม่: พลังงานจากดวงอาทิตย์",
 
     -- Items
-    ItemName_ISA.SolarPanel = "แผงโซลาร์เซลล์ (ส่วน)",
+    ItemName_ISA.SolarPanel = "แผงโซลาร์เซลล์ (บางส่วน)",
     ItemName_ISA.ISAInverter = "อินเวอร์เตอร์",
-    ItemName_ISA.DeepCycleBattery = "แบตเตอรี่รอบลึก 200AH",
-    ItemName_ISA.SuperBattery = "แบตเตอรี่รอบลึก 400AH",
-    ItemName_ISA.WiredCarBattery = "แบตเตอรี่แบบมีสาย",
-    ItemName_ISA.DIYBattery = "แบตเตอรี่ DIY Deep Cycle",
+    ItemName_ISA.DeepCycleBattery = "แบตเตอรี่รอบลึก 200Ah",
+    ItemName_ISA.SuperBattery = "แบตเตอรี่รอบลึก 400Ah",
+    ItemName_ISA.WiredCarBattery = "แบตเตอรี่รถยนต์แบบมีสาย",
+    ItemName_ISA.DIYBattery = "แบตเตอรี่รอบลึก DIY",
 }

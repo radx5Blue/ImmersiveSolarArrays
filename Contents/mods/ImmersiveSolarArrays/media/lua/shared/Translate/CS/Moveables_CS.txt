@@ -1,8 +1,8 @@
 Moveables_CS = {
-    Battery_Bank = "Baterie",
-    Solar_Roof_Tile = "Plochı solární panel",
-    Wall_Mounted_Solar_Panel = "Solární panel na stìnì",
-    Floor_Mounted_Solar_Panel = "Solární panel namontovanı na podlaze",
-    Failsafe_Trigger = "Failsafe spouštìè",
-    Solar_Box = "Solární box",
+    Battery_Bank = "BateriovÃ¡ banka",
+    Solar_Roof_Tile = "PlochÃ½ solÃ¡rnÃ­ panel",
+    Wall_Mounted_Solar_Panel = "SolÃ¡rnÃ­ panel pro montÃ¡Å¾ na stÄ›nu",
+    Floor_Mounted_Solar_Panel = "SolÃ¡rnÃ­ panel na podlahu",
+    Failsafe_Trigger = "BezpeÄnÃ½ spouÅ¡tÄ›Ä",
+    Solar_Box = "SolÃ¡rnÃ­ box",
 }

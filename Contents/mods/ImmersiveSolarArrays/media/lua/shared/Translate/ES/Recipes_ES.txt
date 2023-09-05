@@ -1,12 +1,12 @@
-Recipes_ES {
-    Recipe_Make_DIY_Battery = "Hacer batería de bricolaje",
-    Recipe_WireCarBattery = "Batería de alambre",
-    Recipe_UnwireCarBattery = "Batería de autos uneité",
+Recipes_ES = {
+    Recipe_Make_DIY_Battery = "Hacer baterÃ­a de bricolaje",
+    Recipe_WireCarBattery = "BaterÃ­a de alambre",
+    Recipe_UnwireCarBattery = "BaterÃ­a de autos uneitÃ©",
     Recipe_Make_Solar_Roof_Tile = "Hacer teja solar",
     Recipe_Make_Wall-Mounted_Solar_Panel = "Hacer panel solar de montaje en pared",
     Recipe_Make_Floor-Mounted_Solar_Panel = "Hacer panel solar de montaje en suelo",
     Recipe_Reverse_Solar_Panel = "Desmontar Panel Solar",
-    Recipe_Create_Battery_Bank = "Crear banco de baterías",
+    Recipe_Create_Battery_Bank = "Crear banco de baterÃ­as",
     Recipe_Create_Solar_Failsafe = "Crear anti-fallo solar",
     Recipe_Make_Solar_Panel = "Hacer panel solar (parte)",
     Recipe_Make_Inverter = "Hacer inversor",

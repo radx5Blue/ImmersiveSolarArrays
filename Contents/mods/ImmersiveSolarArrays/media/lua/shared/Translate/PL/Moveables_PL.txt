@@ -1,8 +1,8 @@
 Moveables_PL = {
     Battery_Bank = "Bank baterii",
-    Solar_Roof_Tile = "P≥aski panel s≥oneczny",
-    Wall_Mounted_Solar_Panel = "Montowany na úcianie panel s≥oneczny",
-    Floor_Mounted_Solar_Panel = "Montowany w pod≥odze panel s≥oneczny",
-    Failsafe_Trigger = "Niepowodzenie wyzwala",
-    Solar_Box = "Solar Box",
+    Solar_Roof_Tile = "P≈Çaski panel s≈Çoneczny",
+    Wall_Mounted_Solar_Panel = "Panel s≈Çoneczny montowany na ≈õcianie",
+    Floor_Mounted_Solar_Panel = "Panel s≈Çoneczny montowany na pod≈Çodze",
+    Failsafe_Trigger = "Wyzwalacz bezpieczny",
+    Solar_Box = "Pude≈Çko s≈Çoneczne",
 }

@@ -1,6 +1,6 @@
 ItemName_PTBR = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Novos Avanços: Energia do Sol",
+    ItemName_ISA.ISAMag1 = "Novos AvanÃ§os: Energia do Sol",
 
     -- Items
     ItemName_ISA.SolarPanel = "Painel Solar (Parte)",

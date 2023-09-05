@@ -3,6 +3,6 @@ Moveables_NO = {
     Solar_Roof_Tile = "Flatt solcellepanel",
     Wall_Mounted_Solar_Panel = "Veggmontert solcellepanel",
     Floor_Mounted_Solar_Panel = "Gulvmontert solcellepanel",
-    Failsafe_Trigger = "FailSafe Trigger",
-    Solar_Box = "Solboks",
+    Failsafe_Trigger = "Feilsikker utløser",
+    Solar_Box = "Solcelleboks",
 }

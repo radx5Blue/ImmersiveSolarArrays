@@ -8,5 +8,5 @@ ContextMenu_EN = {
     ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solar Panel is connected to this Battery Bank",
     ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Solar Panel is not connected to this Battery Bank",
     ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Solar Panel needs to be outside",
-    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No Battery Bank is near this Solar Panel",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No nearby Battery Bank for this Solar Panel.",
 }

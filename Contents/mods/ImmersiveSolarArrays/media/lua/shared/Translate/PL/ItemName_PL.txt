@@ -1,12 +1,12 @@
 ItemName_PL = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Nowe postêpy: energia ze s³oñca",
+    ItemName_ISA.ISAMag1 = "Nowe osiÄ…gniÄ™cia: energia ze sÅ‚oÅ„ca",
 
     -- Items
-    ItemName_ISA.SolarPanel = "Panel s³oneczny (czêœæ)",
+    ItemName_ISA.SolarPanel = "Panel sÅ‚oneczny (czÄ™Å›Ä‡)",
     ItemName_ISA.ISAInverter = "Falownik",
-    ItemName_ISA.DeepCycleBattery = "Bateria g³êbokiego cyklu 200ah",
-    ItemName_ISA.SuperBattery = "Bateria o g³êbokim cyklu 400AH",
-    ItemName_ISA.WiredCarBattery = "Przewodowa bateria samochodowa",
-    ItemName_ISA.DIYBattery = "DIY Bateria g³êbokiego cyklu",
+    ItemName_ISA.DeepCycleBattery = "Akumulator o duÅ¼ej pojemnoÅ›ci 200 Ah",
+    ItemName_ISA.SuperBattery = "Akumulator o pojemnoÅ›ci 400 Ah o gÅ‚Ä™bokim cyklu",
+    ItemName_ISA.WiredCarBattery = "Przewodowy akumulator samochodowy",
+    ItemName_ISA.DIYBattery = "DIY akumulator gÅ‚Ä™bokiego cyklu",
 }

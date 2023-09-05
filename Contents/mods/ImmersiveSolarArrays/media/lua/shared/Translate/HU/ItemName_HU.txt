@@ -1,12 +1,12 @@
 ItemName_HU = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "⁄j elırelÈpÈsek: Energia a naptÛl",
+    ItemName_ISA.ISAMag1 = "√öj fejleszt√©sek: Energia a Napb√≥l",
 
     -- Items
-    ItemName_ISA.SolarPanel = "Napelem (rÈsz)",
+    ItemName_ISA.SolarPanel = "Napelem (r√©sz)",
     ItemName_ISA.ISAInverter = "Inverter",
-    ItemName_ISA.DeepCycleBattery = "200ah mÈlyciklusos akkumul·tor",
-    ItemName_ISA.SuperBattery = "400ah mÈly ciklus akkumul·tor",
-    ItemName_ISA.WiredCarBattery = "VezetÈkes autÛ akkumul·tor",
-    ItemName_ISA.DIYBattery = "DIY mÈlyciklusos akkumul·tor",
+    ItemName_ISA.DeepCycleBattery = "200Ah m√©lyciklus√∫ akkumul√°tor",
+    ItemName_ISA.SuperBattery = "400Ah m√©lyciklus√∫ akkumul√°tor",
+    ItemName_ISA.WiredCarBattery = "Vezet√©kes aut√≥ akkumul√°tor",
+    ItemName_ISA.DIYBattery = "DIY Deep Cycle akkumul√°tor",
 }

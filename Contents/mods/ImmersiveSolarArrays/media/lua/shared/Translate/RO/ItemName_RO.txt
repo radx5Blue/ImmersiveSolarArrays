@@ -1,12 +1,12 @@
 ItemName_RO = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Noi progrese: energie de la soare",
+    ItemName_ISA.ISAMag1 = "Noi progrese: Energia Soarelui",
 
     -- Items
     ItemName_ISA.SolarPanel = "Panou solar (parte)",
     ItemName_ISA.ISAInverter = "Invertor",
-    ItemName_ISA.DeepCycleBattery = "Baterie cu ciclu profund 200ah",
-    ItemName_ISA.SuperBattery = "Baterie cu ciclu profund 400AH",
-    ItemName_ISA.WiredCarBattery = "Baterie auto cu fir",
-    ItemName_ISA.DIYBattery = "Baterie cu ciclu profund DIY",
+    ItemName_ISA.DeepCycleBattery = "Baterie cu ciclu adânc de 200 Ah",
+    ItemName_ISA.SuperBattery = "Baterie cu ciclu adânc de 400 Ah",
+    ItemName_ISA.WiredCarBattery = "Baterie de mașină cu fir",
+    ItemName_ISA.DIYBattery = "Baterie DIY Deep Cycle",
 }

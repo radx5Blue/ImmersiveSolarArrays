@@ -1,8 +1,8 @@
 Moveables_FI = {
     Battery_Bank = "Akkupankki",
-    Solar_Roof_Tile = "Litte� aurinkopaneeli",
-    Wall_Mounted_Solar_Panel = "Sein�lle asennettava aurinkopaneeli",
-    Floor_Mounted_Solar_Panel = "Lattialle asennettava aurinkopaneeli",
-    Failsafe_Trigger = "Vikaantuvan liipaisin",
-    Solar_Box = "Aurinkolaatikko",
+    Solar_Roof_Tile = "Litteä aurinkopaneeli",
+    Wall_Mounted_Solar_Panel = "Seinään kiinnitettävä aurinkopaneeli",
+    Floor_Mounted_Solar_Panel = "Lattiaan asennettava aurinkopaneeli",
+    Failsafe_Trigger = "Failsafe Trigger",
+    Solar_Box = "Solar Box",
 }

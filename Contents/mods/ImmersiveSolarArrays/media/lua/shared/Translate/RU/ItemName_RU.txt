@@ -1,12 +1,12 @@
 ItemName_RU = {
     -- Magazines
-    ItemName_ISA.ISAMag1 = "Журнал «Новые достижения: Энергия солнца»",
+    ItemName_ISA.ISAMag1 = "Р–СѓСЂРЅР°Р» В«РќРѕРІС‹Рµ РґРѕСЃС‚РёР¶РµРЅРёСЏ: Р­РЅРµСЂРіРёСЏ СЃРѕР»РЅС†Р°В»",
 
     -- Items
-    ItemName_ISA.SolarPanel = "Солнечная панель",
-    ItemName_ISA.ISAInverter = "Инвертор",
-    ItemName_ISA.DeepCycleBattery = "Аккумулятор (200Ач)",
-    ItemName_ISA.SuperBattery = "Аккумулятор (400Ач)",
-    ItemName_ISA.WiredCarBattery = "Проводная автомобильная батарея",
-    ItemName_ISA.DIYBattery = "Аккумуляторная батарея",
+    ItemName_ISA.SolarPanel = "РЎРѕР»РЅРµС‡РЅР°СЏ РїР°РЅРµР»СЊ",
+    ItemName_ISA.ISAInverter = "РРЅРІРµСЂС‚РѕСЂ",
+    ItemName_ISA.DeepCycleBattery = "РђРєРєСѓРјСѓР»СЏС‚РѕСЂ (200РђС‡)",
+    ItemName_ISA.SuperBattery = "РђРєРєСѓРјСѓР»СЏС‚РѕСЂ (400РђС‡)",
+    ItemName_ISA.WiredCarBattery = "РџСЂРѕРІРѕРґРЅР°СЏ Р°РІС‚РѕРјРѕР±РёР»СЊРЅР°СЏ Р±Р°С‚Р°СЂРµСЏ",
+    ItemName_ISA.DIYBattery = "РђРєРєСѓРјСѓР»СЏС‚РѕСЂРЅР°СЏ Р±Р°С‚Р°СЂРµСЏ",
 }

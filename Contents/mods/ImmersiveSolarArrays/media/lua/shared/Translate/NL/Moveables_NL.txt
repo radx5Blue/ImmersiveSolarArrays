@@ -1,8 +1,8 @@
 Moveables_NL = {
-    Battery_Bank = "Batterij",
+    Battery_Bank = "Batterijbank",
     Solar_Roof_Tile = "Plat zonnepaneel",
-    Wall_Mounted_Solar_Panel = "Muur gemonteerd zonnepaneel",
+    Wall_Mounted_Solar_Panel = "Aan de muur gemonteerd zonnepaneel",
     Floor_Mounted_Solar_Panel = "Op de vloer gemonteerd zonnepaneel",
-    Failsafe_Trigger = "Failsafe trigger",
-    Solar_Box = "Zonnedoos",
+    Failsafe_Trigger = "Faalveilige trigger",
+    Solar_Box = "Zonne-box",
 }

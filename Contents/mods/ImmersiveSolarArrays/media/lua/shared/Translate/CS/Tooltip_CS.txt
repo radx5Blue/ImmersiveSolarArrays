@@ -1,3 +1,3 @@
 Tooltip_CS
-Tooltip_ISA_NoPanels = "ádnı panel"
-Tooltip_ISA_PanelFar = "Tento panel je pøíliš daleko"
+Tooltip_ISA_NoPanels = "Å½Ã¡dnÃ½ panel"
+Tooltip_ISA_PanelFar = "Tento panel je pÅ™Ã­liÅ¡ daleko"

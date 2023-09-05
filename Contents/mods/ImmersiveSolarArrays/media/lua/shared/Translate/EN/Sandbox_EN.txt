@@ -20,9 +20,9 @@ Sandbox_EN = {
     Sandbox_ISA_LRMMisc_tooltip = "Magazine and inverter spawns in random containers and pre-placed crates multiplier",
 
     Sandbox_ISA_DIYBatteryMultiplier = "DIY Battery Capacity",
-    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplier for the capacity of crafted DIY batteries.",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Crafted DIY battery capacity multiplier.",
 
-    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option1 = ""ISA"",
     Sandbox_ISA_DrainCalc_option2 = "Regular Generator",
     Sandbox_ISA_DrainCalc = "Drain Calculation Method",
     Sandbox_ISA_DrainCalc_tooltip = "Regular Generator calculation has less performance impact",

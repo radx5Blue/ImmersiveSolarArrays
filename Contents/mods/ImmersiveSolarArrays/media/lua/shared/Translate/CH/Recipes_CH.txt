@@ -1,4 +1,4 @@
-Recipes_CH {
+Recipes_CH = {
     Recipe_Make_DIY_Battery = "製作 自製電池",
     Recipe_WireCarBattery = "接線 車用電池",
     Recipe_UnwireCarBattery = "拆線 車用電池",
