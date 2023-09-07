@@ -5,7 +5,6 @@ local TargetSquare_OnLoad = require "!_TargetSquare_OnLoad"
 local sandbox = SandboxVars.ISA
 
 local ISAWorldSpawns = {}
-ISAWorldSpawns.Maps = {}
 ISAWorldSpawns.spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
 ISAWorldSpawns.spawnBatteryBankChance = { 9999, 10, 3, 1 }
 
@@ -64,10 +63,11 @@ function ISAWorldSpawns.doRolls(ws)
     local spawnChance = sandbox.solarPanelWorldSpawns
     if spawnChance == 0 then return end
     local ZombRand, ipairs = ZombRand, ipairs
+    local Maps = require("World/ISAWorldSpawnsMapLocations")
 
     local loaded = {}
     for _,map in ipairs(getWorld():getMap():split(";")) do
-        local mapLocations = ISAWorldSpawns.Maps[map]
+        local mapLocations = Maps[map]
         if mapLocations ~= nil then
             for _,location in ipairs(mapLocations) do
                 local valid = true

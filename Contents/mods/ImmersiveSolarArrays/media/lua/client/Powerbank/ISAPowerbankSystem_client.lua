@@ -4,6 +4,7 @@ local Powerbank = require "Powerbank/ISAPowerbank_client"
 
 local PbSystem = require("ISAPowerbankSystem_shared"):new(CGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
+---@class PowerbankSystem_Client : PowerbankSystem, CGlobalObjectSystem
 function PbSystem:new()
     local o = CGlobalObjectSystem.new(self, "isa_powerbank")
     isa.PbSystem_client = o
