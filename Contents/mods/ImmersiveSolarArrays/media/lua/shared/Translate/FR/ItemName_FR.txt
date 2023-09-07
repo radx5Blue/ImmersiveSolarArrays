@@ -1,19 +1,12 @@
 ItemName_FR = {
-    /* Magazine */
-    ItemName_ISA.ISAMag1 = "Nouvelles Avancées : De l'énergie à partir du soleil",
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nouvelles AvancÃ©es : De l'Ã©nergie Ã  partir du soleil",
 
-    /* Items */
-    ItemName_ISA.SolarPanel = "Panneau photovoltaïque (pièce)",
+    -- Items
+    ItemName_ISA.SolarPanel = "Panneau photovoltaÃ¯que (piÃ¨ce)",
     ItemName_ISA.ISAInverter = "Onduleur",
     ItemName_ISA.DeepCycleBattery = "Batterie - 200Ah",
     ItemName_ISA.SuperBattery = "Batterie - 400Ah",
+    ItemName_ISA.WiredCarBattery = "Batterie de voiture filaire",
     ItemName_ISA.DIYBattery = "Batterie artisanale",
-    ItemName_ISA.50AhBattery = "Batterie de voiture - 50Ah",
-    ItemName_ISA.75AhBattery = "Batterie de voiture - 75Ah",
-    ItemName_ISA.100AhBattery = "Batterie de voiture - 100Ah",
-
-    ItemName_ISA.SolarPanelFlat = "Panneau photovoltaïque plat",
-    ItemName_ISA.SolarPanelWall = "Panneau photovoltaïque mural",
-    ItemName_ISA.SolarPanelMounted = "Panneau photovoltaïque fixable au sol",
-
 }

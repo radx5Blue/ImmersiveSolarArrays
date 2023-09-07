@@ -1,0 +1,3 @@
+Tooltip_PTBR
+Tooltip_ISA_NoPanels = "Nenhum painel"
+Tooltip_ISA_PanelFar = "Este painel está muito longe"

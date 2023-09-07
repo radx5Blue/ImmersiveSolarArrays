@@ -1,0 +1,12 @@
+ItemName_DE = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Neue Fortschritte: Energie aus der Sonne",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Solarpanel (Teil)",
+    ItemName_ISA.ISAInverter = "Wandler",
+    ItemName_ISA.DeepCycleBattery = "200-Ah-Deep-Cycle-Batterie",
+    ItemName_ISA.SuperBattery = "400-Ah-Deep-Cycle-Batterie",
+    ItemName_ISA.WiredCarBattery = "Kabelgebundene Autobatterie",
+    ItemName_ISA.DIYBattery = "DIY Deep-Cycle-Batterie",
+}

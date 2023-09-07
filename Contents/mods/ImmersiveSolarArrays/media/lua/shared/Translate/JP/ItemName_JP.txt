@@ -1,0 +1,12 @@
+ItemName_JP = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "新たな進歩: 太陽からのエネルギー",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "ソーラーパネル（一部）",
+    ItemName_ISA.ISAInverter = "インバータ",
+    ItemName_ISA.DeepCycleBattery = "200Ahディープサイクルバッテリー",
+    ItemName_ISA.SuperBattery = "400Ahディープサイクルバッテリー",
+    ItemName_ISA.WiredCarBattery = "有線カーバッテリー",
+    ItemName_ISA.DIYBattery = "DIYディープサイクルバッテリー",
+}

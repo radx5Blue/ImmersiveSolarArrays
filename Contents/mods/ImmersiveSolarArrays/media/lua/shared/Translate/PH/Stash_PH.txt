@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "nakitang paalis ang trak"
+Stash_ISA_Stash_RiversideW1_t2 = "sila ay dapat na naninirahan sa isang malapit na bukid"
+Stash_ISA_Stash_RosewoodE1_t1 = "Panganib: Ang mga nakaligtas ay maaaring tumakas sa mga bilanggo"
+Stash_ISA_Stash_RosewoodE1_t2 = "Ang base ng kapitbahay ay inabandona"
+Stash_ISA_Stash_Muldraugh1_t1 = "Patay sa loob"
+Stash_ISA_Stash_Muldraugh1_t2 = "Narito si Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Maligayang pagdating sa"
+Stash_ISA_Stash_Westpoint1_t2 = "Masarap Utak"
+Stash_ISA_Stash_Westpoint1_t3 = "Bawat bayan ay may hoarder, kailangan ko lang hanapin kung saan sila nakatira."
+Stash_ISA_Stash_Louisville1_t1 = "Kinabukasan ninakawan namin ang tindahan"

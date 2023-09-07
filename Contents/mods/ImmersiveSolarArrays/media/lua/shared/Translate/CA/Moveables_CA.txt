@@ -1,0 +1,8 @@
+Moveables_CA = {
+    Battery_Bank = "Banc de bateries",
+    Solar_Roof_Tile = "Placa solar plana",
+    Wall_Mounted_Solar_Panel = "Panell solar de paret",
+    Floor_Mounted_Solar_Panel = "Panell solar a terra",
+    Failsafe_Trigger = "Disparador de seguretat",
+    Solar_Box = "Caixa solar",
+}

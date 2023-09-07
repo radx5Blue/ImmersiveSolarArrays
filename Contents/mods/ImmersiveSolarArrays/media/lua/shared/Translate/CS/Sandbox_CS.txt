@@ -1,0 +1,49 @@
+Sandbox_CS = {
+    Sandbox_ISA = "Imerzní solární pole",
+
+    Sandbox_ISA_solarPanelEfficiency = "Účinnost solárních panelů",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Energetická účinnost solárních panelů<br>12 % je reálná pro rok 1993<br>25 % je moderní solární energie<br>výchozí hodnota je nerealistická",
+
+    Sandbox_ISA_batteryDegradeChance = "Závažnost degradace baterie",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplikátor pro průměrnou degradaci baterií.\nSnížením této hodnoty se výrazně prodlouží životnost baterie.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Solární panel / Crate World se objeví",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Jaká je pravděpodobnost, že se předem umístěné solární panely a bedny na daném místě spawnu objeví.<br>K fungování vyžaduje externí API.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Solární panely",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Solární panel se množí v náhodných kontejnerech a předem umístěných bednách",
+
+    Sandbox_ISA_LRMBatteries = "Loot Rarity Multiplier - Baterie",
+    Sandbox_ISA_LRMBatteries_tooltip = "Baterie se množí v náhodných kontejnerech a předem umístěných bednách",
+
+    Sandbox_ISA_LRMMisc = "Loot Rarity Multiplier – Různé",
+    Sandbox_ISA_LRMMisc_tooltip = "Zásobník a střídač se množí v náhodných kontejnerech a předem umístěných bednách",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY Kapacita baterie",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Udělaný DIY multiplikátor kapacity baterie.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Běžný generátor",
+    Sandbox_ISA_DrainCalc = "Metoda výpočtu odvodnění",
+    Sandbox_ISA_DrainCalc_tooltip = "Běžný výpočet generátoru má menší dopad na výkon",
+    Sandbox_ISA_ChargeFreq_option1 = "Každých deset minut",
+    Sandbox_ISA_ChargeFreq_option2 = "Každou hodinu",
+    Sandbox_ISA_ChargeFreq = "Frekvence nabíjení",
+    Sandbox_ISA_ChargeFreq_tooltip = "Jak často bude Battery Bank nabíjet",
+    Sandbox_ISA_BatteryBankSpawn = "Položení baterie",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rarita Battery Bank, která se na mapě objevuje.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Žádný",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Velmi vzácné",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Vzácný",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Méně časté",
+    Sandbox_ISA_StashMode = "Stash Houses",
+    Sandbox_ISA_StashMode_tooltip = "Vyberte režim pro Stash Houses.<br>Změňte pouze v nové hře.",
+    Sandbox_ISA_StashMode_option1 = "Nepřidávejte",
+    Sandbox_ISA_StashMode_option2 = "Přidejte položky mapy",
+    Sandbox_ISA_StashMode_option3 = "Přidejte položky mapy a náhodné iniciály",
+    Sandbox_ISA_StashMode_option4 = "Přidejte náhodnou iniciálu",
+    Sandbox_ISA_ConnectPanelMin = "Připojte čas panelu",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Základní počet minut ve hře, které trvá připojení jednoho panelu",
+    Sandbox_ISA_enableExpandedRecipes = "Rozšířené recepty",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Umožňuje výrobu solárních panelů a invertorů",
+}

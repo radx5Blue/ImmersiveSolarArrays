@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "zag vrachtwagen vertrekken"
+Stash_ISA_Stash_RiversideW1_t2 = "ze moeten op een boerderij in de buurt verblijven"
+Stash_ISA_Stash_RosewoodE1_t1 = "Gevaar: Overlevenden ontsnappen mogelijk aan gevangenen"
+Stash_ISA_Stash_RosewoodE1_t2 = "De basis van de buren is verlaten"
+Stash_ISA_Stash_Muldraugh1_t1 = "Dood vanbinnen"
+Stash_ISA_Stash_Muldraugh1_t2 = "Hier was Petrus"
+Stash_ISA_Stash_Westpoint1_t1 = "Welkom bij"
+Stash_ISA_Stash_Westpoint1_t2 = "Smakelijke hersenen"
+Stash_ISA_Stash_Westpoint1_t3 = "Elke stad had een hoarder, ik moet alleen weten waar ze woonden."
+Stash_ISA_Stash_Louisville1_t1 = "Morgen plunderen we de winkel"

@@ -1,0 +1,8 @@
+Moveables_NO = {
+    Battery_Bank = "Batteribank",
+    Solar_Roof_Tile = "Flatt solcellepanel",
+    Wall_Mounted_Solar_Panel = "Veggmontert solcellepanel",
+    Floor_Mounted_Solar_Panel = "Gulvmontert solcellepanel",
+    Failsafe_Trigger = "Feilsikker utløser",
+    Solar_Box = "Solcelleboks",
+}

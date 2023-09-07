@@ -1,0 +1,49 @@
+Sandbox_JP = {
+    Sandbox_ISA = "没入型太陽電池アレイ",
+
+    Sandbox_ISA_solarPanelEfficiency = "ソーラーパネルの効率",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "ソーラーパネルの電力効率<br>1993年では12%が現実的<br>現代の太陽光発電では25%<br>デフォルトは非現実的",
+
+    Sandbox_ISA_batteryDegradeChance = "バッテリー劣化の深刻度",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "バッテリーの平均劣化の乗数。\nこれを減らすと、バッテリー寿命が大幅に長くなります。",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "ソーラーパネル/クレートワールドスポーン",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "事前に配置されたソーラー パネルと木枠が、指定されたスポーン場所でスポーンする可能性。<br>動作するには外部 API が必要です。",
+
+    Sandbox_ISA_LRMSolarPanels = "戦利品レアリティ乗数 - ソーラーパネル",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "ソーラーパネルはランダムなコンテナと事前に配置された木枠マルチプライヤーの中に出現します",
+
+    Sandbox_ISA_LRMBatteries = "戦利品レアリティ乗数 - バッテリー",
+    Sandbox_ISA_LRMBatteries_tooltip = "バッテリーはランダムなコンテナと事前に配置された木枠マルチプライヤーの中に出現します",
+
+    Sandbox_ISA_LRMMisc = "戦利品レアリティ乗数 - その他",
+    Sandbox_ISA_LRMMisc_tooltip = "マガジンとインバーターはランダムなコンテナと事前に配置された木箱マルチプライヤーに出現します",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIYのバッテリー容量",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "クラフトされた DIY バッテリーの容量の乗数。",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "通常の発電機",
+    Sandbox_ISA_DrainCalc = "ドレン計算方法",
+    Sandbox_ISA_DrainCalc_tooltip = "通常のジェネレーター計算はパフォーマンスへの影響が少ない",
+    Sandbox_ISA_ChargeFreq_option1 = "10分ごと",
+    Sandbox_ISA_ChargeFreq_option2 = "毎時",
+    Sandbox_ISA_ChargeFreq = "充電頻度",
+    Sandbox_ISA_ChargeFreq_tooltip = "バッテリーバンクの充電頻度",
+    Sandbox_ISA_BatteryBankSpawn = "バッテリーバンクのスポーン",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "マップ上に出現するバッテリーバンクのレアリティ。",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "なし",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "激レア",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "レア",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "珍しい",
+    Sandbox_ISA_StashMode = "隠し家",
+    Sandbox_ISA_StashMode_tooltip = "Stash Houses のモードを選択してください。<br>新しいゲームでのみ変更してください。",
+    Sandbox_ISA_StashMode_option1 = "追加しないでください",
+    Sandbox_ISA_StashMode_option2 = "マップアイテムを追加する",
+    Sandbox_ISA_StashMode_option3 = "マップアイテムとランダムなイニシャルを追加",
+    Sandbox_ISA_StashMode_option4 = "ランダムなイニシャルを追加",
+    Sandbox_ISA_ConnectPanelMin = "コネクトパネルタイム",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "1 つのパネルを接続するのにかかるゲーム内の基本分数",
+    Sandbox_ISA_enableExpandedRecipes = "拡張されたレシピ",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "ソーラーパネルとインバーターを作成できるようになります",
+}

@@ -1,0 +1,12 @@
+ItemName_TR = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Yeni Gelişmeler: Güneşten Gelen Enerji",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Güneş Paneli (parça)",
+    ItemName_ISA.ISAInverter = "Çevirici",
+    ItemName_ISA.DeepCycleBattery = "200Ah Derin Çevrim Aküsü",
+    ItemName_ISA.SuperBattery = "400Ah Derin Çevrim Aküsü",
+    ItemName_ISA.WiredCarBattery = "Kablolu Araç Aküsü",
+    ItemName_ISA.DIYBattery = "DIY Derin Döngü Pil",
+}

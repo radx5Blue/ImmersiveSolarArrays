@@ -1,10 +1,8 @@
 module ISA
 {
-    imports
-    {
-        Base,
-    }
-	    item SolarPanel
+    imports { Base }
+
+        item SolarPanel
     {
         Weight	=	5,
         Type	=	Normal,
@@ -14,7 +12,7 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = ISA.SolarPanelModel,
     }
-	    item ISAInverter
+        item ISAInverter
     {
         Weight	=	5,
         Type	=	Normal,
@@ -24,7 +22,7 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = CarBatteryCharger,
     }
-	    item DeepCycleBattery
+        item DeepCycleBattery
     {
         Weight	=	6,
         Type	=	Drainable,
@@ -38,7 +36,7 @@ module ISA
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
     }
-	    item SuperBattery
+        item SuperBattery
     {
         Weight	=	8,
         Type	=	Drainable,
@@ -67,7 +65,7 @@ module ISA
         ISA_maxCapacity = 50,
         ISA_BatteryDegrade = 8,
     }
-	    item DIYBattery
+        item DIYBattery
     {
         Type	=	Drainable,
         DisplayName	=	DIY Battery,
@@ -81,58 +79,58 @@ module ISA
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
     }
-	item PowerBank
-	{
+    item PowerBank
+    {
         Type = Moveable,
         Icon			= default,
         DisplayName		= Moveable,
-		DisplayCategory = Electronics,
+        DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_0,
-	}
-	item SolarPanelFlat
-	{
+    }
+    item SolarPanelFlat
+    {
         Type = Moveable,
         DisplayName		= Moveable,
-		DisplayCategory = Electronics,
+        DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_8,
-	}
-	item SolarPanelWall
-	{
+    }
+    item SolarPanelWall
+    {
         Type = Moveable,
         DisplayName		= Moveable,
-		DisplayCategory = Electronics,
+        DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_6,
-	}
-	item SolarPanelMounted
-	{
+    }
+    item SolarPanelMounted
+    {
         Type = Moveable,
         DisplayName		= Moveable,
-		DisplayCategory = Electronics,
+        DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_9,
-	}
-	item SolarFailsafe
-	{
+    }
+    item SolarFailsafe
+    {
         Type = Moveable,
         DisplayName		= Moveable,
-		DisplayCategory = Electronics,
+        DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_15,
-	}
+    }
 
     /**************************** Literature **********************************/
-	item ISAMag1
+    item ISAMag1
     {
-		DisplayCategory = SkillBook,
+        DisplayCategory = SkillBook,
         Weight	=	0.1,
         Type	=	Literature,
         DisplayName	=	New Advancements: Energy From The Sun,
         Icon	=	ISAMag1,
         TeachedRecipes = Create Battery Bank; WireCarBattery; UnwireCarBattery; Make DIY Battery; Make Solar Roof Tile; Make Wall-Mounted Solar Panel; Make Floor-Mounted Solar Panel; Reverse Solar Panel; Create Solar Failsafe;Make Solar Panel;Make Inverter,
         ReplaceOnUse    =   ISAMag1,
-		StaticModel = Magazine,
-		WorldStaticModel = ISA.SolarMagModel,
+        StaticModel = Magazine,
+        WorldStaticModel = ISA.SolarMagModel,
     }
 
-	/**************************** Maps **********************************/
+    /**************************** Maps **********************************/
     item Stash_RiversideW1
     {
         Type = Map,

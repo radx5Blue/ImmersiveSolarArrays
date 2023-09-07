@@ -1,0 +1,49 @@
+Sandbox_NL = {
+    Sandbox_ISA = "Meeslepende zonnepanelen",
+
+    Sandbox_ISA_solarPanelEfficiency = "Efficiëntie van zonnepanelen",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Energie-efficiëntie van zonnepanelen<br>12% is realistisch voor 1993<br>25% is moderne zonne-energie<br>standaard is onrealistisch",
+
+    Sandbox_ISA_batteryDegradeChance = "Ernst van batterijdegradatie",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Vermenigvuldiger voor de gemiddelde degradatie van batterijen.\nAls u dit verlaagt, wordt de levensduur van de batterij dramatisch verlengd.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Zonnepaneel / kratwereldspawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Hoe waarschijnlijk het is dat vooraf geplaatste zonnepanelen en kratten op een bepaalde spawn-locatie spawnen.<br>Vereist een externe API om te werken.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Zonnepanelen",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Zonnepanelen spawnen in willekeurige containers en vooraf geplaatste krattenvermenigvuldigers",
+
+    Sandbox_ISA_LRMBatteries = "Loot Zeldzaamheidsvermenigvuldiger - Batterijen",
+    Sandbox_ISA_LRMBatteries_tooltip = "Batterijen spawnen in willekeurige containers en vooraf geplaatste krattenvermenigvuldigers",
+
+    Sandbox_ISA_LRMMisc = "Loot Zeldzaamheidsvermenigvuldiger - Diversen",
+    Sandbox_ISA_LRMMisc_tooltip = "Magazijn en omvormer spawnen in willekeurige containers en vooraf geplaatste krattenvermenigvuldigers",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY-batterijcapaciteit",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Vermenigvuldiger voor de capaciteit van zelfgemaakte doe-het-zelf-batterijen.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Reguliere generator",
+    Sandbox_ISA_DrainCalc = "Berekeningsmethode afvoer",
+    Sandbox_ISA_DrainCalc_tooltip = "Regelmatige generatorberekeningen hebben minder impact op de prestaties",
+    Sandbox_ISA_ChargeFreq_option1 = "Elke tien minuten",
+    Sandbox_ISA_ChargeFreq_option2 = "Elk uur",
+    Sandbox_ISA_ChargeFreq = "Laadfrequentie",
+    Sandbox_ISA_ChargeFreq_tooltip = "Hoe vaak Battery Bank wordt opgeladen",
+    Sandbox_ISA_BatteryBankSpawn = "Batterijbankspawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Zeldzaamheid van het spawnen van Battery Bank op de kaart.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Geen",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Erg zeldzaam",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Zeldzaam",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Ongewoon",
+    Sandbox_ISA_StashMode = "Stash-huizen",
+    Sandbox_ISA_StashMode_tooltip = "Kies de modus voor Stash Houses.<br>Wijzig alleen bij een nieuw spel.",
+    Sandbox_ISA_StashMode_option1 = "Niet toevoegen",
+    Sandbox_ISA_StashMode_option2 = "Voeg kaartitems toe",
+    Sandbox_ISA_StashMode_option3 = "Voeg kaartitems en willekeurige initiaal toe",
+    Sandbox_ISA_StashMode_option4 = "Voeg willekeurige initiaal toe",
+    Sandbox_ISA_ConnectPanelMin = "Verbindingspaneeltijd",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Basisaantal in-game minuten dat nodig is om één paneel te verbinden",
+    Sandbox_ISA_enableExpandedRecipes = "Uitgebreide recepten",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Maakt het mogelijk om zonnepanelen en omvormers te maken",
+}

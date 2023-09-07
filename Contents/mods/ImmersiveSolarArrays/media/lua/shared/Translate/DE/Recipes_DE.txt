@@ -1,0 +1,13 @@
+Recipes_DE = {
+    Recipe_Make_DIY_Battery = "Machen Sie eine DIY-Batterie",
+    Recipe_WireCarBattery = "Autobatterie verkabeln",
+    Recipe_UnwireCarBattery = "Autobatterie abklemmen",
+    Recipe_Make_Solar_Roof_Tile = "Machen Sie ein flaches Solarpanel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Machen Sie ein wandmontiertes Solarpanel",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Stellen Sie ein bodenmontiertes Solarpanel her",
+    Recipe_Reverse_Solar_Panel = "Teilen Sie das Solarpanel in Teile",
+    Recipe_Create_Battery_Bank = "Erstellen Sie eine Batteriebank",
+    Recipe_Create_Solar_Failsafe = "Erstellen Sie Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Machen Sie ein Solarpanel (Teil)",
+    Recipe_Make_Inverter = "Wechselrichter herstellen",
+}

@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "melihat truk berangkat"
+Stash_ISA_Stash_RiversideW1_t2 = "mereka pasti tinggal di peternakan terdekat"
+Stash_ISA_Stash_RosewoodE1_t1 = "Bahaya: Korban yang selamat mungkin melarikan diri dari narapidana"
+Stash_ISA_Stash_RosewoodE1_t2 = "Pangkalan tetangga ditinggalkan"
+Stash_ISA_Stash_Muldraugh1_t1 = "Mati di Dalam"
+Stash_ISA_Stash_Muldraugh1_t2 = "Inilah Petrus"
+Stash_ISA_Stash_Westpoint1_t1 = "Selamat Datang di"
+Stash_ISA_Stash_Westpoint1_t2 = "Otak yang Lezat"
+Stash_ISA_Stash_Westpoint1_t3 = "Setiap kota punya penimbun, saya hanya perlu mencari tahu di mana mereka tinggal."
+Stash_ISA_Stash_Louisville1_t1 = "Besok kita menjarah tokonya"

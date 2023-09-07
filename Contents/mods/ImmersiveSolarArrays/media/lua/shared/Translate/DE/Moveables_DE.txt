@@ -1,0 +1,8 @@
+Moveables_DE = {
+    Battery_Bank = "Batteriebank",
+    Solar_Roof_Tile = "Flaches Solarpanel",
+    Wall_Mounted_Solar_Panel = "Wandmontiertes Solarpanel",
+    Floor_Mounted_Solar_Panel = "Bodenmontiertes Solarpanel",
+    Failsafe_Trigger = "Ausfallsicherer Auslöser",
+    Solar_Box = "Solarbox",
+}

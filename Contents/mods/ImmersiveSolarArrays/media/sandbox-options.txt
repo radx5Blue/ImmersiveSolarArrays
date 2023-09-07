@@ -29,7 +29,7 @@ option ISA.BatteryBankSpawn {
 }
 option ISA.StashMode {
 	page = ISA, translation = ISA_StashMode,
-	type = enum, numValues = 3, default = 2,
+	type = enum, numValues = 4, default = 1,
 }
 option ISA.LRMSolarPanels {
 	page = ISA, translation = ISA_LRMSolarPanels, valueTranslation = ISA_LRMSolarPanels,

@@ -9,6 +9,8 @@ local isa = require "ISAUtilities"
 local solarscan = require "Powerbank/ISA_solarscan"
 local sandbox = SandboxVars.ISA
 
+---@class PowerbankObject_Server : SGlobalObject
+---@field luaSystem PowerbankSystem_Server
 local SPowerbank = SGlobalObject:derive("SPowerbank")
 
 function SPowerbank:new(luaSystem, globalObject)
@@ -363,8 +365,7 @@ function SPowerbank:updateGenerator(dif)
     end
     local activate = self.on and self.charge + dif > 0
     local square = self:getSquare()
-    local generator = square:getGenerator()
-    generator:setActivated(activate)
+    square:getGenerator():setActivated(activate)
     if square:getBuilding() ~= nil then square:getBuilding():setToxic(false) end
 end
 

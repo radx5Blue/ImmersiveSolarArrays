@@ -1,0 +1,12 @@
+ItemName_CA = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nous Avenços: Energia del Sol",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Panell solar (part)",
+    ItemName_ISA.ISAInverter = "Inversor",
+    ItemName_ISA.DeepCycleBattery = "Bateria de cicle profund de 200 Ah",
+    ItemName_ISA.SuperBattery = "Bateria de cicle profund de 400 Ah",
+    ItemName_ISA.WiredCarBattery = "Bateria de cotxe amb cable",
+    ItemName_ISA.DIYBattery = "Bateria de cicle profund de bricolatge",
+}

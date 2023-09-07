@@ -1,0 +1,12 @@
+ContextMenu_JP = {
+    ContextMenu_ISA_BatteryBank = "バッテリーバンク",
+    ContextMenu_ISA_BatteryBankStatus = "ステータスウィンドウを開く",
+    ContextMenu_ISA_ConnectPanels = "パネルを接続する",
+    ContextMenu_ISA_SolarPanel = "ソーラーパネル",
+    ContextMenu_ISA_Connect_Panel = "バッテリーバンクに接続する",
+    ContextMenu_ISA_Connect_Panel_toolTip = "ソーラーパネルに対するバッテリーバンクの位置 (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "ソーラーパネルはこのバッテリーバンクに接続されています",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "ソーラーパネルがこのバッテリーバンクに接続されていません",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "ソーラーパネルは屋外に設置する必要がある",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "このソーラーパネルの近くにバッテリーバンクはありません",
+}

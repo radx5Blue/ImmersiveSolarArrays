@@ -1,0 +1,13 @@
+Recipes_HU = {
+    Recipe_Make_DIY_Battery = "Készítsen DIY akkumulátort",
+    Recipe_WireCarBattery = "Vezetékes autó akkumulátor",
+    Recipe_UnwireCarBattery = "Vezeték nélküli autó akkumulátor",
+    Recipe_Make_Solar_Roof_Tile = "Készítsen lapos napelemet",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Készítsen falra szerelhető napelemet",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Készítsen padlóra szerelhető napelemet",
+    Recipe_Reverse_Solar_Panel = "A napelem panel felosztása részekre",
+    Recipe_Create_Battery_Bank = "Akkumulátorbank létrehozása",
+    Recipe_Create_Solar_Failsafe = "Hozzon létre Solar Failsafe-t",
+    Recipe_Make_Solar_Panel = "Napelem készítés (rész)",
+    Recipe_Make_Inverter = "Készítsen invertert",
+}

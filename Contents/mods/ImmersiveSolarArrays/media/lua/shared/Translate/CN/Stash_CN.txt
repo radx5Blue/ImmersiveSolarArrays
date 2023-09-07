@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "看到卡车离开"
+Stash_ISA_Stash_RiversideW1_t2 = "他们一定住在附近的一个农场里"
+Stash_ISA_Stash_RosewoodE1_t1 = "危险：幸存者可能正在逃离囚犯"
+Stash_ISA_Stash_RosewoodE1_t2 = "邻居的基地被废弃"
+Stash_ISA_Stash_Muldraugh1_t1 = "死在里面"
+Stash_ISA_Stash_Muldraugh1_t2 = "这是彼得"
+Stash_ISA_Stash_Westpoint1_t1 = "欢迎来到"
+Stash_ISA_Stash_Westpoint1_t2 = "美味的大脑"
+Stash_ISA_Stash_Westpoint1_t3 = "每个城镇都有一个囤积者，我只需要找到他们住的地方。"
+Stash_ISA_Stash_Louisville1_t1 = "明天我们抢劫商店"

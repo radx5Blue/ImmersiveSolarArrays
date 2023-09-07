@@ -1,6 +1,8 @@
 local ISA = ImmersiveSolarArrays
-
 require "Map/CGlobalObject"
+
+---@class PowerbankObject_Client : CGlobalObject
+---@field luaSystem PowerbankSystem_Client
 local CPowerbank = CGlobalObject:derive("CPowerbank")
 
 function CPowerbank:new(luaSystem, globalObject)

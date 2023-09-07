@@ -1,0 +1,3 @@
+Tooltip_KO
+Tooltip_ISA_NoPanels = "패널 없음"
+Tooltip_ISA_PanelFar = "이 패널은 너무 멀다"

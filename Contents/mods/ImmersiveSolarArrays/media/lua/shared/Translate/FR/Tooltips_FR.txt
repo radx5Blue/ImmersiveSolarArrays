@@ -1,2 +1,0 @@
-Tooltip_FR
-Tooltip_ISA_NoPanels = "Pas de panneau"

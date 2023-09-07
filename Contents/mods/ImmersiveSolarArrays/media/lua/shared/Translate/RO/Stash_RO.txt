@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "a văzut camionul plecând"
+Stash_ISA_Stash_RiversideW1_t2 = "trebuie să stea într-o fermă din apropiere"
+Stash_ISA_Stash_RosewoodE1_t1 = "Pericol: Supraviețuitorii pot evada deținuți"
+Stash_ISA_Stash_RosewoodE1_t2 = "Baza vecinului este abandonată"
+Stash_ISA_Stash_Muldraugh1_t1 = "Mort înăuntru"
+Stash_ISA_Stash_Muldraugh1_t2 = "Aici era Petru"
+Stash_ISA_Stash_Westpoint1_t1 = "Bun venit la"
+Stash_ISA_Stash_Westpoint1_t2 = "Creiere gustoase"
+Stash_ISA_Stash_Westpoint1_t3 = "Fiecare oraș avea un acumulator, trebuie doar să aflu unde locuiau."
+Stash_ISA_Stash_Louisville1_t1 = "Mâine prădăm magazinul"

@@ -1,0 +1,13 @@
+Recipes_PH = {
+    Recipe_Make_DIY_Battery = "Gumawa ng DIY Battery",
+    Recipe_WireCarBattery = "Baterya ng Wire Car",
+    Recipe_UnwireCarBattery = "Tanggalin ang Kawad na Baterya ng Sasakyan",
+    Recipe_Make_Solar_Roof_Tile = "Gumawa ng Flat Solar Panel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Gumawa ng Wall-Mounted Solar Panel",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Gumawa ng Floor-Mounted Solar Panel",
+    Recipe_Reverse_Solar_Panel = "Hatiin ang Solar Panel sa mga bahagi",
+    Recipe_Create_Battery_Bank = "Lumikha ng Battery Bank",
+    Recipe_Create_Solar_Failsafe = "Lumikha ng Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Gumawa ng Solar Panel (bahagi)",
+    Recipe_Make_Inverter = "Gumawa ng Inverter",
+}

@@ -1,0 +1,49 @@
+Sandbox_FI = {
+    Sandbox_ISA = "Mukaansatempaavat aurinkopaneelit",
+
+    Sandbox_ISA_solarPanelEfficiency = "Aurinkopaneelien tehokkuus",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Aurinkopaneelien tehokkuus<br>12 % on realistista vuodelle 1993<br>25 % on modernia aurinkoenergiaa<br>oletusarvo on epärealistinen",
+
+    Sandbox_ISA_batteryDegradeChance = "Akun heikkenemisen vakavuus",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Kertoimen akkujen keskimääräiseen kulumiseen.\nTämän vähentäminen pidentää akun käyttöikää huomattavasti.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Aurinkopaneeli / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Kuinka todennäköistä on, että valmiiksi sijoitetut aurinkopaneelit ja laatikot syntyvät tietyssä syntypaikassa.<br>Edellyttää toimiakseen ulkoista sovellusliittymää.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - aurinkopaneelit",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Aurinkopaneeli syntyy satunnaisissa säiliöissä ja valmiissa laatikoissa",
+
+    Sandbox_ISA_LRMBatteries = "Loot Rarity Multiplier - paristot",
+    Sandbox_ISA_LRMBatteries_tooltip = "Paristot syntyvät satunnaisissa säiliöissä ja valmiiksi sijoitetuissa laatikoissa",
+
+    Sandbox_ISA_LRMMisc = "Loot Harvinaisuuskerroin - Muut",
+    Sandbox_ISA_LRMMisc_tooltip = "Aikakauslehti ja invertteri kutee satunnaisissa säiliöissä ja valmiissa laatikoissa",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY Akun kapasiteetti",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Tee-se-itse-akkujen kapasiteetin kerroin.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Tavallinen generaattori",
+    Sandbox_ISA_DrainCalc = "Viemärin laskentamenetelmä",
+    Sandbox_ISA_DrainCalc_tooltip = "Säännöllisellä generaattorin laskennalla on vähemmän vaikutusta suorituskykyyn",
+    Sandbox_ISA_ChargeFreq_option1 = "Kymmenen minuutin välein",
+    Sandbox_ISA_ChargeFreq_option2 = "Joka tunti",
+    Sandbox_ISA_ChargeFreq = "Lataustaajuus",
+    Sandbox_ISA_ChargeFreq_tooltip = "Kuinka usein Battery Bank latautuu",
+    Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Harvinainen Battery Bankin kuteminen kartalla.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Ei mitään",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Erittäin harvinainen",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Harvinainen",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Melko harvinaista",
+    Sandbox_ISA_StashMode = "Stash Houses",
+    Sandbox_ISA_StashMode_tooltip = "Valitse tila Stash Housesille.<br>Vaihda vain uudessa pelissä.",
+    Sandbox_ISA_StashMode_option1 = "Älä lisää",
+    Sandbox_ISA_StashMode_option2 = "Lisää karttakohteita",
+    Sandbox_ISA_StashMode_option3 = "Lisää karttakohteita ja satunnainen alkukirjain",
+    Sandbox_ISA_StashMode_option4 = "Lisää satunnainen alkukirjain",
+    Sandbox_ISA_ConnectPanelMin = "Yhdistä paneelin aika",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Pelin sisäisten minuuttien perusmäärä, joka kuluu yhden paneelin yhdistämiseen",
+    Sandbox_ISA_enableExpandedRecipes = "Laajennetut reseptit",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Mahdollistaa aurinkopaneelien ja invertterien valmistamisen",
+}

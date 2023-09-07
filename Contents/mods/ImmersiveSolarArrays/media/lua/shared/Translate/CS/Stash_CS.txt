@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "viděl odjíždějící kamion"
+Stash_ISA_Stash_RiversideW1_t2 = "musí bydlet na blízké farmě"
+Stash_ISA_Stash_RosewoodE1_t1 = "Nebezpečí: Přeživší mohou unikat vězňům"
+Stash_ISA_Stash_RosewoodE1_t2 = "Sousedova základna je opuštěná"
+Stash_ISA_Stash_Muldraugh1_t1 = "Mrtvý uvnitř"
+Stash_ISA_Stash_Muldraugh1_t2 = "Tady byl Petr"
+Stash_ISA_Stash_Westpoint1_t1 = "Vítejte v"
+Stash_ISA_Stash_Westpoint1_t2 = "Chutné mozky"
+Stash_ISA_Stash_Westpoint1_t3 = "Každé město mělo hromadiče, jen potřebuji zjistit, kde žili."
+Stash_ISA_Stash_Louisville1_t1 = "Zítra vyrabujeme obchod"

@@ -1,0 +1,13 @@
+Recipes_CN = {
+    Recipe_Make_DIY_Battery = "DIY电池",
+    Recipe_WireCarBattery = "线控车电池",
+    Recipe_UnwireCarBattery = "无线汽车电池",
+    Recipe_Make_Solar_Roof_Tile = "制作平板太阳能电池板",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "制作壁挂式太阳能电池板",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "制作落地式太阳能电池板",
+    Recipe_Reverse_Solar_Panel = "将太阳能电池板拆分为多个部件",
+    Recipe_Create_Battery_Bank = "创建电池组",
+    Recipe_Create_Solar_Failsafe = "创建太阳能故障安全装置",
+    Recipe_Make_Solar_Panel = "制作太阳能电池板（部分）",
+    Recipe_Make_Inverter = "制作逆变器",
+}

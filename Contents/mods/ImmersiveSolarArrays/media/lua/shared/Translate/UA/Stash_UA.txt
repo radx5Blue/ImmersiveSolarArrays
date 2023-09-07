@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "побачив, що вантажівка від'їжджає"
+Stash_ISA_Stash_RiversideW1_t2 = "вони, мабуть, живуть на фермі поблизу"
+Stash_ISA_Stash_RosewoodE1_t1 = "Небезпека: ті, хто вижив, можуть тікати від в'язнів"
+Stash_ISA_Stash_RosewoodE1_t2 = "Сусідська база покинута"
+Stash_ISA_Stash_Muldraugh1_t1 = "Мертвий всередині"
+Stash_ISA_Stash_Muldraugh1_t2 = "Ось був Петро"
+Stash_ISA_Stash_Westpoint1_t1 = "Ласкаво просимо до"
+Stash_ISA_Stash_Westpoint1_t2 = "Смачні мізки"
+Stash_ISA_Stash_Westpoint1_t3 = "У кожному місті були скарбниці, мені просто потрібно знайти, де вони жили."
+Stash_ISA_Stash_Louisville1_t1 = "Завтра ми розграбуємо магазин"

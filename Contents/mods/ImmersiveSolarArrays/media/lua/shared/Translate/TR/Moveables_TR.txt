@@ -1,0 +1,8 @@
+Moveables_TR = {
+    Battery_Bank = "Şarj Bankası",
+    Solar_Roof_Tile = "Düz Güneş Paneli",
+    Wall_Mounted_Solar_Panel = "Duvara Monte Güneş Paneli",
+    Floor_Mounted_Solar_Panel = "Zemine Monte Güneş Paneli",
+    Failsafe_Trigger = "Arıza Korumalı Tetikleyici",
+    Solar_Box = "Güneş Kutusu",
+}

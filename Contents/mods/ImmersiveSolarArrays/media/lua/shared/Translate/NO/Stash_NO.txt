@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "så lastebilen gå"
+Stash_ISA_Stash_RiversideW1_t2 = "de må bo på en gård i nærheten"
+Stash_ISA_Stash_RosewoodE1_t1 = "Fare: Overlevende kan være på flukt fra innsatte"
+Stash_ISA_Stash_RosewoodE1_t2 = "Nabobasen er forlatt"
+Stash_ISA_Stash_Muldraugh1_t1 = "Død på innsiden"
+Stash_ISA_Stash_Muldraugh1_t2 = "Her var Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Velkommen til"
+Stash_ISA_Stash_Westpoint1_t2 = "Velsmakende hjerner"
+Stash_ISA_Stash_Westpoint1_t3 = "Hver by hadde en hamstre, jeg trenger bare å finne hvor de bodde."
+Stash_ISA_Stash_Louisville1_t1 = "I morgen plyndrer vi butikken"

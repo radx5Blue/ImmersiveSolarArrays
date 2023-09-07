@@ -1,0 +1,12 @@
+ContextMenu_RO = {
+    ContextMenu_ISA_BatteryBank = "Banca de baterii",
+    ContextMenu_ISA_BatteryBankStatus = "Deschideți fereastra de stare",
+    ContextMenu_ISA_ConnectPanels = "Conectați panourile",
+    ContextMenu_ISA_SolarPanel = "Panou solar",
+    ContextMenu_ISA_Connect_Panel = "Conectați-vă la Banca de baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Locația băncii de baterii în raport cu panoul solar (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Panoul solar este conectat la această bancă de baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Panoul solar nu este conectat la această bancă de baterii",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Panoul solar trebuie să fie afară",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Nu există nicio bancă de baterii în apropierea acestui panou solar",
+}

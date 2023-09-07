@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "kamyonun ayrıldığını gördüm"
+Stash_ISA_Stash_RiversideW1_t2 = "yakındaki bir çiftlikte kalıyor olmalılar"
+Stash_ISA_Stash_RosewoodE1_t1 = "Tehlike: Hayatta kalanlar mahkumlardan kaçıyor olabilir"
+Stash_ISA_Stash_RosewoodE1_t2 = "Komşunun üssü terk edildi"
+Stash_ISA_Stash_Muldraugh1_t1 = "Ölü içeride"
+Stash_ISA_Stash_Muldraugh1_t2 = "İşte Peter'dı"
+Stash_ISA_Stash_Westpoint1_t1 = "Hoşgeldiniz"
+Stash_ISA_Stash_Westpoint1_t2 = "Lezzetli Beyinler"
+Stash_ISA_Stash_Westpoint1_t3 = "Her kasabanın bir istifçisi vardı, sadece nerede yaşadıklarını bulmam gerekiyor."
+Stash_ISA_Stash_Louisville1_t1 = "Yarın mağazayı yağmalayacağız"

@@ -1,15 +1,12 @@
 ItemName_ES = {
-    /* Magazine */
-    ItemName_ISA.ISAMag1 = "Nuevos Avances: Energía del sol",
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nuevos Avances: EnergÃ­a del sol",
 
-    /* Items */
+    -- Items
     ItemName_ISA.SolarPanel = "Panel solar (pieza)",
     ItemName_ISA.ISAInverter = "Inversor",
-    ItemName_ISA.DeepCycleBattery = "Batería de 200Ah de ciclo profundo",
-    ItemName_ISA.SuperBattery = "Batería de 400Ah de ciclo profundo",
-    ItemName_ISA.DIYBattery = "Batería  de ciclo profundo fabricada",
-    ItemName_ISA.50AhBattery = "Batería de coche de 50Ah cableada",
-    ItemName_ISA.75AhBattery = "Batería de coche de 75Ah cableada",
-    ItemName_ISA.100AhBattery = "Batería de coche de 100Ah cableada"
-
+    ItemName_ISA.DeepCycleBattery = "BaterÃ­a de 200Ah de ciclo profundo",
+    ItemName_ISA.SuperBattery = "BaterÃ­a de 400Ah de ciclo profundo",
+    ItemName_ISA.WiredCarBattery = "BaterÃ­a de coche con cable",
+    ItemName_ISA.DIYBattery = "BaterÃ­a  de ciclo profundo fabricada",
 }

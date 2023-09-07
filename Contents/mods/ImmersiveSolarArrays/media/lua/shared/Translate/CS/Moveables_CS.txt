@@ -1,0 +1,8 @@
+Moveables_CS = {
+    Battery_Bank = "Bateriová banka",
+    Solar_Roof_Tile = "Plochý solární panel",
+    Wall_Mounted_Solar_Panel = "Solární panel pro montáž na stěnu",
+    Floor_Mounted_Solar_Panel = "Solární panel na podlahu",
+    Failsafe_Trigger = "Bezpečný spouštěč",
+    Solar_Box = "Solární box",
+}

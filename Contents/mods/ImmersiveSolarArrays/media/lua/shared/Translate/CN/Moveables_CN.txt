@@ -1,0 +1,8 @@
+Moveables_CN = {
+    Battery_Bank = "电池组",
+    Solar_Roof_Tile = "平板太阳能电池板",
+    Wall_Mounted_Solar_Panel = "壁挂式太阳能电池板",
+    Floor_Mounted_Solar_Panel = "落地式太阳能电池板",
+    Failsafe_Trigger = "故障安全触发器",
+    Solar_Box = "太阳能箱",
+}

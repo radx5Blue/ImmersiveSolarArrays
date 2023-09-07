@@ -1,19 +1,12 @@
 ItemName_PTBR = {
-    /* Magazine */
-    ItemName_ISA.ISAMag1 = "Novos Avanços: Energia do Sol",
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Novos AvanÃ§os: Energia do Sol",
 
-    /* Items */
+    -- Items
     ItemName_ISA.SolarPanel = "Painel Solar (Parte)",
     ItemName_ISA.ISAInverter = "Inversor",
     ItemName_ISA.DeepCycleBattery = "Bateria de 200Ah",
     ItemName_ISA.SuperBattery = "Bateria de 400Ah",
+    ItemName_ISA.WiredCarBattery = "Bateria de carro com fio",
     ItemName_ISA.DIYBattery = "Bateria Improvisada",
-    ItemName_ISA.50AhBattery = "Bateria Automotiva de 50Ah",
-    ItemName_ISA.75AhBattery = "Bateria Automotiva de 75Ah",
-    ItemName_ISA.100AhBattery = "Bateria Automotiva de 100Ah"
-
-    ItemName_ISA.SolarPanelFlat = "Painel Solar de Teto"
-    ItemName_ISA.SolarPanelWall = "Painel Solar de Parede",
-    ItemName_ISA.SolarPanelMounted = "Painel Solar de Chão",
-
 }

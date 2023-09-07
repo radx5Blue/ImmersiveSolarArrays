@@ -20,10 +20,10 @@ function UI.updateColours()
 end
 UI.updateColours()
 
-function UI.onConnectPanel(player,panel,powerbank)
+function UI.onConnectPanel(player,panel,luaPb)
 	local character = getSpecificPlayer(player)
 	if luautils.walkAdj(character, panel:getSquare(), true) then
-		ISTimedActionQueue.add(isa.ConnectPanel:new(character, panel, powerbank))
+		ISTimedActionQueue.add(isa.ConnectPanel:new(character, panel, luaPb))
 	end
 end
 
@@ -69,7 +69,7 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 		local square = powerbank:getSquare()
 
 		if test then return ISWorldObjectContextMenu.setTest() end
-		local ISASubMenu = context:getNew(context);
+		local ISASubMenu = context:getNew(context)
 		context:addSubMenu(context:addOption(getText("ContextMenu_ISA_BatteryBank")), ISASubMenu)
 		if test then return ISWorldObjectContextMenu.setTest() end
 		ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), player, isa.StatusWindow.OnOpenPanel, square)

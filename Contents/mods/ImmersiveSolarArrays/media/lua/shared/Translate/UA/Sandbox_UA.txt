@@ -1,0 +1,49 @@
+Sandbox_UA = {
+    Sandbox_ISA = "Імерсивні сонячні батареї",
+
+    Sandbox_ISA_solarPanelEfficiency = "Ефективність сонячної панелі",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Енергоефективність сонячних панелей<br>12% реалістично для 1993 року<br>25% це сучасна сонячна батарея<br>за замовчуванням нереально",
+
+    Sandbox_ISA_batteryDegradeChance = "Ступінь погіршення стану батареї",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Множник для середнього погіршення заряду акумуляторів.\nЗменшення цього значення значно збільшить термін служби акумулятора.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Сонячні панелі / ящик світового нересту",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Наскільки ймовірно, що попередньо розміщені сонячні панелі та ящики з’являться в певному місці появи.<br>Для роботи потрібен зовнішній API.",
+
+    Sandbox_ISA_LRMSolarPanels = "Лут Раритет Множник - сонячні батареї",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Сонячні панелі з’являються у випадкових контейнерах і множнику попередньо розміщених ящиків",
+
+    Sandbox_ISA_LRMBatteries = "Лут Раритет Множник - батареї",
+    Sandbox_ISA_LRMBatteries_tooltip = "Батареї з’являються у випадкових контейнерах і множнику попередньо розміщених ящиків",
+
+    Sandbox_ISA_LRMMisc = "Множник рідкісності здобичі - Різне",
+    Sandbox_ISA_LRMMisc_tooltip = "Магазин і інвертор з’являються у випадкових контейнерах і множнику попередньо розміщених ящиків",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Ємність акумулятора DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Множник ємності виготовлених своїми руками акумуляторів.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Звичайний генератор",
+    Sandbox_ISA_DrainCalc = "Спосіб розрахунку дренажу",
+    Sandbox_ISA_DrainCalc_tooltip = "Обчислення звичайного генератора менше впливає на продуктивність",
+    Sandbox_ISA_ChargeFreq_option1 = "Кожні десять хвилин",
+    Sandbox_ISA_ChargeFreq_option2 = "Щогодини",
+    Sandbox_ISA_ChargeFreq = "Частота заряду",
+    Sandbox_ISA_ChargeFreq_tooltip = "Як часто акумулятор заряджається",
+    Sandbox_ISA_BatteryBankSpawn = "Battery Bank Spawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Рідкість появи Battery Bank на карті.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Жодного",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Дуже рідкісний",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Рідкісний",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Нечасто",
+    Sandbox_ISA_StashMode = "Закладні будинки",
+    Sandbox_ISA_StashMode_tooltip = "Виберіть режим для Stash Houses.<br>Змінювати лише в новій грі.",
+    Sandbox_ISA_StashMode_option1 = "Не додавати",
+    Sandbox_ISA_StashMode_option2 = "Додайте елементи карти",
+    Sandbox_ISA_StashMode_option3 = "Додайте елементи карти та випадковий ініціал",
+    Sandbox_ISA_StashMode_option4 = "Додайте випадковий ініціал",
+    Sandbox_ISA_ConnectPanelMin = "Час підключення панелі",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Базова кількість ігрових хвилин, необхідних для підключення однієї панелі",
+    Sandbox_ISA_enableExpandedRecipes = "Розширені рецепти",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Дозволяє створювати сонячні панелі та інвертори",
+}

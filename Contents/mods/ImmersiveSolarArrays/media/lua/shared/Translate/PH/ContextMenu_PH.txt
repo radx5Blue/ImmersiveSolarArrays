@@ -1,0 +1,12 @@
+ContextMenu_PH = {
+    ContextMenu_ISA_BatteryBank = "Bangko ng Baterya",
+    ContextMenu_ISA_BatteryBankStatus = "Buksan ang Status Window",
+    ContextMenu_ISA_ConnectPanels = "Ikonekta ang mga Panel",
+    ContextMenu_ISA_SolarPanel = "Solar panel",
+    ContextMenu_ISA_Connect_Panel = "Kumonekta sa Battery Bank",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Lokasyon ng Battery Bank na may kaugnayan sa Solar Panel (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Ang Solar Panel ay konektado sa Battery Bank na ito",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Hindi nakakonekta ang Solar Panel sa Battery Bank na ito",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Kailangang nasa labas ang Solar Panel",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Walang Battery Bank na malapit sa Solar Panel na ito",
+}

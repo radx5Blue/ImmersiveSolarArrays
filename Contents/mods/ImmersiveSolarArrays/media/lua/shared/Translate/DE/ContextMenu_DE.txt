@@ -1,0 +1,12 @@
+ContextMenu_DE = {
+    ContextMenu_ISA_BatteryBank = "Batteriebank",
+    ContextMenu_ISA_BatteryBankStatus = "Öffnen Sie das Statusfenster",
+    ContextMenu_ISA_ConnectPanels = "Panels verbinden",
+    ContextMenu_ISA_SolarPanel = "Sonnenkollektor",
+    ContextMenu_ISA_Connect_Panel = "An die Batteriebank anschließen",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Standort der Batteriebank im Verhältnis zum Solarpanel (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "An diese Batteriebank ist ein Solarpanel angeschlossen",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Das Solarpanel ist nicht an diese Batteriebank angeschlossen",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Das Solarpanel muss draußen sein",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "In der Nähe dieses Solarpanels befindet sich keine Batteriebank",
+}

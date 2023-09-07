@@ -1,0 +1,49 @@
+Sandbox_CA = {
+    Sandbox_ISA = "Arrays solars immersius",
+
+    Sandbox_ISA_solarPanelEfficiency = "Eficiència del panell solar",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "L'eficiència energètica dels panells solars<br>12% és realista per al 1993<br>25% és solar moderna<br>El valor predeterminat no és realista",
+
+    Sandbox_ISA_batteryDegradeChance = "Gravitat de degradació de la bateria",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplicador de la degradació mitjana de les bateries.\nDisminuir-ho augmentarà dràsticament la durada de la bateria.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Panell solar / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Quina és la probabilitat que els panells solars i les caixes col·locats prèviament es generin en una ubicació de generació determinada.<br>Requereix una API externa per funcionar.",
+
+    Sandbox_ISA_LRMSolarPanels = "Multiplicador de raresa del botí: panells solars",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "El panell solar es genera en contenidors aleatoris i multiplicadors de caixes col·locats prèviament",
+
+    Sandbox_ISA_LRMBatteries = "Multiplicador de raresa del botí: piles",
+    Sandbox_ISA_LRMBatteries_tooltip = "Les bateries apareixen en contenidors aleatoris i multiplicadors de caixes col·locats prèviament",
+
+    Sandbox_ISA_LRMMisc = "Multiplicador de raresa del botí - Diversos",
+    Sandbox_ISA_LRMMisc_tooltip = "La revista i l'inversor apareixen en contenidors aleatoris i multiplicadors de caixes prèviament col·locats",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Capacitat de la bateria de bricolatge",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplicador de capacitat de la bateria de bricolatge fet a mà.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Generador regular",
+    Sandbox_ISA_DrainCalc = "Mètode de càlcul de drenatge",
+    Sandbox_ISA_DrainCalc_tooltip = "El càlcul regular del generador té menys impacte en el rendiment",
+    Sandbox_ISA_ChargeFreq_option1 = "Cada deu minuts",
+    Sandbox_ISA_ChargeFreq_option2 = "Cada hora",
+    Sandbox_ISA_ChargeFreq = "Freqüència de càrrega",
+    Sandbox_ISA_ChargeFreq_tooltip = "Amb quina freqüència es carregarà el Battery Bank",
+    Sandbox_ISA_BatteryBankSpawn = "Generació del banc de bateries",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "La raresa del banc de bateries que apareix al mapa.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Cap",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Molt extrany",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rar",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Poc comú",
+    Sandbox_ISA_StashMode = "Cases Stash",
+    Sandbox_ISA_StashMode_tooltip = "Tria el mode per a Stash Houses.<br>Canvia només al joc nou.",
+    Sandbox_ISA_StashMode_option1 = "No afegeixis",
+    Sandbox_ISA_StashMode_option2 = "Afegeix elements del mapa",
+    Sandbox_ISA_StashMode_option3 = "Afegeix elements del mapa i inicials aleatòries",
+    Sandbox_ISA_StashMode_option4 = "Afegeix una inicial aleatòria",
+    Sandbox_ISA_ConnectPanelMin = "Connecteu l'hora del panell",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Nombre base de minuts dins del joc que triga a connectar un panell",
+    Sandbox_ISA_enableExpandedRecipes = "Receptes ampliades",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Permet fabricar plaques solars i inversors",
+}

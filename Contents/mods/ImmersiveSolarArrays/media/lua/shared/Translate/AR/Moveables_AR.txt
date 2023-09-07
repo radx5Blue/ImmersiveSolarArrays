@@ -1,0 +1,8 @@
+Moveables_AR = {
+    Battery_Bank = "Banco de baterías",
+    Solar_Roof_Tile = "Panel solar plano",
+    Wall_Mounted_Solar_Panel = "Panel solar montado en la pared",
+    Floor_Mounted_Solar_Panel = "Panel solar montado en el piso",
+    Failsafe_Trigger = "Disparador a prueba de fallos",
+    Solar_Box = "Caja Solar",
+}

@@ -1,0 +1,49 @@
+Sandbox_PL = {
+    Sandbox_ISA = "Wciągające układy słoneczne",
+
+    Sandbox_ISA_solarPanelEfficiency = "Wydajność panelu słonecznego",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Efektywność energetyczna paneli słonecznych<br>12% jest realistyczna na rok 1993<br>25% to nowoczesna energia słoneczna<br>wartość domyślna jest nierealistyczna",
+
+    Sandbox_ISA_batteryDegradeChance = "Stopień pogorszenia stanu baterii",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Mnożnik średniego zużycia baterii.\nZmniejszenie go radykalnie wydłuży żywotność baterii.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Pojawia się świat paneli słonecznych/skrzynek",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Prawdopodobieństwo pojawienia się wstępnie umieszczonych paneli słonecznych i skrzyń w danym miejscu odrodzenia.<br>Wymaga zewnętrznego interfejsu API do działania.",
+
+    Sandbox_ISA_LRMSolarPanels = "Mnożnik rzadkości łupów – Panele słoneczne",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Panele słoneczne pojawiają się w losowych pojemnikach i mnożniku wstępnie umieszczonych skrzynek",
+
+    Sandbox_ISA_LRMBatteries = "Mnożnik rzadkości łupów – baterie",
+    Sandbox_ISA_LRMBatteries_tooltip = "Baterie pojawiają się w losowych pojemnikach i mnożniku w wstępnie umieszczonych skrzynkach",
+
+    Sandbox_ISA_LRMMisc = "Mnożnik rzadkości łupów – różne",
+    Sandbox_ISA_LRMMisc_tooltip = "Magazyn i falownik pojawiają się w losowych pojemnikach i mnożą się w uprzednio umieszczonych skrzynkach",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Pojemność baterii DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Mnożnik pojemności wyprodukowanych samodzielnie baterii.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Zwykły generator",
+    Sandbox_ISA_DrainCalc = "Metoda obliczania drenażu",
+    Sandbox_ISA_DrainCalc_tooltip = "Regularne obliczenia generatora mają mniejszy wpływ na wydajność",
+    Sandbox_ISA_ChargeFreq_option1 = "Co dziesięć minut",
+    Sandbox_ISA_ChargeFreq_option2 = "Co godzinę",
+    Sandbox_ISA_ChargeFreq = "Częstotliwość ładowania",
+    Sandbox_ISA_ChargeFreq_tooltip = "Jak często Battery Bank będzie ładowany",
+    Sandbox_ISA_BatteryBankSpawn = "Pojawienie się banku baterii",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Rzadkość pojawiania się Banku Baterii na mapie.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Nic",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Bardzo rzadkie",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rzadki",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Niezwykły",
+    Sandbox_ISA_StashMode = "Domy skrytkowe",
+    Sandbox_ISA_StashMode_tooltip = "Wybierz tryb dla ukrytych domów.<br>Zmień tylko w nowej grze.",
+    Sandbox_ISA_StashMode_option1 = "Nie dodawaj",
+    Sandbox_ISA_StashMode_option2 = "Dodaj elementy mapy",
+    Sandbox_ISA_StashMode_option3 = "Dodaj elementy mapy i losowy inicjał",
+    Sandbox_ISA_StashMode_option4 = "Dodaj losowy inicjał",
+    Sandbox_ISA_ConnectPanelMin = "Połącz czas panelu",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Podstawowa liczba minut w grze potrzebnych na podłączenie jednego panelu",
+    Sandbox_ISA_enableExpandedRecipes = "Rozszerzone przepisy",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Umożliwia wytwarzanie paneli słonecznych i falowników",
+}

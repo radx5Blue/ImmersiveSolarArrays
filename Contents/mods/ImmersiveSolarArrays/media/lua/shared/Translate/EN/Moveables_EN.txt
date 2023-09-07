@@ -1,8 +1,8 @@
-Moveables_En = {
-	Battery_Bank = "Battery Bank",
-	Solar_Roof_Tile = "Flat Solar Panel",
-	Wall_Mounted_Solar_Panel = "Wall-Mounted Solar Panel",
-	Floor_Mounted_Solar_Panel = "Floor-Mounted Solar Panel",
-	Failsafe_Trigger = "Failsafe Trigger",
-	Solar_Box = "Solar Box",
+Moveables_EN = {
+    Battery_Bank = "Battery Bank",
+    Solar_Roof_Tile = "Flat Solar Panel",
+    Wall_Mounted_Solar_Panel = "Wall-Mounted Solar Panel",
+    Floor_Mounted_Solar_Panel = "Floor-Mounted Solar Panel",
+    Failsafe_Trigger = "Failsafe Trigger",
+    Solar_Box = "Solar Box",
 }

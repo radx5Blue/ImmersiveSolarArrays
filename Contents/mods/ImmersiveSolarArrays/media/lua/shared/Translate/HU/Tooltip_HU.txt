@@ -1,0 +1,3 @@
+Tooltip_HU
+Tooltip_ISA_NoPanels = "Nincs panel"
+Tooltip_ISA_PanelFar = "Ez a panel túl messze van"

@@ -1,26 +1,26 @@
 Sandbox_CH = {
-	Sandbox_ISA = "沉浸式太陽能陣列",
+    Sandbox_ISA = "沉浸式太陽能陣列",
 
-	Sandbox_ISA_solarPanelEfficiency = "太陽能板效率",
-	Sandbox_ISA_solarPanelEfficiency_tooltip = "太陽能板效率. 在1993年效率 12%, 在現代效率 25%, 預設則非現實標準",
+    Sandbox_ISA_solarPanelEfficiency = "太陽能板效率",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "太陽能板效率. 在1993年效率 12%, 在現代效率 25%, 預設則非現實標準",
 
-	Sandbox_ISA_batteryDegradeChance = "電池退化嚴重度",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "電池平均退化乘數.\n減少則將大大增加電池壽命.",
+    Sandbox_ISA_batteryDegradeChance = "電池退化嚴重度",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "電池平均退化乘數.\n減少則將大大增加電池壽命.",
 
-	Sandbox_ISA_solarPanelWorldSpawns = "太陽能板/箱 世界生成",
-	Sandbox_ISA_solarPanelWorldSpawns = "預先放置的太陽能板和生成箱的機率性",
+    Sandbox_ISA_solarPanelWorldSpawns = "太陽能板/箱 世界生成",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "預先放置的太陽能板和生成箱的機率性<br>需要外部API工作的預期太陽能電池板和板條",
 
-	Sandbox_ISA_LRMSolarPanels = "搜刮稀有度倍增 - 太陽能板",
-	Sandbox_ISA_LRMSolarPanels_tooltip = "太陽能板在隨機容器和預先放置的箱子的生成乘數",
+    Sandbox_ISA_LRMSolarPanels = "搜刮稀有度倍增 - 太陽能板",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "太陽能板在隨機容器和預先放置的箱子的生成乘數",
 
-	Sandbox_ISA_LRMBatteries = "搜刮稀有度倍增 - 電池",
-	Sandbox_ISA_LRMBatteries_tooltip = "電池在隨機容器和預先放置的箱子的生成乘數",
+    Sandbox_ISA_LRMBatteries = "搜刮稀有度倍增 - 電池",
+    Sandbox_ISA_LRMBatteries_tooltip = "電池在隨機容器和預先放置的箱子的生成乘數",
 
-	Sandbox_ISA_LRMMisc = "搜刮稀有度倍增 - 雜項",
-	Sandbox_ISA_LRMMisc_tooltip = "雜誌和逆變器在隨機容器和預先放置的箱子的生成乘數",
-	
-	Sandbox_ISA_DIYBatteryMultiplier = "自製電池容量",
-	Sandbox_ISA_DIYBatteryMultiplier_tooltip = "自製電池的容量乘數.",
+    Sandbox_ISA_LRMMisc = "搜刮稀有度倍增 - 雜項",
+    Sandbox_ISA_LRMMisc_tooltip = "雜誌和逆變器在隨機容器和預先放置的箱子的生成乘數",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "自製電池容量",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "自製電池的容量乘數.",
 
     Sandbox_ISA_DrainCalc_option1 = "ISA",
     Sandbox_ISA_DrainCalc_option2 = "正常發電機",
@@ -41,6 +41,9 @@ Sandbox_CH = {
     Sandbox_ISA_StashMode_option1 = "不加藏匿屋",
     Sandbox_ISA_StashMode_option2 = "增加藏匿屋",
     Sandbox_ISA_StashMode_option3 = "增加且開局就知道",
+    Sandbox_ISA_StashMode_option4 = "添加隨機初始字母",
     Sandbox_ISA_ConnectPanelMin = "連接時間",
     Sandbox_ISA_ConnectPanelMin_tooltip = "連接一個太陽能板所需遊戲內的每分鐘",
+    Sandbox_ISA_enableExpandedRecipes = "擴展的食譜",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "允許太陽能電池板和逆變器",
 }

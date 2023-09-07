@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "látta elmenni a teherautót"
+Stash_ISA_Stash_RiversideW1_t2 = "biztos egy közeli farmon szállnak meg"
+Stash_ISA_Stash_RosewoodE1_t1 = "Veszély: A túlélők megszökhetnek a fogvatartottaktól"
+Stash_ISA_Stash_RosewoodE1_t2 = "A szomszéd bázisa elhagyatott"
+Stash_ISA_Stash_Muldraugh1_t1 = "Halott belül"
+Stash_ISA_Stash_Muldraugh1_t2 = "Itt volt Péter"
+Stash_ISA_Stash_Westpoint1_t1 = "Isten hozott a"
+Stash_ISA_Stash_Westpoint1_t2 = "Ízletes agyak"
+Stash_ISA_Stash_Westpoint1_t3 = "Minden városnak volt felhalmozója, csak meg kell találnom, hol laknak."
+Stash_ISA_Stash_Louisville1_t1 = "Holnap kifosztjuk a boltot"

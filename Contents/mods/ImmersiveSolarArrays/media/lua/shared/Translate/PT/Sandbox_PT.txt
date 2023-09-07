@@ -1,0 +1,49 @@
+Sandbox_PT = {
+    Sandbox_ISA = "Matrizes solares imersivas",
+
+    Sandbox_ISA_solarPanelEfficiency = "Eficiência do painel solar",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Eficiência energética do painel solar<br>12% é realista para 1993<br>25% é energia solar moderna<br>o padrão não é realista",
+
+    Sandbox_ISA_batteryDegradeChance = "Gravidade da degradação da bateria",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplicador para a degradação média das baterias.\nDiminuir isso aumentará drasticamente a vida útil da bateria.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Painel Solar / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Qual a probabilidade de painéis solares e caixas pré-colocados aparecerem em um determinado local de desova.<br>Requer API externa para funcionar.",
+
+    Sandbox_ISA_LRMSolarPanels = "Multiplicador de raridade de saque – Painéis solares",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "O painel solar surge em contêineres aleatórios e multiplicador de caixas pré-colocadas",
+
+    Sandbox_ISA_LRMBatteries = "Multiplicador de raridade de saque – Baterias",
+    Sandbox_ISA_LRMBatteries_tooltip = "As baterias aparecem em contêineres aleatórios e multiplicadores de caixas pré-colocadas",
+
+    Sandbox_ISA_LRMMisc = "Multiplicador de raridade de saque – Diversos",
+    Sandbox_ISA_LRMMisc_tooltip = "O magazine e o inversor aparecem em contêineres aleatórios e multiplicador de caixas pré-colocadas",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Capacidade da bateria faça você mesmo",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplicador para a capacidade de baterias DIY fabricadas.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Gerador Regular",
+    Sandbox_ISA_DrainCalc = "Método de cálculo de drenagem",
+    Sandbox_ISA_DrainCalc_tooltip = "O cálculo regular do gerador tem menos impacto no desempenho",
+    Sandbox_ISA_ChargeFreq_option1 = "A cada dez minutos",
+    Sandbox_ISA_ChargeFreq_option2 = "Toda hora",
+    Sandbox_ISA_ChargeFreq = "Frequência de Carga",
+    Sandbox_ISA_ChargeFreq_tooltip = "Com que frequência o banco de baterias será carregado",
+    Sandbox_ISA_BatteryBankSpawn = "Aparecimento do banco de baterias",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Raridade do surgimento do Battery Bank no mapa.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Nenhum",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Muito raro",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Cru",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Incomum",
+    Sandbox_ISA_StashMode = "Esconderijos",
+    Sandbox_ISA_StashMode_tooltip = "Escolha o modo para Stash Houses.<br>Mude apenas no novo jogo.",
+    Sandbox_ISA_StashMode_option1 = "Não adicione",
+    Sandbox_ISA_StashMode_option2 = "Adicionar itens de mapa",
+    Sandbox_ISA_StashMode_option3 = "Adicione itens do mapa e iniciais aleatórias",
+    Sandbox_ISA_StashMode_option4 = "Adicionar inicial aleatória",
+    Sandbox_ISA_ConnectPanelMin = "Conectar hora do painel",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Número base de minutos de jogo necessários para conectar um painel",
+    Sandbox_ISA_enableExpandedRecipes = "Receitas Expandidas",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Permite fabricar painéis solares e inversores",
+}

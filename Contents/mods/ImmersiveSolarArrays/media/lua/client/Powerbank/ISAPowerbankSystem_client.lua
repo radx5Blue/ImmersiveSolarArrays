@@ -4,6 +4,7 @@ local Powerbank = require "Powerbank/ISAPowerbank_client"
 
 local PbSystem = require("ISAPowerbankSystem_shared"):new(CGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
 
+---@class PowerbankSystem_Client : PowerbankSystem, CGlobalObjectSystem
 function PbSystem:new()
     local o = CGlobalObjectSystem.new(self, "isa_powerbank")
     isa.PbSystem_client = o
@@ -92,7 +93,7 @@ do
                     local players = IsoPlayer.getPlayers()
                     for i=0, players:size() -1 do
                         local player = players:get(i)
-                        if player and player:getZ() == obj:getZ() and IsoUtils.DistanceToSquared(player:getX(),player:getY(),obj:getX()+0.5,obj:getY()+0.5) <= 4 then
+                        if player ~= nil and player:getZ() == obj:getZ() and IsoUtils.DistanceToSquared(player:getX(),player:getY(),obj:getX()+0.5,obj:getY()+0.5) <= 4 then
                             --clear both java / lua
                             ISTimedActionQueue.clear(player)
                         end

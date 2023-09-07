@@ -1,0 +1,12 @@
+ItemName_UA = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Нові досягнення: енергія від Сонця",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Сонячна панель (частина)",
+    ItemName_ISA.ISAInverter = "Інвертор",
+    ItemName_ISA.DeepCycleBattery = "Акумулятор глибокого циклу ємністю 200 Аг",
+    ItemName_ISA.SuperBattery = "Акумулятор глибокого циклу 400 Аг",
+    ItemName_ISA.WiredCarBattery = "Провідний автомобільний акумулятор",
+    ItemName_ISA.DIYBattery = "Зробіть самостійне цикл акумулятор",
+}

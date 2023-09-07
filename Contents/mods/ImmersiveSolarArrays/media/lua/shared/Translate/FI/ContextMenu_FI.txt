@@ -1,0 +1,12 @@
+ContextMenu_FI = {
+    ContextMenu_ISA_BatteryBank = "Akkupankki",
+    ContextMenu_ISA_BatteryBankStatus = "Avaa tilaikkuna",
+    ContextMenu_ISA_ConnectPanels = "Liitä paneelit",
+    ContextMenu_ISA_SolarPanel = "Aurinkopaneeli",
+    ContextMenu_ISA_Connect_Panel = "Yhdistä akkupankkiin",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Akkupankin sijainti aurinkopaneeliin nähden (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Aurinkopaneeli on kytketty tähän akkupankkiin",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Aurinkopaneelia ei ole yhdistetty tähän akkupankkiin",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Aurinkopaneelin pitää olla ulkona",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Akkupankkia ei ole lähellä tätä aurinkopaneelia",
+}

@@ -1,0 +1,49 @@
+Sandbox_RO = {
+    Sandbox_ISA = "Rețele solare imersive",
+
+    Sandbox_ISA_solarPanelEfficiency = "Eficiența panoului solar",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Eficiența energiei panoului solar<br>12% este realist pentru 1993<br>25% este solar modern<br>implicit este nerealist",
+
+    Sandbox_ISA_batteryDegradeChance = "Severitatea degradarii bateriei",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplicator pentru degradarea medie a bateriilor.\nScăderea acestuia va crește dramatic durata de viață a bateriei.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Panoul solar / Crate World Spawns",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Cât de probabil este ca panourile solare și lăzile preinstalate să apară într-o anumită locație de apariție.<br>Necesită API externă pentru a funcționa.",
+
+    Sandbox_ISA_LRMSolarPanels = "Loot Rarity Multiplier - Panouri solare",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Panoul solar apare în containere aleatorii și multiplicator de lăzi pre-așezate",
+
+    Sandbox_ISA_LRMBatteries = "Loot Rarity Multiplier - Baterii",
+    Sandbox_ISA_LRMBatteries_tooltip = "Bateriile apar în containere aleatorii și multiplicator de lăzi pre-instalate",
+
+    Sandbox_ISA_LRMMisc = "Multiplicator de raritate de pradă - Diverse",
+    Sandbox_ISA_LRMMisc_tooltip = "Magazinele și invertorul apar în containere aleatorii și multiplicator de lăzi pre-așezate",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Capacitatea bateriei DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplicator pentru capacitatea bateriilor artizanale DIY.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Generator obișnuit",
+    Sandbox_ISA_DrainCalc = "Metoda de calcul a scurgerii",
+    Sandbox_ISA_DrainCalc_tooltip = "Calculul obișnuit al generatorului are un impact mai mic asupra performanței",
+    Sandbox_ISA_ChargeFreq_option1 = "La fiecare zece minute",
+    Sandbox_ISA_ChargeFreq_option2 = "Fiecare ora",
+    Sandbox_ISA_ChargeFreq = "Frecvența de încărcare",
+    Sandbox_ISA_ChargeFreq_tooltip = "Cât de des se va încărca Battery Bank",
+    Sandbox_ISA_BatteryBankSpawn = "Generarea bateriei",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Raritatea băncii de baterii apare pe hartă.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Nici unul",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Foarte rar",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Rar",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Mai puțin frecvente",
+    Sandbox_ISA_StashMode = "Case ascuțite",
+    Sandbox_ISA_StashMode_tooltip = "Alegeți modul pentru Stash Houses.<br>Schimbați numai pentru jocul nou.",
+    Sandbox_ISA_StashMode_option1 = "Nu adăugați",
+    Sandbox_ISA_StashMode_option2 = "Adăugați elemente de hartă",
+    Sandbox_ISA_StashMode_option3 = "Adăugați elemente de hartă și inițiale aleatoare",
+    Sandbox_ISA_StashMode_option4 = "Adăugați inițial aleatoriu",
+    Sandbox_ISA_ConnectPanelMin = "Conectare Ora panoului",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Numărul de bază de minute în joc necesare pentru a conecta un panou",
+    Sandbox_ISA_enableExpandedRecipes = "Rețete extinse",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Permite realizarea de panouri solare și invertoare",
+}

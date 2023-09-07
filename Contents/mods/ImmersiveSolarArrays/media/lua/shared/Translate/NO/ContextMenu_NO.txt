@@ -1,0 +1,12 @@
+ContextMenu_NO = {
+    ContextMenu_ISA_BatteryBank = "Batteribank",
+    ContextMenu_ISA_BatteryBankStatus = "Åpne statusvinduet",
+    ContextMenu_ISA_ConnectPanels = "Koble til paneler",
+    ContextMenu_ISA_SolarPanel = "Solcellepanel",
+    ContextMenu_ISA_Connect_Panel = "Koble til batteribanken",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Batteribankplassering i forhold til solcellepanelet (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solcellepanel er koblet til denne batteribanken",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Solcellepanel er ikke koblet til denne batteribanken",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Solcellepanel må stå utenfor",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Ingen batteribank er i nærheten av dette solcellepanelet",
+}

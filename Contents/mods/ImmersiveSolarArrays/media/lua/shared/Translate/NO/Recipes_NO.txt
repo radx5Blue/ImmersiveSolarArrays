@@ -1,0 +1,13 @@
+Recipes_NO = {
+    Recipe_Make_DIY_Battery = "Lag DIY-batteri",
+    Recipe_WireCarBattery = "Wire bilbatteri",
+    Recipe_UnwireCarBattery = "Unwire bilbatteri",
+    Recipe_Make_Solar_Roof_Tile = "Lag flatt solcellepanel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Lag veggmontert solcellepanel",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Lag gulvmontert solcellepanel",
+    Recipe_Reverse_Solar_Panel = "Del opp solcellepanel til deler",
+    Recipe_Create_Battery_Bank = "Opprett batteribank",
+    Recipe_Create_Solar_Failsafe = "Lag Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Lag solcellepanel (del)",
+    Recipe_Make_Inverter = "Lag inverter",
+}

@@ -1,0 +1,12 @@
+ContextMenu_CS = {
+    ContextMenu_ISA_BatteryBank = "Bateriová banka",
+    ContextMenu_ISA_BatteryBankStatus = "Otev?ete stavové okno",
+    ContextMenu_ISA_ConnectPanels = "P?ipojte panely",
+    ContextMenu_ISA_SolarPanel = "Solární panel",
+    ContextMenu_ISA_Connect_Panel = "P?ipojte se k Bateriová banka",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Umíst?ní baterie ve vztahu k solárnímu panelu (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "Solární panel je p?ipojen k této bateriové bance",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "Solární panel není p?ipojen k této bateriové bance",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "Solární panel musí být venku",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "Pro tento solární panel není žádná blízká bateriová banka.",
+}

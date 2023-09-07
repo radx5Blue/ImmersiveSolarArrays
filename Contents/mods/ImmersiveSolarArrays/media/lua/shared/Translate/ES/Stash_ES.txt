@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "vio camión saliendo"
+Stash_ISA_Stash_RiversideW1_t2 = "deben estar en una granja cercana"
+Stash_ISA_Stash_RosewoodE1_t1 = "Peligro: los sobrevivientes pueden estar escapando a los reclusos"
+Stash_ISA_Stash_RosewoodE1_t2 = "La base del vecino está abandonada"
+Stash_ISA_Stash_Muldraugh1_t1 = "Muerto en el interior"
+Stash_ISA_Stash_Muldraugh1_t2 = "Aquí estaba Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Bienvenido a"
+Stash_ISA_Stash_Westpoint1_t2 = "Cerebro sabroso"
+Stash_ISA_Stash_Westpoint1_t3 = "Cada ciudad tenía un acaparador, solo necesito encontrar dónde vivían."
+Stash_ISA_Stash_Louisville1_t1 = "Mañana saqueamos la tienda"

@@ -1,0 +1,49 @@
+Sandbox_TR = {
+    Sandbox_ISA = "Sürükleyici Güneş Dizileri",
+
+    Sandbox_ISA_solarPanelEfficiency = "Güneş Paneli Verimliliği",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Güneş paneli güç verimliliği<br>%12, 1993 yılı için gerçekçidir<br>%25, modern güneş enerjisidir<br>varsayılanı gerçekçi değildir",
+
+    Sandbox_ISA_batteryDegradeChance = "Pilin Bozulma Şiddeti",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Pillerin ortalama bozulma çarpanı.\nBunun azaltılması pil ömrünü önemli ölçüde artıracaktır.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Güneş Paneli / Sandık Dünyası Yeniden Doğuyor",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Önceden yerleştirilmiş güneş panelleri ve kasaların belirli bir ortaya çıkma konumunda ortaya çıkma olasılığı nedir.<br>Çalışması için harici API gerekir.",
+
+    Sandbox_ISA_LRMSolarPanels = "Ganimet Nadirlik Çarpanı - Güneş panelleri",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Güneş paneli rastgele kaplarda ve önceden yerleştirilmiş kasalarda ortaya çıkar çarpanı",
+
+    Sandbox_ISA_LRMBatteries = "Ganimet Nadirlik Çarpanı - Piller",
+    Sandbox_ISA_LRMBatteries_tooltip = "Piller rastgele kaplarda ve önceden yerleştirilmiş kasalarda ortaya çıkar çarpanı",
+
+    Sandbox_ISA_LRMMisc = "Ganimet Nadirlik Çarpanı - Çeşitli",
+    Sandbox_ISA_LRMMisc_tooltip = "Şarjör ve invertör rastgele kaplarda ve önceden yerleştirilmiş kasalarda ortaya çıkar çarpan",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY Pil Kapasitesi",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Hazırlanmış DIY pillerin kapasitesi için çarpan.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Normal Jeneratör",
+    Sandbox_ISA_DrainCalc = "Drenaj Hesaplama Yöntemi",
+    Sandbox_ISA_DrainCalc_tooltip = "Normal Jeneratör hesaplamasının performans etkisi daha azdır",
+    Sandbox_ISA_ChargeFreq_option1 = "Her On Dakikada Bir",
+    Sandbox_ISA_ChargeFreq_option2 = "Her saat",
+    Sandbox_ISA_ChargeFreq = "Şarj Frekansı",
+    Sandbox_ISA_ChargeFreq_tooltip = "Pil Bankası ne sıklıkta şarj olur",
+    Sandbox_ISA_BatteryBankSpawn = "Pil Bankasının Doğuşu",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Pil Bankasının haritada ortaya çıkma nadirliği.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Hiçbiri",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Çok nadir",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Nadir",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Yaygın olmayan",
+    Sandbox_ISA_StashMode = "Zula Evleri",
+    Sandbox_ISA_StashMode_tooltip = "Zula Evleri için modu seçin.<br>Yalnızca yeni oyunda değiştirin.",
+    Sandbox_ISA_StashMode_option1 = "Ekleme",
+    Sandbox_ISA_StashMode_option2 = "Harita öğeleri ekleyin",
+    Sandbox_ISA_StashMode_option3 = "Harita öğeleri ve rastgele başlangıç ??öğeleri ekleyin",
+    Sandbox_ISA_StashMode_option4 = "Rastgele başlangıç ekle",
+    Sandbox_ISA_ConnectPanelMin = "Panel Zamanını Bağla",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Bir panele bağlanmak için gereken temel oyun içi dakika sayısı",
+    Sandbox_ISA_enableExpandedRecipes = "Genişletilmiş Tarifler",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Güneş panelleri ve invertörlerin yapımına izin verir",
+}

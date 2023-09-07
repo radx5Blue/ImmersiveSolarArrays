@@ -1,9 +1,8 @@
 if isClient() then return end
-local WorldSpawns = require "World/ISAWorldSpawns"
-WorldSpawns.Maps = {}
+local Maps = {}
 
 --main map, mp and challenges list this map
-WorldSpawns.Maps["Muldraugh, KY"] = {
+Maps["Muldraugh, KY"] = {
     { x = 4722, y = 7997, z = 0, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 4743, y = 7848, z = 0, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 9656, y = 10156, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
@@ -77,7 +76,7 @@ WorldSpawns.Maps["Muldraugh, KY"] = {
     { x = 7251, y = 8226, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- The mall electronics
     { x = 7308, y = 8248, z = 0, type = 'solarmod_tileset_01_36', overwrite = { "NewEkron" } }, -- general store
 }
-WorldSpawns.Maps.RavenCreek = {
+Maps.RavenCreek = {
     { x = 3042, y = 11350, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --army base, sledgehammer required
     { x = 3617, y = 11312, z = 1, type = 'solarmod_tileset_01_7', overwrite = {} },
     { x = 4129, y = 11265, z = 6, type = 'solarmod_tileset_01_9', overwrite = {} },
@@ -88,10 +87,12 @@ WorldSpawns.Maps.RavenCreek = {
     { x = 3339, y = 12227, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --port warehouse
     { x = 3479, y = 12684, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --port container / sledge
 }
-WorldSpawns.Maps["challengemaps/Kingsmouth"] = {
+Maps["challengemaps/Kingsmouth"] = {
     { x = 30407, y = 30427, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --military base, warehouse
     { x = 30868, y = 30363, z = 1, type = 'solarmod_tileset_01_36', overwrite = {} }, --container, stairs
 }
-WorldSpawns.Maps["NewEkron"] = {
+Maps["NewEkron"] = {
     { x = 7385, y = 8299, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Electronics Store
 }
+
+return Maps

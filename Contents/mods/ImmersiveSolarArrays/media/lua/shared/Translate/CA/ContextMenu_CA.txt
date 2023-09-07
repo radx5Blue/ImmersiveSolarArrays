@@ -1,0 +1,12 @@
+ContextMenu_CA = {
+    ContextMenu_ISA_BatteryBank = "Banc de bateries",
+    ContextMenu_ISA_BatteryBankStatus = "Obre la finestra d'estat",
+    ContextMenu_ISA_ConnectPanels = "Connecteu els panells",
+    ContextMenu_ISA_SolarPanel = "Panell solar",
+    ContextMenu_ISA_Connect_Panel = "Connecteu-vos al banc de bateries",
+    ContextMenu_ISA_Connect_Panel_toolTip = "Ubicació del banc de bateries en relació amb el panell solar (x:y)",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected = "El panell solar està connectat a aquest banc de bateries",
+    ContextMenu_ISA_Connect_Panel_toolTip_isConnected_false = "El panell solar no està connectat a aquest banc de bateries",
+    ContextMenu_ISA_Connect_Panel_toolTip_isOutside = "El panell solar ha d'estar a l'exterior",
+    ContextMenu_ISA_Connect_Panel_NoPowerbank = "No hi ha un banc de bateries proper per a aquest panell solar.",
+}

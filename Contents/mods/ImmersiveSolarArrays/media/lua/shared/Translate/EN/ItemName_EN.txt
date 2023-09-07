@@ -1,8 +1,8 @@
 ItemName_EN = {
-    /* Magazine */
+    -- Magazines
     ItemName_ISA.ISAMag1 = "New Advancements: Energy From The Sun",
 
-    /* Items */
+    -- Items
     ItemName_ISA.SolarPanel = "Solar Panel (part)",
     ItemName_ISA.ISAInverter = "Inverter",
     ItemName_ISA.DeepCycleBattery = "200Ah Deep Cycle Battery",

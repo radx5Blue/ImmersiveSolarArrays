@@ -1,0 +1,12 @@
+ItemName_CS = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nové pokroky: Energie ze Slunce",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Solární panel (část)",
+    ItemName_ISA.ISAInverter = "Střídač",
+    ItemName_ISA.DeepCycleBattery = "200Ah baterie s hlubokým cyklem",
+    ItemName_ISA.SuperBattery = "Baterie s hlubokým cyklem 400 Ah",
+    ItemName_ISA.WiredCarBattery = "Kabelová autobaterie",
+    ItemName_ISA.DIYBattery = "DIY baterie s hlubokým cyklem",
+}

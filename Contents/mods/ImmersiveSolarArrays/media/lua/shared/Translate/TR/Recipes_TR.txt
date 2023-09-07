@@ -1,0 +1,13 @@
+Recipes_TR = {
+    Recipe_Make_DIY_Battery = "DIY Pil Yap",
+    Recipe_WireCarBattery = "Tel Araba Aküsü",
+    Recipe_UnwireCarBattery = "Araç Aküsünün Kablolarını Çözün",
+    Recipe_Make_Solar_Roof_Tile = "Düz Güneş Paneli Yapın",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Duvara Monte Güneş Paneli Yapın",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Zemine Monte Güneş Paneli Yapın",
+    Recipe_Reverse_Solar_Panel = "Güneş Panelini parçalara ayırın",
+    Recipe_Create_Battery_Bank = "Pil Bankası Oluştur",
+    Recipe_Create_Solar_Failsafe = "Solar Arıza Güvenliği Oluşturun",
+    Recipe_Make_Solar_Panel = "Güneş Paneli Yapın (parça)",
+    Recipe_Make_Inverter = "İnvertör Yap",
+}

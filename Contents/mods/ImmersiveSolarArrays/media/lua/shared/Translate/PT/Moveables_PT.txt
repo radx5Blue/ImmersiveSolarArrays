@@ -1,0 +1,8 @@
+Moveables_PT = {
+    Battery_Bank = "Banco de baterias",
+    Solar_Roof_Tile = "Painel Solar Plano",
+    Wall_Mounted_Solar_Panel = "Painel solar montado na parede",
+    Floor_Mounted_Solar_Panel = "Painel solar montado no chão",
+    Failsafe_Trigger = "Gatilho à prova de falhas",
+    Solar_Box = "Caixa Solar",
+}

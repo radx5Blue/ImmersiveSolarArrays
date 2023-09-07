@@ -1,0 +1,13 @@
+Recipes_KO = {
+    Recipe_Make_DIY_Battery = "DIY 배터리 만들기",
+    Recipe_WireCarBattery = "와이어 자동차 배터리",
+    Recipe_UnwireCarBattery = "자동차 배터리 연결 해제",
+    Recipe_Make_Solar_Roof_Tile = "평평한 태양전지판 만들기",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "벽걸이형 태양전지판 만들기",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "바닥 장착형 태양 전지판 만들기",
+    Recipe_Reverse_Solar_Panel = "태양광 패널을 부품으로 분할",
+    Recipe_Create_Battery_Bank = "배터리 뱅크 생성",
+    Recipe_Create_Solar_Failsafe = "태양광 안전 장치 만들기",
+    Recipe_Make_Solar_Panel = "태양전지판(부분)만들기",
+    Recipe_Make_Inverter = "인버터 만들기",
+}

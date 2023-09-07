@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "näki kuorma-auton lähtevän"
+Stash_ISA_Stash_RiversideW1_t2 = "heidän täytyy oleskella läheisellä maatilalla"
+Stash_ISA_Stash_RosewoodE1_t1 = "Vaara: Selviytyneet saattavat paeta vankeja"
+Stash_ISA_Stash_RosewoodE1_t2 = "Naapurin tukikohta on hylätty"
+Stash_ISA_Stash_Muldraugh1_t1 = "Kuollut sisältä"
+Stash_ISA_Stash_Muldraugh1_t2 = "Tässä oli Peter"
+Stash_ISA_Stash_Westpoint1_t1 = "Tervetuloa"
+Stash_ISA_Stash_Westpoint1_t2 = "Maukkaita aivot"
+Stash_ISA_Stash_Westpoint1_t3 = "Jokaisella kaupungilla oli hamstraaja, minun täytyy vain löytää heidän asuinpaikkansa."
+Stash_ISA_Stash_Louisville1_t1 = "Huomenna ryöstetään kauppa"

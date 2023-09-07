@@ -1,0 +1,13 @@
+Recipes_FI = {
+    Recipe_Make_DIY_Battery = "Tee DIY-akku",
+    Recipe_WireCarBattery = "Langallinen auton akku",
+    Recipe_UnwireCarBattery = "Irrotettava auton akku",
+    Recipe_Make_Solar_Roof_Tile = "Tee litteä aurinkopaneeli",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Valmista seinään kiinnitettävä aurinkopaneeli",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Tee lattialle asennettava aurinkopaneeli",
+    Recipe_Reverse_Solar_Panel = "Jaa aurinkopaneeli osiin",
+    Recipe_Create_Battery_Bank = "Luo akkupankki",
+    Recipe_Create_Solar_Failsafe = "Luo Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Tee aurinkopaneeli (osa)",
+    Recipe_Make_Inverter = "Tee invertteri",
+}

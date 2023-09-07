@@ -1,0 +1,11 @@
+--
+Stash_ISA_Stash_RiversideW1_t1 = "va veure marxar un camió"
+Stash_ISA_Stash_RiversideW1_t2 = "s'han d'allotjar en una granja propera"
+Stash_ISA_Stash_RosewoodE1_t1 = "Perill: els supervivents poden escapar dels presos"
+Stash_ISA_Stash_RosewoodE1_t2 = "La base del veí està abandonada"
+Stash_ISA_Stash_Muldraugh1_t1 = "Mort dins"
+Stash_ISA_Stash_Muldraugh1_t2 = "Aquí era en Pere"
+Stash_ISA_Stash_Westpoint1_t1 = "Benvingut a"
+Stash_ISA_Stash_Westpoint1_t2 = "Cervells saborosos"
+Stash_ISA_Stash_Westpoint1_t3 = "Cada poble tenia un acaparador, només necessito trobar on vivien."
+Stash_ISA_Stash_Louisville1_t1 = "Demà saquegem la botiga"

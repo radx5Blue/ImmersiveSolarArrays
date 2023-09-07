@@ -1,0 +1,13 @@
+Recipes_TH = {
+    Recipe_Make_DIY_Battery = "ทำแบตเตอรี่ DIY",
+    Recipe_WireCarBattery = "สายแบตเตอรี่รถยนต์",
+    Recipe_UnwireCarBattery = "ปลดแบตเตอรี่รถยนต์",
+    Recipe_Make_Solar_Roof_Tile = "ทำแผงโซลาร์เซลล์แบบแบน",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "ทำแผงโซลาร์เซลล์ติดผนัง",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "ทำแผงโซลาร์เซลล์แบบตั้งพื้น",
+    Recipe_Reverse_Solar_Panel = "แยกแผงโซลาร์เซลล์เป็นชิ้นส่วน",
+    Recipe_Create_Battery_Bank = "สร้างธนาคารแบตเตอรี่",
+    Recipe_Create_Solar_Failsafe = "สร้าง Solar Failsafe",
+    Recipe_Make_Solar_Panel = "ทำแผงโซลาร์เซลล์ (บางส่วน)",
+    Recipe_Make_Inverter = "ทำอินเวอร์เตอร์",
+}

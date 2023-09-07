@@ -1,39 +1,49 @@
-Sandbox_RU = {	
-	Sandbox_ISA = "Иммерсивные солнечные батареи",
-	
-	Sandbox_ISA_solarPanelEfficiency = "Эффективность солнечной панели (0-100)",
-	Sandbox_ISA_solarPanelEfficiency_tooltip = "12% реалистично для 1993 года \n25% современная эффективность \n90% нереалистично",
-	
-	Sandbox_ISA_batteryDegradeChance = "Вероятность износа батарей (0-100)",
-	Sandbox_ISA_batteryDegradeChance_tooltip = "Вероятность износа батарей каждый день.\nУменьшение этого значения значительно увеличит срок службы батареи",
-	
-	Sandbox_ISA_solarPanelWorldSpawns = "Вероятность появления объектов в мире(0-100)",
-	Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Вероятность появления солнечных панелей и ящиков в предварительно выбраных местах.",
-	
-	Sandbox_ISA_LRMSolarPanels = "Редкость Лута: Солнечные Панели",
-	Sandbox_ISA_LRMSolarPanels_tooltip = "Солнечные панели появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
+Sandbox_RU = {
+    Sandbox_ISA = "РРјРјРµСЂСЃРёРІРЅС‹Рµ СЃРѕР»РЅРµС‡РЅС‹Рµ Р±Р°С‚Р°СЂРµРё",
 
-	Sandbox_ISA_LRMBatteries = "Редкость Лута: Батареи",
-	Sandbox_ISA_LRMBatteries_tooltip = "Батарейки появляются в случайных контейнерах, множитель в предварительно размещенных ящиках",
+    Sandbox_ISA_solarPanelEfficiency = "Р­С„С„РµРєС‚РёРІРЅРѕСЃС‚СЊ СЃРѕР»РЅРµС‡РЅРѕР№ РїР°РЅРµР»Рё (0-100)",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "12% СЂРµР°Р»РёСЃС‚РёС‡РЅРѕ РґР»СЏ 1993 РіРѕРґР° \n25% СЃРѕРІСЂРµРјРµРЅРЅР°СЏ СЌС„С„РµРєС‚РёРІРЅРѕСЃС‚СЊ \n90% РЅРµСЂРµР°Р»РёСЃС‚РёС‡РЅРѕ",
 
-	Sandbox_ISA_LRMMisc = "Редкость Лута: Прочее",
-	Sandbox_ISA_LRMMisc_tooltip = "Магазин и инвертор появляются в случайных контейнерах, множитель предварительно размещенных ящиков",
-	
-	Sandbox_ISA_DIYBatteryCapacity = "Емкость самодельной батареи (Ач)",
-	Sandbox_ISA_DIYBatteryCapacity_tooltip = "Сколько заряда в Ач может хранить одна самодельная батарея.",
-    
-	Sandbox_ISA_DrainCalc_option1 = "ISA",
-    Sandbox_ISA_DrainCalc_option2 = "Обычный генератор",
-    Sandbox_ISA_DrainCalc = "Метод вычисления разрядки",
-    Sandbox_ISA_DrainCalc_tooltip = "Обычный расчет генератора оказывает меньшее влияние на производительность",
-    Sandbox_ISA_ChargeFreq_option1 = "Каждые десять минут",
-    Sandbox_ISA_ChargeFreq_option2 = "Каждый час",
-    Sandbox_ISA_ChargeFreq = "Частота зарядки",
-    Sandbox_ISA_ChargeFreq_tooltip = "Как часто будет заряжаться Аккумуляторная Батарея",
-	Sandbox_ISA_BatteryBankSpawn = "Появление Аккумуляторной Батареи",
-	Sandbox_ISA_BatteryBankSpawn_tooltip = "Редкость появления Аккумуляторной Батареи в мире.",
-	Sandbox_ISA_BatteryBankSpawn_option1 = "Никогда",
-	Sandbox_ISA_BatteryBankSpawn_option2 = "Очень редко",
-	Sandbox_ISA_BatteryBankSpawn_option3 = "Редко",
-    Sandbox_ISA_BatteryBankSpawn_option4 = "Часто",
+    Sandbox_ISA_batteryDegradeChance = "Р’РµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РёР·РЅРѕСЃР° Р±Р°С‚Р°СЂРµР№ (0-100)",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Р’РµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РёР·РЅРѕСЃР° Р±Р°С‚Р°СЂРµР№ РєР°Р¶РґС‹Р№ РґРµРЅСЊ.\nРЈРјРµРЅСЊС€РµРЅРёРµ СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ Р·РЅР°С‡РёС‚РµР»СЊРЅРѕ СѓРІРµР»РёС‡РёС‚ СЃСЂРѕРє СЃР»СѓР¶Р±С‹ Р±Р°С‚Р°СЂРµРё",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Р’РµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕСЏРІР»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРІ РІ РјРёСЂРµ(0-100)",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Р’РµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїРѕСЏРІР»РµРЅРёСЏ СЃРѕР»РЅРµС‡РЅС‹С… РїР°РЅРµР»РµР№ Рё СЏС‰РёРєРѕРІ РІ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ РІС‹Р±СЂР°РЅС‹С… РјРµСЃС‚Р°С….<br> Р”Р»СЏ СЂР°Р±РѕС‚С‹ С‚СЂРµР±СѓРµС‚СЃСЏ РІРЅРµС€РЅРёР№ API.",
+
+    Sandbox_ISA_LRMSolarPanels = "Р РµРґРєРѕСЃС‚СЊ Р›СѓС‚Р°: РЎРѕР»РЅРµС‡РЅС‹Рµ РџР°РЅРµР»Рё",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "РЎРѕР»РЅРµС‡РЅС‹Рµ РїР°РЅРµР»Рё РїРѕСЏРІР»СЏСЋС‚СЃСЏ РІ СЃР»СѓС‡Р°Р№РЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂР°С…, РјРЅРѕР¶РёС‚РµР»СЊ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂР°Р·РјРµС‰РµРЅРЅС‹С… СЏС‰РёРєРѕРІ",
+
+    Sandbox_ISA_LRMBatteries = "Р РµРґРєРѕСЃС‚СЊ Р›СѓС‚Р°: Р‘Р°С‚Р°СЂРµРё",
+    Sandbox_ISA_LRMBatteries_tooltip = "Р‘Р°С‚Р°СЂРµР№РєРё РїРѕСЏРІР»СЏСЋС‚СЃСЏ РІ СЃР»СѓС‡Р°Р№РЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂР°С…, РјРЅРѕР¶РёС‚РµР»СЊ РІ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂР°Р·РјРµС‰РµРЅРЅС‹С… СЏС‰РёРєР°С…",
+
+    Sandbox_ISA_LRMMisc = "Р РµРґРєРѕСЃС‚СЊ Р›СѓС‚Р°: РџСЂРѕС‡РµРµ",
+    Sandbox_ISA_LRMMisc_tooltip = "РњР°РіР°Р·РёРЅ Рё РёРЅРІРµСЂС‚РѕСЂ РїРѕСЏРІР»СЏСЋС‚СЃСЏ РІ СЃР»СѓС‡Р°Р№РЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂР°С…, РјРЅРѕР¶РёС‚РµР»СЊ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂР°Р·РјРµС‰РµРЅРЅС‹С… СЏС‰РёРєРѕРІ",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "Р•РјРєРѕСЃС‚СЊ Р±Р°С‚Р°СЂРµРё DIY",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "РњРЅРѕР¶РёС‚РµР»СЊ РґР»СЏ РµРјРєРѕСЃС‚Рё РёР·РіРѕС‚РѕРІР»РµРЅРЅС‹С… DIY Batteries.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "РћР±С‹С‡РЅС‹Р№ РіРµРЅРµСЂР°С‚РѕСЂ",
+    Sandbox_ISA_DrainCalc = "РњРµС‚РѕРґ РІС‹С‡РёСЃР»РµРЅРёСЏ СЂР°Р·СЂСЏРґРєРё",
+    Sandbox_ISA_DrainCalc_tooltip = "РћР±С‹С‡РЅС‹Р№ СЂР°СЃС‡РµС‚ РіРµРЅРµСЂР°С‚РѕСЂР° РѕРєР°Р·С‹РІР°РµС‚ РјРµРЅСЊС€РµРµ РІР»РёСЏРЅРёРµ РЅР° РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ",
+    Sandbox_ISA_ChargeFreq_option1 = "РљР°Р¶РґС‹Рµ РґРµСЃСЏС‚СЊ РјРёРЅСѓС‚",
+    Sandbox_ISA_ChargeFreq_option2 = "РљР°Р¶РґС‹Р№ С‡Р°СЃ",
+    Sandbox_ISA_ChargeFreq = "Р§Р°СЃС‚РѕС‚Р° Р·Р°СЂСЏРґРєРё",
+    Sandbox_ISA_ChargeFreq_tooltip = "РљР°Рє С‡Р°СЃС‚Рѕ Р±СѓРґРµС‚ Р·Р°СЂСЏР¶Р°С‚СЊСЃСЏ РђРєРєСѓРјСѓР»СЏС‚РѕСЂРЅР°СЏ Р‘Р°С‚Р°СЂРµСЏ",
+    Sandbox_ISA_BatteryBankSpawn = "РџРѕСЏРІР»РµРЅРёРµ РђРєРєСѓРјСѓР»СЏС‚РѕСЂРЅРѕР№ Р‘Р°С‚Р°СЂРµРё",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Р РµРґРєРѕСЃС‚СЊ РїРѕСЏРІР»РµРЅРёСЏ РђРєРєСѓРјСѓР»СЏС‚РѕСЂРЅРѕР№ Р‘Р°С‚Р°СЂРµРё РІ РјРёСЂРµ.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "РќРёРєРѕРіРґР°",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "РћС‡РµРЅСЊ СЂРµРґРєРѕ",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Р РµРґРєРѕ",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Р§Р°СЃС‚Рѕ",
+    Sandbox_ISA_StashMode = "РўР°Р№РЅС‹Рµ РґРѕРјР°",
+    Sandbox_ISA_StashMode_tooltip = "Р’С‹Р±РµСЂРёС‚Рµ СЂРµР¶РёРј РґР»СЏ Р·Р°РїРѕРІРµРґРЅРёРєРѕРІ. <br> РР·РјРµРЅРёС‚Рµ С‚РѕР»СЊРєРѕ РІ РЅРѕРІРѕР№ РёРіСЂРµ.",
+    Sandbox_ISA_StashMode_option1 = "РќРµ РґРѕР±Р°РІР»СЏР№С‚Рµ С‚Р°Р№РЅРёРєРё",
+    Sandbox_ISA_StashMode_option2 = "Р”РѕР±Р°РІРёС‚СЊ С‚Р°Р№РЅРёРєРё",
+    Sandbox_ISA_StashMode_option3 = "Р”РѕР±Р°РІРёС‚СЊ + РёР·РІРµСЃС‚РЅРѕ РёР· РЅР°С‡Р°Р»Р°",
+    Sandbox_ISA_StashMode_option4 = "Р”РѕР±Р°РІРёС‚СЊ СЃР»СѓС‡Р°Р№РЅС‹Р№ РЅР°С‡Р°Р»СЊРЅС‹Р№",
+    Sandbox_ISA_ConnectPanelMin = "РџРѕРґРєР»СЋС‡РёС‚СЊ РІСЂРµРјСЏ РїР°РЅРµР»Рё",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Р‘Р°Р·РѕРІРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РІ РёРіСЂРѕРІС‹С… РјРёРЅСѓС‚Р°С…, РєРѕС‚РѕСЂС‹Рµ С‚СЂРµР±СѓСЋС‚СЃСЏ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РѕРґРЅРѕР№ РїР°РЅРµР»Рё",
+    Sandbox_ISA_enableExpandedRecipes = "Р Р°СЃС€РёСЂРµРЅРЅС‹Рµ СЂРµС†РµРїС‚С‹",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "РџРѕР·РІРѕР»СЏРµС‚ СЃРѕР·РґР°РІР°С‚СЊ СЃРѕР»РЅРµС‡РЅС‹Рµ Р±Р°С‚Р°СЂРµРё Рё РёРЅРІРµСЂС‚РѕСЂС‹",
 }

@@ -1,0 +1,13 @@
+Recipes_ID = {
+    Recipe_Make_DIY_Battery = "Buat Baterai DIY",
+    Recipe_WireCarBattery = "Kawat Aki Mobil",
+    Recipe_UnwireCarBattery = "Lepas Kabel Aki Mobil",
+    Recipe_Make_Solar_Roof_Tile = "Membuat Panel Surya Datar",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Membuat Panel Surya yang Dipasang di Dinding",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Membuat Panel Surya yang Dipasang di Lantai",
+    Recipe_Reverse_Solar_Panel = "Pisahkan Panel Surya menjadi beberapa bagian",
+    Recipe_Create_Battery_Bank = "Buat Bank Baterai",
+    Recipe_Create_Solar_Failsafe = "Buat Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Membuat Panel Surya (bagian)",
+    Recipe_Make_Inverter = "Membuat Inverter",
+}

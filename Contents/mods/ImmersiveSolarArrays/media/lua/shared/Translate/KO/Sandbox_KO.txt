@@ -1,0 +1,49 @@
+Sandbox_KO = {
+    Sandbox_ISA = "몰입형 태양 전지판",
+
+    Sandbox_ISA_solarPanelEfficiency = "태양광 패널 효율",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "태양광 패널 전력 효율<br>1993년에는 12%가 현실적입니다.<br>현대 태양광 발전 효율은 25%입니다.<br>기본값은 비현실적입니다",
+
+    Sandbox_ISA_batteryDegradeChance = "배터리 성능 저하 심각도",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "배터리의 평균 성능 저하에 대한 승수입니다.\n이 값을 줄이면 배터리 수명이 크게 늘어납니다.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "태양광 패널 / 상자 세계 생성",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "미리 배치된 태양광 패널과 상자가 특정 생성 위치에 생성될 확률.<br>작동하려면 외부 API가 필요합니다.",
+
+    Sandbox_ISA_LRMSolarPanels = "전리품 희귀도 배수 - 태양광 패널",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "태양광 패널은 무작위 컨테이너에 생성되며 사전 배치된 상자 승수",
+
+    Sandbox_ISA_LRMBatteries = "전리품 희귀도 배수 - 배터리",
+    Sandbox_ISA_LRMBatteries_tooltip = "배터리는 무작위 컨테이너에 생성되며 미리 배치된 상자 배율입니다.",
+
+    Sandbox_ISA_LRMMisc = "전리품 희귀도 배수 - 기타",
+    Sandbox_ISA_LRMMisc_tooltip = "탄창과 인버터가 무작위 컨테이너에 생성되고 사전 배치된 상자 배수 장치",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY 배터리 용량",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "제작된 DIY 배터리의 용량에 대한 승수입니다.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "일반 발전기",
+    Sandbox_ISA_DrainCalc = "배수량 계산 방법",
+    Sandbox_ISA_DrainCalc_tooltip = "일반 생성기 계산은 성능에 미치는 영향이 적습니다.",
+    Sandbox_ISA_ChargeFreq_option1 = "10분마다",
+    Sandbox_ISA_ChargeFreq_option2 = "매시간",
+    Sandbox_ISA_ChargeFreq = "충전 빈도",
+    Sandbox_ISA_ChargeFreq_tooltip = "배터리 뱅크가 얼마나 자주 충전되나요?",
+    Sandbox_ISA_BatteryBankSpawn = "배터리 뱅크 생성",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "지도에 배터리 은행이 생성되는 경우가 드뭅니다.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "없음",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "매우 드물다",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "희귀한",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "드문",
+    Sandbox_ISA_StashMode = "은닉처",
+    Sandbox_ISA_StashMode_tooltip = "Stash Houses 모드를 선택하세요.<br>새 게임에서만 변경하세요.",
+    Sandbox_ISA_StashMode_option1 = "추가하지 마세요",
+    Sandbox_ISA_StashMode_option2 = "지도 항목 추가",
+    Sandbox_ISA_StashMode_option3 = "지도 항목 및 임의의 이니셜 추가",
+    Sandbox_ISA_StashMode_option4 = "임의의 이니셜 추가",
+    Sandbox_ISA_ConnectPanelMin = "패널 시간 연결",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "하나의 패널을 연결하는 데 걸리는 기본 게임 내 시간(분)",
+    Sandbox_ISA_enableExpandedRecipes = "확장된 레시피",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "태양광 패널과 인버터를 제작할 수 있습니다.",
+}

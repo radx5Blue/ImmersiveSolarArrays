@@ -1,0 +1,49 @@
+Sandbox_DE = {
+    Sandbox_ISA = "Immersive Solaranlagen",
+
+    Sandbox_ISA_solarPanelEfficiency = "Effizienz von Solarmodulen",
+    Sandbox_ISA_solarPanelEfficiency_tooltip = "Wirkungsgrad von Solarmodulen<br>12 % sind für 1993 realistisch<br>25 % sind moderne Solaranlagen<br>Standard ist unrealistisch",
+
+    Sandbox_ISA_batteryDegradeChance = "Schweregrad der Batterieverschlechterung",
+    Sandbox_ISA_batteryDegradeChance_tooltip = "Multiplikator für die durchschnittliche Verschlechterung der Batterie.\nWenn Sie diesen Wert verringern, erhöht sich die Lebensdauer der Batterie erheblich.",
+
+    Sandbox_ISA_solarPanelWorldSpawns = "Solarpanel / Kistenwelt spawnt",
+    Sandbox_ISA_solarPanelWorldSpawns_tooltip = "Gibt an, wie wahrscheinlich es ist, dass vorab platzierte Solarpaneele und Kisten an einem bestimmten Spawn-Standort erscheinen.<br>Erfordert eine externe API, um zu funktionieren.",
+
+    Sandbox_ISA_LRMSolarPanels = "Beute-Seltenheitsmultiplikator – Sonnenkollektoren",
+    Sandbox_ISA_LRMSolarPanels_tooltip = "Das Erscheinen von Solarmodulen in zufälligen Behältern und vorab platzierten Kisten erhöht den Multiplikator",
+
+    Sandbox_ISA_LRMBatteries = "Beuteseltenheitsmultiplikator – Batterien",
+    Sandbox_ISA_LRMBatteries_tooltip = "Batterien erscheinen in zufälligen Behältern und vorab platzierten Kisten mit Multiplikator",
+
+    Sandbox_ISA_LRMMisc = "Beuteseltenheitsmultiplikator – Sonstiges",
+    Sandbox_ISA_LRMMisc_tooltip = "Das Erscheinen von Magazinen und Wechselrichtern in zufälligen Behältern und vorab platzierten Kisten erhöht den Multiplikator",
+
+    Sandbox_ISA_DIYBatteryMultiplier = "DIY-Batteriekapazität",
+    Sandbox_ISA_DIYBatteryMultiplier_tooltip = "Multiplikator für die Kapazität von selbstgebauten Batterien.",
+
+    Sandbox_ISA_DrainCalc_option1 = "ISA",
+    Sandbox_ISA_DrainCalc_option2 = "Regulärer Generator",
+    Sandbox_ISA_DrainCalc = "Entwässerungsberechnungsmethode",
+    Sandbox_ISA_DrainCalc_tooltip = "Die reguläre Generatorberechnung hat weniger Auswirkungen auf die Leistung",
+    Sandbox_ISA_ChargeFreq_option1 = "Alle zehn Minuten",
+    Sandbox_ISA_ChargeFreq_option2 = "Jede Stunde",
+    Sandbox_ISA_ChargeFreq = "Ladefrequenz",
+    Sandbox_ISA_ChargeFreq_tooltip = "Wie oft wird die Batteriebank aufgeladen?",
+    Sandbox_ISA_BatteryBankSpawn = "Batteriebank-Spawn",
+    Sandbox_ISA_BatteryBankSpawn_tooltip = "Seltenheit des Spawnens einer Batteriebank auf der Karte.",
+    Sandbox_ISA_BatteryBankSpawn_option1 = "Keiner",
+    Sandbox_ISA_BatteryBankSpawn_option2 = "Sehr selten",
+    Sandbox_ISA_BatteryBankSpawn_option3 = "Selten",
+    Sandbox_ISA_BatteryBankSpawn_option4 = "Ungewöhnlich",
+    Sandbox_ISA_StashMode = "Versteckhäuser",
+    Sandbox_ISA_StashMode_tooltip = "Wählen Sie den Modus für Stash Houses.<br>Änderung nur bei neuem Spiel.",
+    Sandbox_ISA_StashMode_option1 = "Nicht hinzufügen",
+    Sandbox_ISA_StashMode_option2 = "Kartenelemente hinzufügen",
+    Sandbox_ISA_StashMode_option3 = "Fügen Sie Kartenelemente und zufällige Initialen hinzu",
+    Sandbox_ISA_StashMode_option4 = "Fügen Sie eine zufällige Initiale hinzu",
+    Sandbox_ISA_ConnectPanelMin = "Panel-Zeit verbinden",
+    Sandbox_ISA_ConnectPanelMin_tooltip = "Basisanzahl der Spielminuten, die zum Anschließen eines Panels benötigt werden",
+    Sandbox_ISA_enableExpandedRecipes = "Erweiterte Rezepte",
+    Sandbox_ISA_enableExpandedRecipes_tooltip = "Ermöglicht die Herstellung von Solarmodulen und Wechselrichtern",
+}

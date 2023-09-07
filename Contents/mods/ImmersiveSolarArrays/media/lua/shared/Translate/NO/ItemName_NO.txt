@@ -1,0 +1,12 @@
+ItemName_NO = {
+    -- Magazines
+    ItemName_ISA.ISAMag1 = "Nye fremskritt: energi fra solen",
+
+    -- Items
+    ItemName_ISA.SolarPanel = "Solcellepanel (del)",
+    ItemName_ISA.ISAInverter = "Omformer",
+    ItemName_ISA.DeepCycleBattery = "200 Ah Deep Cycle-batteri",
+    ItemName_ISA.SuperBattery = "400Ah Deep Cycle-batteri",
+    ItemName_ISA.WiredCarBattery = "Kablet bilbatteri",
+    ItemName_ISA.DIYBattery = "DIY Deep Cycle-batteri",
+}

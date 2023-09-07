@@ -1,0 +1,3 @@
+Tooltip_JP
+Tooltip_ISA_NoPanels = "パネルなし"
+Tooltip_ISA_PanelFar = "このパネルは遠すぎます"

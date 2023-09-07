@@ -1,0 +1,13 @@
+Recipes_UA = {
+    Recipe_Make_DIY_Battery = "Зробіть акумулятор своїми руками",
+    Recipe_WireCarBattery = "Провідний автомобільний акумулятор",
+    Recipe_UnwireCarBattery = "Від'єднайте автомобільний акумулятор",
+    Recipe_Make_Solar_Roof_Tile = "Зробіть плоску сонячну панель",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Зробіть настінну сонячну панель",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Зробити сонячну панель, встановлену на підлозі",
+    Recipe_Reverse_Solar_Panel = "Розділіть сонячну панель на частини",
+    Recipe_Create_Battery_Bank = "Створення банку акумуляторів",
+    Recipe_Create_Solar_Failsafe = "Створіть Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Зробіть сонячну панель (частина)",
+    Recipe_Make_Inverter = "Зробіть інвертор",
+}

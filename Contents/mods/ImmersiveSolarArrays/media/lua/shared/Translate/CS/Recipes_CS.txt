@@ -1,0 +1,13 @@
+Recipes_CS = {
+    Recipe_Make_DIY_Battery = "Vyrobte si vlastní baterii",
+    Recipe_WireCarBattery = "Drátová autobaterie",
+    Recipe_UnwireCarBattery = "Odpojte autobaterii",
+    Recipe_Make_Solar_Roof_Tile = "Vytvořte plochý solární panel",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Vyrobte nástěnný solární panel",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Vyrobte solární panel na podlahu",
+    Recipe_Reverse_Solar_Panel = "Rozdělte solární panel na části",
+    Recipe_Create_Battery_Bank = "Vytvořte bateriovou banku",
+    Recipe_Create_Solar_Failsafe = "Vytvořte Solar Failsafe",
+    Recipe_Make_Solar_Panel = "Vyrobte solární panel (část)",
+    Recipe_Make_Inverter = "Vytvořte střídač",
+}
