@@ -1,13 +1,13 @@
 Recipes_PL = {
     Recipe_Make_DIY_Battery = "Zrób baterię DIY",
-    Recipe_WireCarBattery = "Drutowy akumulator samochodowy",
+    Recipe_WireCarBattery = "Okablowany akumulator samochodowy",
     Recipe_UnwireCarBattery = "Odłącz akumulator samochodowy",
     Recipe_Make_Solar_Roof_Tile = "Zrób płaski panel słoneczny",
-    Recipe_Make_Wall-Mounted_Solar_Panel = "Wykonaj naścienny panel słoneczny",
-    Recipe_Make_Floor-Mounted_Solar_Panel = "Wykonaj panel słoneczny montowany na podłodze",
+    Recipe_Make_Wall-Mounted_Solar_Panel = "Zrób panel słoneczny montowany na ścianie",
+    Recipe_Make_Floor-Mounted_Solar_Panel = "Zrób panel słoneczny montowany na podłodze",
     Recipe_Reverse_Solar_Panel = "Podziel panel słoneczny na części",
-    Recipe_Create_Battery_Bank = "Utwórz bank baterii",
-    Recipe_Create_Solar_Failsafe = "Utwórz moduł Solar Failsafe",
+    Recipe_Create_Battery_Bank = "Zrób bank energii",
+    Recipe_Create_Solar_Failsafe = "Zrób bezpiecznik przeciwprzepięciowy",
     Recipe_Make_Solar_Panel = "Wykonaj panel słoneczny (część)",
     Recipe_Make_Inverter = "Zrób falownik",
 }
