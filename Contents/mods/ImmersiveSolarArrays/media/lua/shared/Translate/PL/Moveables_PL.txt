@@ -3,6 +3,6 @@ Moveables_PL = {
     Solar_Roof_Tile = "Płaski panel słoneczny",
     Wall_Mounted_Solar_Panel = "Panel słoneczny montowany na ścianie",
     Floor_Mounted_Solar_Panel = "Panel słoneczny montowany na podłodze",
-    Failsafe_Trigger = "Bezpiecznik przeciwprzepięciowy",
+    Failsafe_Trigger = "Włącznik awaryjny",
     Solar_Box = "Opakowanie paneli słonecznych",
 }

@@ -7,7 +7,7 @@ Recipes_PL = {
     Recipe_Make_Floor-Mounted_Solar_Panel = "Zrób panel słoneczny montowany na podłodze",
     Recipe_Reverse_Solar_Panel = "Podziel panel słoneczny na części",
     Recipe_Create_Battery_Bank = "Zrób bank energii",
-    Recipe_Create_Solar_Failsafe = "Zrób bezpiecznik przeciwprzepięciowy",
+    Recipe_Create_Solar_Failsafe = "Zrób włącznik awaryjny",
     Recipe_Make_Solar_Panel = "Wykonaj panel słoneczny (część)",
     Recipe_Make_Inverter = "Zrób falownik",
 }
